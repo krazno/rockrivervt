@@ -1,6 +1,15 @@
+\"use client\";
+
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [showWelcome, setShowWelcome] = useState(false);
+
+  useEffect(() => {
+    setShowWelcome(true);
+  }, []);
+
   const riverPhotos = [
     {
       src: "https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1200&q=80",
@@ -59,21 +68,29 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#eef2ea] text-[#20342c]">
-      <section className="mx-auto w-full max-w-6xl px-4 pt-4 sm:px-6 sm:pt-6 lg:px-8">
-        <figure className="reveal-up overflow-hidden rounded-3xl border border-[#c8d6cb] bg-[#e6eee7] shadow-[0_18px_50px_-30px_rgba(23,45,36,0.6)]">
-          <Image
-            src="/rock-river-hero.png"
-            alt="Rock River in Newfane, Vermont with wildflowers and afternoon light"
-            width={1536}
-            height={2048}
-            priority
-            className="h-[44svh] min-h-[290px] w-full object-cover object-center sm:h-[50svh] lg:h-[56svh]"
-          />
-          <figcaption className="border-t border-[#c6d3ca] bg-[#f2f5f1] px-4 py-2 text-xs text-[#4f6f63]">
-            Rock River near Newfane, Vermont.
-          </figcaption>
-        </figure>
-      </section>
+      {showWelcome ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#14231d]/55 px-4 backdrop-blur-[2px]">
+          <div className="reveal-up w-full max-w-sm rounded-2xl border border-[#b6c9bc] bg-[#f3f7f1] p-5 shadow-[0_18px_45px_-20px_rgba(20,36,31,0.75)]">
+            <p className="text-xs font-semibold tracking-[0.14em] text-[#4e6b60] uppercase">
+              Welcome
+            </p>
+            <h2 className="mt-2 text-xl font-semibold text-[#1f392f]">
+              Welcome to RockRiverVT
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-[#466359]">
+              Check conditions, explore the map, and enjoy Rock River
+              respectfully.
+            </p>
+            <button
+              type="button"
+              onClick={() => setShowWelcome(false)}
+              className="mt-4 inline-flex rounded-full bg-[#31584b] px-4 py-2 text-sm font-medium text-[#edf4ef] transition hover:bg-[#284a3f]"
+            >
+              Enter site
+            </button>
+          </div>
+        </div>
+      ) : null}
 
       <section className="mx-auto w-full max-w-6xl px-4 pb-10 pt-6 sm:px-6 sm:pt-8 lg:px-8">
         <div className="hero-sheen relative overflow-hidden rounded-3xl border border-[#c9d5c6] bg-gradient-to-br from-[#e7efe2] via-[#dde8df] to-[#cfded9] shadow-[0_18px_55px_-25px_rgba(30,52,44,0.55)]">
@@ -149,6 +166,30 @@ export default function Home() {
       <section className="mx-auto w-full max-w-6xl px-4 pb-10 sm:px-6 lg:px-8">
         <div className="mb-5">
           <h2 className="text-xl font-semibold text-[#224035] sm:text-2xl">
+            Vermont view
+          </h2>
+          <p className="mt-1 text-sm text-[#4f6d63]">
+            A quick look at the Green Mountain landscape around Newfane.
+          </p>
+        </div>
+        <figure className="reveal-up overflow-hidden rounded-3xl border border-[#c7d5cd] bg-[#eef4f2] shadow-[0_16px_44px_-30px_rgba(24,49,43,0.65)]">
+          <Image
+            src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80"
+            alt="Vermont mountain landscape with forest and lake"
+            width={1600}
+            height={1067}
+            unoptimized
+            className="h-64 w-full object-cover sm:h-72 lg:h-80"
+          />
+          <figcaption className="border-t border-[#cbd8d1] bg-[#f4f7f5] px-4 py-2 text-xs text-[#4f6f63]">
+            Vermont landscape inspiration.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section className="mx-auto w-full max-w-6xl px-4 pb-10 sm:px-6 lg:px-8">
+        <div className="mb-5">
+          <h2 className="text-xl font-semibold text-[#224035] sm:text-2xl">
             River photos
           </h2>
           <p className="mt-1 text-sm text-[#4f6d63]">
@@ -214,6 +255,21 @@ export default function Home() {
             </p>
           </article>
         </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-6xl px-4 pb-14 sm:px-6 lg:px-8">
+        <figure className="reveal-up overflow-hidden rounded-3xl border border-[#c8d6cb] bg-[#e6eee7] shadow-[0_18px_50px_-30px_rgba(23,45,36,0.6)]">
+          <Image
+            src="/rock-river-hero.png"
+            alt="Rock River in Newfane, Vermont with afternoon light"
+            width={1536}
+            height={2048}
+            className="h-[44svh] min-h-[290px] w-full object-cover object-center sm:h-[50svh] lg:h-[56svh]"
+          />
+          <figcaption className="border-t border-[#c6d3ca] bg-[#f2f5f1] px-4 py-2 text-xs text-[#4f6f63]">
+            Rock River near Newfane, Vermont.
+          </figcaption>
+        </figure>
       </section>
     </main>
   );
