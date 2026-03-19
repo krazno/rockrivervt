@@ -1,10 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function Home() {
   const [showWelcome, setShowWelcome] = useState(true);
+  const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
+  const photoInputRef = useRef<HTMLInputElement>(null);
 
   const riverPhotos = [
     {
@@ -156,6 +158,62 @@ export default function Home() {
               </p>
             </a>
           ))}
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-6xl px-4 pb-10 sm:px-6 lg:px-8">
+        <div className="reveal-up rounded-3xl border border-[#c6d3ca] bg-[#f3f7f2] p-5 shadow-[0_14px_34px_-28px_rgba(21,40,33,0.7)] sm:p-6">
+          <h2 className="text-xl font-semibold text-[#224035] sm:text-2xl">
+            Share a Rock River photo
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-[#4e6c62]">
+            Quick mock upload: open your camera, snap a photo, and preview it.
+            This is lightweight and does not save to a backend yet.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <button
+              type="button"
+              onClick={() => photoInputRef.current?.click()}
+              className="rounded-full bg-[#31584b] px-5 py-2.5 text-sm font-medium text-[#edf4ef] transition hover:bg-[#284a3f]"
+            >
+              Open Camera
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                if (!selectedPhoto) return;
+                window.alert("Photo send mock complete. Backend coming soon.");
+              }}
+              className="rounded-full border border-[#8ea497] bg-[#f3f6f2] px-5 py-2.5 text-sm font-medium text-[#35584c] transition hover:bg-[#e7ede8] disabled:cursor-not-allowed disabled:opacity-60"
+              disabled={!selectedPhoto}
+            >
+              Send Photo (Mock)
+            </button>
+          </div>
+          <input
+            ref={photoInputRef}
+            type="file"
+            accept="image/*"
+            capture="environment"
+            className="hidden"
+            onChange={(event) => {
+              const file = event.target.files?.[0];
+              if (!file) return;
+              setSelectedPhoto(URL.createObjectURL(file));
+            }}
+          />
+          {selectedPhoto ? (
+            <div className="mt-4 overflow-hidden rounded-2xl border border-[#c7d4cb] bg-[#e9f0eb]">
+              <Image
+                src={selectedPhoto}
+                alt="Selected Rock River upload preview"
+                width={1200}
+                height={900}
+                unoptimized
+                className="h-56 w-full object-cover sm:h-64"
+              />
+            </div>
+          ) : null}
         </div>
       </section>
 
