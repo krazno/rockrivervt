@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "RockRiverVT | Unofficial Community Guide",
+  title: "welcome peter | RockRiverVT",
   description:
     "A local, community-built guide to Rock River near Newfane, Vermont with map links, walk tips, updates, and weather context.",
 };
