@@ -1,65 +1,204 @@
 import Image from "next/image";
 
 export default function Home() {
+  const riverPhotos = [
+    {
+      src: "https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1200&q=80",
+      alt: "Forest stream with soft green tones",
+      credit: "Unsplash",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80",
+      alt: "Mountain valley and water in muted blue light",
+      credit: "Unsplash",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=80",
+      alt: "Woodland path near water and stone",
+      credit: "Unsplash",
+    },
+  ];
+
+  const quickLinks = [
+    {
+      title: "Map",
+      description: "Parking pull-offs, swimming pockets, and trail access points.",
+      href: "/map",
+    },
+    {
+      title: "Walk Guide",
+      description: "A gentle step-by-step walk from village edge to river bends.",
+      href: "/walk-guide",
+    },
+    {
+      title: "Daily Updates",
+      description: "Local observations on trail conditions, flow, and crowd levels.",
+      href: "/daily-updates",
+    },
+    {
+      title: "Photos",
+      description: "Seasonal scenes from misty spring mornings to late summer light.",
+      href: "/photos",
+    },
+    {
+      title: "Notes",
+      description: "Community tips about respectful access and quiet places to pause.",
+      href: "/notes",
+    },
+    {
+      title: "Weather",
+      description: "Quick weather context before heading down to the river.",
+      href: "/weather",
+    },
+    {
+      title: "Learn More",
+      description: "Background on Rock River, local ecology, and stewardship basics.",
+      href: "/learn-more",
+    },
+  ];
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
+    <main className="min-h-screen bg-[#eef2ea] text-[#20342c]">
+      <section className="mx-auto w-full max-w-6xl px-4 pb-10 pt-6 sm:px-6 sm:pt-8 lg:px-8">
+        <div className="hero-sheen relative overflow-hidden rounded-3xl border border-[#c9d5c6] bg-gradient-to-br from-[#e7efe2] via-[#dde8df] to-[#cfded9] shadow-[0_18px_55px_-25px_rgba(30,52,44,0.55)]">
+          <div
+            className="float-slow pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-[#d7e4dd]/80 blur-xl"
+            aria-hidden
+          />
+          <div
+            className="float-slower pointer-events-none absolute -bottom-10 left-8 h-24 w-24 rounded-full bg-[#b7d0cf]/70 blur-xl"
+            aria-hidden
+          />
+          <div className="relative p-6 sm:p-8 md:p-10">
+            <p className="mb-3 inline-flex rounded-full border border-[#b7c7be] bg-[#f4f7f1] px-3 py-1 text-xs font-semibold tracking-[0.16em] text-[#446258] uppercase">
+              Community Guide
+            </p>
+            <h1 className="max-w-2xl text-3xl leading-tight font-semibold tracking-tight text-[#1a2f27] sm:text-4xl">
+              RockRiverVT
+            </h1>
+            <p className="mt-2 max-w-2xl text-base text-[#35544a] sm:text-lg">
+              An unofficial local guide to Rock River near Newfane, Vermont -
+              built by neighbors, walkers, and river regulars.
+            </p>
+            <p className="mt-4 max-w-2xl text-sm leading-6 text-[#4e6c62] sm:text-base">
+              Check the path before you go, find calm spots to explore, and
+              learn how to enjoy this place while helping keep it wild and
+              welcoming for everyone.
+            </p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <a
+                href="/map"
+                className="rounded-full bg-[#31584b] px-5 py-2.5 text-sm font-medium text-[#edf4ef] transition hover:bg-[#284a3f]"
+              >
+                Explore the Map
+              </a>
+              <a
+                href="/daily-updates"
+                className="rounded-full border border-[#8ea497] bg-[#f3f6f2] px-5 py-2.5 text-sm font-medium text-[#35584c] transition hover:bg-[#e7ede8]"
+              >
+                View Daily Updates
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-6xl px-4 pb-10 sm:px-6 lg:px-8">
+        <div className="mb-5 flex items-end justify-between">
+          <h2 className="text-xl font-semibold text-[#224035] sm:text-2xl">
+            Quick links
+          </h2>
+          <span className="text-xs tracking-[0.14em] text-[#56756a] uppercase">
+            Mobile-first
+          </span>
+        </div>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {quickLinks.map((link) => (
             <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              key={link.title}
+              href={link.href}
+              className="group reveal-up rounded-2xl border border-[#c4d3ca] bg-[#f4f6f2] p-4 shadow-[0_8px_26px_-18px_rgba(22,45,36,0.55)] transition hover:-translate-y-0.5 hover:border-[#99b0a4] hover:shadow-[0_12px_30px_-18px_rgba(22,45,36,0.58)]"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+              <p className="text-base font-semibold text-[#224136] group-hover:text-[#163128]">
+                {link.title}
+              </p>
+              <p className="mt-2 text-sm leading-6 text-[#4b695f]">
+                {link.description}
+              </p>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-6xl px-4 pb-10 sm:px-6 lg:px-8">
+        <div className="mb-5">
+          <h2 className="text-xl font-semibold text-[#224035] sm:text-2xl">
+            River photos
+          </h2>
+          <p className="mt-1 text-sm text-[#4f6d63]">
+            A visual feel for Rock River moods and nearby Vermont terrain.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {riverPhotos.map((photo, index) => (
+            <figure
+              key={photo.src}
+              className="reveal-up overflow-hidden rounded-2xl border border-[#c7d4cb] bg-[#f2f5f1]"
+              style={{ animationDelay: `${index * 120}ms` }}
+            >
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                width={1200}
+                height={800}
+                unoptimized
+                className="h-52 w-full object-cover transition duration-500 hover:scale-105"
+              />
+              <figcaption className="px-3 py-2 text-xs text-[#56756a]">
+                Photo source: {photo.credit}
+              </figcaption>
+            </figure>
+          ))}
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-6xl px-4 pb-14 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <article className="reveal-up rounded-2xl border border-[#c2d0c6] bg-[#f8f8f3] p-5">
+            <h3 className="text-sm font-semibold tracking-[0.14em] text-[#4d6d61] uppercase">
+              Today near the river
+            </h3>
+            <p className="mt-3 text-sm leading-6 text-[#36584c]">
+              Cool morning air, softer light in the gorge, and patchy wet
+              stones near the lower bends after overnight rain.
+            </p>
+          </article>
+          <article
+            className="reveal-up rounded-2xl border border-[#c3ced1] bg-[#f4f7f8] p-5"
+            style={{ animationDelay: "80ms" }}
+          >
+            <h3 className="text-sm font-semibold tracking-[0.14em] text-[#4e6870] uppercase">
+              Visitor note
+            </h3>
+            <p className="mt-3 text-sm leading-6 text-[#38515a]">
+              Stay on marked paths where possible, keep voices low, and pack
+              out everything you bring in.
+            </p>
+          </article>
+          <article
+            className="reveal-up rounded-2xl border border-[#d5d0c3] bg-[#f7f3ea] p-5"
+            style={{ animationDelay: "160ms" }}
+          >
+            <h3 className="text-sm font-semibold tracking-[0.14em] text-[#6c6350] uppercase">
+              Local reminder
+            </h3>
+            <p className="mt-3 text-sm leading-6 text-[#5a5140]">
+              Conditions can change quickly; always use your judgment and avoid
+              entering fast or unclear water.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
   );
 }
