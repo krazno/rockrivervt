@@ -1,14 +1,10 @@
-\"use client\";
+"use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function Home() {
-  const [showWelcome, setShowWelcome] = useState(false);
-
-  useEffect(() => {
-    setShowWelcome(true);
-  }, []);
+  const [showWelcome, setShowWelcome] = useState(true);
 
   const riverPhotos = [
     {
