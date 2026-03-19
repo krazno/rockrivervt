@@ -59,6 +59,22 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#eef2ea] text-[#20342c]">
+      <section className="mx-auto w-full max-w-6xl px-4 pt-4 sm:px-6 sm:pt-6 lg:px-8">
+        <figure className="reveal-up overflow-hidden rounded-3xl border border-[#c8d6cb] bg-[#e6eee7] shadow-[0_18px_50px_-30px_rgba(23,45,36,0.6)]">
+          <Image
+            src="/rock-river-hero.png"
+            alt="Rock River in Newfane, Vermont with wildflowers and afternoon light"
+            width={1536}
+            height={2048}
+            priority
+            className="h-[44svh] min-h-[290px] w-full object-cover object-center sm:h-[50svh] lg:h-[56svh]"
+          />
+          <figcaption className="border-t border-[#c6d3ca] bg-[#f2f5f1] px-4 py-2 text-xs text-[#4f6f63]">
+            Rock River near Newfane, Vermont.
+          </figcaption>
+        </figure>
+      </section>
+
       <section className="mx-auto w-full max-w-6xl px-4 pb-10 pt-6 sm:px-6 sm:pt-8 lg:px-8">
         <div className="hero-sheen relative overflow-hidden rounded-3xl border border-[#c9d5c6] bg-gradient-to-br from-[#e7efe2] via-[#dde8df] to-[#cfded9] shadow-[0_18px_55px_-25px_rgba(30,52,44,0.55)]">
           <div
