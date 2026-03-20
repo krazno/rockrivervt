@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRef, useState } from "react";
 
 export default function Home() {
@@ -64,8 +65,26 @@ export default function Home() {
     },
   ];
 
+  const homeJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "RockRiverVT",
+    url: "https://rockrivervt.com",
+    description:
+      "An unofficial local guide to Rock River near Newfane, Vermont with updates, maps, weather context, and stewardship notes.",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://rockrivervt.com/?q={search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
+  };
+
   return (
     <main className="min-h-screen bg-[#eef2ea] text-[#20342c]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }}
+      />
       {showWelcome ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#14231d]/55 px-4 backdrop-blur-[2px]">
           <div className="reveal-up w-full max-w-sm rounded-2xl border border-[#b6c9bc] bg-[#f3f7f1] p-5 shadow-[0_18px_45px_-20px_rgba(20,36,31,0.75)]">
@@ -117,18 +136,18 @@ export default function Home() {
               welcoming for everyone.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <a
+              <Link
                 href="/map"
                 className="rounded-full bg-[#31584b] px-5 py-2.5 text-sm font-medium text-[#edf4ef] transition hover:bg-[#284a3f]"
               >
                 Explore the Map
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/daily-updates"
                 className="rounded-full border border-[#8ea497] bg-[#f3f6f2] px-5 py-2.5 text-sm font-medium text-[#35584c] transition hover:bg-[#e7ede8]"
               >
                 View Daily Updates
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -145,7 +164,7 @@ export default function Home() {
         </div>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {quickLinks.map((link) => (
-            <a
+            <Link
               key={link.title}
               href={link.href}
               className="group reveal-up rounded-2xl border border-[#c4d3ca] bg-[#f4f6f2] p-4 shadow-[0_8px_26px_-18px_rgba(22,45,36,0.55)] transition hover:-translate-y-0.5 hover:border-[#99b0a4] hover:shadow-[0_12px_30px_-18px_rgba(22,45,36,0.58)]"
@@ -156,7 +175,7 @@ export default function Home() {
               <p className="mt-2 text-sm leading-6 text-[#4b695f]">
                 {link.description}
               </p>
-            </a>
+            </Link>
           ))}
         </div>
       </section>

@@ -5,11 +5,54 @@ export const metadata: Metadata = {
   title: "Daily Updates | RockRiverVT",
   description:
     "Daily trail and river condition notes for Rock River near Newfane, Vermont. Coming soon.",
+  alternates: {
+    canonical: "/daily-updates",
+  },
+  openGraph: {
+    title: "Daily Updates | RockRiverVT",
+    description:
+      "Daily trail and river condition notes for Rock River near Newfane, Vermont. Coming soon.",
+    url: "https://rockrivervt.com/daily-updates",
+    type: "website",
+    images: [
+      {
+        url: "/rock-river-hero.png",
+        width: 1200,
+        height: 630,
+        alt: "Rock River in Newfane, Vermont",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Daily Updates | RockRiverVT",
+    description:
+      "Daily trail and river condition notes for Rock River near Newfane, Vermont. Coming soon.",
+    images: ["/rock-river-hero.png"],
+  },
 };
 
 export default function DailyUpdatesPage() {
+  const dailyUpdatesJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "Daily Updates | RockRiverVT",
+    url: "https://rockrivervt.com/daily-updates",
+    description:
+      "Daily trail and river condition notes for Rock River near Newfane, Vermont. Coming soon.",
+    isPartOf: {
+      "@type": "WebSite",
+      name: "RockRiverVT",
+      url: "https://rockrivervt.com",
+    },
+  };
+
   return (
     <main className="min-h-screen bg-[#eef2ea] px-4 py-8 text-[#20342c] sm:px-6 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(dailyUpdatesJsonLd) }}
+      />
       <section className="mx-auto w-full max-w-3xl">
         <div className="overflow-hidden rounded-3xl border border-[#c8d6cb] bg-gradient-to-br from-[#e6efe5] via-[#dce7df] to-[#cfded9] p-6 shadow-[0_18px_55px_-25px_rgba(30,52,44,0.55)] sm:p-8">
           <p className="mb-3 inline-flex rounded-full border border-[#b7c7be] bg-[#f4f7f1] px-3 py-1 text-xs font-semibold tracking-[0.16em] text-[#446258] uppercase">
