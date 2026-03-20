@@ -1,8 +1,19 @@
+type ForecastDaySlice = {
+  shortForecast: string;
+  high: number | null;
+  low: number | null;
+};
+
 type WeatherResponse = {
   temperature: number;
   shortForecast: string;
   icon: string;
   detailedForecast: string;
+  hourlyForecastUrl: string;
+  /** IANA timezone for the forecast point (e.g. America/New_York). */
+  timezone: string;
+  /** Today, tomorrow, and the following calendar day in `timezone`, in order. */
+  threeDayForecast: [ForecastDaySlice, ForecastDaySlice, ForecastDaySlice];
   nextFourHours: Array<{
     startTime: string;
     temperature: number;
@@ -18,11 +29,14 @@ type NwsPointsResponse = {
   properties?: {
     forecast?: string;
     forecastHourly?: string;
+    /** IANA timezone for the grid point. */
+    timezone?: string;
   };
 };
 
 type NwsPeriod = {
   startTime?: string;
+  isDaytime?: boolean;
   temperature?: number;
   windSpeed?: string;
   windDirection?: string;
@@ -43,6 +57,76 @@ type NwsForecastResponse = {
 function userAgent() {
   // NWS requires a descriptive User-Agent for higher reliability.
   return "rockrivervt.com (unofficial community guide)";
+}
+
+function dateKeyInTimeZone(iso: string, timeZone: string): string | null {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return null;
+  return d.toLocaleDateString("en-CA", { timeZone });
+}
+
+function emptyForecastDay(): ForecastDaySlice {
+  return { shortForecast: "—", high: null, low: null };
+}
+
+function buildThreeDayForecast(
+  periods: NwsPeriod[],
+  timeZone: string,
+): [ForecastDaySlice, ForecastDaySlice, ForecastDaySlice] {
+  /** Calendar days in `timeZone` starting from “now” (today + next two). */
+  const dayKeys = [0, 1, 2].map((offset) => {
+    const t = new Date(Date.now() + offset * 86400000);
+    return t.toLocaleDateString("en-CA", { timeZone });
+  });
+
+  const byDay = new Map<
+    string,
+    { temps: number[]; dayForecast?: string; anyForecast?: string }
+  >();
+
+  for (const p of periods) {
+    if (
+      !p.startTime ||
+      typeof p.temperature !== "number" ||
+      typeof p.shortForecast !== "string"
+    ) {
+      continue;
+    }
+    const key = dateKeyInTimeZone(p.startTime, timeZone);
+    if (!key) continue;
+
+    const bucket = byDay.get(key) ?? { temps: [] };
+    bucket.temps.push(p.temperature);
+    if (p.isDaytime === true && !bucket.dayForecast) {
+      bucket.dayForecast = p.shortForecast;
+    }
+    if (!bucket.anyForecast) {
+      bucket.anyForecast = p.shortForecast;
+    }
+    byDay.set(key, bucket);
+  }
+
+  const sliceForKey = (key: string): ForecastDaySlice => {
+    const bucket = byDay.get(key);
+    if (!bucket || bucket.temps.length === 0) {
+      return emptyForecastDay();
+    }
+    const high = Math.max(...bucket.temps);
+    const low = Math.min(...bucket.temps);
+    const shortForecast =
+      bucket.dayForecast ?? bucket.anyForecast ?? "—";
+    return {
+      shortForecast,
+      high,
+      low,
+    };
+  };
+
+  return [
+    sliceForKey(dayKeys[0]),
+    sliceForKey(dayKeys[1]),
+    sliceForKey(dayKeys[2]),
+  ];
 }
 
 export async function GET(): Promise<Response> {
@@ -95,8 +179,10 @@ export async function GET(): Promise<Response> {
     forecastHourlyRes.json(),
   ])) as [NwsForecastResponse, NwsForecastResponse];
 
-  const period = forecastJson.properties?.periods?.[0];
+  const dailyPeriods = forecastJson.properties?.periods ?? [];
+  const period = dailyPeriods[0];
   const hourlyPeriods = forecastHourlyJson.properties?.periods ?? [];
+  const timeZone = pointsJson.properties?.timezone ?? "America/New_York";
 
   if (!period) {
     return Response.json(
@@ -116,6 +202,8 @@ export async function GET(): Promise<Response> {
       { status: 502 },
     );
   }
+
+  const threeDayForecast = buildThreeDayForecast(dailyPeriods, timeZone);
 
   const nextFourHours = hourlyPeriods
     .slice(0, 4)
@@ -146,6 +234,9 @@ export async function GET(): Promise<Response> {
     shortForecast: period.shortForecast,
     icon: period.icon,
     detailedForecast: period.detailedForecast,
+    hourlyForecastUrl: forecastHourlyUrl,
+    timezone: timeZone,
+    threeDayForecast,
     nextFourHours,
   };
 

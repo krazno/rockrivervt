@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import { HomeFinalImage } from "@/components/home/home-final-image";
 import { HomeHero } from "@/components/home/home-hero";
 import { HomeInfoCards } from "@/components/home/home-info-cards";
+import { HomeMapOverview } from "@/components/home/home-map-overview";
 import { HomePhotoUpload } from "@/components/home/home-photo-upload";
 import { HomeQuickLinks } from "@/components/home/home-quick-links";
 import { HomeRiverPhotos } from "@/components/home/home-river-photos";
@@ -126,6 +127,8 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <HomeMapOverview />
 
         <HomeQuickLinks links={quickLinks} />
         <HomeVermontView />
