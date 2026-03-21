@@ -1,10 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 
+import { InteractiveMap } from "@/components/map/interactive-map";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
-
-const MAP_SRC = "/images/rock-river-map.png";
 
 export default function MapPage() {
   return (
@@ -22,21 +20,17 @@ export default function MapPage() {
             Rock River map
           </h1>
           <p className="mt-3 max-w-2xl text-base leading-relaxed text-[#3d5c50]">
-            Parking, trail access, beaches, and the river corridor — use pinch/zoom in your
-            browser if you need a closer look.
+            Parking, trail access, beaches, and the river corridor — pan and zoom with the
+            same local data as the homepage preview. Scroll to zoom.
           </p>
           <div className="mt-8 overflow-hidden rounded-3xl border border-[#c8d6cb] bg-[#f8faf6] p-4 shadow-[0_16px_44px_-30px_rgba(24,49,43,0.35)] sm:p-6">
-            <div className="relative overflow-hidden rounded-2xl border border-[#d0ddd3] bg-[#eef2ea]">
-              <Image
-                src={MAP_SRC}
-                alt="Full Rock River corridor map: parking, trails, beaches, and West River."
-                width={1024}
-                height={496}
-                className="h-auto w-full object-contain"
-                sizes="100vw"
-                priority
-              />
-            </div>
+            <InteractiveMap
+              mode="full"
+              height={500}
+              showLegend
+              showControls
+              geoJsonUrl="/geo/map.geojson"
+            />
           </div>
         </div>
       </main>

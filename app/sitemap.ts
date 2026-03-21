@@ -22,5 +22,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.7,
     },
+    {
+      url: "https://rockrivervt.com/gallery",
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.75,
+    },
   ];
 }

@@ -33,10 +33,10 @@ export function SiteHeader() {
             Weather
           </Link>
           <Link
-            href="/photos"
+            href="/gallery"
             className="text-[#35544a] transition duration-200 hover:text-[#163128] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#31584b]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#eef2ea]"
           >
-            Photos
+            Gallery
           </Link>
         </nav>
       </Container>

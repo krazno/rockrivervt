@@ -156,7 +156,7 @@ export function RiverWidget() {
   const cleanliness: CleanlinessStatus = data?.cleanlinessStatus ?? "good";
 
   return (
-    <div className="rounded-2xl border border-[#c2d0c6] bg-[#f8f8f3] p-4 shadow-[0_10px_30px_-24px_rgba(24,49,43,0.55)] sm:p-5">
+    <div className="h-full rounded-2xl border border-[#c4d2c7] bg-white/65 p-4 shadow-[0_6px_26px_-20px_rgba(24,49,43,0.3)] backdrop-blur-[2px] sm:p-5">
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div>
           <h3 className="text-[10px] font-bold tracking-[0.2em] text-[#4d6d61] uppercase">

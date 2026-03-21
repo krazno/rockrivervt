@@ -1,0 +1,28 @@
+"use client";
+
+import dynamic from "next/dynamic";
+
+import type { InteractiveMapViewProps } from "@/components/map/leaflet-map-view";
+
+const LeafletMapView = dynamic(
+  () =>
+    import("@/components/map/leaflet-map-view").then((m) => m.LeafletMapView),
+  {
+    ssr: false,
+    loading: () => (
+      <div
+        className="w-full animate-pulse rounded-2xl border border-[#d0ddd3] bg-[#e8ede5]"
+        style={{ minHeight: 420 }}
+      />
+    ),
+  },
+);
+
+export type InteractiveMapProps = InteractiveMapViewProps;
+
+/**
+ * Leaflet map (client-only). Use for homepage preview or full `/map` page.
+ */
+export function InteractiveMap(props: InteractiveMapProps) {
+  return <LeafletMapView {...props} />;
+}

@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://rockrivervt.com"),
   title: {
-    default: "welcome peter | RockRiverVT",
-    template: "%s | RockRiverVT",
+    default: "Rock River VT | All Are Welcome",
+    template: "%s | Rock River VT",
   },
   description:
     "A local, community-built guide to Rock River near Newfane, Vermont with map links, walk tips, updates, and weather context.",
@@ -34,8 +34,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "https://rockrivervt.com",
-    siteName: "RockRiverVT",
-    title: "welcome peter | RockRiverVT",
+    siteName: "Rock River VT",
+    title: "Rock River VT | All Are Welcome",
     description:
       "An unofficial community guide to Rock River near Newfane, Vermont with updates, maps, weather context, and local notes.",
     images: [
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "welcome peter | RockRiverVT",
+    title: "Rock River VT | All Are Welcome",
     description:
       "An unofficial community guide to Rock River near Newfane, Vermont with updates, maps, weather context, and local notes.",
     images: ["/rock-river-hero.png"],

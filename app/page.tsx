@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 
+import { HomeFeaturedLocal } from "@/components/home/home-featured-local";
 import { HomeFinalImage } from "@/components/home/home-final-image";
 import { HomeHero } from "@/components/home/home-hero";
 import { HomeInfoCards } from "@/components/home/home-info-cards";
@@ -15,29 +16,12 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { WeatherWidget } from "@/components/conditions/weather-widget";
 import { RiverWidget } from "@/components/conditions/river-widget";
+import { CrowdWidget } from "@/components/crowd/crowd-widget";
 
 export default function Home() {
   const [showWelcome, setShowWelcome] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
   const photoInputRef = useRef<HTMLInputElement>(null);
-
-  const riverPhotos = [
-    {
-      src: "https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1200&q=80",
-      alt: "Forest stream with soft green tones",
-      credit: "Unsplash",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80",
-      alt: "Mountain valley and water in muted blue light",
-      credit: "Unsplash",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=80",
-      alt: "Woodland path near water and stone",
-      credit: "Unsplash",
-    },
-  ];
 
   const quickLinks = [
     {
@@ -68,7 +52,7 @@ export default function Home() {
     {
       title: "Photos",
       description: "Seasonal scenes from misty spring mornings to late summer light.",
-      href: "/photos",
+      href: "/gallery",
     },
     {
       title: "Safety & Rules",
@@ -100,30 +84,29 @@ export default function Home() {
           onClose={() => setShowWelcome(false)}
           homeJsonLd={homeJsonLd}
         />
-        <section className="mx-auto w-full max-w-6xl px-4 pb-10 sm:px-6 lg:px-8">
-          <div className="mb-5 flex items-end justify-between">
-            <h2 className="text-xl font-semibold tracking-tight text-[#224035] sm:text-2xl">
-              Today at Rock River
-            </h2>
-          </div>
+        <section className="mx-auto w-full max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">
+          <div className="rounded-[1.75rem] border border-[#b5c7bb] bg-gradient-to-b from-white/75 to-[#f2f6f0]/95 p-5 shadow-[0_14px_48px_-32px_rgba(24,49,43,0.38)] sm:p-7">
+            <header className="mb-6 max-w-2xl sm:mb-7">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#5c786e]">
+                Daily conditions
+              </p>
+              <h2 className="mt-1.5 text-xl font-semibold tracking-tight text-[#1a2f27] sm:text-2xl">
+                Today at Rock River
+              </h2>
+              <p className="mt-2 text-[13px] leading-relaxed text-[#4d6a5f] sm:text-sm">
+                A quick local snapshot—weather, water context, and how busy spots feel—so
+                you can plan a good day by the water.
+              </p>
+            </header>
 
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <WeatherWidget />
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
+              <WeatherWidget />
 
-            <RiverWidget />
+              <RiverWidget />
 
-            <div className="rounded-2xl border border-[#c3ced1] bg-[#f4f7f8] p-5">
-              <h3 className="text-sm font-semibold tracking-[0.12em] text-[#4e6870] uppercase">
-                Busy level
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-[#38515a]">—</p>
-            </div>
-
-            <div className="rounded-2xl border border-[#d5d0c3] bg-[#f7f3ea] p-5">
-              <h3 className="text-sm font-semibold tracking-[0.12em] text-[#6c6350] uppercase">
-                Last update time
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-[#5a5140]">—</p>
+              <div className="sm:col-span-2">
+                <CrowdWidget />
+              </div>
             </div>
           </div>
         </section>
@@ -132,7 +115,7 @@ export default function Home() {
 
         <HomeQuickLinks links={quickLinks} />
         <HomeVermontView />
-        <HomeRiverPhotos riverPhotos={riverPhotos} />
+        <HomeRiverPhotos />
         <HomePhotoUpload
           selectedPhoto={selectedPhoto}
           setSelectedPhoto={setSelectedPhoto}
@@ -140,6 +123,8 @@ export default function Home() {
         />
         <HomeInfoCards />
         <HomeFinalImage />
+
+        <HomeFeaturedLocal />
 
         <section className="mx-auto w-full max-w-6xl px-4 pb-14 sm:px-6 lg:px-8">
           <div className="overflow-hidden rounded-3xl border border-[#c8d6cb] bg-white/60 p-6 shadow-[0_16px_44px_-30px_rgba(24,49,43,0.35)] sm:p-8">

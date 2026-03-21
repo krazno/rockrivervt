@@ -1,18 +1,11 @@
 "use client";
 
-import Image from "next/image";
+import { MediaImage } from "@/components/MediaImage";
+import { getHomeRiverStripePhotos } from "@/data/media";
 
-type RiverPhoto = {
-  src: string;
-  alt: string;
-  credit: string;
-};
+export function HomeRiverPhotos() {
+  const riverPhotos = getHomeRiverStripePhotos();
 
-type HomeRiverPhotosProps = {
-  riverPhotos: RiverPhoto[];
-};
-
-export function HomeRiverPhotos({ riverPhotos }: HomeRiverPhotosProps) {
   return (
     <section className="mx-auto w-full max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">
       <div className="mb-5">
@@ -20,26 +13,29 @@ export function HomeRiverPhotos({ riverPhotos }: HomeRiverPhotosProps) {
           River photos
         </h2>
         <p className="mt-1 text-sm text-[#4f6d63]">
-          A visual feel for Rock River moods and nearby Vermont terrain.
+          Real scenes from Rock River and the Newfane area—same gallery as our full
+          photo collection.
         </p>
       </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {riverPhotos.map((photo, index) => (
           <figure
             key={photo.src}
-              className="reveal-up overflow-hidden rounded-2xl border border-[#c7d4cb] bg-[#f2f5f1] transition duration-300 ease-out hover:-translate-y-0.5 hover:border-[#a8c4ab] hover:shadow-[0_22px_70px_-55px_rgba(24,49,43,0.65)]"
+            className="reveal-up overflow-hidden rounded-2xl border border-[#c7d4cb] bg-[#f2f5f1] transition duration-300 ease-out hover:-translate-y-0.5 hover:border-[#a8c4ab] hover:shadow-[0_22px_70px_-55px_rgba(24,49,43,0.65)]"
             style={{ animationDelay: `${index * 120}ms` }}
           >
-            <Image
-              src={photo.src}
-              alt={photo.alt}
-              width={1200}
-              height={800}
-              unoptimized
-                className="h-52 w-full object-cover transition duration-500 hover:scale-[1.04]"
-            />
+            <span className="relative block h-52 w-full overflow-hidden bg-[#e4ebe4]">
+              <MediaImage
+                src={photo.thumbnailSrc ?? photo.src}
+                alt={photo.alt}
+                title={photo.title}
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="object-cover transition duration-500 hover:scale-[1.04]"
+              />
+            </span>
             <figcaption className="px-3 py-2 text-xs text-[#56756a]">
-              Photo source: {photo.credit}
+              {photo.title} — Rock River VT
             </figcaption>
           </figure>
         ))}
