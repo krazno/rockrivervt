@@ -332,11 +332,11 @@ export function CrowdWidget() {
           </span>
           <div>
             <h3 className="text-[10px] font-bold tracking-[0.2em] text-[#4d6d61] uppercase">
-              Today’s crowd
+              How full it feels
             </h3>
             <p className="mt-1 max-w-xl text-[12px] leading-snug text-[#5c786e] sm:text-[13px]">
-              A neighborly pulse on how full each spot feels—anonymous check-ins nudge the
-              guide baseline. Not a headcount, just a friendly read on the day.
+              Anonymous check-ins gently shift these labels—rough guidance for planning,
+              not a headcount. Think neighborly pulse, not census.
             </p>
           </div>
         </div>

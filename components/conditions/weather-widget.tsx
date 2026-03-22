@@ -169,7 +169,7 @@ export function WeatherWidget() {
               {shortForecastText}
             </p>
             <p className="mt-1 text-[11px] leading-5 tracking-wide text-[#5c786e]">
-              Newfane, Vermont
+              Newfane area · Rock River planning
             </p>
           </div>
         </div>

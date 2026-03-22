@@ -8,13 +8,16 @@ export function HomeRiverPhotos() {
 
   return (
     <section className="mx-auto w-full max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">
-      <div className="mb-5">
-        <h2 className="text-xl font-semibold text-[#224035] sm:text-2xl">
+      <div className="mb-5 max-w-2xl">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#5c786e]">
+          From the banks
+        </p>
+        <h2 className="mt-1.5 text-xl font-semibold tracking-tight text-[#224035] sm:text-2xl">
           River photos
         </h2>
-        <p className="mt-1 text-sm text-[#4f6d63]">
-          Real scenes from Rock River and the Newfane area—same gallery as our full
-          photo collection.
+        <p className="mt-1.5 text-sm leading-relaxed text-[#4f6d63]">
+          Honest light on Rock River and the Newfane area—these tie straight through to
+          the full gallery.
         </p>
       </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">

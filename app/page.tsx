@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRef, useState } from "react";
 
 import { HomeFeaturedLocal } from "@/components/home/home-featured-local";
@@ -12,6 +13,7 @@ import { HomeQuickLinks } from "@/components/home/home-quick-links";
 import { HomeRiverPhotos } from "@/components/home/home-river-photos";
 import { HomeVermontView } from "@/components/home/home-vermont-view";
 
+import { AnimalSpottingWidget } from "@/components/animals/animal-widget";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { WeatherWidget } from "@/components/conditions/weather-widget";
@@ -25,49 +27,61 @@ export default function Home() {
 
   const quickLinks = [
     {
-      title: "Visit Guide",
-      description: "A gentle step-by-step walk from village edge to river bends.",
-      href: "/visit",
+      title: "Land & River",
+      description:
+        "Where the water comes from, what grows beside it, and how people have gathered here over time.",
+      href: "/land-river",
     },
     {
-      title: "Directions & Parking",
-      description: "Parking pull-offs, swimming pockets, and trail access points.",
+      title: "Guidelines",
+      description:
+        "Parking on Route 30 in Dummerston, trail care, privacy, dogs, fires, and river etiquette.",
+      href: "/guidelines",
+    },
+    {
+      title: "Preservation",
+      description:
+        "Volunteer-led care, Vermont Land Trust easement, and how about 25 acres stay conserved.",
+      href: "/preservation",
+    },
+    {
+      title: "History",
+      description:
+        "Grassroots cleanup to 501(c)(3) land buys—Irene, neighbors, and the 2018 purchase.",
+      href: "/history",
+    },
+    {
+      title: "Visit",
+      description:
+        "Woodland trails, uneven footing, and spring currents—plan a steady, low-impact day.",
       href: "/visit",
     },
     {
       title: "Map",
-      description: "Parking pull-offs, swimming pockets, and trail access points.",
+      description:
+        "Parking, trails, beaches, and the river corridor—the same local data as below, full screen.",
       href: "/map",
     },
     {
       title: "Conditions",
-      description: "Local observations on trail conditions, flow, and crowd levels.",
-      href: "/daily-updates",
-    },
-    {
-      title: "Updates",
-      description: "Local observations on trail conditions, flow, and crowd levels.",
-      href: "/daily-updates",
+      description:
+        "Spring crossing caution, daily notes, and shortcuts to weather and this page’s live tools.",
+      href: "/conditions",
     },
     {
       title: "Photos",
-      description: "Seasonal scenes from misty spring mornings to late summer light.",
+      description: "Light on water and forest from the same collection as the full gallery.",
       href: "/gallery",
-    },
-    {
-      title: "Safety & Rules",
-      description: "Community tips about respectful access and quiet places to pause.",
-      href: "/visit",
     },
   ];
 
   const homeJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "RockRiverVT",
+    name: "Rock River VT",
     url: "https://rockrivervt.com",
     description:
-      "An unofficial local guide to Rock River near Newfane, Vermont with updates, maps, weather context, and stewardship notes.",
+      "Community guide to Rock River near Newfane, Vermont (unofficial). All are welcome—maps, live conditions, preservation context, and practical, respectful visitor guidance for families, LGBTQ+ visitors, locals, and newcomers.",
     potentialAction: {
       "@type": "SearchAction",
       target: "https://rockrivervt.com/?q={search_term_string}",
@@ -84,18 +98,29 @@ export default function Home() {
           onClose={() => setShowWelcome(false)}
           homeJsonLd={homeJsonLd}
         />
-        <section className="mx-auto w-full max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">
+        <section
+          id="today-at-rock-river"
+          className="mx-auto w-full max-w-6xl scroll-mt-24 px-4 pb-12 sm:px-6 lg:px-8"
+        >
           <div className="rounded-[1.75rem] border border-[#b5c7bb] bg-gradient-to-b from-white/75 to-[#f2f6f0]/95 p-5 shadow-[0_14px_48px_-32px_rgba(24,49,43,0.38)] sm:p-7">
             <header className="mb-6 max-w-2xl sm:mb-7">
               <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#5c786e]">
-                Daily conditions
+                Right now
               </p>
               <h2 className="mt-1.5 text-xl font-semibold tracking-tight text-[#1a2f27] sm:text-2xl">
                 Today at Rock River
               </h2>
               <p className="mt-2 text-[13px] leading-relaxed text-[#4d6a5f] sm:text-sm">
-                A quick local snapshot—weather, water context, and how busy spots feel—so
-                you can plan a good day by the water.
+                Weather for Newfane, river readings from a nearby West River gauge as
+                planning context, and a neighborly read on how full popular spots feel.
+                In spring, snowmelt upriver can change flows through the day—see{" "}
+                <Link
+                  href="/conditions"
+                  className="font-medium text-[#35584c] underline-offset-2 hover:underline"
+                >
+                  Conditions
+                </Link>{" "}
+                for trail and crossing caution.
               </p>
             </header>
 
@@ -109,6 +134,10 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </section>
+
+        <section className="mx-auto w-full max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">
+          <AnimalSpottingWidget />
         </section>
 
         <HomeMapOverview />
@@ -130,12 +159,23 @@ export default function Home() {
           <div className="overflow-hidden rounded-3xl border border-[#c8d6cb] bg-white/60 p-6 shadow-[0_16px_44px_-30px_rgba(24,49,43,0.35)] sm:p-8">
             <div className="max-w-3xl">
               <h2 className="text-xl font-semibold tracking-tight text-[#1a2f27] sm:text-2xl">
-                Respect the River
+                Welcome, stewardship, and respect
               </h2>
               <p className="mt-3 text-base leading-7 text-[#38594f] sm:text-lg">
-                Please respect private land, stay on paths, leave no trace,
-                and help keep Rock River a family-safe environment for
-                everyone.
+                This shoreline is fragile, beloved, and held in trust by volunteers.
+                Stay on durable paths, carry out what you carry in, give adjacent homes
+                their privacy, and keep voices low.{" "}
+                <strong className="font-medium text-[#2a453c]">All are welcome</strong>{" "}
+                when we meet as guests of the river—families, neighbors, LGBTQ+ visitors,
+                and newcomers alike. The full{" "}
+                <Link
+                  href="/guidelines"
+                  className="font-medium text-[#31584b] underline-offset-2 hover:underline"
+                >
+                  visitor guidelines
+                </Link>{" "}
+                spell out parking on Route 30 in Dummerston, river etiquette, and safety
+                in plain language.
               </p>
             </div>
           </div>

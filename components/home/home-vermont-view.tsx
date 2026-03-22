@@ -8,13 +8,15 @@ export function HomeVermontView() {
 
   return (
     <section className="mx-auto w-full max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">
-      <div className="mb-5">
-        <h2 className="text-xl font-semibold text-[#224035] sm:text-2xl">
-          Vermont view
+      <div className="mb-5 max-w-2xl">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#5c786e]">
+          Still moment
+        </p>
+        <h2 className="mt-1.5 text-xl font-semibold tracking-tight text-[#224035] sm:text-2xl">
+          Along the river
         </h2>
-        <p className="mt-1 text-sm text-[#4f6d63]">
-          A calm slice of the river and woods near Newfane—not stock, just the real
-          place.
+        <p className="mt-1.5 text-sm leading-relaxed text-[#4f6d63]">
+          A quiet frame of woods and water near Newfane—local photography, not stock.
         </p>
       </div>
       <figure className="reveal-up overflow-hidden rounded-3xl border border-[#c7d5cd] bg-[#eef4f2] shadow-[0_16px_44px_-30px_rgba(24,49,43,0.65)] transition duration-300 ease-out hover:-translate-y-0.5 hover:border-[#a8c4ab] hover:shadow-[0_22px_70px_-55px_rgba(24,49,43,0.75)]">

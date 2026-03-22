@@ -101,7 +101,8 @@ export function HomeFeaturedLocal({
             </div>
 
             <p className="pt-1 text-[11px] leading-snug text-[#6d8a7e]">
-              This corner will rotate from time to time—another neighbor, another story.
+              We’ll swap this spotlight now and then—another face, another thread in the
+              river’s story.
             </p>
           </div>
         </div>

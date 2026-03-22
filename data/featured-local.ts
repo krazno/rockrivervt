@@ -30,14 +30,14 @@ export type FeaturedLocalSpotlight = {
 };
 
 export const featuredLocalSpotlight: FeaturedLocalSpotlight = {
-  sectionEyebrow: "Community & place",
-  sectionTitle: "Meet a Rock River Local",
-  cardRibbon: "Featured local spotlight",
+  sectionEyebrow: "Habitat & heart",
+  sectionTitle: "A wild neighbor",
+  cardRibbon: "Featured spotlight",
   categoryBadge: "Wild Neighbor",
   displayName: "Somkin",
   bioSentences: [
-    "Somkin is one of Rock River’s wild neighbors and a reminder that the woods around the river are living habitat too.",
-    "Give bears room, keep food and scents tucked away, and enjoy the river knowing we share this corridor with wildlife.",
+    "Somkin represents the bears and other wildlife whose home wraps the same hills and hollows we visit—quiet, powerful, and easy to forget when we’re focused on the water.",
+    "Give them distance, stash food and scents out of reach, and treat the forest as shared ground: we’re guests in their corridor too.",
   ],
   image: null,
 };

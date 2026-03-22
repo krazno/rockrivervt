@@ -18,11 +18,12 @@ export function HomePhotoUpload({
     <section className="mx-auto w-full max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">
       <div className="reveal-up rounded-3xl border border-[#c6d3ca] bg-[#f3f7f2] p-5 shadow-[0_14px_34px_-28px_rgba(21,40,33,0.7)] transition duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_22px_70px_-55px_rgba(21,40,33,0.72)] sm:p-6">
         <h2 className="text-xl font-semibold text-[#224035] sm:text-2xl">
-          Share a Rock River photo
+          Share a moment (preview)
         </h2>
         <p className="mt-2 max-w-2xl text-sm leading-6 text-[#4e6c62]">
-          Quick mock upload: open your camera, snap a photo, and preview it.
-          This is lightweight and does not save to a backend yet.
+          Try the flow: open your camera, grab a shot, preview it here. Saving to the site
+          isn’t wired up yet—this is a gentle placeholder for a future community photo
+          lane.
         </p>
         <div className="mt-4 flex flex-wrap gap-3">
           <button

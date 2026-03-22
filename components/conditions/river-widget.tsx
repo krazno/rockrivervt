@@ -160,11 +160,11 @@ export function RiverWidget() {
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div>
           <h3 className="text-[10px] font-bold tracking-[0.2em] text-[#4d6d61] uppercase">
-            River conditions
+            River context
           </h3>
           <p className="mt-1 max-w-[18rem] text-[11px] leading-snug text-[#5c786e]">
             {data?.dataLabel ??
-              "Proxy gauge — West River near Newfane (USGS 01156000)"}
+              "West River near Newfane (USGS 01156000)—watershed proxy for planning at Rock River"}
           </p>
         </div>
         <span className="shrink-0 rounded-full border border-[#c9d4ce] bg-[#eef4ed] px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#4a6b5f]">
