@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "motion/react";
 import { useRef, useState } from "react";
 
 import { HomeFeaturedLocal } from "@/components/home/home-featured-local";
@@ -13,7 +14,6 @@ import { HomeQuickLinks } from "@/components/home/home-quick-links";
 import { HomeRiverPhotos } from "@/components/home/home-river-photos";
 import { HomeVermontView } from "@/components/home/home-vermont-view";
 
-import { AnimalSpottingWidget } from "@/components/animals/animal-widget";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { WeatherWidget } from "@/components/conditions/weather-widget";
@@ -92,31 +92,36 @@ export default function Home() {
   return (
     <>
       <SiteHeader />
-      <main className="min-h-screen bg-gradient-to-b from-[#eef2ea] via-[#eef2ea] to-[#eaf4e7] text-[#20342c]">
+      <main className="rr-body flex flex-col">
         <HomeHero
           showWelcome={showWelcome}
           onClose={() => setShowWelcome(false)}
           homeJsonLd={homeJsonLd}
         />
-        <section
+
+        <motion.section
           id="today-at-rock-river"
-          className="mx-auto w-full max-w-6xl scroll-mt-24 px-4 pb-12 sm:px-6 lg:px-8"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5 }}
+          className="mx-auto w-full max-w-6xl scroll-mt-28 px-4 pb-12 sm:px-6 lg:px-8"
         >
-          <div className="rounded-[1.75rem] border border-[#b5c7bb] bg-gradient-to-b from-white/75 to-[#f2f6f0]/95 p-5 shadow-[0_14px_48px_-32px_rgba(24,49,43,0.38)] sm:p-7">
+          <div className="rr-glass-strong p-5 sm:p-7">
             <header className="mb-6 max-w-2xl sm:mb-7">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#5c786e]">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
                 Right now
               </p>
-              <h2 className="mt-1.5 text-xl font-semibold tracking-tight text-[#1a2f27] sm:text-2xl">
+              <h2 className="font-heading mt-1.5 text-xl font-bold tracking-tight text-white sm:text-2xl">
                 Today at Rock River
               </h2>
-              <p className="mt-2 text-[13px] leading-relaxed text-[#4d6a5f] sm:text-sm">
+              <p className="mt-2 text-[13px] leading-relaxed text-white/65 sm:text-sm">
                 Weather for Newfane, river readings from a nearby West River gauge as
                 planning context, and a neighborly read on how full popular spots feel.
                 In spring, snowmelt upriver can change flows through the day—see{" "}
                 <Link
                   href="/conditions"
-                  className="font-medium text-[#35584c] underline-offset-2 hover:underline"
+                  className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
                 >
                   Conditions
                 </Link>{" "}
@@ -134,11 +139,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section>
-
-        <section className="mx-auto w-full max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">
-          <AnimalSpottingWidget />
-        </section>
+        </motion.section>
 
         <HomeMapOverview />
 
@@ -155,22 +156,22 @@ export default function Home() {
 
         <HomeFeaturedLocal />
 
-        <section className="mx-auto w-full max-w-6xl px-4 pb-14 sm:px-6 lg:px-8">
-          <div className="overflow-hidden rounded-3xl border border-[#c8d6cb] bg-white/60 p-6 shadow-[0_16px_44px_-30px_rgba(24,49,43,0.35)] sm:p-8">
+        <section className="mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
+          <div className="rr-glass overflow-hidden p-6 sm:p-8">
             <div className="max-w-3xl">
-              <h2 className="text-xl font-semibold tracking-tight text-[#1a2f27] sm:text-2xl">
+              <h2 className="font-heading text-xl font-bold tracking-tight text-white sm:text-2xl">
                 Welcome, stewardship, and respect
               </h2>
-              <p className="mt-3 text-base leading-7 text-[#38594f] sm:text-lg">
+              <p className="mt-3 text-base leading-7 text-white/70 sm:text-lg">
                 This shoreline is fragile, beloved, and held in trust by volunteers.
                 Stay on durable paths, carry out what you carry in, give adjacent homes
                 their privacy, and keep voices low.{" "}
-                <strong className="font-medium text-[#2a453c]">All are welcome</strong>{" "}
+                <strong className="font-medium text-[var(--rr-mint)]">All are welcome</strong>{" "}
                 when we meet as guests of the river—families, neighbors, LGBTQ+ visitors,
                 and newcomers alike. The full{" "}
                 <Link
                   href="/guidelines"
-                  className="font-medium text-[#31584b] underline-offset-2 hover:underline"
+                  className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
                 >
                   visitor guidelines
                 </Link>{" "}
@@ -180,7 +181,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-    </main>
+      </main>
       <SiteFooter />
     </>
   );

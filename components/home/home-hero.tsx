@@ -1,6 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
+import { motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { Sparkles, Volume2, VolumeX } from "lucide-react";
+
+import { getHeroBackdropImage } from "@/data/media";
 
 type HomeHeroProps = {
   showWelcome: boolean;
@@ -9,6 +15,41 @@ type HomeHeroProps = {
 };
 
 export function HomeHero({ showWelcome, onClose, homeJsonLd }: HomeHeroProps) {
+  const hero = getHeroBackdropImage();
+  const [audioReady, setAudioReady] = useState(false);
+  const [playing, setPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/media/audio/river-ambience.mp3", { method: "HEAD" })
+      .then((r) => {
+        if (!cancelled && r.ok) setAudioReady(true);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const toggleAudio = () => {
+    if (!audioReady) return;
+    if (!audioRef.current) {
+      const el = new Audio("/media/audio/river-ambience.mp3");
+      el.loop = true;
+      el.volume = 0.35;
+      audioRef.current = el;
+    }
+    const el = audioRef.current;
+    if (!el) return;
+    if (playing) {
+      el.pause();
+      setPlaying(false);
+    } else {
+      void el.play().then(() => setPlaying(true)).catch(() => {});
+    }
+  };
+
   return (
     <>
       <script
@@ -17,76 +58,111 @@ export function HomeHero({ showWelcome, onClose, homeJsonLd }: HomeHeroProps) {
       />
 
       {showWelcome ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#14231d]/58 px-4 backdrop-blur-[2px]">
-          <div className="reveal-up w-full max-w-sm rounded-2xl border border-[#b6c9bc] bg-[#f3f7f1] p-5 shadow-[0_22px_70px_-45px_rgba(20,36,31,0.85)] ring-1 ring-black/5">
-            <p className="text-xs font-semibold tracking-[0.14em] text-[#4e6b60] uppercase">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 backdrop-blur-md">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="w-full max-w-sm rounded-2xl border border-white/15 bg-[#0b1814]/95 p-6 shadow-2xl ring-1 ring-[var(--rr-glow)]/20"
+          >
+            <p className="text-xs font-semibold tracking-[0.14em] text-[var(--rr-mint)] uppercase">
               Welcome
             </p>
-            <h2 className="mt-2 text-xl font-semibold text-[#1f392f]">
+            <h2 className="font-heading mt-2 text-xl font-semibold text-white">
               Welcome to Rock River VT
             </h2>
-            <p className="mt-2 text-sm leading-6 text-[#466359]">
+            <p className="mt-2 text-sm leading-6 text-white/75">
               We’re glad you’re here. Peek at conditions, scan the map, and step
               into the day with kindness for the water and everyone beside it.{" "}
-              <span className="font-medium text-[#35584c]">All are welcome</span>
+              <span className="font-medium text-[var(--rr-mint)]">All are welcome</span>
               —families, neighbors, LGBTQ+ visitors, and newcomers.
             </p>
             <button
               type="button"
               onClick={onClose}
-              className="mt-4 inline-flex rounded-full bg-[#31584b] px-4 py-2 text-sm font-medium text-[#edf4ef] transition duration-200 hover:bg-[#284a3f] hover:shadow-[0_18px_45px_-30px_rgba(49,88,75,0.85)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#31584b]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f3f7f1]"
+              className="mt-5 inline-flex w-full justify-center rounded-full bg-[var(--rr-glow)] px-4 py-2.5 text-sm font-semibold text-[#04120e] shadow-lg shadow-[var(--rr-glow)]/25 transition hover:brightness-110"
             >
               Come on in
             </button>
-          </div>
+          </motion.div>
         </div>
       ) : null}
 
-      <section className="mx-auto w-full max-w-6xl px-4 pb-12 pt-8 sm:px-6 sm:pt-10 lg:px-8">
-        <div className="hero-sheen relative overflow-hidden rounded-3xl border border-[#c9d5c6] bg-gradient-to-br from-[#e7efe2] via-[#dde8df] to-[#cfded9] shadow-[0_18px_55px_-25px_rgba(30,52,44,0.55)] transition duration-300 ease-out hover:border-[#a8c4ab] hover:shadow-[0_28px_90px_-55px_rgba(30,52,44,0.75)]">
-          <div
-            className="float-slow pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-[#d7e4dd]/80 blur-xl"
-            aria-hidden
-          />
-          <div
-            className="float-slower pointer-events-none absolute -bottom-10 left-8 h-24 w-24 rounded-full bg-[#b7d0cf]/70 blur-xl"
-            aria-hidden
-          />
-          <div className="relative p-6 sm:p-8 md:p-10">
-            <p className="mb-3 inline-flex rounded-full border border-[#b7c7be] bg-[#f4f7f1] px-3 py-1 text-xs font-semibold tracking-[0.16em] text-[#446258] uppercase">
-              All are welcome
-            </p>
-            <h1 className="max-w-2xl text-3xl leading-tight font-semibold tracking-tight text-[#1a2f27] sm:text-4xl">
-              Rock River VT
-            </h1>
-            <p className="mt-2 max-w-2xl text-base text-[#35544a] sm:text-lg">
-              A calm, community-built guide to Rock River in southern Vermont—cold
-              pools, sun-warmed stone, and woodland trails looked after by
-              neighbors and volunteers who want this place to stay wild and open.
-            </p>
-            <p className="mt-4 max-w-2xl text-sm leading-6 text-[#4e6c62] sm:text-base">
-              Locals, families, LGBTQ+ visitors, and first-time guests share the
-              same shoreline when we lead with care: light packing, quiet voices,
-              and respect for private land, living habitat, and each other.
-            </p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Link
-                href="/map"
-                className="rounded-full bg-[#31584b] px-5 py-2.5 text-sm font-medium text-[#edf4ef] shadow-[0_14px_34px_-30px_rgba(49,88,75,0.85)] transition duration-200 hover:bg-[#284a3f] hover:shadow-[0_22px_60px_-45px_rgba(49,88,75,0.95)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#31584b]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#eef2ea]"
-              >
-                Open the map
-              </Link>
-              <Link
-                href="/conditions"
-                className="rounded-full border border-[#8ea497] bg-[#f3f6f2] px-5 py-2.5 text-sm font-medium text-[#35584c] transition duration-200 hover:bg-[#e7ede8] hover:shadow-[0_20px_55px_-45px_rgba(20,36,31,0.55)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8ea497]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f3f6f2]"
-              >
-                Plan with conditions
-              </Link>
-            </div>
+      <section className="relative mx-auto w-full max-w-6xl px-4 pb-10 pt-6 sm:px-6 sm:pb-14 sm:pt-8 lg:px-8">
+        <div className="relative min-h-[min(72vh,520px)] overflow-hidden rounded-[2rem] border border-white/10 shadow-[0_40px_120px_-50px_rgb(0,0,0,0.85)] sm:rounded-[2.25rem]">
+          {hero ? (
+            <Image
+              src={hero.src}
+              alt={hero.alt}
+              title={hero.title}
+              fill
+              priority
+              sizes="(max-width: 1280px) 100vw, 1152px"
+              className="object-cover object-center"
+            />
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-[#0f2a22] via-[#0a1814] to-[#050c0a]" />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#020806] via-[#030a08]/85 to-[#03120e]/55" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-[#0b6b3e]/10" />
+
+          <div className="relative z-10 flex min-h-[min(72vh,520px)] flex-col justify-end p-6 sm:p-10 lg:p-12">
+            <motion.div
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-semibold tracking-[0.16em] text-white/90 uppercase backdrop-blur">
+                <Sparkles className="h-3.5 w-3.5 text-[var(--rr-mint)]" aria-hidden />
+                All are welcome
+              </p>
+              <h1 className="font-heading max-w-3xl text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl">
+                <span className="rr-shimmer-text">Rock River</span>
+                <span className="block text-white/95">made for slow days</span>
+              </h1>
+              <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">
+                Cold pools, sun-warmed stone, and trails kept by neighbors who care.
+                Your unofficial guide to conditions, maps, and stewardship—built for
+                locals, newcomers, and everyone who loves this water.
+              </p>
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <Link
+                  href="/map"
+                  className="inline-flex items-center justify-center rounded-full bg-[var(--rr-glow)] px-6 py-3 text-sm font-semibold text-[#04120e] shadow-lg shadow-[var(--rr-glow)]/30 transition hover:brightness-110"
+                >
+                  Explore the map
+                </Link>
+                <Link
+                  href="/conditions"
+                  className="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/15"
+                >
+                  Live conditions
+                </Link>
+                <Link
+                  href="/gallery"
+                  className="inline-flex items-center justify-center rounded-full px-4 py-3 text-sm font-medium text-white/85 underline-offset-4 hover:underline"
+                >
+                  Photo gallery
+                </Link>
+                {audioReady ? (
+                  <button
+                    type="button"
+                    onClick={toggleAudio}
+                    aria-pressed={playing}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/30 px-4 py-2.5 text-xs font-semibold text-white/90 backdrop-blur transition hover:bg-black/45"
+                  >
+                    {playing ? (
+                      <VolumeX className="h-4 w-4" aria-hidden />
+                    ) : (
+                      <Volume2 className="h-4 w-4" aria-hidden />
+                    )}
+                    {playing ? "Pause" : "River sound"}
+                  </button>
+                ) : null}
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
     </>
   );
 }
-

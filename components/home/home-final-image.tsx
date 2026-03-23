@@ -8,7 +8,7 @@ export function HomeFinalImage() {
 
   return (
     <section className="mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
-      <figure className="reveal-up overflow-hidden rounded-3xl border border-[#c8d6cb] bg-[#e6eee7] shadow-[0_18px_50px_-30px_rgba(23,45,36,0.6)] transition duration-300 ease-out hover:-translate-y-0.5 hover:border-[#a8c4ab] hover:shadow-[0_28px_90px_-55px_rgba(23,45,36,0.75)]">
+      <figure className="reveal-up overflow-hidden rounded-3xl border border-white/12 bg-[#0a1210] shadow-[0_24px_90px_-40px_rgba(0,0,0,0.85)] transition duration-300 ease-out hover:-translate-y-0.5 hover:border-[var(--rr-glow)]/35">
         <span className="relative block h-[44svh] min-h-[290px] w-full sm:h-[50svh] lg:h-[56svh]">
           <MediaImage
             src={photo.src}
@@ -19,11 +19,10 @@ export function HomeFinalImage() {
             className="object-cover object-center"
           />
         </span>
-        <figcaption className="border-t border-[#c6d3ca] bg-[#f2f5f1] px-4 py-2 text-xs text-[#4f6f63]">
+        <figcaption className="border-t border-white/10 bg-black/40 px-4 py-2 text-xs text-white/55 backdrop-blur">
           {photo.title} — Rock River near Newfane, Vermont
         </figcaption>
       </figure>
     </section>
   );
 }
-

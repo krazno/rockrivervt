@@ -51,6 +51,9 @@ export default function DailyUpdatesPage() {
     },
   };
 
+  const subCard =
+    "rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-sm";
+
   return (
     <>
       <script
@@ -58,25 +61,25 @@ export default function DailyUpdatesPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(dailyUpdatesJsonLd) }}
       />
       <SiteHeader />
-      <main className="min-h-screen bg-gradient-to-b from-[#eef2ea] via-[#eef2ea] to-[#eaf4e7] py-10 text-[#20342c]">
+      <main className="rr-body py-10 text-[#e8f4ef]">
         <Container className="max-w-3xl">
-          <div className="overflow-hidden rounded-3xl border border-[#c8d6cb] bg-gradient-to-br from-[#e6efe5] via-[#dce7df] to-[#cfded9] p-6 shadow-[0_18px_55px_-25px_rgba(30,52,44,0.55)] sm:p-8">
-            <p className="mb-3 inline-flex rounded-full border border-[#b7c7be] bg-[#f4f7f1] px-3 py-1 text-xs font-semibold tracking-[0.16em] text-[#446258] uppercase">
+          <div className="rr-glass-strong overflow-hidden p-6 sm:p-8">
+            <p className="mb-3 inline-flex rounded-full border border-[var(--rr-glow)]/35 bg-[var(--rr-glow)]/10 px-3 py-1 text-xs font-semibold tracking-[0.16em] text-[var(--rr-mint)] uppercase">
               Conditions journal
             </p>
-            <h1 className="text-3xl font-semibold tracking-tight text-[#1a2f27] sm:text-4xl">
+            <h1 className="font-heading text-3xl font-bold tracking-tight text-white sm:text-4xl">
               Daily updates
             </h1>
-            <p className="mt-3 text-base leading-7 text-[#38594f] sm:text-lg">
+            <p className="mt-3 text-base leading-7 text-white/70 sm:text-lg">
               We’re building a light rhythm of local notes—mud on the lower switchbacks,
               a calm morning on the pools, a heads-up after heavy rain. Posts will appear
               here as neighbors and regulars share what’s safe and kind to expect.
             </p>
-            <p className="mt-3 text-sm leading-6 text-[#4e6c62]">
+            <p className="mt-3 text-sm leading-6 text-white/55">
               For right now, pair this page with live tools on the home page and the{" "}
               <Link
                 href="/conditions"
-                className="font-medium text-[#31584b] underline-offset-2 hover:underline"
+                className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
               >
                 Conditions
               </Link>{" "}
@@ -86,19 +89,19 @@ export default function DailyUpdatesPage() {
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 href="/#today-at-rock-river"
-                className="rounded-full bg-[#31584b] px-5 py-2.5 text-sm font-medium text-[#edf4ef] transition hover:bg-[#284a3f]"
+                className="rounded-full bg-[var(--rr-glow)] px-5 py-2.5 text-sm font-semibold text-[#04120e] shadow-lg shadow-[var(--rr-glow)]/25 transition hover:brightness-110"
               >
                 Live weather &amp; river
               </Link>
               <Link
                 href="/conditions"
-                className="rounded-full border border-[#8ea497] bg-[#f3f6f2] px-5 py-2.5 text-sm font-medium text-[#35584c] transition hover:bg-[#e7ede8]"
+                className="rounded-full border border-white/20 bg-white/5 px-5 py-2.5 text-sm font-medium text-white/90 transition hover:bg-white/10"
               >
                 Conditions hub
               </Link>
               <Link
                 href="/weather"
-                className="rounded-full border border-[#8ea497] bg-[#f3f6f2] px-5 py-2.5 text-sm font-medium text-[#35584c] transition hover:bg-[#e7ede8]"
+                className="rounded-full border border-white/20 bg-white/5 px-5 py-2.5 text-sm font-medium text-white/90 transition hover:bg-white/10"
               >
                 Weather only
               </Link>
@@ -106,28 +109,28 @@ export default function DailyUpdatesPage() {
           </div>
 
           <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
-            <article className="rounded-2xl border border-[#c2d0c6] bg-[#f8f8f3] p-4">
-              <h2 className="text-xs font-semibold tracking-[0.12em] text-[#4d6d61] uppercase">
+            <article className={subCard}>
+              <h2 className="text-xs font-semibold tracking-[0.12em] text-[var(--rr-mint)] uppercase">
                 What to expect
               </h2>
-              <p className="mt-2 text-sm leading-6 text-[#38594f]">
+              <p className="mt-2 text-sm leading-6 text-white/65">
                 Short, factual blurbs from people who walked the trail that day—not
                 forecasts, just ground truth.
               </p>
             </article>
-            <article className="rounded-2xl border border-[#c3ced1] bg-[#f4f7f8] p-4">
-              <h2 className="text-xs font-semibold tracking-[0.12em] text-[#4e6870] uppercase">
+            <article className={subCard}>
+              <h2 className="text-xs font-semibold tracking-[0.12em] text-[var(--rr-mint)] uppercase">
                 Cadence
               </h2>
-              <p className="mt-2 text-sm leading-6 text-[#38515a]">
+              <p className="mt-2 text-sm leading-6 text-white/65">
                 More frequent in swim season; extra notes around storms and spring melt.
               </p>
             </article>
-            <article className="rounded-2xl border border-[#d5d0c3] bg-[#f7f3ea] p-4">
-              <h2 className="text-xs font-semibold tracking-[0.12em] text-[#6c6350] uppercase">
+            <article className={subCard}>
+              <h2 className="text-xs font-semibold tracking-[0.12em] text-[var(--rr-mint)] uppercase">
                 Safety first
               </h2>
-              <p className="mt-2 text-sm leading-6 text-[#5a5140]">
+              <p className="mt-2 text-sm leading-6 text-white/65">
                 Always confirm conditions on site—no post replaces your own judgment
                 near moving water.
               </p>

@@ -1,6 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "motion/react";
+import { ArrowUpRight } from "lucide-react";
+
+import { cn } from "@/lib/utils";
 
 type QuickLink = {
   title: string;
@@ -12,34 +16,65 @@ type HomeQuickLinksProps = {
   links: QuickLink[];
 };
 
+const ACCENTS = [
+  "from-[#3ecf8e]/25 to-transparent border-[#3ecf8e]/35",
+  "from-cyan-400/15 to-transparent border-cyan-400/25",
+  "from-emerald-400/15 to-transparent border-emerald-400/30",
+  "from-teal-400/15 to-transparent border-teal-400/25",
+  "from-[#7dd3c0]/20 to-transparent border-[#7dd3c0]/30",
+  "from-white/10 to-transparent border-white/15",
+  "from-[#3ecf8e]/20 to-transparent border-[#3ecf8e]/30",
+  "from-cyan-300/12 to-transparent border-cyan-300/22",
+] as const;
+
 export function HomeQuickLinks({ links }: HomeQuickLinksProps) {
   return (
     <section className="mx-auto w-full max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">
-      <div className="mb-5 max-w-2xl">
-        <h2 className="text-xl font-semibold tracking-tight text-[#224035] sm:text-2xl">
+      <div className="mb-8 max-w-2xl">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
+          Go deeper
+        </p>
+        <h2 className="font-heading mt-2 text-2xl font-bold tracking-tight text-white sm:text-3xl">
           Explore the guide
         </h2>
-        <p className="mt-1.5 text-sm leading-relaxed text-[#4d6a5f]">
-          Land, history, rules, and tools—pick what you need before you head to the trail.
+        <p className="mt-2 text-sm leading-relaxed text-white/65 sm:text-base">
+          Land, history, rules, and tools—tap through before you lace up your boots.
         </p>
       </div>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {links.map((link) => (
-          <Link
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {links.map((link, i) => (
+          <motion.div
             key={link.title}
-            href={link.href}
-            className="group reveal-up rounded-2xl border border-[#c4d3ca] bg-[#f4f6f2] p-4 shadow-[0_8px_26px_-18px_rgba(22,45,36,0.55)] transition duration-200 ease-out hover:-translate-y-0.5 hover:border-[#99b0a4] hover:shadow-[0_14px_40px_-22px_rgba(22,45,36,0.62)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#31584b]/35 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f4f6f2]"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.45, delay: Math.min(i * 0.05, 0.35) }}
           >
-            <p className="text-base font-semibold leading-6 text-[#224136] group-hover:text-[#163128]">
-              {link.title}
-            </p>
-            <p className="mt-2 text-sm leading-6 text-[#4b695f]">
-              {link.description}
-            </p>
-          </Link>
+            <Link
+              href={link.href}
+              className={cn(
+                "group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-gradient-to-br p-5 transition",
+                "hover:-translate-y-0.5 hover:shadow-[0_20px_50px_-28px_rgba(62,207,142,0.35)]",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rr-glow)]",
+                ACCENTS[i % ACCENTS.length],
+              )}
+            >
+              <span className="flex items-start justify-between gap-2">
+                <span className="font-heading text-lg font-semibold text-white">
+                  {link.title}
+                </span>
+                <ArrowUpRight
+                  className="h-5 w-5 shrink-0 text-white/35 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[var(--rr-mint)]"
+                  aria-hidden
+                />
+              </span>
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-white/60">
+                {link.description}
+              </p>
+            </Link>
+          </motion.div>
         ))}
       </div>
     </section>
   );
 }
-

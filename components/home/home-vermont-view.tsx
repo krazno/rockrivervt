@@ -9,17 +9,17 @@ export function HomeVermontView() {
   return (
     <section className="mx-auto w-full max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">
       <div className="mb-5 max-w-2xl">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#5c786e]">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
           Still moment
         </p>
-        <h2 className="mt-1.5 text-xl font-semibold tracking-tight text-[#224035] sm:text-2xl">
+        <h2 className="font-heading mt-1.5 text-xl font-bold tracking-tight text-white sm:text-2xl">
           Along the river
         </h2>
-        <p className="mt-1.5 text-sm leading-relaxed text-[#4f6d63]">
+        <p className="mt-1.5 text-sm leading-relaxed text-white/60">
           A quiet frame of woods and water near Newfane—local photography, not stock.
         </p>
       </div>
-      <figure className="reveal-up overflow-hidden rounded-3xl border border-[#c7d5cd] bg-[#eef4f2] shadow-[0_16px_44px_-30px_rgba(24,49,43,0.65)] transition duration-300 ease-out hover:-translate-y-0.5 hover:border-[#a8c4ab] hover:shadow-[0_22px_70px_-55px_rgba(24,49,43,0.75)]">
+      <figure className="reveal-up overflow-hidden rounded-3xl border border-white/12 bg-[#0a1210] shadow-[0_24px_80px_-40px_rgba(0,0,0,0.75)] transition duration-300 ease-out hover:-translate-y-0.5 hover:border-[var(--rr-glow)]/35">
         <span className="relative block h-64 w-full sm:h-72 lg:h-80">
           <MediaImage
             src={photo.thumbnailSrc ?? photo.src}
@@ -30,11 +30,10 @@ export function HomeVermontView() {
             className="object-cover object-center"
           />
         </span>
-        <figcaption className="border-t border-[#cbd8d1] bg-[#f4f7f5] px-4 py-2 text-xs text-[#4f6f63]">
+        <figcaption className="border-t border-white/10 bg-black/40 px-4 py-2 text-xs text-white/55 backdrop-blur">
           {photo.title} — Rock River area, Vermont
         </figcaption>
       </figure>
     </section>
   );
 }
-

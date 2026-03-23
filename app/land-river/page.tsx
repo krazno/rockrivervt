@@ -40,16 +40,16 @@ export default function LandRiverPage() {
   return (
     <>
       <SiteHeader />
-      <main className="min-h-screen bg-gradient-to-b from-[#eef2ea] via-[#eef2ea] to-[#eaf4e7] text-[#20342c]">
+      <main className="rr-body text-[#e8f4ef]">
         <Container className="py-10">
-          <article className="mx-auto max-w-3xl rounded-3xl border border-[#c8d6cb] bg-white/65 p-6 shadow-[0_18px_55px_-25px_rgba(24,49,43,0.42)] ring-1 ring-black/5 sm:p-8">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#5c786e]">
+          <article className="rr-glass-strong mx-auto max-w-3xl p-6 sm:p-8">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
               The place itself
             </p>
-            <h1 className="mt-1.5 text-3xl font-semibold tracking-tight text-[#1a2f27] sm:text-4xl">
+            <h1 className="font-heading mt-1.5 text-3xl font-bold tracking-tight text-white sm:text-4xl">
               Land & River
             </h1>
-            <p className="mt-3 text-base leading-relaxed text-[#38594f] sm:text-lg">
+            <p className="mt-3 text-base leading-relaxed text-white/70 sm:text-lg">
               Rock River is a tributary of the West River, flowing entirely within Windham
               County, Vermont. It rises in the Green Mountain National Forest in Dover and
               joins the West River in Newfane. When people say “Rock River,” they often
@@ -59,11 +59,11 @@ export default function LandRiverPage() {
 
             <h2
               id="geography-context"
-              className="mt-10 scroll-mt-28 text-sm font-semibold tracking-[0.12em] text-[#4d6d61] uppercase"
+              className="mt-10 scroll-mt-28 text-sm font-semibold tracking-[0.12em] text-[var(--rr-mint)] uppercase"
             >
               Geography & context
             </h2>
-            <p className="mt-3 text-sm leading-7 text-[#38594f]">
+            <p className="mt-3 text-sm leading-7 text-white/70">
               The river cuts through southern Vermont forest and hillside. Public access
               is tied to woodland trails and the town trail system; conditions vary with
               season, rain, and snowmelt. Understanding the whole watershed—not just a
@@ -73,11 +73,11 @@ export default function LandRiverPage() {
 
             <h2
               id="ecology-habitat"
-              className="mt-10 scroll-mt-28 text-sm font-semibold tracking-[0.12em] text-[#4d6d61] uppercase"
+              className="mt-10 scroll-mt-28 text-sm font-semibold tracking-[0.12em] text-[var(--rr-mint)] uppercase"
             >
               Ecology & habitat
             </h2>
-            <p className="mt-3 text-sm leading-7 text-[#38594f]">
+            <p className="mt-3 text-sm leading-7 text-white/70">
               Banks and slopes support eastern hemlock, northern red oak, yellow birch,
               and underbrush including mountain laurel, wild azalea, and other wildflowers
               that feed wildlife through the year. Bear, bobcat, deer, foxes, and many
@@ -90,26 +90,26 @@ export default function LandRiverPage() {
 
             <h2
               id="human-experience"
-              className="mt-10 scroll-mt-28 text-sm font-semibold tracking-[0.12em] text-[#4d6d61] uppercase"
+              className="mt-10 scroll-mt-28 text-sm font-semibold tracking-[0.12em] text-[var(--rr-mint)] uppercase"
             >
               Human experience—many traditions, one river
             </h2>
-            <p className="mt-3 text-sm leading-7 text-[#38594f]">
+            <p className="mt-3 text-sm leading-7 text-white/70">
               Swimmers, sunbathers, and paddlers value the cool water and sun-warmed
               stone. The river has long offered quiet and community to many kinds of
               visitors. From a town path starting at the end of Williamsville Road in
               Newfane, people first reach a family-oriented beach known as{" "}
-              <strong className="font-medium text-[#2a453c]">Indian Love Call</strong>,
+              <strong className="font-medium text-[var(--rr-mint)]">Indian Love Call</strong>,
               enjoyed by generations of children and teens. Farther from the road, a
               separate clothing-optional area known as{" "}
-              <strong className="font-medium text-[#2a453c]">Third Beach</strong> welcomes
+              <strong className="font-medium text-[var(--rr-mint)]">Third Beach</strong> welcomes
               a mixed crowd; signage marks expectations at the site. At the end of the
               trails, a sandy bank known as{" "}
-              <strong className="font-medium text-[#2a453c]">Fifth Beach</strong> has been
+              <strong className="font-medium text-[var(--rr-mint)]">Fifth Beach</strong> has been
               a traditional gathering place for gay and bisexual men and their friends.
             </p>
-            <p className="mt-3 text-sm leading-7 text-[#38594f]">
-              <strong className="font-medium text-[#2a453c]">All are welcome</strong> on
+            <p className="mt-3 text-sm leading-7 text-white/70">
+              <strong className="font-medium text-[var(--rr-mint)]">All are welcome</strong> on
               this site and at the river when we meet each other with respect—for
               neighbors, for the land, and for the many communities who share this
               corridor.
@@ -117,11 +117,11 @@ export default function LandRiverPage() {
 
             <h2
               id="preservation-on-the-ground"
-              className="mt-10 scroll-mt-28 text-sm font-semibold tracking-[0.12em] text-[#4d6d61] uppercase"
+              className="mt-10 scroll-mt-28 text-sm font-semibold tracking-[0.12em] text-[var(--rr-mint)] uppercase"
             >
               Preservation on the ground
             </h2>
-            <p className="mt-3 text-sm leading-7 text-[#38594f]">
+            <p className="mt-3 text-sm leading-7 text-white/70">
               Rock River Preservation, Inc. formed in 2005 to conserve publicly
               accessible land along the river. In 2007, the organization purchased about
               4.5 acres along roughly 1.2 miles of frontage, including land up to the
@@ -133,14 +133,14 @@ export default function LandRiverPage() {
               the whole property. See{" "}
               <Link
                 href="/history"
-                className="font-medium text-[#31584b] underline-offset-2 hover:underline"
+                className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
               >
                 History
               </Link>{" "}
               and{" "}
               <Link
                 href="/preservation"
-                className="font-medium text-[#31584b] underline-offset-2 hover:underline"
+                className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
               >
                 Preservation
               </Link>{" "}
