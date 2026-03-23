@@ -7,10 +7,10 @@ import { WebPageJsonLd } from "@/components/seo/web-page-json-ld";
 import { buildPageMetadata } from "@/lib/seo";
 
 const pageDesc =
-  "Local guide: Newfane, Brattleboro, and Windham County near Rock River—cafés, lodging, LGBTQ-friendly southern Vermont culture, and practical links (not a brochure list).";
+  "Newfane, Brattleboro, and Windham County around Rock River: southern Vermont towns, culture, and practical context for visitors from the swimming hole to downtown.";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Rock River Local Guide — Newfane, Brattleboro & LGBTQ-Friendly VT",
+  title: "Local area",
   description: pageDesc,
   path: "/local",
   keywords: [
@@ -57,9 +57,10 @@ export default function LocalPage() {
         <section>
           <h2>Cafés, shops, lodging</h2>
           <p>
-            Placeholder: add a short curated list of Brattleboro / Newfane favorites—coffee,
-            groceries, a place to stay—when you have stable links. We’re not endorsing
-            chains; local spots keep the valley interesting.
+            Brattleboro’s downtown has groceries, cafés, and lodging within a short drive of
+            Rock River; Newfane village is smaller but has essentials nearby. Pick what fits
+            your trip—this guide does not list individual businesses so listings stay current
+            without endorsements.
           </p>
         </section>
         <section>

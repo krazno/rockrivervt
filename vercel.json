@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.rockrivervt.com" }],
+      "destination": "https://rockrivervt.com/:path*",
+      "permanent": true
+    }
+  ]
+}

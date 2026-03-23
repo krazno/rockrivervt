@@ -9,10 +9,10 @@ import { Container } from "@/components/shared/container";
 import { buildPageMetadata } from "@/lib/seo";
 
 const pageDesc =
-  "Rock River conditions for Newfane VT: weather, river, and how busy it feels—plus links to the map and daily notes.";
+  "Rock River conditions for Newfane Vermont: weather, river flow context, and crowd feel. Links to map and visiting info for Windham County.";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Rock River Conditions & Live Weather",
+  title: "Conditions",
   description: pageDesc,
   path: "/conditions",
   keywords: [
@@ -103,12 +103,16 @@ export default function ConditionsPage() {
           </div>
 
           <p className="mx-auto mt-8 max-w-3xl text-center text-sm text-[var(--rr-text-muted)] sm:text-left">
-            <Link href="/weather" className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline">
-              Weather only
+            <Link href="/map" className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline">
+              Map
             </Link>
             {" · "}
             <Link href="/visit" className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline">
-              Visiting
+              Visit
+            </Link>
+            {" · "}
+            <Link href="/weather" className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline">
+              Weather
             </Link>
           </p>
         </Container>

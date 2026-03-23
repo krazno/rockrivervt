@@ -6,10 +6,15 @@ import { Film, Footprints } from "lucide-react";
 import { SectionEyebrow } from "@/components/shared/section-eyebrow";
 import { getTrailTourVideo } from "@/data/media";
 
-export function HomeTrailTour() {
+type HomeTrailTourProps = {
+  /** False when the MP4 is not deployed in `public/` (e.g. gitignored large file). */
+  videoAvailable: boolean;
+};
+
+export function HomeTrailTour({ videoAvailable }: HomeTrailTourProps) {
   const video = getTrailTourVideo();
 
-  if (!video) return null;
+  if (!video || !videoAvailable) return null;
 
   return (
     <section

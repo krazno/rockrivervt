@@ -11,24 +11,28 @@ export function WeatherPageClient() {
   return (
     <>
       <SiteHeader />
-      <main className="rr-body text-slate-800">
+      <main className="rr-body text-[var(--rr-text)]">
         <Container className="py-10">
           <div className="mx-auto max-w-3xl">
             <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
               Local snapshot
             </p>
-            <h1 className="font-heading mt-1.5 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+            <h1 className="font-heading mt-1.5 text-3xl font-semibold tracking-tight text-[var(--rr-ink)] sm:text-4xl">
               Rock River weather
             </h1>
-            <p className="mt-3 text-base leading-relaxed text-slate-600">
-              Same neighborhood weather tool as the homepage—use it alongside{" "}
+            <p className="mt-3 text-base leading-relaxed text-[var(--rr-text-muted)]">
+              Same Newfane-area forecast as the home page. Use it with{" "}
               <Link
                 href="/conditions"
-                className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
+                className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
               >
-                Rock River conditions
+                conditions
               </Link>{" "}
-              for river context and trail notes in Newfane and Windham County, Vermont.
+              for river context and{" "}
+              <Link href="/visit" className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline">
+                visiting
+              </Link>{" "}
+              for access in Windham County.
             </p>
           </div>
 
@@ -36,19 +40,26 @@ export function WeatherPageClient() {
             <div className="rr-glass-strong p-5 sm:p-7">
               <WeatherWidget />
             </div>
-            <p className="mt-6 text-center text-sm text-slate-500 sm:text-left">
+            <p className="mt-6 text-center text-sm text-[var(--rr-text-muted)] sm:text-left">
               <Link
                 href="/#today-at-rock-river"
-                className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
+                className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
               >
-                Full conditions row on the home page
-              </Link>{" "}
-              ·{" "}
+                Home conditions
+              </Link>
+              {" · "}
               <Link
                 href="/map"
-                className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
+                className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
               >
                 Map
+              </Link>
+              {" · "}
+              <Link
+                href="/visit"
+                className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
+              >
+                Visit
               </Link>
             </p>
           </div>

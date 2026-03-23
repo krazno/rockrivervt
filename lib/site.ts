@@ -1,31 +1,27 @@
 /**
- * Site-wide contact & social placeholders — replace hrefs with real profiles when ready.
+ * Site-wide contact & social — set `href` when profiles go live; omitted links are not rendered as anchors.
  */
-/** Primary inbox for the contact form (mailto scaffold until API exists). */
+/** Primary inbox for mailto links */
 export const CONTACT_FORM_EMAIL = "grassvale@gmail.com";
 
-/** Legacy / design contact — optional footer line. */
-export const CONTACT_EMAIL = "kraznodesign@gmail.com";
+export type SocialProfile = {
+  label: string;
+  /** Full URL when the profile exists */
+  href: string | null;
+  /** For JSON-LD sameAs and footer icon */
+  key: "instagram" | "reddit" | "facebook" | "youtube";
+};
 
-export const socialLinks = [
-  {
-    label: "Instagram",
-    href: "https://www.instagram.com/",
-  },
-  {
-    label: "Facebook",
-    href: "https://www.facebook.com/",
-  },
-  {
-    label: "YouTube",
-    href: "https://www.youtube.com/",
-  },
-  {
-    label: "X",
-    href: "https://x.com/",
-  },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/",
-  },
-] as const;
+/** Scaffold: add real URLs in production. Used for footer + schema sameAs. */
+export const socialProfiles: SocialProfile[] = [
+  { key: "instagram", label: "Instagram", href: null },
+  { key: "reddit", label: "Reddit", href: null },
+  { key: "facebook", label: "Facebook", href: null },
+  { key: "youtube", label: "YouTube", href: null },
+];
+
+export function socialSameAsUrls(): string[] {
+  return socialProfiles
+    .map((s) => s.href)
+    .filter((h): h is string => typeof h === "string" && h.startsWith("http"));
+}

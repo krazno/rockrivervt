@@ -6,10 +6,10 @@ import { WebPageJsonLd } from "@/components/seo/web-page-json-ld";
 import { buildPageMetadata } from "@/lib/seo";
 
 const pageDesc =
-  "Rock River photos and trail video from Newfane and Windham County VT—rocky swimming holes, southern Vermont river scenes, and the full trail tour near Brattleboro.";
+  "Rock River photos from Newfane Vermont: swimming holes, trail, and southern Vermont river scenes in Windham County. Plan your visit with map and guidelines.";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Rock River Photos, Gallery & Trail Video",
+  title: "Gallery",
   description: pageDesc,
   path: "/gallery",
   keywords: [

@@ -4,15 +4,10 @@ export type CleanlinessStatus = "good" | "fair" | "poor";
 export type RiverApiResponse = {
   ok: boolean;
   error?: string;
-  /** USGS site used for proxy gauge readings */
   siteId: string;
-  /** Human-readable site name from USGS when available */
   siteName: string | null;
-  /** Short label for UI — not a Rock River sensor */
   dataLabel: string;
-  /** Longer transparency copy for the widget */
   transparencyNote: string;
-  /** True when at least one USGS proxy value (flow or gage) is available */
   proxyGaugeAvailable: boolean;
   flowCfs: number | null;
   gageHeightFt: number | null;

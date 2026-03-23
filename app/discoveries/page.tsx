@@ -7,10 +7,10 @@ import { WebPageJsonLd } from "@/components/seo/web-page-json-ld";
 import { buildPageMetadata } from "@/lib/seo";
 
 const pageDesc =
-  "Discoveries around Rock River in Newfane, Vermont—fossils, stones, plants, wildlife, and field notes for Windham County and southern Vermont (look, don’t disturb).";
+  "Nature and field notes around Rock River in Newfane Vermont: plants, wildlife, and stone in Windham County—look, learn, leave things as you found them.";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Rock River Discoveries — Nature, Stones & Field Notes",
+  title: "Discoveries",
   description: pageDesc,
   path: "/discoveries",
   keywords: ["Rock River wildlife", "Newfane nature", "Windham County plants", "Rock River fossils"],

@@ -76,7 +76,7 @@ const SCENE_ALTS: readonly string[] = [
 
 function altForOutdoorPhoto(photoNum: number): string {
   if (photoNum === 1) {
-    return "Wide panoramic view of Rock River near Newfane, Vermont — forest, trails, and river recreation area (Windham County, near Brattleboro)";
+    return "Rock River swimming hole in Newfane Vermont — wide view of forest, trail, and river recreation in Windham County near Brattleboro";
   }
   const i = photoNum % SCENE_ALTS.length;
   return SCENE_ALTS[i] ?? SCENE_ALTS[0];

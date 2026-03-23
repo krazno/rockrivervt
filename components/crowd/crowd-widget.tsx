@@ -32,7 +32,6 @@ type LoadState = "loading" | "ready" | "error";
 
 const IS_DEV = process.env.NODE_ENV === "development";
 
-const BACKEND_UNAVAILABLE_NOTE = "Baseline for today—live check-ins when the server is connected.";
 
 type CrowdApiJson = {
   error?: string;
@@ -425,11 +424,6 @@ export function CrowdWidget() {
               >
                 Check in
               </button>
-              {!backendReady && loadState !== "loading" ? (
-                <p className="text-center text-[12px] leading-relaxed text-[var(--rr-text-muted)]">
-                  {BACKEND_UNAVAILABLE_NOTE}
-                </p>
-              ) : null}
             </div>
           ) : null
         )}

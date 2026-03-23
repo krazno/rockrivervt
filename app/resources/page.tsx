@@ -7,10 +7,10 @@ import { WebPageJsonLd } from "@/components/seo/web-page-json-ld";
 import { buildPageMetadata } from "@/lib/seo";
 
 const pageDesc =
-  "Rock River resources: maps, conditions, preservation, town and state links, safety, weather, and visitor planning for Newfane, Windham County VT, and southern Vermont.";
+  "Rock River resources: maps, conditions, official links, and planning for Newfane and Windham County Vermont. Southern Vermont context near Brattleboro.";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Rock River Resources — Maps, Links & Visitor Planning",
+  title: "Resources",
   description: pageDesc,
   path: "/resources",
   keywords: ["Rock River resources", "Newfane VT links", "Windham County maps", "Rock River planning"],
@@ -56,8 +56,9 @@ export default function ResourcesPage() {
         <section>
           <h2>Town &amp; region</h2>
           <p>
-            Placeholder: add Newfane town site, Windham County VT, Vermont State Parks or
-            relevant agencies, and local land trust links when you want them pinned here.
+            For official notices, roads, and municipal services, use the Town of Newfane and
+            Windham County, Vermont, websites. State outdoor and conservation programs are listed
+            on Vermont state sites. This page stays focused on on-site links above.
           </p>
         </section>
         <section>

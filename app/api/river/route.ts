@@ -41,9 +41,6 @@ const USGS_URL_BASE = `https://waterservices.usgs.gov/nwis/iv/?format=json&sites
 
 const DEFAULT_SITE_NAME = "West River near Newfane, VT";
 
-const TRANSPARENCY_NOTE =
-  "West River (USGS) flow and gage height are nearby watershed proxy readings for Rock River — not a Rock River gauge. Water temperature is estimated from NWS air temperature at the forecast grid and is not measured in the river. Clarity and cleanliness are site status labels for this guide (community context), not laboratory water quality tests.";
-
 function userAgent() {
   return "rockrivervt.com (unofficial community guide)";
 }
@@ -205,10 +202,8 @@ function buildPayload(partial: Partial<RiverApiResponse>): RiverApiResponse {
     error: partial.error,
     siteId: SITE_ID,
     siteName: partial.siteName ?? null,
-    dataLabel:
-      partial.dataLabel ??
-      `Proxy gauge — West River near Newfane (USGS ${SITE_ID})`,
-    transparencyNote: partial.transparencyNote ?? TRANSPARENCY_NOTE,
+    dataLabel: partial.dataLabel ?? "USGS regional",
+    transparencyNote: partial.transparencyNote ?? "",
     proxyGaugeAvailable,
     flowCfs: partial.flowCfs ?? null,
     gageHeightFt: partial.gageHeightFt ?? null,

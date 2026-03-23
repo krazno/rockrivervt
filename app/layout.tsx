@@ -1,8 +1,17 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Outfit } from "next/font/google";
 
+import { AnalyticsScripts } from "@/components/seo/analytics";
 import { SiteWideJsonLd } from "@/components/seo/site-wide-json-ld";
-import { DEFAULT_OG_ALT, OG_IMAGE, SITE_NAME_LONG, SITE_URL } from "@/lib/seo";
+import {
+  DEFAULT_OG_ALT,
+  META_DESC_MAX,
+  OG_IMAGE,
+  SITE_NAME_LONG,
+  SITE_URL,
+  TITLE_TEMPLATE,
+  truncateMetaDescription,
+} from "@/lib/seo";
 
 import "./globals.css";
 
@@ -25,35 +34,18 @@ const cormorant = Cormorant_Garamond({
 const googleSiteVerification =
   process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ?? "";
 
-/*
- * Google Search Console (manual steps — no secrets in repo):
- * 1. Add property for https://rockrivervt.com
- * 2. Verify via DNS or HTML tag: set NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION in .env.local
- * 3. Submit sitemap: https://rockrivervt.com/sitemap.xml
- * 4. (Optional) Link Google Analytics 4 property in GA admin; use env for measurement ID in a client wrapper if needed
- */
+const defaultDesc = truncateMetaDescription(
+  "Guide to Rock River in Newfane Vermont with map, trail, swimming holes, photos, and visitor info near Brattleboro and Windham County.",
+  META_DESC_MAX,
+);
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default:
-      "Rock River Vermont Guide | Newfane VT Swimming Hole, Map, Conditions & Weather",
-    template: "%s | Rock River Vermont",
+    default: SITE_NAME_LONG,
+    template: TITLE_TEMPLATE,
   },
-  description:
-    "Guide to Rock River in Newfane, Windham County VT near Brattleboro: rocky swimming holes, trail map, live conditions, photos, and visitor info for southern Vermont’s Rock River.",
-  keywords: [
-    "Rock River Vermont",
-    "Rock River Newfane VT",
-    "Newfane Vermont swimming hole",
-    "Brattleboro swimming hole",
-    "southern Vermont swimming hole",
-    "Windham County swimming hole",
-    "Rock River map",
-    "Rock River conditions",
-    "Rock River trail",
-    "Rock River preserve",
-  ],
+  description: defaultDesc,
   applicationName: SITE_NAME_LONG,
   alternates: {
     canonical: "/",
@@ -62,10 +54,8 @@ export const metadata: Metadata = {
     type: "website",
     url: SITE_URL,
     siteName: SITE_NAME_LONG,
-    title:
-      "Rock River Vermont Guide | Newfane VT Swimming Hole, Map, Conditions & Weather",
-    description:
-      "Rocky pools, trails, and river access in Newfane & Windham County VT—map, conditions, photos, and stewardship near Brattleboro.",
+    title: SITE_NAME_LONG,
+    description: defaultDesc,
     images: [
       {
         url: OG_IMAGE.url,
@@ -78,10 +68,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title:
-      "Rock River Vermont Guide | Newfane VT Swimming Hole, Map, Conditions & Weather",
-    description:
-      "Map, conditions, trail tour, photos—Rock River, Newfane & southern Vermont.",
+    title: SITE_NAME_LONG,
+    description: defaultDesc,
     images: [{ url: OG_IMAGE.url, alt: DEFAULT_OG_ALT }],
   },
   category: "travel",
@@ -118,6 +106,7 @@ export default function RootLayout({
   return (
     <html lang="en-US" className={`${outfit.variable} ${cormorant.variable} h-full`}>
       <body className="flex min-h-full flex-col font-sans antialiased">
+        <AnalyticsScripts />
         <SiteWideJsonLd />
         {children}
       </body>

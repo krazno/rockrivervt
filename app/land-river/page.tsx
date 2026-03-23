@@ -9,10 +9,10 @@ import { Container } from "@/components/shared/container";
 import { buildPageMetadata } from "@/lib/seo";
 
 const pageDesc =
-  "Rock River geography and ecology in Windham County Vermont—from Dover to Newfane, the West River, swimming holes, trails, and how southern Vermont’s Rock River fits the valley near Brattleboro.";
+  "Rock River geography in Windham County Vermont: from the Greens to Newfane, tributary of the West River, swimming holes, trail, and southern Vermont valley context.";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Rock River Land, Watershed & Newfane VT Geography",
+  title: "Land & river",
   description: pageDesc,
   path: "/land-river",
   keywords: [

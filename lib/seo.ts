@@ -6,9 +6,12 @@ export const SITE_URL = "https://rockrivervt.com" as const;
 export const SITE_NAME_LONG = "Rock River Vermont";
 export const SITE_NAME_SHORT = "Rock River VT";
 
+/** Root template segment — keep page titles short so full title stays under ~60 chars with template. */
+export const TITLE_TEMPLATE = "%s | Rock River Vermont";
+
 /** Default share image (1200×630) */
 export const DEFAULT_OG_ALT =
-  "Rock River rocky pools and swimming holes in Newfane, Windham County Vermont, near Brattleboro";
+  "Rock River swimming hole and trail in Newfane, Windham County Vermont, near Brattleboro";
 
 export const OG_IMAGE = {
   url: "/rock-river-hero.png",
@@ -17,10 +20,22 @@ export const OG_IMAGE = {
   alt: DEFAULT_OG_ALT,
 } as const;
 
+/** Google’s recommended max meta description length */
+export const META_DESC_MAX = 150;
+
 export function absoluteUrl(path: string): string {
   if (!path || path === "/") return SITE_URL;
   const p = path.startsWith("/") ? path : `/${path}`;
   return `${SITE_URL}${p}`;
+}
+
+/** Truncate at word boundary when possible */
+export function truncateMetaDescription(text: string, max = META_DESC_MAX): string {
+  const t = text.trim();
+  if (t.length <= max) return t;
+  const cut = t.slice(0, max);
+  const lastSpace = cut.lastIndexOf(" ");
+  return (lastSpace > 40 ? cut.slice(0, lastSpace) : cut).trim() + "…";
 }
 
 export type BuildPageMetaArgs = {
@@ -46,20 +61,21 @@ export function buildPageMetadata({
 }: BuildPageMetaArgs): Metadata {
   const canonicalPath = path.startsWith("/") ? path : `/${path}`;
   const url = absoluteUrl(canonicalPath);
+  const desc = truncateMetaDescription(description);
   const ogTitle = titleAbsolute ?? `${title} | ${SITE_NAME_LONG}`;
 
   return {
     ...(titleAbsolute
       ? { title: { absolute: titleAbsolute } }
       : { title }),
-    description,
+    description: desc,
     ...(keywords?.length ? { keywords } : {}),
     alternates: {
       canonical: canonicalPath,
     },
     openGraph: {
       title: ogTitle,
-      description,
+      description: desc,
       url,
       type: "website",
       siteName: SITE_NAME_LONG,
@@ -69,7 +85,7 @@ export function buildPageMetadata({
     twitter: {
       card: "summary_large_image",
       title: ogTitle,
-      description,
+      description: desc,
       images: [{ url: OG_IMAGE.url, alt: DEFAULT_OG_ALT }],
     },
   };

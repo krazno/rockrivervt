@@ -49,6 +49,13 @@ export function GalleryPageContent() {
             </p>
             <p className="mt-5 text-sm text-[var(--rr-text-muted)]">
               <Link
+                href="/visit"
+                className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
+              >
+                Visit
+              </Link>
+              {" · "}
+              <Link
                 href="/map"
                 className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
               >
@@ -60,13 +67,6 @@ export function GalleryPageContent() {
                 className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
               >
                 Conditions
-              </Link>
-              {" · "}
-              <Link
-                href="/visit"
-                className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
-              >
-                Visit
               </Link>
             </p>
           </header>

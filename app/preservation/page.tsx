@@ -9,10 +9,10 @@ import { Container } from "@/components/shared/container";
 import { buildPageMetadata } from "@/lib/seo";
 
 const pageDesc =
-  "Rock River Preservation in Newfane, Vermont—volunteer stewardship, conservation easements, management plans, and how about 25 acres along Rock River stay protected and open in Windham County.";
+  "Rock River Preserve in Newfane Vermont: stewardship, conservation easements, and protected land along the river in Windham County, southern Vermont.";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Rock River Preserve & Conservation Stewardship",
+  title: "Preservation",
   description: pageDesc,
   path: "/preservation",
   keywords: [

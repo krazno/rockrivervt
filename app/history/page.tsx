@@ -9,10 +9,10 @@ import { Container } from "@/components/shared/container";
 import { buildPageMetadata } from "@/lib/seo";
 
 const pageDesc =
-  "Rock River history in Newfane and Windham County VT—volunteer stewardship, land purchases, flood recovery, and conservation along southern Vermont’s Rock River.";
+  "Rock River history in Newfane and Windham County: volunteer care, land protection, floods, and conservation along this southern Vermont river near Brattleboro.";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Rock River History & Preservation Timeline",
+  title: "History",
   description: pageDesc,
   path: "/history",
   keywords: ["Rock River history", "Newfane conservation history", "Rock River Preservation timeline"],

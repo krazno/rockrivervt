@@ -9,10 +9,10 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { buildPageMetadata } from "@/lib/seo";
 
 const pageDesc =
-  "Interactive Rock River map for Newfane & Windham County VT: parking on Route 30 near Dummerston, trails, beaches, swimming holes, and river landmarks—near Brattleboro.";
+  "Rock River VT map: parking, trails, beaches, and swimming holes in Newfane and Windham County Vermont, near Brattleboro. Pair with conditions and visit info.";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Rock River Map & Directions",
+  title: "Map",
   description: pageDesc,
   path: "/map",
   keywords: [

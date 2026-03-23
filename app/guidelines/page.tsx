@@ -9,10 +9,10 @@ import { Container } from "@/components/shared/container";
 import { buildPageMetadata } from "@/lib/seo";
 
 const pageDesc =
-  "Rock River visitor guidelines for Newfane & Windham County VT: respectful use, safety, parking, trail etiquette, LGBTQ-friendly and clothing-optional norms, and southern Vermont river stewardship.";
+  "Rock River visitor guidelines for Newfane Vermont: safety, parking, trail etiquette, respectful use, and clothing-optional areas in Windham County near Brattleboro.";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Rock River Visitor Guidelines & Etiquette",
+  title: "Guidelines",
   description: pageDesc,
   path: "/guidelines",
   keywords: [
