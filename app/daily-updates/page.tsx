@@ -31,21 +31,21 @@ export default function DailyUpdatesPage() {
       />
       <BreadcrumbJsonLd path="/daily-updates" />
       <SiteHeader />
-      <main className="rr-body py-10 text-[#e8f4ef]">
+      <main className="rr-body py-10 text-slate-800">
         <Container className="max-w-3xl">
           <div className="rr-glass-strong overflow-hidden p-6 sm:p-8">
             <p className="mb-3 inline-flex rounded-full border border-[var(--rr-glow)]/35 bg-[var(--rr-glow)]/10 px-3 py-1 text-xs font-semibold tracking-[0.16em] text-[var(--rr-mint)] uppercase">
               Conditions journal
             </p>
-            <h1 className="font-heading text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <h1 className="font-heading text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
               Rock River daily updates
             </h1>
-            <p className="mt-3 text-base leading-7 text-white/70 sm:text-lg">
+            <p className="mt-3 text-base leading-7 text-slate-600 sm:text-lg">
               We’re building a light rhythm of local notes—mud on the lower switchbacks,
               a calm morning on the pools, a heads-up after heavy rain. Posts will appear
               here as neighbors and regulars share what’s safe and kind to expect.
             </p>
-            <p className="mt-3 text-sm leading-6 text-white/55">
+            <p className="mt-3 text-sm leading-6 text-slate-500">
               For right now, pair this page with live tools on the home page and the{" "}
               <Link
                 href="/conditions"
@@ -65,13 +65,13 @@ export default function DailyUpdatesPage() {
               </Link>
               <Link
                 href="/conditions"
-                className="rounded-full border border-white/20 bg-white/5 px-5 py-2.5 text-sm font-medium text-white/90 transition hover:bg-white/10"
+                className="rounded-full border border-slate-200 bg-sky-50 px-5 py-2.5 text-sm font-medium text-slate-800 transition hover:bg-sky-100/90"
               >
                 Conditions hub
               </Link>
               <Link
                 href="/weather"
-                className="rounded-full border border-white/20 bg-white/5 px-5 py-2.5 text-sm font-medium text-white/90 transition hover:bg-white/10"
+                className="rounded-full border border-slate-200 bg-sky-50 px-5 py-2.5 text-sm font-medium text-slate-800 transition hover:bg-sky-100/90"
               >
                 Weather only
               </Link>
@@ -83,7 +83,7 @@ export default function DailyUpdatesPage() {
               <h2 className="text-xs font-semibold tracking-[0.12em] text-[var(--rr-mint)] uppercase">
                 What to expect
               </h2>
-              <p className="mt-2 text-sm leading-6 text-white/65">
+              <p className="mt-2 text-sm leading-6 text-slate-600">
                 Short, factual blurbs from people who walked the trail that day—not
                 forecasts, just ground truth.
               </p>
@@ -92,7 +92,7 @@ export default function DailyUpdatesPage() {
               <h2 className="text-xs font-semibold tracking-[0.12em] text-[var(--rr-mint)] uppercase">
                 Cadence
               </h2>
-              <p className="mt-2 text-sm leading-6 text-white/65">
+              <p className="mt-2 text-sm leading-6 text-slate-600">
                 More frequent in swim season; extra notes around storms and spring melt.
               </p>
             </article>
@@ -100,7 +100,7 @@ export default function DailyUpdatesPage() {
               <h2 className="text-xs font-semibold tracking-[0.12em] text-[var(--rr-mint)] uppercase">
                 Safety first
               </h2>
-              <p className="mt-2 text-sm leading-6 text-white/65">
+              <p className="mt-2 text-sm leading-6 text-slate-600">
                 Always confirm conditions on site—no post replaces your own judgment
                 near moving water.
               </p>

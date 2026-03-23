@@ -33,16 +33,16 @@ export default function LandRiverPage() {
       />
       <BreadcrumbJsonLd path="/land-river" />
       <SiteHeader />
-      <main className="rr-body text-[#e8f4ef]">
+      <main className="rr-body text-slate-800">
         <Container className="py-10">
           <article className="rr-glass-strong mx-auto max-w-3xl p-6 sm:p-8">
             <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
               The place itself
             </p>
-            <h1 className="font-heading mt-1.5 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <h1 className="font-heading mt-1.5 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
               Rock River: land &amp; watershed
             </h1>
-            <p className="mt-3 text-base leading-relaxed text-white/70 sm:text-lg">
+            <p className="mt-3 text-base leading-relaxed text-slate-600 sm:text-lg">
               Rock River is a tributary of the West River, flowing entirely within Windham
               County, Vermont. It rises in the Green Mountain National Forest in Dover and
               joins the West River in Newfane. When people say “Rock River,” they often
@@ -56,7 +56,7 @@ export default function LandRiverPage() {
             >
               Geography & context
             </h2>
-            <p className="mt-3 text-sm leading-7 text-white/70">
+            <p className="mt-3 text-sm leading-7 text-slate-600">
               The river cuts through southern Vermont forest and hillside. Public access
               is tied to woodland trails and the town trail system; conditions vary with
               season, rain, and snowmelt. Understanding the whole watershed—not just a
@@ -70,7 +70,7 @@ export default function LandRiverPage() {
             >
               Ecology & habitat
             </h2>
-            <p className="mt-3 text-sm leading-7 text-white/70">
+            <p className="mt-3 text-sm leading-7 text-slate-600">
               Banks and slopes support eastern hemlock, northern red oak, yellow birch,
               and underbrush including mountain laurel, wild azalea, and other wildflowers
               that feed wildlife through the year. Bear, bobcat, deer, foxes, and many
@@ -87,7 +87,7 @@ export default function LandRiverPage() {
             >
               Human experience—many traditions, one river
             </h2>
-            <p className="mt-3 text-sm leading-7 text-white/70">
+            <p className="mt-3 text-sm leading-7 text-slate-600">
               Swimmers, sunbathers, and paddlers value the cool water and sun-warmed
               stone. The river has long offered quiet and community to many kinds of
               visitors. From a town path starting at the end of Williamsville Road in
@@ -101,7 +101,7 @@ export default function LandRiverPage() {
               <strong className="font-medium text-[var(--rr-mint)]">Fifth Beach</strong> has been
               a traditional gathering place for gay and bisexual men and their friends.
             </p>
-            <p className="mt-3 text-sm leading-7 text-white/70">
+            <p className="mt-3 text-sm leading-7 text-slate-600">
               <strong className="font-medium text-[var(--rr-mint)]">All are welcome</strong> on
               this site and at the river when we meet each other with respect—for
               neighbors, for the land, and for the many communities who share this
@@ -114,7 +114,7 @@ export default function LandRiverPage() {
             >
               Preservation on the ground
             </h2>
-            <p className="mt-3 text-sm leading-7 text-white/70">
+            <p className="mt-3 text-sm leading-7 text-slate-600">
               Rock River Preservation, Inc. formed in 2005 to conserve publicly
               accessible land along the river. In 2007, the organization purchased about
               4.5 acres along roughly 1.2 miles of frontage, including land up to the

@@ -3,8 +3,9 @@
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Compass } from "lucide-react";
 
+import { SectionEyebrow } from "@/components/shared/section-eyebrow";
 import { cn } from "@/lib/utils";
 
 export type HomeQuickLinkItem = {
@@ -18,29 +19,16 @@ type HomeQuickLinksProps = {
   links: HomeQuickLinkItem[];
 };
 
-/** Slate, water, mist — not emerald */
-const ACCENTS = [
-  "from-sky-400/14 to-[#0a1016] border-sky-300/20",
-  "from-cyan-500/12 to-[#0a1016] border-cyan-400/18",
-  "from-slate-400/14 to-[#0a1016] border-slate-400/22",
-  "from-[#7eb8c8]/18 to-[#0a1016] border-[#6a9bab]/28",
-  "from-stone-300/10 to-[#0a1016] border-stone-400/16",
-  "from-[var(--rr-forest)]/12 to-[#0a1016] border-[var(--rr-forest)]/22",
-  "from-sky-300/10 to-[#0a1016] border-sky-200/14",
-  "from-teal-500/10 to-[#0a1016] border-teal-400/16",
-] as const;
+const cardBase =
+  "group relative flex min-h-[8.5rem] flex-col overflow-hidden rounded-[var(--rr-radius-lg)] border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg)] p-6 shadow-[var(--rr-shadow-card)] transition duration-300 hover:border-[var(--rr-glow)]/35 hover:shadow-[var(--rr-shadow-card-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rr-glow)]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f4f1ea]";
 
 export function HomeQuickLinks({ links }: HomeQuickLinksProps) {
   return (
     <section className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div className="mb-10 max-w-xl">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
-          Guide
-        </p>
-        <h2 className="font-heading mt-2 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-          Explore
-        </h2>
-        <p className="mt-2 text-sm leading-relaxed text-white/50 sm:text-base">
+      <div className="mb-11 max-w-xl">
+        <SectionEyebrow icon={Compass}>Guide</SectionEyebrow>
+        <h2 className="rr-h2 mt-3">Explore</h2>
+        <p className="rr-lead mt-3">
           Land, rules, history, tools.
         </p>
       </div>
@@ -56,43 +44,32 @@ export function HomeQuickLinks({ links }: HomeQuickLinksProps) {
               transition={{ duration: 0.42, delay: Math.min(i * 0.04, 0.28) }}
             >
               <motion.div
-                whileHover={{ y: -3 }}
+                whileHover={{ y: -4 }}
                 whileTap={{ scale: 0.992 }}
                 transition={{ type: "spring", stiffness: 460, damping: 32 }}
               >
-                <Link
-                  href={link.href}
-                  className={cn(
-                    "group relative flex min-h-[9rem] flex-col overflow-hidden rounded-[var(--rr-radius-lg)] border bg-gradient-to-br p-6 shadow-[var(--rr-shadow-card)] transition duration-300",
-                    "hover:shadow-[var(--rr-shadow-card-hover)]",
-                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rr-glow)]/45 focus-visible:ring-offset-2 focus-visible:ring-offset-[#06090d]",
-                    ACCENTS[i % ACCENTS.length],
-                  )}
-                >
-                  <span
-                    className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-[var(--rr-glow)]/6 blur-2xl transition duration-500 group-hover:bg-[var(--rr-glow)]/11"
-                    aria-hidden
-                  />
+                <Link href={link.href} className={cn(cardBase)}>
+                  <span className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-[#7a9a8e]/10 blur-2xl" aria-hidden />
                   <span className="relative flex items-start justify-between gap-3">
                     <span className="flex min-w-0 flex-1 items-start gap-3.5">
-                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-black/30 text-[var(--rr-mint)] shadow-inner ring-1 ring-white/[0.06] backdrop-blur-sm transition group-hover:border-[var(--rr-glow)]/30 group-hover:text-[#b8dce8]">
-                        <Icon className="h-[1.35rem] w-[1.35rem]" aria-hidden />
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[var(--rr-widget-border)] bg-[#f7f4ed] text-[var(--rr-forest)] shadow-sm transition group-hover:border-[var(--rr-glow)]/40">
+                        <Icon className="h-[1.25rem] w-[1.25rem]" aria-hidden />
                       </span>
                       <span className="min-w-0 pt-0.5">
-                        <span className="font-heading block text-[1.05rem] font-semibold leading-snug text-white">
+                        <span className="font-heading block text-[1.06rem] font-semibold leading-snug text-[var(--rr-ink)]">
                           {link.title}
                         </span>
                       </span>
                     </span>
                     <ArrowUpRight
-                      className="h-5 w-5 shrink-0 text-white/28 transition duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[var(--rr-mint)]"
+                      className="h-5 w-5 shrink-0 text-[var(--rr-text-muted)]/50 transition duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[var(--rr-link)]"
                       aria-hidden
                     />
                   </span>
-                  <p className="relative mt-3 flex-1 text-[0.8125rem] leading-relaxed text-white/50">
+                  <p className="relative mt-2 flex-1 text-[0.8125rem] leading-relaxed text-[var(--rr-text-muted)]">
                     {link.description}
                   </p>
-                  <span className="relative mt-5 inline-flex items-center text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--rr-mint)]/90">
+                  <span className="relative mt-4 inline-flex items-center text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--rr-link)]">
                     Open
                     <span className="ml-1 transition group-hover:translate-x-0.5">→</span>
                   </span>

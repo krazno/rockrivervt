@@ -28,16 +28,16 @@ export default function HistoryPage() {
       />
       <BreadcrumbJsonLd path="/history" />
       <SiteHeader />
-      <main className="rr-body text-[#e8f4ef]">
+      <main className="rr-body text-slate-800">
         <Container className="py-10">
           <article className="rr-glass-strong mx-auto max-w-3xl p-6 sm:p-8">
             <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
               Story over time
             </p>
-            <h1 className="font-heading mt-1.5 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <h1 className="font-heading mt-1.5 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
               Rock River history
             </h1>
-            <p className="mt-3 text-base leading-relaxed text-white/70 sm:text-lg">
+            <p className="mt-3 text-base leading-relaxed text-slate-600 sm:text-lg">
               Rock River’s story is part natural history and part community effort: people
               who loved the water and the trails enough to organize, fundraise, and keep
               showing up—through storms, negotiations, and the slow work of stewardship.
@@ -49,7 +49,7 @@ export default function HistoryPage() {
             >
               A volunteer-led preservation path
             </h2>
-            <p className="mt-3 text-sm leading-7 text-white/70">
+            <p className="mt-3 text-sm leading-7 text-slate-600">
               In the early 2000s, concern grew that development, erosion, and shifting
               access could narrow what had long been a shared river experience. Swimmers
               and walkers began coordinating cleanups, watching for pollution, and
@@ -65,7 +65,7 @@ export default function HistoryPage() {
             >
               Timeline
             </h2>
-            <ul className="mt-4 space-y-4 border-l-2 border-white/20 pl-5 text-sm leading-7 text-white/70">
+            <ul className="mt-4 space-y-4 border-l-2 border-slate-200 pl-5 text-sm leading-7 text-slate-600">
               <li>
                 <strong className="text-[var(--rr-mint)]">Summer 2000</strong> — Users of Rock
                 River swimming holes establish The Rock River Preservation Society to
@@ -109,7 +109,7 @@ export default function HistoryPage() {
               </li>
             </ul>
 
-            <p className="mt-8 text-sm leading-7 text-white/70">
+            <p className="mt-8 text-sm leading-7 text-slate-600">
               Today’s framework—easements, deed terms, and updated management plans—is
               summarized on the{" "}
               <Link

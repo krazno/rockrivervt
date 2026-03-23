@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Film, Trees } from "lucide-react";
+import { Film, Footprints } from "lucide-react";
 
+import { SectionEyebrow } from "@/components/shared/section-eyebrow";
 import { getTrailTourVideo } from "@/data/media";
 
 export function HomeTrailTour() {
@@ -16,27 +17,21 @@ export function HomeTrailTour() {
       aria-labelledby="trail-tour-heading"
     >
       <div
-        className="pointer-events-none absolute -left-8 top-8 hidden h-40 w-40 rounded-full bg-[#2a4a58]/18 blur-3xl lg:block"
+        className="pointer-events-none absolute -left-8 top-8 hidden h-44 w-44 rounded-full bg-[#7a9a8e]/20 blur-3xl lg:block"
         aria-hidden
       />
-      <div className="mb-8 max-w-2xl">
-        <p className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
-          <Trees className="h-3.5 w-3.5" aria-hidden />
-          Trail tour
-        </p>
-        <h2
-          id="trail-tour-heading"
-          className="font-heading mt-2 text-2xl font-semibold tracking-tight text-white sm:text-3xl"
-        >
+      <div className="mb-9 max-w-2xl">
+        <SectionEyebrow icon={Footprints}>Trail tour</SectionEyebrow>
+        <h2 id="trail-tour-heading" className="rr-h2 mt-3">
           Full walkthrough
         </h2>
-        <p className="mt-2 max-w-xl text-sm leading-relaxed text-white/55 sm:text-base">
+        <p className="rr-lead mt-3 max-w-xl">
           One continuous pass—useful if you’ve never been. Pair it with{" "}
           <a
             href="/conditions"
-            className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
+            className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
           >
-            current conditions
+            conditions
           </a>{" "}
           and the map.
         </p>
@@ -47,13 +42,13 @@ export function HomeTrailTour() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="overflow-hidden rounded-[var(--rr-radius-xl)] border border-white/12 bg-[#070c0a] shadow-[var(--rr-shadow-card)] ring-1 ring-white/[0.06]"
+        className="rr-surface overflow-hidden rounded-[var(--rr-radius-xl)]"
       >
-        <div className="flex items-center gap-2 border-b border-white/[0.08] bg-black/50 px-4 py-3 backdrop-blur-sm">
-          <Film className="h-4 w-4 text-[var(--rr-mint)]" aria-hidden />
-          <span className="text-xs font-medium text-white/80">{video.title}</span>
+        <div className="flex items-center gap-2.5 border-b border-[var(--rr-widget-border)] bg-gradient-to-r from-[#f7f4ed] to-transparent px-5 py-3.5">
+          <Film className="h-4 w-4 text-[var(--rr-forest)]" aria-hidden />
+          <span className="text-xs font-medium text-[var(--rr-ink)]">{video.title}</span>
         </div>
-        <div className="relative aspect-video w-full overflow-hidden bg-[#050807]">
+        <div className="relative aspect-video w-full overflow-hidden bg-[#2a2824]">
           <video
             controls
             playsInline

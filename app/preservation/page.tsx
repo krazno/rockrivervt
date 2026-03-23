@@ -33,16 +33,16 @@ export default function PreservationPage() {
       />
       <BreadcrumbJsonLd path="/preservation" />
       <SiteHeader />
-      <main className="rr-body text-[#e8f4ef]">
+      <main className="rr-body text-slate-800">
         <Container className="py-10">
           <article className="rr-glass-strong mx-auto max-w-3xl p-6 sm:p-8">
             <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
               Stewardship & protection
             </p>
-            <h1 className="font-heading mt-1.5 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <h1 className="font-heading mt-1.5 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
               Rock River preservation
             </h1>
-            <p className="mt-3 text-base leading-relaxed text-white/70 sm:text-lg">
+            <p className="mt-3 text-base leading-relaxed text-slate-600 sm:text-lg">
               Rock River Preservation, Inc. is a{" "}
               <strong className="font-medium text-[var(--rr-mint)]">
                 volunteer-run nonprofit
@@ -60,7 +60,7 @@ export default function PreservationPage() {
             >
               Mission in practice
             </h2>
-            <p className="mt-3 text-sm leading-7 text-white/70">
+            <p className="mt-3 text-sm leading-7 text-slate-600">
               The organization collaborates with adjacent landowners and the towns of
               Newfane and Dummerston, through which the river passes. Volunteers maintain
               trails and swimming areas, post rules for responsible use, and coordinate a
@@ -76,7 +76,7 @@ export default function PreservationPage() {
             >
               Land ownership & legal framework
             </h2>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-white/70">
+            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-slate-600">
               <li>
                 <strong className="text-[var(--rr-mint)]">2007 purchase (~4.5 acres)</strong> —
                 Riverfront parcel acquired with conservation commitments; a{" "}
@@ -105,7 +105,7 @@ export default function PreservationPage() {
             >
               What the management plan emphasizes
             </h2>
-            <p className="mt-3 text-sm leading-7 text-white/70">
+            <p className="mt-3 text-sm leading-7 text-slate-600">
               The management plan is both a conservation document and an access document.
               In plain terms, it aims to keep the land largely natural, limit permanent
               structures on the conserved portion to what supports access and erosion
@@ -114,7 +114,7 @@ export default function PreservationPage() {
               sustain; designated trails may be reinforced while informal paths that
               worsen erosion may be closed or restored.
             </p>
-            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-white/70">
+            <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-slate-600">
               <li>
                 Parking is constrained—historic patterns near the south end of the
                 original parcel shifted after barriers placed by the Town of Newfane;
@@ -142,7 +142,7 @@ export default function PreservationPage() {
             >
               Stewards & volunteers
             </h2>
-            <p className="mt-3 text-sm leading-7 text-white/70">
+            <p className="mt-3 text-sm leading-7 text-slate-600">
               Stewards welcome newcomers, answer questions, and gently align behavior with
               community standards so the shoreline stays calm and safe. Trail crews and
               cleanup volunteers handle the physical work that keeps access open after
@@ -156,13 +156,13 @@ export default function PreservationPage() {
             >
               How to plug in
             </h2>
-            <p className="mt-3 text-sm leading-7 text-white/70">
+            <p className="mt-3 text-sm leading-7 text-slate-600">
               If you would like to help with stewardship—trail days, invasive plant work,
               or steward orientation—reach out through official Rock River Preservation
               channels. This community guide (RockRiverVT) is unofficial; authoritative
               policies and volunteer onboarding live with the nonprofit.
             </p>
-            <p className="mt-3 text-sm leading-7 text-white/70">
+            <p className="mt-3 text-sm leading-7 text-slate-600">
               Rock River Preservation, Inc. · P.O. Box 1095, Brattleboro, VT 05302 ·{" "}
               <a
                 href="mailto:rockriverpreservation@gmail.com"
@@ -181,7 +181,7 @@ export default function PreservationPage() {
               </a>
             </p>
 
-            <p className="mt-8 text-sm leading-7 text-white/70">
+            <p className="mt-8 text-sm leading-7 text-slate-600">
               For visitor expectations day to day, read{" "}
               <Link
                 href="/guidelines"

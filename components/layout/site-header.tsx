@@ -37,16 +37,16 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-white/[0.09] bg-[var(--rr-nav)]/88 backdrop-blur-2xl supports-[backdrop-filter]:bg-[var(--rr-nav)]/72">
+      <header className="sticky top-0 z-50 border-b border-[var(--rr-widget-border)] bg-[#faf8f4]/88 shadow-[0_1px_0_rgb(42_38_32/0.05)] backdrop-blur-xl supports-[backdrop-filter]:bg-[#faf8f4]/78">
         <Container className="flex items-center justify-between gap-3 py-3 sm:py-3.5">
           <Link
             href="/"
-            className="group flex min-w-0 shrink-0 flex-col leading-tight transition duration-200 hover:opacity-90"
+            className="group flex min-w-0 shrink-0 flex-col leading-tight transition duration-200 hover:opacity-85"
           >
-            <span className="font-heading text-[1.05rem] font-semibold tracking-tight text-white sm:text-lg">
+            <span className="font-heading text-[1.05rem] font-semibold tracking-tight text-[var(--rr-ink)] sm:text-lg">
               Rock River
             </span>
-            <span className="text-[9px] font-medium uppercase tracking-[0.32em] text-[var(--rr-mint)]/90">
+            <span className="text-[9px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
               Vermont
             </span>
           </Link>
@@ -60,9 +60,9 @@ export function SiteHeader() {
                 key={href}
                 href={href}
                 className={cn(
-                  "rounded-full px-2 py-1.5 text-[0.7rem] font-normal tracking-wide text-white/62 transition duration-200 lg:px-2.5 lg:text-[0.75rem]",
-                  "hover:bg-white/[0.06] hover:text-white",
-                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rr-glow)]/55 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--rr-nav)]",
+                  "rounded-full px-2 py-1.5 text-[0.7rem] font-medium tracking-wide text-[var(--rr-text-muted)] transition duration-200 lg:px-2.5 lg:text-[0.75rem]",
+                  "hover:bg-[#ebe6dc]/90 hover:text-[var(--rr-ink)]",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rr-glow)]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f4f1ea]",
                 )}
               >
                 {label}
@@ -73,11 +73,11 @@ export function SiteHeader() {
           <div className="flex items-center gap-2 xl:hidden">
             <Link
               href="/conditions"
-              className="max-w-[11rem] truncate rounded-full border border-white/12 bg-white/[0.05] px-2.5 py-1.5 text-[10px] font-medium leading-tight tracking-wide text-white/80 transition hover:border-white/2 hover:bg-white/[0.08] hover:text-white sm:px-3 sm:text-[11px]"
+              className="max-w-[11rem] truncate rounded-full border border-[var(--rr-widget-border)] bg-[#f5f2eb]/95 px-2.5 py-1.5 text-[10px] font-semibold leading-tight tracking-wide text-[var(--rr-text)] transition hover:border-[var(--rr-glow)]/35 hover:bg-[#faf8f4] sm:px-3 sm:text-[11px]"
               aria-label={`Today's conditions — ${chipLabel}`}
               title="Today’s conditions"
             >
-              <span className="text-white/45">Conditions · </span>
+              <span className="text-[var(--rr-text-muted)]">Conditions · </span>
               {chipLabel.replace(/^Today · /, "")}
             </Link>
             <button
@@ -85,7 +85,7 @@ export function SiteHeader() {
               aria-expanded={open}
               aria-controls="mobile-nav-drawer"
               onClick={() => setOpen((o) => !o)}
-              className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/12 bg-white/[0.04] text-white transition hover:bg-white/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rr-glow)]"
+              className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[var(--rr-widget-border)] bg-[#faf8f4] text-[var(--rr-ink)] shadow-sm transition hover:bg-[#f5f2eb] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rr-glow)]/40"
             >
               {open ? <X className="h-5 w-5" aria-hidden /> : <Menu className="h-5 w-5" aria-hidden />}
               <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
@@ -104,7 +104,7 @@ export function SiteHeader() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.22 }}
-              className="absolute inset-0 bg-black/55 backdrop-blur-md"
+              className="absolute inset-0 bg-[#2c2a26]/28 backdrop-blur-sm"
               onClick={() => setOpen(false)}
             />
             <motion.div
@@ -116,16 +116,16 @@ export function SiteHeader() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 380, damping: 36 }}
-              className="absolute inset-y-0 right-0 flex w-[min(100%,21rem)] flex-col border-l border-white/10 bg-[#070f0d]/95 shadow-[-24px_0_60px_-20px_rgba(0,0,0,0.65)] backdrop-blur-2xl supports-[backdrop-filter]:bg-[#070f0d]/88"
+              className="absolute inset-y-0 right-0 flex w-[min(100%,21rem)] flex-col border-l border-[var(--rr-widget-border)] bg-[#faf8f4] shadow-[-12px_0_40px_-16px_rgba(42,38,32,0.1)]"
             >
-              <div className="flex items-center justify-between border-b border-white/[0.07] px-4 py-4">
+              <div className="flex items-center justify-between border-b border-[var(--rr-widget-border)] px-4 py-4">
                 <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--rr-mint)]">
                   Menu
                 </span>
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white/80 transition hover:bg-white/[0.08]"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--rr-widget-border)] bg-[#f5f2eb] text-[var(--rr-text)] transition hover:bg-[#faf8f4]"
                   aria-label="Close"
                 >
                   <X className="h-5 w-5" />
@@ -138,12 +138,12 @@ export function SiteHeader() {
                 <Link
                   href="/"
                   onClick={() => setOpen(false)}
-                  className="flex items-center justify-between rounded-xl px-3 py-3.5 text-[0.9375rem] font-medium text-white/90 transition hover:bg-white/[0.06] active:bg-white/[0.08]"
+                  className="flex items-center justify-between rounded-xl px-3 py-3.5 text-[0.9375rem] font-semibold text-[var(--rr-ink)] transition hover:bg-[#ebe6dc]/80 active:bg-[#e8e4db]"
                 >
                   Home
-                  <ChevronRight className="h-4 w-4 text-white/25" aria-hidden />
+                  <ChevronRight className="h-4 w-4 text-[var(--rr-text-muted)]/50" aria-hidden />
                 </Link>
-                <p className="mt-3 px-3 text-[9px] font-semibold uppercase tracking-[0.2em] text-white/35">
+                <p className="mt-3 px-3 text-[9px] font-semibold uppercase tracking-[0.2em] text-[var(--rr-text-muted)]/70">
                   Explore
                 </p>
                 {primaryNav.map(({ href, label }, i) => (
@@ -156,14 +156,14 @@ export function SiteHeader() {
                     <Link
                       href={href}
                       onClick={() => setOpen(false)}
-                      className="flex items-center justify-between rounded-xl px-3 py-3 text-[0.9375rem] font-medium text-white/90 transition hover:bg-white/[0.06] active:bg-white/[0.08]"
+                      className="flex items-center justify-between rounded-xl px-3 py-3 text-[0.9375rem] font-semibold text-[var(--rr-ink)] transition hover:bg-[#ebe6dc]/80 active:bg-[#e8e4db]"
                     >
                       {label}
-                      <ChevronRight className="h-4 w-4 text-white/25" aria-hidden />
+                      <ChevronRight className="h-4 w-4 text-[var(--rr-text-muted)]/50" aria-hidden />
                     </Link>
                   </motion.div>
                 ))}
-                <p className="mt-4 px-3 text-[9px] font-semibold uppercase tracking-[0.2em] text-white/35">
+                <p className="mt-4 px-3 text-[9px] font-semibold uppercase tracking-[0.2em] text-[var(--rr-text-muted)]/70">
                   Also
                 </p>
                 {secondaryNav.map(({ href, label }, i) => (
@@ -176,10 +176,10 @@ export function SiteHeader() {
                     <Link
                       href={href}
                       onClick={() => setOpen(false)}
-                      className="flex items-center justify-between rounded-xl px-3 py-3 text-[0.9375rem] font-medium text-white/75 transition hover:bg-white/[0.06] active:bg-white/[0.08]"
+                      className="flex items-center justify-between rounded-xl px-3 py-3 text-[0.9375rem] font-medium text-[var(--rr-text-muted)] transition hover:bg-[#ebe6dc]/60 active:bg-[#e8e4db]/80"
                     >
                       {label}
-                      <ChevronRight className="h-4 w-4 text-white/25" aria-hidden />
+                      <ChevronRight className="h-4 w-4 text-[var(--rr-text-muted)]/50" aria-hidden />
                     </Link>
                   </motion.div>
                 ))}

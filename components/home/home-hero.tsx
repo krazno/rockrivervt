@@ -19,7 +19,7 @@ export function HomeHero() {
   const imageY = useTransform(
     scrollYProgress,
     [0, 1],
-    reduceMotion ? [0, 0] : [0, 48],
+    reduceMotion ? [0, 0] : [0, 32],
   );
 
   const [audioReady, setAudioReady] = useState(false);
@@ -61,7 +61,7 @@ export function HomeHero() {
       ref={sectionRef}
       className="rr-section relative mx-auto w-full max-w-6xl px-4 pt-6 sm:px-6 sm:pt-8 lg:px-8"
     >
-      <div className="relative min-h-[min(78vh,560px)] overflow-hidden rounded-[var(--rr-radius-hero)] border border-white/[0.09] shadow-[0_48px_120px_-52px_rgb(0,0,0,0.88)]">
+      <div className="relative min-h-[min(72vh,520px)] overflow-hidden rounded-[var(--rr-radius-hero)] border border-[var(--rr-widget-border)] bg-[#e8e4db] shadow-[var(--rr-shadow-card)]">
         {hero ? (
           <motion.div
             style={{ y: imageY }}
@@ -74,49 +74,44 @@ export function HomeHero() {
               fill
               priority
               sizes="(max-width: 1280px) 100vw, 1152px"
-              className="scale-[1.08] object-cover object-center"
+              className="object-cover object-center"
             />
           </motion.div>
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-[#121a22] via-[#0a0f14] to-[#06090c]" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#e8e4db] via-[#d4ddd4] to-[#c8d4d0]" />
         )}
-        {/* Cinematic read — cool slate + water mist */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#020508] via-[#050a10]/90 to-[#0c1520]/50" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/78 via-[#0a1218]/35 to-[#1a3a48]/14" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_100%,rgb(0,0,0,0.55),transparent_62%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#f4f1ea]/95 via-[#ebe6dc]/35 to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#3d4a3d]/10 via-transparent to-[#6d8a8a]/12" />
 
-        <div className="relative z-10 flex min-h-[min(78vh,560px)] flex-col justify-end p-6 sm:p-10 lg:p-12">
+        <div className="relative z-10 flex min-h-[min(72vh,520px)] flex-col justify-end p-7 sm:p-11 lg:p-14">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/25 px-3 py-1.5 text-[11px] font-medium tracking-[0.14em] text-white/90 uppercase backdrop-blur-md">
-              <MapPin className="h-3.5 w-3.5 text-[var(--rr-mint)]" aria-hidden />
+            <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-[var(--rr-widget-border)] bg-[#faf8f4]/90 px-3 py-1.5 text-[11px] font-semibold tracking-[0.12em] text-[var(--rr-mint)] shadow-sm backdrop-blur-sm">
+              <MapPin className="h-3.5 w-3.5 text-[var(--rr-forest)]" aria-hidden />
               Newfane · Windham County
             </p>
-            <h1
-              className="font-heading max-w-3xl text-[2.35rem] font-semibold leading-[1.02] tracking-tight text-white drop-shadow-[0_2px_28px_rgba(0,0,0,0.55)] sm:text-5xl lg:text-[3.25rem]"
-            >
-              <span className="rr-shimmer-text">Rock River</span>
-              <span className="mt-2 block text-[1.15rem] font-medium tracking-tight text-white/88 sm:text-xl lg:text-2xl">
-                Southern Vermont · near Brattleboro
+            <h1 className="font-heading max-w-3xl text-[2.2rem] font-semibold leading-[1.05] tracking-tight text-[var(--rr-ink)] sm:text-5xl lg:text-[3.1rem]">
+              Rock River
+              <span className="mt-2 block text-[1.1rem] font-medium tracking-tight text-[var(--rr-ink-muted)] sm:text-xl lg:text-2xl">
+                Newfane, Vermont
               </span>
             </h1>
-            <p className="mt-5 max-w-xl text-[0.95rem] leading-relaxed text-white/[0.82] sm:text-lg">
-              Rocky pools, cold water, smooth stone—an unofficial guide for people who swim,
-              walk, and share this stretch of southern Vermont with care.
+            <p className="mt-5 max-w-xl text-[0.95rem] leading-relaxed text-[var(--rr-text)] sm:text-lg">
+              A guide to the river, the trail, and the places people return to.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-3">
               <Link href="/map" className="rr-btn-primary px-7">
                 Map
               </Link>
-              <Link href="/conditions" className="rr-btn-ghost border-white/18">
+              <Link href="/conditions" className="rr-btn-ghost">
                 Conditions
               </Link>
               <Link
                 href="/gallery"
-                className="inline-flex items-center justify-center rounded-full px-4 py-3 text-sm font-medium text-white/75 underline-offset-[6px] transition hover:text-white hover:underline"
+                className="inline-flex items-center justify-center rounded-full px-4 py-3 text-sm font-medium text-[var(--rr-link)] underline-offset-[6px] transition hover:text-[var(--rr-ink)] hover:underline"
               >
                 Gallery
               </Link>
@@ -125,12 +120,12 @@ export function HomeHero() {
                   type="button"
                   onClick={toggleAudio}
                   aria-pressed={playing}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/35 px-4 py-2.5 text-xs font-medium text-white/85 backdrop-blur-md transition hover:bg-black/50"
+                  className="inline-flex items-center gap-2 rounded-full border border-[var(--rr-widget-border)] bg-[#faf8f4]/90 px-4 py-2.5 text-xs font-semibold text-[var(--rr-text)] shadow-sm transition hover:bg-[#f5f2eb]"
                 >
                   {playing ? (
-                    <VolumeX className="h-4 w-4" aria-hidden />
+                    <VolumeX className="h-4 w-4 text-[var(--rr-forest)]" aria-hidden />
                   ) : (
-                    <Volume2 className="h-4 w-4" aria-hidden />
+                    <Volume2 className="h-4 w-4 text-[var(--rr-forest)]" aria-hidden />
                   )}
                   {playing ? "Pause" : "Sound"}
                 </button>

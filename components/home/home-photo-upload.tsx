@@ -5,6 +5,8 @@ import type { Dispatch, MutableRefObject, SetStateAction } from "react";
 import { Camera, ImagePlus } from "lucide-react";
 import { motion } from "motion/react";
 
+import { SectionEyebrow } from "@/components/shared/section-eyebrow";
+
 type HomePhotoUploadProps = {
   selectedPhoto: string | null;
   setSelectedPhoto: Dispatch<SetStateAction<string | null>>;
@@ -23,17 +25,13 @@ export function HomePhotoUpload({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.45 }}
-        className="rr-glass overflow-hidden p-6 sm:p-8"
+        className="rr-surface rounded-[var(--rr-radius-xl)] p-7 sm:p-9"
       >
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+        <div className="flex flex-col gap-7 lg:flex-row lg:items-start lg:justify-between">
           <div className="max-w-xl">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
-              Contribute
-            </p>
-            <h2 className="font-heading mt-2 text-xl font-semibold text-white sm:text-2xl">
-              Share a frame
-            </h2>
-            <p className="mt-2 text-sm leading-relaxed text-white/55">
+            <SectionEyebrow icon={Camera}>Contribute</SectionEyebrow>
+            <h2 className="rr-h2 mt-3">Share a frame</h2>
+            <p className="rr-lead mt-3">
               Try the capture flow—preview here. Upload to the site is still in progress;
               for now this is a dry run.
             </p>
@@ -54,7 +52,7 @@ export function HomePhotoUpload({
                 window.alert("Upload isn’t wired yet—thanks for testing the flow.");
               }}
               disabled={!selectedPhoto}
-              className="rr-btn-ghost inline-flex items-center gap-2 border-white/15 px-6 disabled:cursor-not-allowed disabled:opacity-45"
+              className="rr-btn-ghost inline-flex items-center gap-2 px-6 disabled:cursor-not-allowed disabled:opacity-45"
             >
               <ImagePlus className="h-4 w-4" aria-hidden />
               Queue send
@@ -74,7 +72,7 @@ export function HomePhotoUpload({
           }}
         />
         {selectedPhoto ? (
-          <div className="mt-6 overflow-hidden rounded-[var(--rr-radius-md)] border border-white/10 bg-[#0a1210]">
+          <div className="mt-7 overflow-hidden rounded-[var(--rr-radius-md)] border border-[var(--rr-widget-border)] bg-[#e8e4db]/60">
             <Image
               src={selectedPhoto}
               alt="Your photo preview"

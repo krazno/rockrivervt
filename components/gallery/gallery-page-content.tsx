@@ -35,36 +35,36 @@ export function GalleryPageContent() {
   return (
     <>
       <SiteHeader />
-      <main className="rr-body pb-20 text-[#e8f4ef]">
-        <Container className="py-10 sm:py-12">
+      <main className="rr-body pb-20 text-[var(--rr-text)]">
+        <Container className="py-12 sm:py-14">
           <header className="max-w-2xl">
             <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
               Gallery
             </p>
-            <h1 className="font-heading mt-2 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+            <h1 className="font-heading mt-3 text-[clamp(1.75rem,3vw+1rem,2.5rem)] font-semibold tracking-tight text-[var(--rr-ink)]">
               Rock River photos &amp; video
             </h1>
-            <p className="mt-3 text-base leading-relaxed text-white/55 sm:text-lg">
+            <p className="rr-lead mt-4 sm:text-[1.0625rem]">
               Tap stills to enlarge. Video fills the frame—use controls to play.
             </p>
-            <p className="mt-4 text-sm text-white/45">
+            <p className="mt-5 text-sm text-[var(--rr-text-muted)]">
               <Link
                 href="/map"
-                className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
+                className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
               >
-                Rock River map
+                Map
               </Link>
               {" · "}
               <Link
                 href="/conditions"
-                className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
+                className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
               >
                 Conditions
               </Link>
               {" · "}
               <Link
                 href="/visit"
-                className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
+                className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
               >
                 Visit
               </Link>
@@ -72,7 +72,7 @@ export function GalleryPageContent() {
           </header>
 
           <ul
-            className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 lg:gap-5"
+            className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6"
             role="list"
           >
             {galleryMedia.map((item) => (
@@ -81,9 +81,9 @@ export function GalleryPageContent() {
                   <button
                     type="button"
                     onClick={() => setActive(item)}
-                    className="group relative w-full overflow-hidden rounded-[var(--rr-radius-lg)] border border-white/[0.09] bg-[#0a1210] text-left shadow-[var(--rr-shadow-card)] transition duration-300 hover:-translate-y-0.5 hover:border-[var(--rr-glow)]/25 hover:shadow-[var(--rr-shadow-card-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rr-glow)]"
+                    className="group relative w-full overflow-hidden rounded-[var(--rr-radius-lg)] border border-[var(--rr-widget-border)] bg-[#faf8f4]/90 text-left shadow-[var(--rr-shadow-card)] transition duration-300 hover:-translate-y-0.5 hover:border-[var(--rr-glow)]/30 hover:shadow-[var(--rr-shadow-card-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rr-glow)]/35"
                   >
-                    <span className="relative block aspect-[4/3] w-full overflow-hidden bg-[#0a1210]">
+                    <span className="relative block aspect-[4/3] w-full overflow-hidden bg-[#e8e4db]/70">
                       <MediaImage
                         src={item.thumbnailSrc ?? item.src}
                         alt={item.alt}
@@ -100,12 +100,12 @@ export function GalleryPageContent() {
                     <span className="sr-only">{item.alt}</span>
                   </button>
                 ) : (
-                  <div className="overflow-hidden rounded-[var(--rr-radius-lg)] border border-white/[0.09] bg-[#070c0a] shadow-[var(--rr-shadow-card)]">
-                    <div className="border-b border-white/[0.07] px-3 py-2.5 sm:px-4">
-                      <p className="text-sm font-medium text-white/90">{item.title}</p>
-                      <p className="text-[11px] text-white/40">Video</p>
+                  <div className="overflow-hidden rounded-[var(--rr-radius-lg)] border border-[var(--rr-widget-border)] bg-[#faf8f4]/90 shadow-[var(--rr-shadow-card)]">
+                    <div className="border-b border-[var(--rr-widget-border)] px-3 py-2.5 sm:px-4">
+                      <p className="text-sm font-semibold text-[var(--rr-ink)]">{item.title}</p>
+                      <p className="text-[11px] text-[var(--rr-text-muted)]">Video</p>
                     </div>
-                    <div className="relative aspect-video w-full overflow-hidden bg-[#050807]">
+                    <div className="relative aspect-video w-full overflow-hidden bg-[#2a2824]">
                       <video
                         controls
                         preload="metadata"
@@ -121,7 +121,7 @@ export function GalleryPageContent() {
                     <button
                       type="button"
                       onClick={() => setActive(item)}
-                      className="w-full px-3 py-2 text-center text-xs font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
+                      className="w-full px-3 py-2 text-center text-xs font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
                     >
                       Open larger view
                     </button>
@@ -141,22 +141,22 @@ export function GalleryPageContent() {
           <button
             type="button"
             aria-label="Close gallery item"
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            className="absolute inset-0 bg-[#2c2a26]/38 backdrop-blur-[2px]"
             onClick={close}
           />
           <div
-            className="relative z-10 flex max-h-[90vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border border-white/15 bg-[#0c1815] shadow-[0_24px_60px_-20px_rgba(0,0,0,0.65)]"
+            className="relative z-10 flex max-h-[90vh] w-full max-w-5xl flex-col overflow-hidden rounded-[1.25rem] border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg)] shadow-[var(--rr-shadow-float)] backdrop-blur-sm"
             role="dialog"
             aria-modal="true"
             aria-label={active.type === "image" ? active.alt : active.title}
           >
-            <div className="flex items-start justify-between gap-3 border-b border-white/10 px-4 py-3">
+            <div className="flex items-start justify-between gap-3 border-b border-[var(--rr-widget-border)] px-4 py-3">
               <div className="min-w-0">
-                <p className="text-sm font-semibold leading-snug text-white">
+                <p className="text-sm font-semibold leading-snug text-[var(--rr-ink)]">
                   {active.type === "image" ? active.alt : active.title}
                 </p>
                 {active.type === "video" ? (
-                  <p className="mt-1 text-[11px] leading-relaxed text-white/50">
+                  <p className="mt-1 text-[11px] leading-relaxed text-[var(--rr-text-muted)]">
                     {active.alt}
                   </p>
                 ) : null}
@@ -165,7 +165,7 @@ export function GalleryPageContent() {
                 type="button"
                 onClick={close}
                 className={cn(
-                  "flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/80 hover:bg-white/10",
+                  "flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[var(--rr-widget-border)] bg-[#f5f2eb] text-[var(--rr-text)] hover:bg-[#faf8f4]",
                 )}
                 aria-label="Close"
               >

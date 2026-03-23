@@ -67,9 +67,9 @@ export const CROWD_LEVEL_TONE: Record<
   { text: string; bg: string; border: string }
 > = {
   calm: {
-    text: "text-[#2d4f5c]",
-    bg: "bg-[#e8f4f2]",
-    border: "border-[#b8d4ce]",
+    text: "text-[#3d4a42]",
+    bg: "bg-[#eef1ec]",
+    border: "border-[#b8c4b8]",
   },
   light: {
     text: "text-[#2f5238]",

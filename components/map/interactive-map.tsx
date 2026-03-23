@@ -11,7 +11,7 @@ const LeafletMapView = dynamic(
     ssr: false,
     loading: () => (
       <div
-        className="w-full min-h-[360px] animate-pulse rounded-[var(--rr-radius-lg)] border border-white/10 bg-[#0a1210]"
+        className="w-full min-h-[360px] animate-pulse rounded-[var(--rr-radius-lg)] border border-[var(--rr-widget-border)] bg-[#e8e4db]/80"
         aria-hidden
       />
     ),

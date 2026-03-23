@@ -34,16 +34,16 @@ export default function GuidelinesPage() {
       />
       <BreadcrumbJsonLd path="/guidelines" />
       <SiteHeader />
-      <main className="rr-body text-[#e8f4ef]">
+      <main className="rr-body text-slate-800">
         <Container className="py-10">
           <article className="rr-glass-strong mx-auto max-w-3xl p-6 sm:p-8">
             <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
               Living best practices
             </p>
-            <h1 className="font-heading mt-1.5 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <h1 className="font-heading mt-1.5 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
               Rock River visitor guidelines
             </h1>
-            <p className="mt-3 text-base leading-relaxed text-white/70 sm:text-lg">
+            <p className="mt-3 text-base leading-relaxed text-slate-600 sm:text-lg">
               Land stewarded by Rock River Preservation is open to the public for lawful
               use and must follow posted rules. Above all, visit in a spirit of respect—for
               neighbors, for the river corridor, and for everyone sharing the trail and the
@@ -51,14 +51,14 @@ export default function GuidelinesPage() {
               when we choose kindness, discretion, and care.
             </p>
 
-            <div className="mt-8 overflow-hidden rounded-2xl border border-amber-400/25 bg-amber-500/10 p-5 sm:p-6">
+            <div className="mt-8 overflow-hidden rounded-2xl border border-amber-200/80 bg-amber-50 p-5 sm:p-6">
               <h2
                 id="spring-caution"
-                className="scroll-mt-28 text-sm font-semibold tracking-tight text-amber-100"
+                className="scroll-mt-28 text-sm font-semibold tracking-tight text-amber-900"
               >
                 Spring trail & river caution
               </h2>
-              <p className="mt-3 text-sm leading-relaxed text-amber-50/85">
+              <p className="mt-3 text-sm leading-relaxed text-amber-950/90">
                 In spring, sun and warmer afternoon temperatures melt snow and ice
                 upriver; levels can rise and currents can become very swift. An easy
                 morning crossing may be difficult later the same day. Consider staying on
@@ -81,13 +81,13 @@ export default function GuidelinesPage() {
             >
               Respect our community
             </h2>
-            <p className="mt-3 text-sm leading-7 text-white/70">
+            <p className="mt-3 text-sm leading-7 text-slate-600">
               Honor the privacy of adjacent landowners and local norms. Act in ways that
               strengthen public regard for the river and help protect access for the
               future. Outside marked clothing-optional areas, wear clothing as you would
               in any shared outdoor space in town.
             </p>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-white/70">
+            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-slate-600">
               <li>
                 <span className="font-medium text-[var(--rr-mint)]">Do</span> keep voices low,
                 greet people politely, and follow signage and road paint.
@@ -104,7 +104,7 @@ export default function GuidelinesPage() {
             >
               Respect the land
             </h2>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-white/70">
+            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-slate-600">
               <li>Pack out everything you bring in; pick up stray litter when you can.</li>
               <li>
                 Do not harm live plants except as part of organized invasive-species work.
@@ -127,7 +127,7 @@ export default function GuidelinesPage() {
             >
               Respect other visitors
             </h2>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-white/70">
+            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-slate-600">
               <li>Give people space; don’t photograph anyone without clear permission.</li>
               <li>If someone signals they want privacy, move along without debate.</li>
               <li>No radios or amplified music.</li>
@@ -143,7 +143,7 @@ export default function GuidelinesPage() {
             >
               River stewards
             </h2>
-            <p className="mt-3 text-sm leading-7 text-white/70">
+            <p className="mt-3 text-sm leading-7 text-slate-600">
               Stewards designated by the Rock River Preservation board help visitors align
               with these guidelines. Their direction should be honored—it keeps the
               shoreline safer and calmer for families, longtime regulars, LGBTQ+
@@ -156,7 +156,7 @@ export default function GuidelinesPage() {
             >
               Before you go—practical checklist
             </h2>
-            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-white/70">
+            <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-slate-600">
               <li>You use the land at your own risk.</li>
               <li>
                 Trails are unpaved and uneven; expect slippery rock, roots, and steep
@@ -195,7 +195,7 @@ export default function GuidelinesPage() {
               </li>
             </ul>
 
-            <p className="mt-8 text-sm leading-7 text-white/70">
+            <p className="mt-8 text-sm leading-7 text-slate-600">
               Want to help care for trails and shoreline? Stewardship and volunteer work
               are at the heart of this place—see{" "}
               <Link

@@ -33,17 +33,17 @@ export default function VisitPage() {
       />
       <BreadcrumbJsonLd path="/visit" />
       <SiteHeader />
-      <main className="rr-body text-[#e8f4ef]">
+      <main className="rr-body text-slate-800">
         <Container className="py-10">
           <section className="rr-glass-strong p-6 sm:p-8">
             <div className="max-w-3xl">
               <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
                 Plan with care
               </p>
-              <h1 className="font-heading mt-1.5 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              <h1 className="font-heading mt-1.5 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
                 Visiting Rock River Vermont
               </h1>
-              <p className="mt-3 text-base leading-7 text-white/70 sm:text-lg">
+              <p className="mt-3 text-base leading-7 text-slate-600 sm:text-lg">
                 Rock River is best met at a walking pace—woodland trails, uneven stone,
                 and water that changes with the season.{" "}
                 <strong className="font-medium text-[var(--rr-mint)]">All are welcome</strong>{" "}
@@ -52,11 +52,11 @@ export default function VisitPage() {
               </p>
             </div>
 
-            <div className="mt-6 overflow-hidden rounded-2xl border border-amber-400/25 bg-amber-500/10 p-5 sm:p-6">
-              <h2 className="text-sm font-semibold tracking-tight text-amber-100">
+            <div className="mt-6 overflow-hidden rounded-2xl border border-amber-200/80 bg-amber-50 p-5 sm:p-6">
+              <h2 className="text-sm font-semibold tracking-tight text-amber-900">
                 Spring river note
               </h2>
-              <p className="mt-2 text-sm leading-relaxed text-amber-50/85">
+              <p className="mt-2 text-sm leading-relaxed text-amber-950/90">
                 Snowmelt and warm afternoons can raise flows and strengthen currents
                 through the day. Consider staying on one bank, wear sturdy shoes, and
                 read the full spring guidance on{" "}
@@ -82,7 +82,7 @@ export default function VisitPage() {
                 <h2 className="text-sm font-semibold tracking-[0.12em] text-[var(--rr-mint)] uppercase">
                   Parking & access
                 </h2>
-                <p className="mt-2 text-sm leading-6 text-white/70">
+                <p className="mt-2 text-sm leading-6 text-slate-600">
                   The public parking associated with river access is along{" "}
                   <strong className="font-medium text-[var(--rr-mint)]">
                     Route 30 in Dummerston
@@ -97,7 +97,7 @@ export default function VisitPage() {
                 <h2 className="text-sm font-semibold tracking-[0.12em] text-[var(--rr-mint)] uppercase">
                   Walking to the river
                 </h2>
-                <p className="mt-2 text-sm leading-6 text-white/70">
+                <p className="mt-2 text-sm leading-6 text-slate-600">
                   Paths are unpaved and can be steep or slick after rain. Keep hands free
                   on rocky pitches, choose footwear with grip, and pause where you need
                   to. If water or trail conditions feel beyond your comfort, enjoy a
@@ -110,7 +110,7 @@ export default function VisitPage() {
                 <h2 className="text-sm font-semibold tracking-[0.12em] text-[var(--rr-mint)] uppercase">
                   Respectful visiting
                 </h2>
-                <p className="mt-2 text-sm leading-6 text-white/70">
+                <p className="mt-2 text-sm leading-6 text-slate-600">
                   Pack out what you pack in, keep sound human-scale, ask before
                   photographing anyone, and honor clothing-optional boundaries marked on
                   site. Full etiquette, steward expectations, and safety notes live on
@@ -129,7 +129,7 @@ export default function VisitPage() {
                 <h2 className="text-sm font-semibold tracking-[0.12em] text-[var(--rr-mint)] uppercase">
                   Map & live tools
                 </h2>
-                <p className="mt-2 text-sm leading-6 text-white/70">
+                <p className="mt-2 text-sm leading-6 text-slate-600">
                   Open the{" "}
                   <Link
                     href="/map"
@@ -166,7 +166,7 @@ export default function VisitPage() {
                 <h2 className="text-sm font-semibold tracking-[0.12em] text-[var(--rr-mint)] uppercase">
                   Stewardship
                 </h2>
-                <p className="mt-2 text-sm leading-6 text-white/70">
+                <p className="mt-2 text-sm leading-6 text-slate-600">
                   The shoreline many of us love is cared for by volunteers through Rock
                   River Preservation. Understanding that history helps explain why rules
                   exist and why kindness to stewards matters. Read{" "}

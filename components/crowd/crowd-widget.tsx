@@ -32,8 +32,7 @@ type LoadState = "loading" | "ready" | "error";
 
 const IS_DEV = process.env.NODE_ENV === "development";
 
-const BACKEND_UNAVAILABLE_NOTE =
-  "Check-ins aren’t live here yet—the levels below are the guide’s starting points for today.";
+const BACKEND_UNAVAILABLE_NOTE = "Baseline for today—live check-ins when the server is connected.";
 
 type CrowdApiJson = {
   error?: string;
@@ -71,12 +70,10 @@ function fallbackSummaries(): CrowdAreaSummary[] {
 
 function rowSubtitle(row: CrowdAreaSummary): string {
   if (row.blendSource === "baseline_only" || row.reportCount === 0) {
-    return "Guide baseline for today";
+    return "Typical for today";
   }
   const n = row.reportCount;
-  return n === 1
-    ? "1 check-in blended in today"
-    : `${n} check-ins blended in today`;
+  return n === 1 ? "1 visit today" : `${n} visits today`;
 }
 
 export function CrowdWidget() {
@@ -324,18 +321,18 @@ export function CrowdWidget() {
     submitState !== "thanks" && submitState !== "already_today";
 
   return (
-    <div className="rounded-2xl border border-[#c0cad2] bg-white/65 p-4 shadow-[0_6px_26px_-20px_rgba(22,38,48,0.3)] backdrop-blur-[2px] sm:p-5">
+    <div className="rounded-2xl border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg)] p-4 shadow-[var(--rr-shadow-card)] backdrop-blur-sm sm:p-5">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="flex items-start gap-2.5 sm:gap-3">
-          <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[#d0d8e0] bg-[#f4f6f8] text-[#4f6d7a] sm:h-10 sm:w-10 sm:rounded-xl">
+          <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg-soft)] text-[var(--rr-mint)] sm:h-10 sm:w-10 sm:rounded-xl">
             <Users className="h-[1.15rem] w-[1.15rem] sm:h-5 sm:w-5" aria-hidden />
           </span>
           <div>
-            <h3 className="text-[10px] font-bold tracking-[0.2em] text-[#4f6d7a] uppercase">
-              How full it feels
+            <h3 className="text-[10px] font-semibold tracking-[0.2em] text-[var(--rr-mint)] uppercase">
+              Crowd feel
             </h3>
-            <p className="mt-1 max-w-md text-[12px] leading-snug text-[#5f737f] sm:text-[13px]">
-              Anonymous check-ins nudge these labels—a vibe check, not a count.
+            <p className="mt-1 max-w-md text-[12px] leading-snug text-[var(--rr-text-muted)] sm:text-[13px]">
+              Anonymous check-ins—a vibe, not a head count.
             </p>
           </div>
         </div>
@@ -346,7 +343,7 @@ export function CrowdWidget() {
           ? CROWD_AREA_KEYS.map((key) => (
               <div
                 key={key}
-                className="flex animate-pulse items-center justify-between gap-3 rounded-lg border border-[#e4e8eb] bg-[#f4f6f8] px-3 py-2.5"
+                className="flex animate-pulse items-center justify-between gap-3 rounded-lg border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg-soft)] px-3 py-2.5"
               >
                 <div className="min-w-0 flex-1 space-y-1.5">
                   <div className="h-3.5 w-32 rounded bg-[#dce0e4]" />
@@ -360,14 +357,14 @@ export function CrowdWidget() {
               return (
                 <div
                   key={row.areaKey}
-                  className="rounded-lg border border-[#d6dce2] bg-[#f5f7f8] px-3 py-2 sm:py-2.5"
+                  className="rounded-lg border border-[var(--rr-widget-border)] bg-[#faf8f4]/90 px-3 py-2 sm:py-2.5"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0 flex-1">
-                      <p className="text-[13px] font-medium leading-tight text-[#2a3842] sm:text-sm">
+                      <p className="text-[13px] font-medium leading-tight text-[var(--rr-ink)] sm:text-sm">
                         {row.label}
                       </p>
-                      <p className="mt-0.5 text-[10px] leading-snug text-[#6b7f88] sm:text-[11px]">
+                      <p className="mt-0.5 text-[10px] leading-snug text-[var(--rr-text-muted)] sm:text-[11px]">
                         {rowSubtitle(row)}
                       </p>
                     </div>
@@ -387,23 +384,23 @@ export function CrowdWidget() {
             })}
       </div>
 
-      <div className="mt-4 border-t border-[#dce2e6]/80 pt-3.5 sm:mt-5 sm:pt-4">
+      <div className="mt-4 border-t border-[var(--rr-widget-border)] pt-3.5 sm:mt-5 sm:pt-4">
         {submitState === "thanks" ? (
-          <div className="rounded-lg border border-[#c5ced4] bg-[#f4f6f8] px-3 py-3 text-center sm:px-4 sm:py-3.5">
-            <p className="text-[13px] font-medium text-[#2a3842] sm:text-sm">
-              Thanks for sharing
+          <div className="rounded-lg border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg-soft)] px-3 py-3 text-center sm:px-4 sm:py-3.5">
+            <p className="text-[13px] font-medium text-[var(--rr-ink)] sm:text-sm">
+              Thanks
             </p>
-            <p className="mt-1 text-[12px] leading-relaxed text-[#5a6b78] sm:text-[13px]">
-              Thanks—come back tomorrow if you want to update.
+            <p className="mt-1 text-[12px] leading-relaxed text-[var(--rr-text-muted)] sm:text-[13px]">
+              Tomorrow you can update again.
             </p>
           </div>
         ) : submitState === "already_today" ? (
-          <div className="rounded-lg border border-[#d8d6d0] bg-[#f8f7f4] px-3 py-3 text-center sm:px-4 sm:py-3.5">
-            <p className="text-[13px] font-medium text-[#2a3842] sm:text-sm">
-              You’re all set for today
+          <div className="rounded-lg border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg-soft)] px-3 py-3 text-center sm:px-4 sm:py-3.5">
+            <p className="text-[13px] font-medium text-[var(--rr-ink)] sm:text-sm">
+              Already checked in today
             </p>
-            <p className="mt-1 text-[12px] leading-relaxed text-[#5a6b78] sm:text-[13px]">
-              One check-in per browser per day.
+            <p className="mt-1 text-[12px] leading-relaxed text-[var(--rr-text-muted)] sm:text-[13px]">
+              One save per browser per day.
             </p>
           </div>
         ) : (
@@ -422,14 +419,14 @@ export function CrowdWidget() {
                 className={cn(
                   "w-full rounded-full border px-5 py-2.5 text-sm font-medium transition sm:max-w-sm sm:self-center sm:py-3",
                   backendReady
-                    ? "border-[#3d5a68] bg-[#3d5a68] text-[#f3f5f6] shadow-[0_8px_24px_-20px_rgba(22,38,48,0.45)] hover:bg-[#334e5c]"
-                    : "cursor-not-allowed border-[#c9d0d6] bg-[#eef0f4] text-[#8a9a8e]",
+                    ? "border-[var(--rr-forest)] bg-[var(--rr-forest)] text-[#faf8f4] shadow-[var(--rr-shadow-card)] hover:bg-[#3d4a3d]"
+                    : "cursor-not-allowed border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg-soft)] text-[var(--rr-text-muted)]",
                 )}
               >
-                Report today’s crowd
+                Check in
               </button>
               {!backendReady && loadState !== "loading" ? (
-                <p className="text-center text-[12px] leading-relaxed text-[#6b7f88]">
+                <p className="text-center text-[12px] leading-relaxed text-[var(--rr-text-muted)]">
                   {BACKEND_UNAVAILABLE_NOTE}
                 </p>
               ) : null}

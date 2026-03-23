@@ -9,7 +9,7 @@ import { Container } from "@/components/shared/container";
 import { buildPageMetadata } from "@/lib/seo";
 
 const pageDesc =
-  "Rock River conditions and safety for Newfane VT: live weather & river context, spring flow notes, map links, and daily updates for Windham County and southern Vermont.";
+  "Rock River conditions for Newfane VT: weather, river, and how busy it feels—plus links to the map and daily notes.";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Rock River Conditions & Live Weather",
@@ -24,7 +24,7 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 const cardClass =
-  "rounded-2xl border border-white/12 bg-white/[0.05] p-5 shadow-[0_8px_28px_-22px_rgba(0,0,0,0.45)] transition hover:border-[var(--rr-glow)]/40 hover:bg-white/[0.07]";
+  "group rounded-2xl border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg)] p-5 shadow-[var(--rr-shadow-card)] backdrop-blur-sm transition hover:border-[var(--rr-glow)]/35 hover:shadow-[var(--rr-shadow-card-hover)]";
 
 export default function ConditionsPage() {
   return (
@@ -36,94 +36,80 @@ export default function ConditionsPage() {
       />
       <BreadcrumbJsonLd path="/conditions" />
       <SiteHeader />
-      <main className="rr-body text-[#e8f4ef]">
+      <main className="rr-body text-[var(--rr-text)]">
         <Container className="py-10">
           <div className="mx-auto max-w-3xl">
             <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
-              Plan your visit
+              Plan
             </p>
-            <h1 className="font-heading mt-1.5 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Rock River conditions &amp; weather
+            <h1 className="font-heading mt-1.5 text-3xl font-semibold tracking-tight text-[var(--rr-ink)] sm:text-4xl">
+              Conditions &amp; weather
             </h1>
-            <p className="mt-3 text-base leading-relaxed text-white/70 sm:text-lg">
-              Rock River in Windham County changes with the season and the weather. Use this
-              hub to check updates, review safety notes, and open the live tools on the
-              homepage before you head to the pools or trail near Newfane and Brattleboro.
+            <p className="mt-3 text-base leading-relaxed text-[var(--rr-text-muted)] sm:text-lg">
+              Weather, river, and crowd feel live on the{" "}
+              <Link href="/#today-at-rock-river" className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline">
+                home page
+              </Link>
+              . Use this page for quick links.
             </p>
           </div>
 
-          <div className="mx-auto mt-8 max-w-3xl overflow-hidden rounded-2xl border border-amber-400/25 bg-amber-500/10 p-5 sm:p-6">
-            <h2 className="text-sm font-semibold tracking-tight text-amber-100">
-              Spring trail and river conditions
+          <div className="mx-auto mt-6 max-w-3xl overflow-hidden rounded-2xl border border-[#d4c9a8]/70 bg-[#f5f0e4]/90 p-5 sm:p-6">
+            <h2 className="text-sm font-semibold tracking-tight text-[#4a4030]">
+              Spring
             </h2>
-            <p className="mt-3 text-sm leading-relaxed text-amber-50/85">
-              Please use extra caution in spring. As sun and warmer afternoon temperatures
-              melt snow and ice upriver, water levels can rise and currents can become very
-              swift. Crossing the river later in the day may be much harder than a calm
-              morning crossing. Consider limiting your visit to the southern bank so you
-              are not caught on the wrong side. Wear sturdy footwear, keep your hands free
-              on steep or slippery parts of the access trail, and turn back if conditions
-              feel uncertain.
+            <p className="mt-2 text-sm leading-relaxed text-[#5c5344]">
+              Snowmelt can raise flow fast—crossings and banks change. If it feels off, turn back.
             </p>
           </div>
 
           <div className="mx-auto mt-8 grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-2">
             <Link href="/#today-at-rock-river" className={cardClass}>
-              <h2 className="text-sm font-semibold text-white">Live weather & river</h2>
-              <p className="mt-2 text-sm leading-relaxed text-white/60">
-                Homepage widgets for local weather, river context, and gentle crowd
-                check-ins.
+              <h2 className="text-sm font-semibold text-[var(--rr-ink)]">Live weather & river</h2>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--rr-text-muted)]">
+                Today’s widgets.
               </p>
-              <span className="mt-3 inline-block text-sm font-medium text-[var(--rr-mint)]">
-                Open homepage widgets →
+              <span className="mt-3 inline-block text-sm font-medium text-[var(--rr-link)] transition group-hover:translate-x-0.5">
+                Open →
               </span>
             </Link>
             <Link href="/daily-updates" className={cardClass}>
-              <h2 className="text-sm font-semibold text-white">Daily updates</h2>
-              <p className="mt-2 text-sm leading-relaxed text-white/60">
-                Short local notes on trail footing, flow, and season shifts as we post
-                them.
+              <h2 className="text-sm font-semibold text-[var(--rr-ink)]">Daily updates</h2>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--rr-text-muted)]">
+                Short notes when we post them.
               </p>
-              <span className="mt-3 inline-block text-sm font-medium text-[var(--rr-mint)]">
-                View updates →
+              <span className="mt-3 inline-block text-sm font-medium text-[var(--rr-link)] transition group-hover:translate-x-0.5">
+                View →
               </span>
             </Link>
             <Link href="/map" className={cardClass}>
-              <h2 className="text-sm font-semibold text-white">Map</h2>
-              <p className="mt-2 text-sm leading-relaxed text-white/60">
-                Parking, trails, beaches, and the river corridor in one interactive view.
+              <h2 className="text-sm font-semibold text-[var(--rr-ink)]">Map</h2>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--rr-text-muted)]">
+                Parking, trail, river.
               </p>
-              <span className="mt-3 inline-block text-sm font-medium text-[var(--rr-mint)]">
-                Open map →
+              <span className="mt-3 inline-block text-sm font-medium text-[var(--rr-link)] transition group-hover:translate-x-0.5">
+                Open →
               </span>
             </Link>
             <Link href="/guidelines" className={cardClass}>
-              <h2 className="text-sm font-semibold text-white">Rock River visitor guidelines</h2>
-              <p className="mt-2 text-sm leading-relaxed text-white/60">
-                Respect for community, land, and each other—before you go.
+              <h2 className="text-sm font-semibold text-[var(--rr-ink)]">Guidelines</h2>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--rr-text-muted)]">
+                Before you go.
               </p>
-              <span className="mt-3 inline-block text-sm font-medium text-[var(--rr-mint)]">
-                Read guidelines →
+              <span className="mt-3 inline-block text-sm font-medium text-[var(--rr-link)] transition group-hover:translate-x-0.5">
+                Read →
               </span>
             </Link>
           </div>
 
-          <p className="mx-auto mt-8 max-w-3xl text-center text-sm text-white/50 sm:text-left">
-            Detailed weather-only view:{" "}
-            <Link
-              href="/weather"
-              className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
-            >
-              Rock River weather
+          <p className="mx-auto mt-8 max-w-3xl text-center text-sm text-[var(--rr-text-muted)] sm:text-left">
+            <Link href="/weather" className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline">
+              Weather only
             </Link>
             {" · "}
-            <Link
-              href="/visit"
-              className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
-            >
-              Visiting Rock River
+            <Link href="/visit" className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline">
+              Visiting
             </Link>
-            .
           </p>
         </Container>
       </main>

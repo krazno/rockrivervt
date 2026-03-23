@@ -163,7 +163,8 @@ export function LeafletMapView({
         try {
           const b = layer.getBounds();
           if (b.isValid()) {
-            map.fitBounds(b, { padding: [20, 24], maxZoom: 17 });
+            /* Keep the frame on the Rock River corridor — not too tight, not regional */
+            map.fitBounds(b, { padding: [28, 28], maxZoom: 15 });
           } else {
             map.setView([42.948, -72.645], 14);
           }

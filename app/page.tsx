@@ -4,7 +4,9 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import {
   BookOpen,
+  CloudSun,
   Footprints,
+  Leaf,
   Gem,
   MapPin,
   ScrollText,
@@ -31,6 +33,7 @@ import { HomeVermontView } from "@/components/home/home-vermont-view";
 
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { SectionEyebrow } from "@/components/shared/section-eyebrow";
 import { WeatherWidget } from "@/components/conditions/weather-widget";
 import { RiverWidget } from "@/components/conditions/river-widget";
 import { CrowdWidget } from "@/components/crowd/crowd-widget";
@@ -44,49 +47,49 @@ export default function Home() {
   const quickLinks: HomeQuickLinkItem[] = [
     {
       title: "Discoveries",
-      description: "Stones, seasons, wildlife—look without taking.",
+      description: "What to notice along the river.",
       href: "/discoveries",
       icon: Gem,
     },
     {
       title: "Community",
-      description: "Stewardship, legacy, how people hold this place.",
+      description: "Stewardship and people who care for the place.",
       href: "/community",
       icon: Users,
     },
     {
       title: "Resources",
-      description: "Maps, links, planning—bookmark what you use.",
+      description: "Maps and links worth saving.",
       href: "/resources",
       icon: BookOpen,
     },
     {
       title: "Local",
-      description: "Towns, culture, welcoming spots—southern Vermont.",
+      description: "Towns and culture nearby.",
       href: "/local",
       icon: MapPin,
     },
     {
       title: "Visit",
-      description: "What to expect on the banks and the trail.",
+      description: "What to expect on the banks and trail.",
       href: "/visit",
       icon: Footprints,
     },
     {
       title: "Land & River",
-      description: "How this rocky corridor fits the valley.",
+      description: "How this stretch fits the valley.",
       href: "/land-river",
       icon: Trees,
     },
     {
       title: "Guidelines",
-      description: "Parking, etiquette, dogs, privacy—plain language.",
+      description: "Parking, etiquette, dogs, privacy.",
       href: "/guidelines",
       icon: ShieldCheck,
     },
     {
       title: "History",
-      description: "Grassroots care, floods, land protection.",
+      description: "Care, floods, protection.",
       href: "/history",
       icon: ScrollText,
     },
@@ -128,26 +131,22 @@ export default function Home() {
           transition={{ duration: 0.45 }}
           className="rr-section mx-auto w-full max-w-6xl scroll-mt-28 px-4 sm:px-6 lg:px-8"
         >
-          <div className="rr-glass-strong p-6 sm:p-8">
-            <header className="mb-7 max-w-lg sm:mb-8">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
-                Now
-              </p>
-              <h2 className="font-heading mt-2 text-xl font-semibold tracking-tight text-white sm:text-2xl">
-                Rock River conditions
-              </h2>
-              <p className="mt-2 text-sm leading-relaxed text-white/55">
-                Weather, gauge read, how busy it feels.{" "}
+          <div className="rr-glass-strong p-7 sm:p-9">
+            <header className="mb-8 max-w-lg sm:mb-10">
+              <SectionEyebrow icon={CloudSun}>Now</SectionEyebrow>
+              <h2 className="rr-h2 mt-3 max-w-[18ch]">Conditions</h2>
+              <p className="rr-lead mt-3 max-w-md">
+                Weather, river, crowd.{" "}
                 <Link
                   href="/conditions"
-                  className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
+                  className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
                 >
-                  Full read
+                  More
                 </Link>
               </p>
             </header>
 
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7">
               <WeatherWidget />
               <RiverWidget />
               <div className="sm:col-span-2">
@@ -176,22 +175,18 @@ export default function Home() {
         <ContactSection />
 
         <section className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="rr-glass overflow-hidden p-6 sm:p-8">
+          <div className="rr-glass overflow-hidden p-7 sm:p-9">
             <div className="max-w-2xl">
-              <h2 className="font-heading text-xl font-semibold tracking-tight text-white sm:text-2xl">
-                Stewardship
-              </h2>
-              <p className="mt-3 text-base leading-relaxed text-white/58 sm:text-[1.05rem]">
-                This water stays special because people pack it out, keep voices low, and
-                respect the mix of families, neighbors, queer visitors, and others who share
-                the banks—including signed clothing-optional spots.{" "}
+              <SectionEyebrow icon={Leaf}>Care</SectionEyebrow>
+              <h2 className="rr-h2 mt-3">Stewardship</h2>
+              <p className="rr-lead mt-4">
+                Pack it out, leave space for others. Signed clothing-optional areas.{" "}
                 <Link
                   href="/guidelines"
-                  className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
+                  className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
                 >
                   Guidelines
-                </Link>{" "}
-                spell it out.
+                </Link>
               </p>
             </div>
           </div>
