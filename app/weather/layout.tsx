@@ -1,17 +1,19 @@
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Weather",
+import { buildPageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Rock River Weather & Forecast",
   description:
-    "Local weather context for planning a visit to Rock River near Newfane and Dummerston, Vermont.",
-  alternates: { canonical: "/weather" },
-  openGraph: {
-    title: "Weather | Rock River VT",
-    description: "Neighborhood weather for Rock River, Vermont.",
-    url: "https://rockrivervt.com/weather",
-    type: "website",
-  },
-};
+    "Local weather for Rock River, Newfane VT and southern Vermont—pair with conditions and the map before you swim or hike Windham County.",
+  path: "/weather",
+  keywords: [
+    "Rock River weather",
+    "Newfane VT weather",
+    "southern Vermont weather",
+    "Windham County forecast",
+  ],
+});
 
 export default function WeatherLayout({ children }: { children: React.ReactNode }) {
   return children;

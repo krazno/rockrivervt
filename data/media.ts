@@ -59,6 +59,29 @@ const PHOTO_FLAGS: Record<
   12: { homepage: true, order: 30 },
 };
 
+/** Short UI label — avoid file numbers in visible captions. */
+const PLACE_LABEL = "Rock River · Newfane VT";
+
+/** Varied, place-accurate alts for SEO & screen readers (no “photo N”). */
+const SCENE_ALTS: readonly string[] = [
+  "Rock River trail and river corridor — smooth stone, pools, Windham County VT (near Brattleboro)",
+  "Rock River streambed — rounded cobbles and clear water, southern Vermont",
+  "Rock River recreation area — trail through northern hardwoods beside the river",
+  "Rock River banks — woods and swimming holes, Newfane, Vermont",
+  "Rock River trail and river corridor — Windham County, VT",
+  "Rock River outdoors — rocky pools and swimming area near Newfane",
+  "Rock River shoreline — water and stone, southern Vermont",
+  "Rock River path — river bank and trail, Newfane, VT",
+];
+
+function altForOutdoorPhoto(photoNum: number): string {
+  if (photoNum === 1) {
+    return "Wide panoramic view of Rock River near Newfane, Vermont — forest, trails, and river recreation area (Windham County, near Brattleboro)";
+  }
+  const i = photoNum % SCENE_ALTS.length;
+  return SCENE_ALTS[i] ?? SCENE_ALTS[0];
+}
+
 function dimFor(photoNum: number): [number, number] {
   return PHOTO_DIMS[photoNum] ?? [4032, 3024];
 }
@@ -71,11 +94,8 @@ function buildImageItems(): MediaItem[] {
     const flags = PHOTO_FLAGS[photoNum] ?? {};
     return {
       src: `/media/images/${base}`,
-      alt:
-        photoNum === 1
-          ? "Wide panoramic view of Rock River near Newfane Vermont — swimming holes, trails, and river preserve"
-          : `Rock River near Newfane Vermont — swimming holes, trails, and river preserve (photo ${photoNum})`,
-      title: `Rock River Vermont Newfane — photo ${photoNum}`,
+      alt: altForOutdoorPhoto(photoNum),
+      title: PLACE_LABEL,
       type: "image" as const,
       tags: [...BASE_TAGS],
       width,
@@ -86,9 +106,22 @@ function buildImageItems(): MediaItem[] {
   });
 }
 
-/** No video files in repo right now — add MP4s under public/media/videos/ and extend this. */
+const TRAIL_TOUR_POSTER = "/media/images/rock-river-newfane-vermont-outdoors-010.jpg";
+
 function buildVideoItems(): MediaItem[] {
-  return [];
+  return [
+    {
+      src: "/media/videos/rock-river-trail-tour-full-hike.mp4",
+      alt: "Full trail tour video — Rock River recreation area hike in Newfane, Vermont (Windham County, near Brattleboro). Unofficial community guide.",
+      title: "Rock River Trail Tour — full hike",
+      type: "video",
+      tags: [...BASE_TAGS, "trail tour", "hike", "video"],
+      featured: true,
+      homepage: true,
+      order: 2,
+      poster: TRAIL_TOUR_POSTER,
+    },
+  ];
 }
 
 export const media: MediaItem[] = [...buildImageItems(), ...buildVideoItems()];
@@ -147,14 +180,11 @@ function pickSiteImage(preferredIndex: number, ...fallbacks: number[]) {
   return imgs[0];
 }
 
+/** Curated pair — fewer, stronger images on the home stripe. */
 export function getHomeRiverStripePhotos() {
   const imgs = homepageImagesSorted();
-  if (imgs.length >= 3) return imgs.slice(0, 3);
-  return [
-    pickSiteImage(4, 5, 3),
-    pickSiteImage(5, 6, 4),
-    pickSiteImage(6, 7, 5),
-  ];
+  if (imgs.length >= 2) return imgs.slice(0, 2);
+  return [pickSiteImage(4, 5, 3), pickSiteImage(5, 6, 4)];
 }
 
 export function getHomeVermontBandPhoto() {
@@ -174,4 +204,12 @@ export function getHeroBackdropImage(): MediaItem | null {
   const sorted = getSiteImages();
   const pano = sorted.find((m) => m.src.includes("outdoors-001"));
   return pano ?? sorted[0] ?? null;
+}
+
+/** Featured trail tour MP4 for homepage hero section. */
+export function getTrailTourVideo(): MediaItem | null {
+  const v = media.find(
+    (m) => m.type === "video" && m.src.includes("rock-river-trail-tour"),
+  );
+  return v ?? null;
 }

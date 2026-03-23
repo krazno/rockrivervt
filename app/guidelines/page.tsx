@@ -1,44 +1,38 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { WebPageJsonLd } from "@/components/seo/web-page-json-ld";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { Container } from "@/components/shared/container";
+import { buildPageMetadata } from "@/lib/seo";
 
-const ogDescription =
-  "How to visit Rock River respectfully: community, land, privacy, and safety.";
+const pageDesc =
+  "Rock River visitor guidelines for Newfane & Windham County VT: respectful use, safety, parking, trail etiquette, LGBTQ-friendly and clothing-optional norms, and southern Vermont river stewardship.";
 
-export const metadata: Metadata = {
-  title: "Guidelines",
-  description:
-    "Respectful visiting, safety, parking, trail etiquette, and river stewardship for Rock River, Vermont—living best practices for a shared place.",
-  alternates: { canonical: "/guidelines" },
-  openGraph: {
-    title: "Visitor Guidelines | Rock River VT",
-    description: ogDescription,
-    url: "https://rockrivervt.com/guidelines",
-    type: "website",
-    siteName: "Rock River VT",
-    images: [
-      {
-        url: "/rock-river-hero.png",
-        width: 1200,
-        height: 630,
-        alt: "Rock River near Newfane, Vermont",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Visitor Guidelines | Rock River VT",
-    description: ogDescription,
-    images: ["/rock-river-hero.png"],
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Rock River Visitor Guidelines & Etiquette",
+  description: pageDesc,
+  path: "/guidelines",
+  keywords: [
+    "Rock River guidelines",
+    "Rock River etiquette",
+    "Newfane river rules",
+    "Rock River LGBTQ friendly Vermont",
+    "Rock River nudist beach etiquette",
+  ],
+});
 
 export default function GuidelinesPage() {
   return (
     <>
+      <WebPageJsonLd
+        name="Rock River visitor guidelines — Newfane, Vermont"
+        description={pageDesc}
+        path="/guidelines"
+      />
+      <BreadcrumbJsonLd path="/guidelines" />
       <SiteHeader />
       <main className="rr-body text-[#e8f4ef]">
         <Container className="py-10">
@@ -47,7 +41,7 @@ export default function GuidelinesPage() {
               Living best practices
             </p>
             <h1 className="font-heading mt-1.5 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Guidelines
+              Rock River visitor guidelines
             </h1>
             <p className="mt-3 text-base leading-relaxed text-white/70 sm:text-lg">
               Land stewarded by Rock River Preservation is open to the public for lawful

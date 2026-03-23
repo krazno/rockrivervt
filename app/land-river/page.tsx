@@ -1,44 +1,37 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { WebPageJsonLd } from "@/components/seo/web-page-json-ld";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { Container } from "@/components/shared/container";
+import { buildPageMetadata } from "@/lib/seo";
 
-const ogDescription =
-  "Geography, ecology, and respectful visitor context for Rock River, Vermont.";
+const pageDesc =
+  "Rock River geography and ecology in Windham County Vermont—from Dover to Newfane, the West River, swimming holes, trails, and how southern Vermont’s Rock River fits the valley near Brattleboro.";
 
-export const metadata: Metadata = {
-  title: "Land & River",
-  description:
-    "Geography, ecology, and human connection along Rock River in Windham County, Vermont—from Dover to Newfane and the West River.",
-  alternates: { canonical: "/land-river" },
-  openGraph: {
-    title: "Land & River | Rock River VT",
-    description: ogDescription,
-    url: "https://rockrivervt.com/land-river",
-    type: "website",
-    siteName: "Rock River VT",
-    images: [
-      {
-        url: "/rock-river-hero.png",
-        width: 1200,
-        height: 630,
-        alt: "Rock River near Newfane, Vermont",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Land & River | Rock River VT",
-    description: ogDescription,
-    images: ["/rock-river-hero.png"],
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Rock River Land, Watershed & Newfane VT Geography",
+  description: pageDesc,
+  path: "/land-river",
+  keywords: [
+    "Rock River Vermont geography",
+    "Newfane VT river",
+    "Windham County river",
+    "Rock River trail Vermont",
+  ],
+});
 
 export default function LandRiverPage() {
   return (
     <>
+      <WebPageJsonLd
+        name="Rock River land & watershed — Windham County, Vermont"
+        description={pageDesc}
+        path="/land-river"
+      />
+      <BreadcrumbJsonLd path="/land-river" />
       <SiteHeader />
       <main className="rr-body text-[#e8f4ef]">
         <Container className="py-10">
@@ -47,7 +40,7 @@ export default function LandRiverPage() {
               The place itself
             </p>
             <h1 className="font-heading mt-1.5 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Land & River
+              Rock River: land &amp; watershed
             </h1>
             <p className="mt-3 text-base leading-relaxed text-white/70 sm:text-lg">
               Rock River is a tributary of the West River, flowing entirely within Windham
@@ -144,7 +137,14 @@ export default function LandRiverPage() {
               >
                 Preservation
               </Link>{" "}
-              for the full story and stewardship framework.
+              for the full story and stewardship framework. Field notes and nature:{" "}
+              <Link
+                href="/discoveries"
+                className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
+              >
+                Discoveries
+              </Link>
+              .
             </p>
           </article>
         </Container>

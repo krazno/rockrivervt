@@ -9,17 +9,17 @@ export function HomeRiverPhotos() {
   const riverPhotos = getHomeRiverStripePhotos();
 
   return (
-    <section className="mx-auto w-full max-w-6xl px-4 pb-12 sm:px-6 lg:px-8">
+    <section className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div className="max-w-2xl">
           <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
-            From the banks
+            Gallery
           </p>
           <h2 className="font-heading mt-1.5 text-xl font-bold tracking-tight text-white sm:text-2xl">
-            River photos
+            Two frames
           </h2>
           <p className="mt-1.5 text-sm leading-relaxed text-white/60">
-            Honest light on Rock River and the Newfane area—see the full{" "}
+            From the same archive—see the full{" "}
             <Link
               href="/gallery"
               className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
@@ -47,9 +47,7 @@ export function HomeRiverPhotos() {
                 className="object-cover transition duration-500 hover:scale-[1.04]"
               />
             </span>
-            <figcaption className="px-3 py-2 text-xs text-white/50">
-              {photo.title} — Rock River VT
-            </figcaption>
+            <figcaption className="sr-only">{photo.alt}</figcaption>
           </figure>
         ))}
       </div>

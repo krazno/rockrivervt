@@ -1,65 +1,35 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { WebPageJsonLd } from "@/components/seo/web-page-json-ld";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { Container } from "@/components/shared/container";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Daily updates",
-  description:
-    "Short local notes on Rock River trail footing, flow, and season shifts—paired with live conditions on the home page.",
-  alternates: {
-    canonical: "/daily-updates",
-  },
-  openGraph: {
-    title: "Daily Updates | Rock River VT",
-    description:
-      "Trail and river notes for Rock River near Newfane and Dummerston, Vermont.",
-    url: "https://rockrivervt.com/daily-updates",
-    type: "website",
-    images: [
-      {
-        url: "/rock-river-hero.png",
-        width: 1200,
-        height: 630,
-        alt: "Rock River in Newfane, Vermont",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Daily Updates | Rock River VT",
-    description:
-      "Trail and river notes for Rock River near Newfane and Dummerston, Vermont.",
-    images: ["/rock-river-hero.png"],
-  },
-};
+const pageDesc =
+  "Rock River daily updates: short local notes on trail footing, river flow, and season shifts in Newfane and Windham County VT—pair with live conditions on the home page.";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Rock River Daily Updates & Trail Notes",
+  description: pageDesc,
+  path: "/daily-updates",
+  keywords: ["Rock River updates", "Newfane trail conditions", "Rock River journal"],
+});
 
 export default function DailyUpdatesPage() {
-  const dailyUpdatesJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    name: "Daily Updates | Rock River VT",
-    url: "https://rockrivervt.com/daily-updates",
-    description:
-      "Short local notes on Rock River trail footing, flow, and season shifts.",
-    isPartOf: {
-      "@type": "WebSite",
-      name: "Rock River VT",
-      url: "https://rockrivervt.com",
-    },
-  };
-
   const subCard =
     "rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-sm";
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(dailyUpdatesJsonLd) }}
+      <WebPageJsonLd
+        name="Rock River daily updates — Newfane, Vermont"
+        description={pageDesc}
+        path="/daily-updates"
       />
+      <BreadcrumbJsonLd path="/daily-updates" />
       <SiteHeader />
       <main className="rr-body py-10 text-[#e8f4ef]">
         <Container className="max-w-3xl">
@@ -68,7 +38,7 @@ export default function DailyUpdatesPage() {
               Conditions journal
             </p>
             <h1 className="font-heading text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Daily updates
+              Rock River daily updates
             </h1>
             <p className="mt-3 text-base leading-7 text-white/70 sm:text-lg">
               We’re building a light rhythm of local notes—mud on the lower switchbacks,

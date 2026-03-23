@@ -2,10 +2,10 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "RockRiverVT",
-    short_name: "RockRiverVT",
+    name: "Rock River Vermont — Newfane & Windham County guide",
+    short_name: "Rock River VT",
     description:
-      "An unofficial community guide to Rock River near Newfane, Vermont.",
+      "Unofficial guide to Rock River in Newfane, Vermont—map, swimming holes, conditions, and trails near Brattleboro.",
     start_url: "/",
     display: "standalone",
     background_color: "#eef2ea",

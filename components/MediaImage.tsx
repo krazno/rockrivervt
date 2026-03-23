@@ -46,6 +46,7 @@ export function MediaImage(props: MediaImageProps) {
         fill
         sizes={props.sizes}
         priority={priority}
+        loading={priority ? undefined : "lazy"}
         className={cn(className)}
       />
     );
@@ -59,6 +60,7 @@ export function MediaImage(props: MediaImageProps) {
       width={props.width}
       height={props.height}
       priority={priority}
+      loading={priority ? undefined : "lazy"}
       sizes={sizes}
       className={cn(className)}
     />

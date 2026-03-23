@@ -1,63 +1,113 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { DM_Sans, Syne } from "next/font/google";
+
+import { SiteWideJsonLd } from "@/components/seo/site-wide-json-ld";
+import { DEFAULT_OG_ALT, OG_IMAGE, SITE_NAME_LONG, SITE_URL } from "@/lib/seo";
+
 import "./globals.css";
 
 const dmSans = DM_Sans({
   variable: "--font-geist-sans",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+  display: "swap",
+  preload: true,
 });
 
 const syne = Syne({
   variable: "--font-syne",
   subsets: ["latin"],
   weight: ["500", "600", "700", "800"],
+  display: "swap",
+  preload: true,
 });
 
+const googleSiteVerification =
+  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ?? "";
+
+/*
+ * Google Search Console (manual steps — no secrets in repo):
+ * 1. Add property for https://rockrivervt.com
+ * 2. Verify via DNS or HTML tag: set NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION in .env.local
+ * 3. Submit sitemap: https://rockrivervt.com/sitemap.xml
+ * 4. (Optional) Link Google Analytics 4 property in GA admin; use env for measurement ID in a client wrapper if needed
+ */
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://rockrivervt.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Rock River VT | All Are Welcome",
-    template: "%s | Rock River VT",
+    default:
+      "Rock River Vermont Guide | Newfane VT Swimming Hole, Map, Conditions & Weather",
+    template: "%s | Rock River Vermont",
   },
   description:
-    "A local, community-built guide to Rock River near Newfane, Vermont with map links, walk tips, updates, and weather context.",
+    "Guide to Rock River in Newfane, Windham County VT near Brattleboro: rocky swimming holes, trail map, live conditions, photos, and visitor info for southern Vermont’s Rock River.",
   keywords: [
     "Rock River Vermont",
-    "Newfane Vermont",
-    "Rock River swimming",
-    "Vermont river guide",
-    "RockRiverVT",
-    "daily river conditions",
+    "Rock River Newfane VT",
+    "Newfane Vermont swimming hole",
+    "Brattleboro swimming hole",
+    "southern Vermont swimming hole",
+    "Windham County swimming hole",
+    "Rock River map",
+    "Rock River conditions",
+    "Rock River trail",
+    "Rock River preserve",
   ],
+  applicationName: SITE_NAME_LONG,
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
-    url: "https://rockrivervt.com",
-    siteName: "Rock River VT",
-    title: "Rock River VT | All Are Welcome",
+    url: SITE_URL,
+    siteName: SITE_NAME_LONG,
+    title:
+      "Rock River Vermont Guide | Newfane VT Swimming Hole, Map, Conditions & Weather",
     description:
-      "An unofficial community guide to Rock River near Newfane, Vermont with updates, maps, weather context, and local notes.",
+      "Rocky pools, trails, and river access in Newfane & Windham County VT—map, conditions, photos, and stewardship near Brattleboro.",
     images: [
       {
-        url: "/rock-river-hero.png",
-        width: 1200,
-        height: 630,
-        alt: "Rock River in Newfane, Vermont",
+        url: OG_IMAGE.url,
+        width: OG_IMAGE.width,
+        height: OG_IMAGE.height,
+        alt: DEFAULT_OG_ALT,
       },
     ],
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rock River VT | All Are Welcome",
+    title:
+      "Rock River Vermont Guide | Newfane VT Swimming Hole, Map, Conditions & Weather",
     description:
-      "An unofficial community guide to Rock River near Newfane, Vermont with updates, maps, weather context, and local notes.",
-    images: ["/rock-river-hero.png"],
+      "Map, conditions, trail tour, photos—Rock River, Newfane & southern Vermont.",
+    images: [{ url: OG_IMAGE.url, alt: DEFAULT_OG_ALT }],
   },
   category: "travel",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  ...(googleSiteVerification
+    ? { verification: { google: googleSiteVerification } }
+    : {}),
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f4f6f8" },
+    { media: "(prefers-color-scheme: dark)", color: "#070f0d" },
+  ],
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -67,10 +117,13 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="en-US"
       className={`${dmSans.variable} ${syne.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+      <body className="flex min-h-full flex-col font-sans antialiased">
+        <SiteWideJsonLd />
+        {children}
+      </body>
     </html>
   );
 }

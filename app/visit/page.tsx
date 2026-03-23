@@ -1,27 +1,37 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { WebPageJsonLd } from "@/components/seo/web-page-json-ld";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { Container } from "@/components/shared/container";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Visit",
-  description:
-    "Planning a visit to Rock River, Vermont: parking on Route 30 in Dummerston, woodland trails, spring safety, and links to guidelines and conditions.",
-  alternates: { canonical: "/visit" },
-  openGraph: {
-    title: "Visit | Rock River VT",
-    description:
-      "Practical notes for a calm, respectful day at Rock River near Newfane.",
-    url: "https://rockrivervt.com/visit",
-    type: "website",
-  },
-};
+const pageDesc =
+  "Visiting Rock River in Newfane, Windham County VT: parking on Route 30 near Dummerston, woodland trails to swimming holes, spring safety, map, conditions, and respectful use near Brattleboro.";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Visiting Rock River Vermont — Directions & Access",
+  description: pageDesc,
+  path: "/visit",
+  keywords: [
+    "Rock River directions",
+    "Rock River parking",
+    "Newfane VT river access",
+    "Rock River swimming hole parking",
+  ],
+});
 
 export default function VisitPage() {
   return (
     <>
+      <WebPageJsonLd
+        name="Visiting Rock River Vermont — Newfane & Windham County"
+        description={pageDesc}
+        path="/visit"
+      />
+      <BreadcrumbJsonLd path="/visit" />
       <SiteHeader />
       <main className="rr-body text-[#e8f4ef]">
         <Container className="py-10">
@@ -31,7 +41,7 @@ export default function VisitPage() {
                 Plan with care
               </p>
               <h1 className="font-heading mt-1.5 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                Visiting Rock River
+                Visiting Rock River Vermont
               </h1>
               <p className="mt-3 text-base leading-7 text-white/70 sm:text-lg">
                 Rock River is best met at a walking pace—woodland trails, uneven stone,
@@ -125,16 +135,30 @@ export default function VisitPage() {
                     href="/map"
                     className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
                   >
-                    interactive map
+                    Rock River map
                   </Link>{" "}
-                  for parking and trail context, and the{" "}
+                  for parking and trail context, the{" "}
+                  <Link
+                    href="/conditions"
+                    className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
+                  >
+                    conditions hub
+                  </Link>
+                  , and the{" "}
                   <Link
                     href="/#today-at-rock-river"
                     className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
                   >
                     home page widgets
                   </Link>{" "}
-                  for weather, river notes, and gentle crowd check-ins.
+                  for weather, river notes, and gentle crowd check-ins. Bookmark{" "}
+                  <Link
+                    href="/resources"
+                    className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
+                  >
+                    Resources
+                  </Link>{" "}
+                  for maps and official links.
                 </p>
               </section>
 

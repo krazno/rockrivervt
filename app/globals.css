@@ -115,10 +115,34 @@
 }
 
 :root {
-  --rr-nav: #070f0d;
-  --rr-mint: #7dd3c0;
-  --rr-glow: #3ecf8e;
-  --rr-deep: #050c0a;
+  /* Core brand — river stone, water, slate (not forest green) */
+  --rr-nav: #0b1016;
+  --rr-deep: #070a0e;
+  /** Muted teal — labels, links, eyebrows on dark */
+  --rr-mint: #8eb8c4;
+  /** Water / CTA — primary accent */
+  --rr-glow: #5c9bab;
+  /** Rare forest note — use sparingly */
+  --rr-forest: #4a6b5c;
+  /** Light text on stone / mist panels */
+  --rr-ink: #1a2330;
+  --rr-ink-muted: #4a5568;
+  /** Light surfaces (widgets on dark pages) */
+  --rr-widget-bg: #f0f3f6;
+  --rr-widget-bg-soft: #f7f8fa;
+  --rr-widget-border: #d4dce3;
+  --rr-widget-text: #2a3540;
+  --rr-widget-muted: #5a6b78;
+  --rr-widget-accent: #4a6f7d;
+  /* Editorial layout tokens */
+  --rr-radius-sm: 0.75rem;
+  --rr-radius-md: 1rem;
+  --rr-radius-lg: 1.5rem;
+  --rr-radius-xl: 1.75rem;
+  --rr-radius-hero: clamp(1.5rem, 3vw, 2.25rem);
+  --rr-shadow-card: 0 28px 64px -42px rgb(0 0 0 / 0.5);
+  --rr-shadow-card-hover: 0 36px 72px -44px rgb(92 155 171 / 0.2);
+  --rr-section-y: clamp(2.5rem, 6vw, 4.5rem);
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -199,39 +223,110 @@
   }
 }
 
-/* Rock River — immersive forest / river shell (used across marketing pages) */
+/* Rock River — rock + water + mist; balanced light/dark (not green tunnel) */
 .rr-body {
   min-height: 100vh;
-  color: rgb(232 244 239 / 0.92);
-  background-color: #050c0a;
+  color: rgb(248 250 252 / 0.94);
+  background-color: #0a0e14;
   background-image:
-    radial-gradient(ellipse 110% 85% at 50% -30%, rgb(62 207 142 / 0.16), transparent 52%),
-    radial-gradient(ellipse 80% 50% at 100% 0%, rgb(34 197 94 / 0.08), transparent 45%),
-    linear-gradient(180deg, #020806 0%, #0a1814 38%, #0c1f1a 100%);
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='20' cy='30' r='1.2' fill='%2394a3b8' fill-opacity='0.06'/%3E%3Ccircle cx='60' cy='70' r='1' fill='%2394a3b8' fill-opacity='0.04'/%3E%3Ccircle cx='85' cy='25' r='0.8' fill='%237c8ea3' fill-opacity='0.05'/%3E%3Ccircle cx='40' cy='85' r='1.1' fill='%2394a3b8' fill-opacity='0.035'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 130% 100% at 50% -20%, rgb(200 220 235 / 0.12), transparent 58%),
+    radial-gradient(ellipse 90% 70% at 100% 15%, rgb(190 200 210 / 0.08), transparent 52%),
+    radial-gradient(ellipse 60% 50% at 0% 85%, rgb(80 110 130 / 0.1), transparent 48%),
+    linear-gradient(
+      188deg,
+      rgb(28 36 46) 0%,
+      rgb(16 20 28) 8%,
+      rgb(10 14 20) 28%,
+      rgb(8 12 18) 100%
+    );
 }
 
 .rr-glass {
-  border-radius: 1.5rem;
-  border: 1px solid rgb(255 255 255 / 0.1);
-  background: rgb(255 255 255 / 0.05);
-  box-shadow: 0 24px 80px -40px rgb(0 0 0 / 0.65);
-  backdrop-filter: blur(12px);
+  border-radius: var(--rr-radius-lg);
+  border: 1px solid rgb(255 255 255 / 0.09);
+  background: linear-gradient(
+    165deg,
+    rgb(255 255 255 / 0.07) 0%,
+    rgb(255 255 255 / 0.025) 100%
+  );
+  box-shadow: var(--rr-shadow-card);
+  backdrop-filter: blur(14px);
 }
 
 .rr-glass-strong {
-  border-radius: 1.75rem;
-  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: var(--rr-radius-xl);
+  border: 1px solid rgb(255 255 255 / 0.11);
   background: linear-gradient(
-    145deg,
-    rgb(255 255 255 / 0.09) 0%,
-    rgb(255 255 255 / 0.03) 100%
+    155deg,
+    rgb(255 255 255 / 0.1) 0%,
+    rgb(230 240 245 / 0.04) 45%,
+    rgb(255 255 255 / 0.02) 100%
   );
-  box-shadow: 0 18px 60px -30px rgb(0 0 0 / 0.55);
-  backdrop-filter: blur(16px);
+  box-shadow: var(--rr-shadow-card);
+  backdrop-filter: blur(18px);
+}
+
+/** Vertical rhythm between homepage sections */
+.rr-section {
+  padding-bottom: var(--rr-section-y);
+}
+
+/** Unified marketing card surface */
+.rr-card {
+  border-radius: var(--rr-radius-lg);
+  border: 1px solid rgb(255 255 255 / 0.1);
+  background: rgb(255 255 255 / 0.04);
+  box-shadow: var(--rr-shadow-card);
+  transition:
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease;
+}
+
+.rr-card:hover {
+  border-color: rgb(120 170 185 / 0.35);
+  box-shadow: var(--rr-shadow-card-hover);
+}
+
+/** Primary CTA — consistent across hero / forms */
+.rr-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, #6babbc 0%, var(--rr-glow) 100%);
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0a1218;
+  box-shadow: 0 12px 32px -14px rgb(92 155 171 / 0.45);
+  transition: filter 180ms ease, transform 180ms ease;
+}
+.rr-btn-primary:hover {
+  filter: brightness(1.06);
+}
+
+.rr-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid rgb(255 255 255 / 0.2);
+  background: rgb(255 255 255 / 0.05);
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgb(255 255 255 / 0.9);
+  backdrop-filter: blur(8px);
+  transition: background 180ms ease;
+}
+.rr-btn-ghost:hover {
+  background: rgb(255 255 255 / 0.1);
 }
 
 .rr-text-muted {
-  color: rgb(186 214 204 / 0.88);
+  color: rgb(186 200 210 / 0.88);
 }
 
 .rr-glow-line {
@@ -239,7 +334,7 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgb(62 207 142 / 0.45),
+    rgb(140 180 195 / 0.45),
     transparent
   );
 }
@@ -256,9 +351,9 @@
 .rr-shimmer-text {
   background: linear-gradient(
     110deg,
-    rgb(232 244 239) 0%,
-    rgb(125 211 192) 45%,
-    rgb(232 244 239) 90%
+    rgb(248 250 252) 0%,
+    rgb(150 195 210) 42%,
+    rgb(248 250 252) 88%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -270,9 +365,29 @@
 @media (prefers-reduced-motion: reduce) {
   .rr-shimmer-text {
     animation: none;
-    color: rgb(232 244 239);
+    color: rgb(248 250 252);
     background: none;
     -webkit-background-clip: unset;
     background-clip: unset;
   }
+}
+
+/** Off-white / stone editorial panel (readable on dark shell) */
+.rr-panel-light {
+  border-radius: var(--rr-radius-xl);
+  border: 1px solid rgb(255 255 255 / 0.65);
+  background: linear-gradient(
+    165deg,
+    rgb(255 255 255 / 0.97) 0%,
+    rgb(248 250 252 / 0.94) 50%,
+    rgb(241 245 248 / 0.9) 100%
+  );
+  color: var(--rr-ink);
+  box-shadow:
+    0 4px 24px -8px rgb(0 0 0 / 0.12),
+    0 24px 48px -32px rgb(0 0 0 / 0.35);
+}
+
+.rr-prose-muted {
+  color: var(--rr-ink-muted);
 }

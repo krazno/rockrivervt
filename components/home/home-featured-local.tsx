@@ -43,7 +43,7 @@ export function HomeFeaturedLocal({
 
   return (
     <section
-      className="mx-auto w-full max-w-6xl px-4 pb-12 sm:px-6 lg:px-8"
+      className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8"
       aria-labelledby="featured-local-heading"
     >
       <header className="mb-5 max-w-2xl sm:mb-6">

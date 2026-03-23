@@ -1,44 +1,37 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { WebPageJsonLd } from "@/components/seo/web-page-json-ld";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { Container } from "@/components/shared/container";
+import { buildPageMetadata } from "@/lib/seo";
 
-const ogDescription =
-  "How Rock River’s conservation framework balances ecology, access, and community care.";
+const pageDesc =
+  "Rock River Preservation in Newfane, Vermont—volunteer stewardship, conservation easements, management plans, and how about 25 acres along Rock River stay protected and open in Windham County.";
 
-export const metadata: Metadata = {
-  title: "Preservation",
-  description:
-    "Rock River Preservation—volunteer stewardship, conservation easements, management plans, and how about 25 acres along Rock River stay protected and open.",
-  alternates: { canonical: "/preservation" },
-  openGraph: {
-    title: "Preservation & Stewardship | Rock River VT",
-    description: ogDescription,
-    url: "https://rockrivervt.com/preservation",
-    type: "website",
-    siteName: "Rock River VT",
-    images: [
-      {
-        url: "/rock-river-hero.png",
-        width: 1200,
-        height: 630,
-        alt: "Rock River near Newfane, Vermont",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Preservation & Stewardship | Rock River VT",
-    description: ogDescription,
-    images: ["/rock-river-hero.png"],
-  },
-};
+export const metadata: Metadata = buildPageMetadata({
+  title: "Rock River Preserve & Conservation Stewardship",
+  description: pageDesc,
+  path: "/preservation",
+  keywords: [
+    "Rock River preserve",
+    "Rock River Preservation",
+    "Newfane conservation",
+    "Windham County VT trails",
+  ],
+});
 
 export default function PreservationPage() {
   return (
     <>
+      <WebPageJsonLd
+        name="Rock River preservation & stewardship — Newfane, Vermont"
+        description={pageDesc}
+        path="/preservation"
+      />
+      <BreadcrumbJsonLd path="/preservation" />
       <SiteHeader />
       <main className="rr-body text-[#e8f4ef]">
         <Container className="py-10">
@@ -47,7 +40,7 @@ export default function PreservationPage() {
               Stewardship & protection
             </p>
             <h1 className="font-heading mt-1.5 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Preservation
+              Rock River preservation
             </h1>
             <p className="mt-3 text-base leading-relaxed text-white/70 sm:text-lg">
               Rock River Preservation, Inc. is a{" "}
@@ -202,6 +195,20 @@ export default function PreservationPage() {
                 className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
               >
                 History
+              </Link>
+              . Planning links:{" "}
+              <Link
+                href="/map"
+                className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
+              >
+                Map
+              </Link>
+              ,{" "}
+              <Link
+                href="/resources"
+                className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
+              >
+                Resources
               </Link>
               .
             </p>

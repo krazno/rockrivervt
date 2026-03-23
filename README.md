@@ -34,3 +34,11 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Large trail video
+
+The full hike MP4 lives under `public/media/videos/`. Files over **100MB** may be rejected by GitHub unless you use **Git LFS** or host the video on YouTube/Vimeo and point `data/media.ts` at that URL instead.
+
+## Google Search Console
+
+Set `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` in `.env.local` (see `.env.example`) with the token from Search Console’s HTML tag verification.

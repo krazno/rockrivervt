@@ -1,53 +1,52 @@
 "use client";
 
+import { motion } from "motion/react";
+
+const CARDS = [
+  {
+    title: "Stone & water",
+    body:
+      "Wet rock moves; spring shifts flow. Glance at conditions—then let the river tell you what’s true today.",
+  },
+  {
+    title: "Space for everyone",
+    body:
+      "Quiet voices, durable paths, consent before photos, pack it out. Locals, visitors, queer folks, families, first-timers—same water.",
+  },
+  {
+    title: "When it’s high",
+    body:
+      "After rain or melt, crossings get honest fast. Turn back if it feels wrong.",
+  },
+] as const;
+
 export function HomeInfoCards() {
   return (
-    <section className="mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
-      <div className="mb-6 max-w-2xl">
+    <section className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="mb-8 max-w-xl">
         <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
-          Gentle reminders
+          Field notes
         </p>
-        <h2 className="font-heading mt-1.5 text-lg font-bold tracking-tight text-white sm:text-xl">
-          Before you lace up
+        <h2 className="font-heading mt-2 text-lg font-semibold tracking-tight text-white sm:text-xl">
+          Before you head out
         </h2>
       </div>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <article className="reveal-up rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition duration-300 ease-out hover:-translate-y-0.5 hover:border-[var(--rr-glow)]/30 hover:shadow-[0_26px_80px_-55px_rgba(62,207,142,0.2)]">
-          <h3 className="text-sm font-semibold tracking-[0.14em] text-[var(--rr-mint)] uppercase">
-            Pace &amp; footing
-          </h3>
-          <p className="mt-3 text-sm leading-6 text-white/65">
-            The gorge cools faster than the fields; wet rock after rain wants slow steps
-            and free hands. Use the live tools above as a first glance—then let the trail
-            tell you what’s true today.
-          </p>
-        </article>
-        <article
-          className="reveal-up rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition duration-300 ease-out hover:-translate-y-0.5 hover:border-[var(--rr-glow)]/30 hover:shadow-[0_26px_80px_-55px_rgba(62,207,142,0.2)]"
-          style={{ animationDelay: "80ms" }}
-        >
-          <h3 className="text-sm font-semibold tracking-[0.14em] text-[var(--rr-mint)] uppercase">
-            Room for everyone
-          </h3>
-          <p className="mt-3 text-sm leading-6 text-white/65">
-            Quiet voices, durable paths, consent before photos, and nothing left behind.
-            Those small choices keep the banks kind for families, LGBTQ+ visitors,
-            locals, and out-of-towners sharing the same water.
-          </p>
-        </article>
-        <article
-          className="reveal-up rounded-2xl border border-white/10 bg-white/[0.04] p-5 transition duration-300 ease-out hover:-translate-y-0.5 hover:border-[var(--rr-glow)]/30 hover:shadow-[0_26px_80px_-55px_rgba(62,207,142,0.2)]"
-          style={{ animationDelay: "160ms" }}
-        >
-          <h3 className="text-sm font-semibold tracking-[0.14em] text-[var(--rr-mint)] uppercase">
-            Rising water
-          </h3>
-          <p className="mt-3 text-sm leading-6 text-white/65">
-            After warm days or heavy rain, flow and current can shift quickly—especially
-            in spring. Favor a safe view over a doubtful crossing, and head out early if
-            the river starts asking harder questions.
-          </p>
-        </article>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
+        {CARDS.map((card, i) => (
+          <motion.article
+            key={card.title}
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-32px" }}
+            transition={{ duration: 0.4, delay: i * 0.06 }}
+            className="rr-card group rounded-[var(--rr-radius-md)] p-5 sm:p-6"
+          >
+            <h3 className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--rr-mint)]">
+              {card.title}
+            </h3>
+            <p className="mt-3 text-sm leading-relaxed text-white/60">{card.body}</p>
+          </motion.article>
+        ))}
       </div>
     </section>
   );

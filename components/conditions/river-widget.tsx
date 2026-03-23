@@ -5,7 +5,6 @@ import {
   Droplets,
   Eye,
   Gauge,
-  Info,
   Leaf,
   Thermometer,
   Waves,
@@ -31,7 +30,7 @@ function TypeBadge({
 }) {
   const styles = {
     proxy:
-      "border-[#b8c9c0] bg-[#eef4ed] text-[#3d5c50]",
+      "border-[#b8c4c9] bg-[#eef1f4] text-[#3d5560]",
     estimated:
       "border-[#b8c9d4] bg-[#eef4f7] text-[#3a5566]",
     site:
@@ -62,13 +61,13 @@ function MetricBlock({
   children: ReactNode;
 }) {
   return (
-    <div className="flex items-start gap-2.5 rounded-xl border border-[#d4ddd3] bg-[#edf3ec] px-2.5 py-2 sm:px-3 sm:py-2.5">
-      <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#d0ddd3] bg-[#f4f8f3] text-[#3f6676]">
+    <div className="flex items-start gap-2.5 rounded-xl border border-[#d0d8e0] bg-[#eef1f4] px-2.5 py-2 sm:px-3 sm:py-2.5">
+      <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#d0d8e0] bg-[#f3f5f6] text-[#3f6676]">
         {icon}
       </span>
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-1.5 gap-y-1">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#5b796e]">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#5a6b78]">
             {title}
           </p>
           {typeBadge}
@@ -82,13 +81,13 @@ function MetricBlock({
 function cleanlinessStyles(status: CleanlinessStatus) {
   switch (status) {
     case "good":
-      return "border-[#9cb89a] bg-[#e8f2e6] text-[#1f4a28]";
+      return "border-[#94b0bc] bg-[#e8f0f4] text-[#2a3d48]";
     case "fair":
       return "border-[#c9b87a] bg-[#f7f3e4] text-[#6b5a1a]";
     case "poor":
       return "border-[#c9a39a] bg-[#f7ece8] text-[#6b2f24]";
     default:
-      return "border-[#c9d4ce] bg-[#eef4ed] text-[#35584c]";
+      return "border-[#c9d4ce] bg-[#eef1f4] text-[#3d5a68]";
   }
 }
 
@@ -156,19 +155,18 @@ export function RiverWidget() {
   const cleanliness: CleanlinessStatus = data?.cleanlinessStatus ?? "good";
 
   return (
-    <div className="h-full rounded-2xl border border-[#c4d2c7] bg-white/65 p-4 shadow-[0_6px_26px_-20px_rgba(24,49,43,0.3)] backdrop-blur-[2px] sm:p-5">
+    <div className="h-full rounded-2xl border border-[#c0cad2] bg-white/65 p-4 shadow-[0_6px_26px_-20px_rgba(22,38,48,0.22)] backdrop-blur-[2px] sm:p-5">
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div>
-          <h3 className="text-[10px] font-bold tracking-[0.2em] text-[#4d6d61] uppercase">
-            River context
+          <h3 className="text-[10px] font-bold tracking-[0.2em] text-[#4f6d7a] uppercase">
+            River
           </h3>
-          <p className="mt-1 max-w-[18rem] text-[11px] leading-snug text-[#5c786e]">
-            {data?.dataLabel ??
-              "West River near Newfane (USGS 01156000)—watershed proxy for planning at Rock River"}
+          <p className="mt-1 max-w-[17rem] text-[11px] leading-snug text-[#5f737f]">
+            {data?.dataLabel ?? "West River gauge (USGS)—rough context for Rock River flow"}
           </p>
         </div>
-        <span className="shrink-0 rounded-full border border-[#c9d4ce] bg-[#eef4ed] px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#4a6b5f]">
-          Proxy context
+        <span className="shrink-0 rounded-full border border-[#c9d4ce] bg-[#eef1f4] px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#4a6b7a]">
+          Proxy
         </span>
       </div>
 
@@ -178,7 +176,7 @@ export function RiverWidget() {
           title="Flow"
           typeBadge={<TypeBadge variant="proxy">Proxy</TypeBadge>}
         >
-          <p className="text-lg font-semibold tabular-nums text-[#1f3a30] sm:text-xl">
+          <p className="text-lg font-semibold tabular-nums text-[#2a3842] sm:text-xl">
             {loading ? "—" : formatFlow(data?.flowCfs ?? null)}
           </p>
         </MetricBlock>
@@ -188,7 +186,7 @@ export function RiverWidget() {
           title="Gage height"
           typeBadge={<TypeBadge variant="proxy">Proxy</TypeBadge>}
         >
-          <p className="text-lg font-semibold tabular-nums text-[#1f3a30] sm:text-xl">
+          <p className="text-lg font-semibold tabular-nums text-[#2a3842] sm:text-xl">
             {loading ? "—" : formatGage(data?.gageHeightFt ?? null)}
           </p>
         </MetricBlock>
@@ -198,7 +196,7 @@ export function RiverWidget() {
           title="Est. water temp"
           typeBadge={<TypeBadge variant="estimated">Estimated</TypeBadge>}
         >
-          <p className="text-lg font-semibold tabular-nums text-[#1f3a30] sm:text-xl">
+          <p className="text-lg font-semibold tabular-nums text-[#2a3842] sm:text-xl">
             {loading
               ? "—"
               : typeof data?.estimatedWaterTempF === "number"
@@ -206,43 +204,38 @@ export function RiverWidget() {
                 : "—"}
           </p>
           {data?.airTemperatureUsedF != null ? (
-            <p className="mt-1 text-[10px] leading-snug text-[#5c786e]">
-              NWS air (grid): {data.airTemperatureUsedF}°F
-            </p>
-          ) : null}
-          {data?.estimatedWaterTempSummary ? (
-            <p className="mt-1 text-[10px] leading-snug text-[#6d8a7e]">
-              {data.estimatedWaterTempSummary}
+            <p className="mt-1 text-[10px] text-[#5f737f]">
+              Air {data.airTemperatureUsedF}°F (estimate input)
             </p>
           ) : null}
         </MetricBlock>
 
-        <div className="flex items-start gap-2.5 rounded-xl border border-[#d4ddd3] bg-[#edf3ec] px-2.5 py-2 sm:px-3 sm:py-2.5">
-          <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#d0ddd3] bg-[#f4f8f3] text-[#4d6d61]">
+        <div className="flex items-start gap-2.5 rounded-xl border border-[#d0d8e0] bg-[#eef1f4] px-2.5 py-2 sm:px-3 sm:py-2.5">
+          <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#d0d8e0] bg-[#f3f5f6] text-[#4f6d7a]">
             <Eye className="h-4 w-4" aria-hidden />
           </span>
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-1.5">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#5b796e]">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#5a6b78]">
                 Clarity
               </p>
               <TypeBadge variant="site">Site status</TypeBadge>
             </div>
             <div className="mt-2">
-              <span className="inline-flex rounded-full border border-[#c5d4c8] bg-[#f6faf4] px-2.5 py-1 text-xs font-semibold text-[#2d4a38]">
+              <span className="inline-flex rounded-full border border-[#c5ced4] bg-[#f5f7f8] px-2.5 py-1 text-xs font-semibold text-[#2a3d42]">
                 {CLARITY_DISPLAY[clarity]}
               </span>
             </div>
           </div>
         </div>
 
-        <div className="flex items-start gap-2.5 rounded-xl border border-[#d4ddd3] bg-[#edf3ec] px-2.5 py-2 sm:px-3 sm:py-2.5">
-          <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#d0ddd3] bg-[#f4f8f3] text-[#5c7f62]">
+        <div className="flex items-start gap-2.5 rounded-xl border border-[#d0d8e0] bg-[#eef1f4] px-2.5 py-2 sm:px-3 sm:py-2.5">
+          <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-[#d0d8e0] bg-[#f3f5f6] text-[#5a7a8a]">
             <Leaf className="h-4 w-4" aria-hidden />
           </span>
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-1.5">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#5b796e]">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#5a6b78]">
                 Cleanliness
               </p>
               <TypeBadge variant="site">Site status</TypeBadge>
@@ -260,49 +253,39 @@ export function RiverWidget() {
           </div>
         </div>
 
-        <div className="flex items-start gap-2 rounded-xl border border-[#dce5df] bg-[#f4f8f3] px-2.5 py-2 sm:px-3">
-          <Droplets className="mt-0.5 h-4 w-4 shrink-0 text-[#5c8a7a]" aria-hidden />
+        <div className="flex items-start gap-2 rounded-xl border border-[#dce5df] bg-[#f3f5f6] px-2.5 py-2 sm:px-3">
+          <Droplets className="mt-0.5 h-4 w-4 shrink-0 text-[#5a8a9a]" aria-hidden />
           <div className="min-w-0 flex-1">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#5b796e]">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#5a6b78]">
               Last updated
             </p>
-            <p className="mt-1 text-[11px] leading-relaxed text-[#38594f]">
-              <span className="font-medium text-[#2a4538]">Proxy gauge (USGS):</span>{" "}
+            <p className="mt-1 text-[11px] leading-relaxed text-[#3d4f5c]">
+              <span className="font-medium text-[#2a3842]">Proxy gauge (USGS):</span>{" "}
               {loading ? "…" : showProxyGauge ? proxyTimestamp : "Unavailable"}
             </p>
             {estimatesTimestamp ? (
-              <p className="mt-1 text-[11px] text-[#5c786e]">
-                <span className="font-medium text-[#3d5c50]">Estimates (NWS):</span>{" "}
-                {estimatesTimestamp}
-              </p>
+              <p className="mt-1 text-[10px] text-[#5f737f]">Est. refreshed {estimatesTimestamp}</p>
             ) : !loading && data && !data.estimatedWaterTempF ? (
-              <p className="mt-1 text-[11px] text-[#6d8a7e]">
-                Estimates unavailable until weather data loads.
-              </p>
+              <p className="mt-1 text-[10px] text-[#6b7f88]">Weather estimates loading…</p>
             ) : null}
           </div>
         </div>
       </div>
 
-      <div className="mt-3 flex gap-2 rounded-xl border border-[#d5e0d6] bg-[#f4f8f3] px-3 py-2.5">
-        <Info className="mt-0.5 h-4 w-4 shrink-0 text-[#6d8a7e]" aria-hidden />
-        <p className="text-[11px] leading-relaxed text-[#56756a]">
-          {data?.transparencyNote ??
-            "West River readings are watershed proxy context for Rock River. Water temperature is estimated from air temperature, not measured in-water. Clarity and cleanliness are site status labels for this guide, not lab tests."}
-        </p>
-      </div>
+      <p className="mt-3 text-[10px] leading-snug text-[#6b7f88]">
+        {data?.transparencyNote ??
+          "Flow/gage are from a nearby gauge, not in-river at Rock River. Water temp is estimated. Clarity & cleanliness are field labels for this site."}
+      </p>
 
       {!loading && !data ? (
-        <p className="mt-3 text-center text-[11px] text-[#6d8a7e]">
+        <p className="mt-3 text-center text-[11px] text-[#6b7f88]">
           Unable to load river conditions. Refresh to try again.
         </p>
       ) : null}
 
       {!loading && data && !showProxyGauge ? (
-        <p className="mt-2 text-center text-[11px] leading-snug text-[#6d8a7e]">
-          USGS instantaneous data isn’t available for this proxy site right now.
-          Flow and gage will appear when published; estimates above still help
-          with planning.
+        <p className="mt-2 text-center text-[10px] text-[#6b7f88]">
+          USGS flow/gage paused—will return when published.
         </p>
       ) : null}
     </div>

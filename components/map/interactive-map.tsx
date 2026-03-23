@@ -11,8 +11,8 @@ const LeafletMapView = dynamic(
     ssr: false,
     loading: () => (
       <div
-        className="w-full animate-pulse rounded-2xl border border-[#d0ddd3] bg-[#e8ede5]"
-        style={{ minHeight: 420 }}
+        className="w-full min-h-[360px] animate-pulse rounded-[var(--rr-radius-lg)] border border-white/10 bg-[#0a1210]"
+        aria-hidden
       />
     ),
   },

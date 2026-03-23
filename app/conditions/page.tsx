@@ -1,23 +1,27 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { WebPageJsonLd } from "@/components/seo/web-page-json-ld";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { Container } from "@/components/shared/container";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Conditions",
-  description:
-    "River and trail conditions, spring safety, and links to live weather and updates for Rock River, Vermont.",
-  alternates: { canonical: "/conditions" },
-  openGraph: {
-    title: "Conditions | Rock River VT",
-    description:
-      "River and trail conditions, spring safety, and planning tools for Rock River, Vermont.",
-    url: "https://rockrivervt.com/conditions",
-    type: "website",
-  },
-};
+const pageDesc =
+  "Rock River conditions and safety for Newfane VT: live weather & river context, spring flow notes, map links, and daily updates for Windham County and southern Vermont.";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Rock River Conditions & Live Weather",
+  description: pageDesc,
+  path: "/conditions",
+  keywords: [
+    "Rock River conditions",
+    "Rock River VT water level",
+    "Newfane river conditions",
+    "southern Vermont river safety",
+  ],
+});
 
 const cardClass =
   "rounded-2xl border border-white/12 bg-white/[0.05] p-5 shadow-[0_8px_28px_-22px_rgba(0,0,0,0.45)] transition hover:border-[var(--rr-glow)]/40 hover:bg-white/[0.07]";
@@ -25,6 +29,12 @@ const cardClass =
 export default function ConditionsPage() {
   return (
     <>
+      <WebPageJsonLd
+        name="Rock River conditions & live weather — Newfane, Vermont"
+        description={pageDesc}
+        path="/conditions"
+      />
+      <BreadcrumbJsonLd path="/conditions" />
       <SiteHeader />
       <main className="rr-body text-[#e8f4ef]">
         <Container className="py-10">
@@ -33,11 +43,12 @@ export default function ConditionsPage() {
               Plan your visit
             </p>
             <h1 className="font-heading mt-1.5 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Conditions
+              Rock River conditions &amp; weather
             </h1>
             <p className="mt-3 text-base leading-relaxed text-white/70 sm:text-lg">
-              Rock River changes with the season and the weather. Use this hub to check
-              updates, review safety notes, and open the live tools on the homepage.
+              Rock River in Windham County changes with the season and the weather. Use this
+              hub to check updates, review safety notes, and open the live tools on the
+              homepage before you head to the pools or trail near Newfane and Brattleboro.
             </p>
           </div>
 
@@ -87,7 +98,7 @@ export default function ConditionsPage() {
               </span>
             </Link>
             <Link href="/guidelines" className={cardClass}>
-              <h2 className="text-sm font-semibold text-white">Visitor guidelines</h2>
+              <h2 className="text-sm font-semibold text-white">Rock River visitor guidelines</h2>
               <p className="mt-2 text-sm leading-relaxed text-white/60">
                 Respect for community, land, and each other—before you go.
               </p>
@@ -103,7 +114,14 @@ export default function ConditionsPage() {
               href="/weather"
               className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
             >
-              Weather
+              Rock River weather
+            </Link>
+            {" · "}
+            <Link
+              href="/visit"
+              className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
+            >
+              Visiting Rock River
             </Link>
             .
           </p>

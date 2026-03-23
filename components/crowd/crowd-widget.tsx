@@ -324,19 +324,18 @@ export function CrowdWidget() {
     submitState !== "thanks" && submitState !== "already_today";
 
   return (
-    <div className="rounded-2xl border border-[#c4d2c7] bg-white/65 p-4 shadow-[0_6px_26px_-20px_rgba(24,49,43,0.3)] backdrop-blur-[2px] sm:p-5">
+    <div className="rounded-2xl border border-[#c0cad2] bg-white/65 p-4 shadow-[0_6px_26px_-20px_rgba(22,38,48,0.3)] backdrop-blur-[2px] sm:p-5">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="flex items-start gap-2.5 sm:gap-3">
-          <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[#d0ddd3] bg-[#f4f8f5] text-[#4d6d61] sm:h-10 sm:w-10 sm:rounded-xl">
+          <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[#d0d8e0] bg-[#f4f6f8] text-[#4f6d7a] sm:h-10 sm:w-10 sm:rounded-xl">
             <Users className="h-[1.15rem] w-[1.15rem] sm:h-5 sm:w-5" aria-hidden />
           </span>
           <div>
-            <h3 className="text-[10px] font-bold tracking-[0.2em] text-[#4d6d61] uppercase">
+            <h3 className="text-[10px] font-bold tracking-[0.2em] text-[#4f6d7a] uppercase">
               How full it feels
             </h3>
-            <p className="mt-1 max-w-xl text-[12px] leading-snug text-[#5c786e] sm:text-[13px]">
-              Anonymous check-ins gently shift these labels—rough guidance for planning,
-              not a headcount. Think neighborly pulse, not census.
+            <p className="mt-1 max-w-md text-[12px] leading-snug text-[#5f737f] sm:text-[13px]">
+              Anonymous check-ins nudge these labels—a vibe check, not a count.
             </p>
           </div>
         </div>
@@ -347,13 +346,13 @@ export function CrowdWidget() {
           ? CROWD_AREA_KEYS.map((key) => (
               <div
                 key={key}
-                className="flex animate-pulse items-center justify-between gap-3 rounded-lg border border-[#e4ebe4] bg-[#f6f9f6] px-3 py-2.5"
+                className="flex animate-pulse items-center justify-between gap-3 rounded-lg border border-[#e4e8eb] bg-[#f4f6f8] px-3 py-2.5"
               >
                 <div className="min-w-0 flex-1 space-y-1.5">
-                  <div className="h-3.5 w-32 rounded bg-[#dce5df]" />
-                  <div className="h-2.5 w-24 rounded bg-[#e8eee8]" />
+                  <div className="h-3.5 w-32 rounded bg-[#dce0e4]" />
+                  <div className="h-2.5 w-24 rounded bg-[#e8eaeb]" />
                 </div>
-                <div className="h-7 w-[4.5rem] shrink-0 rounded-full bg-[#dce5df]" />
+                <div className="h-7 w-[4.5rem] shrink-0 rounded-full bg-[#dce0e4]" />
               </div>
             ))
           : areasForDisplay.map((row) => {
@@ -361,14 +360,14 @@ export function CrowdWidget() {
               return (
                 <div
                   key={row.areaKey}
-                  className="rounded-lg border border-[#d6e0d7] bg-[#f7faf7] px-3 py-2 sm:py-2.5"
+                  className="rounded-lg border border-[#d6dce2] bg-[#f5f7f8] px-3 py-2 sm:py-2.5"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0 flex-1">
-                      <p className="text-[13px] font-medium leading-tight text-[#224035] sm:text-sm">
+                      <p className="text-[13px] font-medium leading-tight text-[#2a3842] sm:text-sm">
                         {row.label}
                       </p>
-                      <p className="mt-0.5 text-[10px] leading-snug text-[#6d8a7e] sm:text-[11px]">
+                      <p className="mt-0.5 text-[10px] leading-snug text-[#6b7f88] sm:text-[11px]">
                         {rowSubtitle(row)}
                       </p>
                     </div>
@@ -388,25 +387,23 @@ export function CrowdWidget() {
             })}
       </div>
 
-      <div className="mt-4 border-t border-[#dce8df]/80 pt-3.5 sm:mt-5 sm:pt-4">
+      <div className="mt-4 border-t border-[#dce2e6]/80 pt-3.5 sm:mt-5 sm:pt-4">
         {submitState === "thanks" ? (
-          <div className="rounded-lg border border-[#c5d4c8] bg-[#f4faf6] px-3 py-3 text-center sm:px-4 sm:py-3.5">
-            <p className="text-[13px] font-medium text-[#224035] sm:text-sm">
+          <div className="rounded-lg border border-[#c5ced4] bg-[#f4f6f8] px-3 py-3 text-center sm:px-4 sm:py-3.5">
+            <p className="text-[13px] font-medium text-[#2a3842] sm:text-sm">
               Thanks for sharing
             </p>
-            <p className="mt-1 text-[12px] leading-relaxed text-[#56756a] sm:text-[13px]">
-              Your check-in helps visitors get a feel for today’s activity. Come back
-              tomorrow if you’d like to share again.
+            <p className="mt-1 text-[12px] leading-relaxed text-[#5a6b78] sm:text-[13px]">
+              Thanks—come back tomorrow if you want to update.
             </p>
           </div>
         ) : submitState === "already_today" ? (
-          <div className="rounded-lg border border-[#d8d8cf] bg-[#f9f9f4] px-3 py-3 text-center sm:px-4 sm:py-3.5">
-            <p className="text-[13px] font-medium text-[#224035] sm:text-sm">
+          <div className="rounded-lg border border-[#d8d6d0] bg-[#f8f7f4] px-3 py-3 text-center sm:px-4 sm:py-3.5">
+            <p className="text-[13px] font-medium text-[#2a3842] sm:text-sm">
               You’re all set for today
             </p>
-            <p className="mt-1 text-[12px] leading-relaxed text-[#56756a] sm:text-[13px]">
-              One check-in per browser per day keeps the signal honest. Thanks for pitching
-              in.
+            <p className="mt-1 text-[12px] leading-relaxed text-[#5a6b78] sm:text-[13px]">
+              One check-in per browser per day.
             </p>
           </div>
         ) : (
@@ -425,14 +422,14 @@ export function CrowdWidget() {
                 className={cn(
                   "w-full rounded-full border px-5 py-2.5 text-sm font-medium transition sm:max-w-sm sm:self-center sm:py-3",
                   backendReady
-                    ? "border-[#35584c] bg-[#35584c] text-[#f4f8f3] shadow-[0_8px_24px_-20px_rgba(24,49,43,0.45)] hover:bg-[#2d4a40]"
-                    : "cursor-not-allowed border-[#c9d4ce] bg-[#eef1ec] text-[#8a9a8e]",
+                    ? "border-[#3d5a68] bg-[#3d5a68] text-[#f3f5f6] shadow-[0_8px_24px_-20px_rgba(22,38,48,0.45)] hover:bg-[#334e5c]"
+                    : "cursor-not-allowed border-[#c9d0d6] bg-[#eef0f4] text-[#8a9a8e]",
                 )}
               >
                 Report today’s crowd
               </button>
               {!backendReady && loadState !== "loading" ? (
-                <p className="text-center text-[12px] leading-relaxed text-[#6d8a7e]">
+                <p className="text-center text-[12px] leading-relaxed text-[#6b7f88]">
                   {BACKEND_UNAVAILABLE_NOTE}
                 </p>
               ) : null}
@@ -453,24 +450,24 @@ export function CrowdWidget() {
             onClick={() => {
               if (submitState !== "submitting") closeModal();
             }}
-            className="absolute inset-0 bg-[#1a2f27]/35 backdrop-blur-[1px] transition-opacity disabled:pointer-events-none"
+            className="absolute inset-0 bg-[#1a2832]/35 backdrop-blur-[1px] transition-opacity disabled:pointer-events-none"
           />
 
           <div
             role="dialog"
             aria-modal="true"
             aria-labelledby="crowd-report-modal-title"
-            className="relative z-10 flex max-h-[min(85dvh,560px)] w-full max-w-md flex-col rounded-t-2xl border border-[#c4d2c7] border-b-0 bg-[#fafbf9] shadow-[0_-6px_32px_-10px_rgba(24,49,43,0.3)] sm:max-h-[min(82dvh,520px)] sm:rounded-2xl sm:border-b sm:shadow-[0_16px_40px_-22px_rgba(24,49,43,0.38)]"
+            className="relative z-10 flex max-h-[min(85dvh,560px)] w-full max-w-md flex-col rounded-t-2xl border border-[#c0cad2] border-b-0 bg-[#fafbf9] shadow-[0_-6px_32px_-10px_rgba(22,38,48,0.3)] sm:max-h-[min(82dvh,520px)] sm:rounded-2xl sm:border-b sm:shadow-[0_16px_40px_-22px_rgba(22,38,48,0.38)]"
           >
-            <div className="flex shrink-0 items-start justify-between gap-2 border-b border-[#e0e8e2] px-3 pb-2.5 pt-3 sm:px-4 sm:pb-3 sm:pt-4">
+            <div className="flex shrink-0 items-start justify-between gap-2 border-b border-[#e0e4e8] px-3 pb-2.5 pt-3 sm:px-4 sm:pb-3 sm:pt-4">
               <div className="min-w-0 pr-1">
                 <h4
                   id="crowd-report-modal-title"
-                  className="text-[15px] font-semibold tracking-tight text-[#224035] sm:text-base"
+                  className="text-[15px] font-semibold tracking-tight text-[#2a3842] sm:text-base"
                 >
                   Quick check-in
                 </h4>
-                <p className="mt-0.5 text-[11px] leading-snug text-[#6d8a7e] sm:text-[12px]">
+                <p className="mt-0.5 text-[11px] leading-snug text-[#6b7f88] sm:text-[12px]">
                   Tap how busy each spot felt. One anonymous save per browser, per day.
                 </p>
               </div>
@@ -478,7 +475,7 @@ export function CrowdWidget() {
                 type="button"
                 disabled={submitState === "submitting"}
                 onClick={closeModal}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#d8e0d8] bg-white/80 text-[#4d6d61] transition hover:bg-[#f4f8f5] disabled:opacity-50"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#d8e0d8] bg-white/80 text-[#4f6d7a] transition hover:bg-[#f4f6f8] disabled:opacity-50"
                 aria-label="Close"
               >
                 <X className="h-4 w-4" aria-hidden />
@@ -487,8 +484,8 @@ export function CrowdWidget() {
 
             {modalSuccess ? (
               <div className="flex flex-1 flex-col items-center justify-center px-4 py-8 text-center sm:py-10">
-                <p className="text-sm font-medium text-[#224035]">Thanks for sharing</p>
-                <p className="mt-1.5 max-w-[16rem] text-[12px] leading-relaxed text-[#56756a]">
+                <p className="text-sm font-medium text-[#2a3842]">Thanks for sharing</p>
+                <p className="mt-1.5 max-w-[16rem] text-[12px] leading-relaxed text-[#5a6b78]">
                   Your check-in helps visitors get a feel for today’s activity.
                 </p>
               </div>
@@ -501,9 +498,9 @@ export function CrowdWidget() {
                   {CROWD_AREA_KEYS.map((areaKey) => (
                     <div
                       key={areaKey}
-                      className="rounded-lg border border-[#e2e9e3] bg-white/80 px-2.5 py-2"
+                      className="rounded-lg border border-[#e2e6ea] bg-white/80 px-2.5 py-2"
                     >
-                      <p className="text-[12px] font-medium text-[#38594f]">
+                      <p className="text-[12px] font-medium text-[#3d4f5c]">
                         {CROWD_WIDGET_AREA_LABEL[areaKey]}
                       </p>
                       <div
@@ -532,9 +529,9 @@ export function CrowdWidget() {
                                       tone.bg,
                                       tone.border,
                                       tone.text,
-                                      "ring-1 ring-[#35584c]/25",
+                                      "ring-1 ring-[#3d5a68]/25",
                                     )
-                                  : "border-[#d5ddd5] bg-[#fafcf9] text-[#4d6d61] hover:bg-[#f3f6f2]",
+                                  : "border-[#d5dae0] bg-[#fafbfc] text-[#4f6d7a] hover:bg-[#f3f5f7]",
                                 modalFormDisabled && "opacity-50",
                               )}
                             >
@@ -547,13 +544,13 @@ export function CrowdWidget() {
                 ))}
               </div>
 
-                <div className="mt-3 rounded-lg border border-dashed border-[#d5dfd6] bg-[#f7faf7]/80 px-2.5 py-2">
+                <div className="mt-3 rounded-lg border border-dashed border-[#d5dae0] bg-[#f5f7f8]/80 px-2.5 py-2">
                   <label
                     htmlFor="crowd-display-name-modal"
                     className="text-[10px] font-medium uppercase tracking-wide text-[#8a9d94]"
                   >
                     Nickname{" "}
-                    <span className="font-normal normal-case text-[#6d8a7e]">— optional</span>
+                    <span className="font-normal normal-case text-[#6b7f88]">— optional</span>
                   </label>
                   <input
                     id="crowd-display-name-modal"
@@ -564,7 +561,7 @@ export function CrowdWidget() {
                     value={displayName}
                     onChange={(e) => setDisplayName(e.target.value)}
                     placeholder="River regular"
-                    className="mt-1 w-full rounded-md border border-[#d2dcd3] bg-white px-2 py-1.5 text-[13px] text-[#224035] placeholder:text-[#9cb0a4] focus:border-[#7a9a88] focus:outline-none focus:ring-1 focus:ring-[#7a9a88]/35"
+                    className="mt-1 w-full rounded-md border border-[#d2dcd3] bg-white px-2 py-1.5 text-[13px] text-[#2a3842] placeholder:text-[#9cb0a4] focus:border-[#5a8a9a] focus:outline-none focus:ring-1 focus:ring-[#5a8a9a]/35"
                   />
                 </div>
 
@@ -574,7 +571,7 @@ export function CrowdWidget() {
                       {submitMessage}
                     </p>
                     {submitDevHint ? (
-                      <p className="text-[10px] leading-snug text-[#6d8a7e]">
+                      <p className="text-[10px] leading-snug text-[#6b7f88]">
                         {submitDevHint}
                       </p>
                     ) : null}
@@ -585,7 +582,7 @@ export function CrowdWidget() {
                   <button
                     type="submit"
                     disabled={modalFormDisabled}
-                    className="min-h-[44px] w-full rounded-full border border-[#35584c] bg-[#35584c] px-3 py-2.5 text-sm font-medium text-[#f4f8f3] shadow-[0_6px_20px_-14px_rgba(24,49,43,0.5)] transition hover:bg-[#2d4a40] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:min-w-[9rem]"
+                    className="min-h-[44px] w-full rounded-full border border-[#3d5a68] bg-[#3d5a68] px-3 py-2.5 text-sm font-medium text-[#f3f5f6] shadow-[0_6px_20px_-14px_rgba(22,38,48,0.5)] transition hover:bg-[#334e5c] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto sm:min-w-[9rem]"
                   >
                     {submitState === "submitting" ? "Sending…" : "Submit"}
                   </button>
@@ -593,7 +590,7 @@ export function CrowdWidget() {
                     type="button"
                     disabled={submitState === "submitting"}
                     onClick={closeModal}
-                    className="min-h-[44px] w-full rounded-full border border-[#cfd9d0] bg-white px-3 py-2.5 text-sm font-medium text-[#4d6d61] transition hover:bg-[#f4f8f5] disabled:opacity-50 sm:w-auto sm:min-w-[6.5rem]"
+                    className="min-h-[44px] w-full rounded-full border border-[#cfd9d0] bg-white px-3 py-2.5 text-sm font-medium text-[#4f6d7a] transition hover:bg-[#f4f6f8] disabled:opacity-50 sm:w-auto sm:min-w-[6.5rem]"
                   >
                     Cancel
                   </button>
