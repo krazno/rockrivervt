@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Large media — exceeds GitHub 100MB limit; host on CDN / upload to prod separately / Git LFS
+public/media/videos/*.mp4
