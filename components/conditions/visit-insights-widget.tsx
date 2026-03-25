@@ -9,8 +9,11 @@ import {
   CloudSun,
   Droplets,
   ShieldAlert,
+  Sparkles,
   Users,
 } from "lucide-react";
+
+import { SectionEyebrow } from "@/components/shared/section-eyebrow";
 
 import type { CrowdSummaryResponse } from "@/lib/crowd/types";
 import type { RiverApiResponse } from "@/lib/river-types";
@@ -168,24 +171,24 @@ export function VisitInsightsWidget() {
       className="mb-7 rounded-[1.35rem] border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg)] p-5 shadow-[var(--rr-shadow-card)] backdrop-blur-sm sm:mb-8 sm:p-6"
       aria-labelledby="visit-insights-heading"
     >
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--rr-mint)]">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
+        <header className="w-full text-center sm:min-w-0 sm:flex-1 sm:text-left">
+          <SectionEyebrow icon={Sparkles} align="center" className="sm:justify-start">
             Plan today
-          </p>
+          </SectionEyebrow>
           <h2
             id="visit-insights-heading"
-            className="font-heading mt-2 text-lg font-semibold tracking-tight text-[var(--rr-ink)] sm:text-xl"
+            className="font-heading mt-2 text-lg font-semibold tracking-tight text-[var(--rr-ink)] sm:mt-2 sm:text-xl"
           >
             Best time to visit today
           </h2>
           <p className="mt-1 text-[12px] text-[var(--rr-text-muted)] sm:text-[13px]">
             NOAA hourly forecast, est. water temp, and today’s crowd check-ins.
           </p>
-        </div>
+        </header>
         <div
           className={cn(
-            "flex shrink-0 items-center gap-2 rounded-full border-2 px-3 py-2 text-xs font-semibold shadow-sm ring-2 sm:px-4 sm:py-2.5 sm:text-sm",
+            "mx-auto flex w-fit shrink-0 items-center gap-2 rounded-full border-2 px-3 py-2 text-xs font-semibold shadow-sm ring-2 sm:mx-0 sm:px-4 sm:py-2.5 sm:text-sm",
             parkingUi.chip,
             parkingUi.ring,
           )}

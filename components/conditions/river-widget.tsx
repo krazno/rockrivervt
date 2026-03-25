@@ -9,6 +9,7 @@ import type {
   RiverApiResponse,
 } from "@/lib/river-types";
 import { CLEANLINESS_DISPLAY, CLARITY_DISPLAY } from "@/lib/river-config";
+import { SectionEyebrow } from "@/components/shared/section-eyebrow";
 import { cn } from "@/lib/utils";
 
 function formatReadingTime(iso: string | null | undefined): string | null {
@@ -85,9 +86,11 @@ export function RiverWidget() {
 
   return (
     <div className="h-full rounded-[1.35rem] border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg)] p-5 shadow-[var(--rr-shadow-card)] backdrop-blur-sm sm:p-6">
-      <h3 className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--rr-mint)]">
-        River
-      </h3>
+      <div className="mb-1 sm:mb-2">
+        <SectionEyebrow icon={Waves} align="center" className="sm:justify-start">
+          River
+        </SectionEyebrow>
+      </div>
 
       {!loading && data?.siteName ? (
         <p className="mt-2 text-[12px] font-medium leading-snug text-[var(--rr-ink)] sm:text-[13px]">

@@ -1,9 +1,10 @@
 "use client";
 
-import type { LucideIcon } from "lucide-react";
+import { Compass, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { motion } from "motion/react";
 
+import { HomeSectionHeader } from "@/components/home/home-section-header";
 import { cn } from "@/lib/utils";
 
 export type HomeQuickLinkItem = {
@@ -37,9 +38,16 @@ export function HomeQuickLinks({ links }: HomeQuickLinksProps) {
   return (
     <section
       className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8"
-      aria-label="Explore"
+      aria-labelledby="explore-links-heading"
     >
-      <h2 className="sr-only">Explore</h2>
+      <HomeSectionHeader
+        eyebrow="Quick links"
+        icon={Compass}
+        id="explore-links-heading"
+        title="Explore"
+        description="Maps, community, guidelines, history, and more—pick a circle below."
+        className="mb-8 sm:mb-10"
+      />
       <div className="grid grid-cols-2 justify-items-center gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4">
         {links.map((link, i) => {
           const Icon = link.icon;

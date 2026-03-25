@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { HomePageClient } from "@/components/home/home-page-client";
+import { HomePageJsonLd } from "@/components/seo/home-page-json-ld";
 import { trailTourVideoFileExists } from "@/lib/media-server";
 import {
   DEFAULT_OG_ALT,
@@ -73,6 +74,9 @@ export default function Home() {
   const hasTrailVideo = trailTourVideoFileExists();
 
   return (
-    <HomePageClient hasTrailVideo={hasTrailVideo} todayLabel={todayInVermont()} />
+    <>
+      <HomePageJsonLd description={HOME_DESC} />
+      <HomePageClient hasTrailVideo={hasTrailVideo} todayLabel={todayInVermont()} />
+    </>
   );
 }

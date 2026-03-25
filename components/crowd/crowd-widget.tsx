@@ -9,6 +9,8 @@ import {
 } from "react";
 import { Users, X } from "lucide-react";
 
+import { SectionEyebrow } from "@/components/shared/section-eyebrow";
+
 import {
   CROWD_AREA_KEYS,
   CROWD_LEVELS,
@@ -286,31 +288,24 @@ export function CrowdWidget() {
 
   return (
     <div className="rounded-2xl border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg)] p-4 shadow-[var(--rr-shadow-card)] backdrop-blur-sm sm:p-5">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div className="flex items-start gap-2.5 sm:gap-3">
-          <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg-soft)] text-[var(--rr-mint)] sm:h-10 sm:w-10 sm:rounded-xl">
-            <Users className="h-[1.15rem] w-[1.15rem] sm:h-5 sm:w-5" aria-hidden />
-          </span>
-          <div>
-            <h3 className="text-[10px] font-semibold tracking-[0.2em] text-[var(--rr-mint)] uppercase">
-              Crowd feel
-            </h3>
-            <p className="mt-1 max-w-md text-[12px] leading-snug text-[var(--rr-text-muted)] sm:text-[13px]">
-              Anonymous check-ins—a vibe, not a head count. Check in as often as you like; we merge
-              everything from today (UTC) into one picture per spot.
-            </p>
-            {totalCheckIns !== null ? (
-              <p className="mt-1.5 text-[11px] font-medium tabular-nums text-[var(--rr-forest)] sm:text-xs">
-                {totalCheckIns === 0
-                  ? "No check-ins yet today"
-                  : totalCheckIns === 1
-                    ? "1 check-in merged into today’s view"
-                    : `${totalCheckIns.toLocaleString()} check-ins merged into today’s view`}
-              </p>
-            ) : null}
-          </div>
-        </div>
-      </div>
+      <header className="w-full text-center sm:text-left">
+        <SectionEyebrow icon={Users} align="center" className="sm:justify-start">
+          Crowd feel
+        </SectionEyebrow>
+        <p className="mx-auto mt-2 max-w-md text-[12px] leading-snug text-[var(--rr-text-muted)] sm:mx-0 sm:mt-2 sm:text-[13px]">
+          Anonymous check-ins—a vibe, not a head count. Check in as often as you like; we merge
+          everything from today (UTC) into one picture per spot.
+        </p>
+        {totalCheckIns !== null ? (
+          <p className="mt-1.5 text-[11px] font-medium tabular-nums text-[var(--rr-forest)] sm:text-xs">
+            {totalCheckIns === 0
+              ? "No check-ins yet today"
+              : totalCheckIns === 1
+                ? "1 check-in merged into today’s view"
+                : `${totalCheckIns.toLocaleString()} check-ins merged into today’s view`}
+          </p>
+        ) : null}
+      </header>
 
       <div className="mt-3 space-y-1.5 sm:mt-4">
         {showSummarySkeleton

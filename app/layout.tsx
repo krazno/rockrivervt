@@ -102,6 +102,16 @@ export const metadata: Metadata = {
   ...(googleSiteVerification
     ? { verification: { google: googleSiteVerification } }
     : {}),
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  appleWebApp: {
+    capable: true,
+    title: "Rock River VT",
+    statusBarStyle: "default",
+  },
 };
 
 export const viewport: Viewport = {

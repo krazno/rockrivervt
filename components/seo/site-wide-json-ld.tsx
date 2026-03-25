@@ -24,6 +24,7 @@ export function SiteWideJsonLd() {
       "@id": `${SITE_URL}/#organization`,
       name: "Rock River Vermont",
       url: SITE_URL,
+      logo: { "@id": `${SITE_URL}/#default-og-image` },
       description:
         "Independent guide to Rock River recreation in Newfane and southern Vermont.",
       areaServed: [

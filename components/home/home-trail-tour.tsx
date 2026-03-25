@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import { Film, Footprints } from "lucide-react";
 
-import { SectionEyebrow } from "@/components/shared/section-eyebrow";
+import { HomeSectionHeader } from "@/components/home/home-section-header";
 import { getTrailTourVideo } from "@/data/media";
 
 type HomeTrailTourProps = {
@@ -25,22 +25,25 @@ export function HomeTrailTour({ videoAvailable }: HomeTrailTourProps) {
         className="pointer-events-none absolute -left-8 top-8 hidden h-44 w-44 rounded-full bg-[#7a9a8e]/20 blur-3xl lg:block"
         aria-hidden
       />
-      <div className="mb-9 max-w-2xl">
-        <SectionEyebrow icon={Footprints}>Trail tour</SectionEyebrow>
-        <h2 id="trail-tour-heading" className="rr-h2 mt-3">
-          Full walkthrough
-        </h2>
-        <p className="rr-lead mt-3 max-w-xl">
-          One continuous pass—useful if you’ve never been. Pair it with{" "}
-          <a
-            href="/conditions"
-            className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
-          >
-            conditions
-          </a>{" "}
-          and the map.
-        </p>
-      </div>
+      <HomeSectionHeader
+        eyebrow="Trail tour"
+        icon={Footprints}
+        id="trail-tour-heading"
+        title="Full walkthrough"
+        description={
+          <>
+            One continuous pass—useful if you’ve never been. Pair it with{" "}
+            <a
+              href="/conditions"
+              className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
+            >
+              conditions
+            </a>{" "}
+            and the map.
+          </>
+        }
+        className="mb-9 max-w-2xl"
+      />
 
       <motion.div
         initial={{ opacity: 0, y: 18 }}

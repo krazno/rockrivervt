@@ -1,4 +1,8 @@
 import Link from "next/link";
+import { BookOpen, Users } from "lucide-react";
+
+import { HomeSectionHeader } from "@/components/home/home-section-header";
+import { SectionEyebrow } from "@/components/shared/section-eyebrow";
 
 /**
  * Long-form guide for the homepage (SEO + visitors). Two h2s, rest is body copy.
@@ -10,12 +14,14 @@ export function HomeGuide() {
       aria-labelledby="guide-about"
     >
       <div className="rr-panel-light space-y-5 px-6 py-8 sm:px-10 sm:py-10">
-        <h2
+        <HomeSectionHeader
+          eyebrow="Guide"
+          icon={BookOpen}
           id="guide-about"
-          className="font-heading text-[clamp(1.35rem,2vw,1.75rem)] font-semibold tracking-tight text-[var(--rr-ink)]"
-        >
-          About Rock River &amp; where to find it
-        </h2>
+          title="About Rock River & where to find it"
+          titleClassName="text-[clamp(1.35rem,2vw,1.75rem)]"
+          className="mb-5 text-center sm:mb-6 sm:text-left"
+        />
         <p className="leading-relaxed text-[var(--rr-ink-muted)]">
           <strong className="font-semibold text-[var(--rr-ink)]">Rock River</strong> runs through{" "}
           <strong className="font-semibold text-[var(--rr-ink)]">Newfane</strong> in{" "}
@@ -100,9 +106,17 @@ export function HomeGuide() {
           recreation—Rock River is one chapter in a valley full of brooks and trails worth respecting.
         </p>
 
-        <h2 className="pt-4 font-heading text-[clamp(1.35rem,2vw,1.75rem)] font-semibold tracking-tight text-[var(--rr-ink)]">
-          Community use, respect &amp; the wider area
-        </h2>
+        <header className="pt-4 text-center sm:mb-0 sm:text-left">
+          <SectionEyebrow icon={Users} align="center" className="sm:justify-start">
+            Together
+          </SectionEyebrow>
+          <h2
+            id="guide-community"
+            className="font-heading mt-2 text-[clamp(1.35rem,2vw,1.75rem)] font-semibold tracking-tight text-[var(--rr-ink)] sm:mt-3"
+          >
+            Community use, respect & the wider area
+          </h2>
+        </header>
         <p className="leading-relaxed text-[var(--rr-ink-muted)]">
           For generations, Newfane and nearby towns have cooled off in this water. Volunteers and
           advocates helped protect access and land, including areas tied to the preserve. Floods move

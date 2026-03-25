@@ -11,6 +11,8 @@ import {
   Sun,
 } from "lucide-react";
 
+import { SectionEyebrow } from "@/components/shared/section-eyebrow";
+
 type ForecastDaySlice = {
   shortForecast: string;
   high: number | null;
@@ -141,6 +143,11 @@ export function WeatherWidget() {
 
   return (
     <div className="h-full rounded-[1.35rem] border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg)] p-5 shadow-[var(--rr-shadow-card)] backdrop-blur-sm sm:p-6">
+      <div className="mb-2 w-full sm:mb-3">
+        <SectionEyebrow icon={CloudSun} align="center" className="sm:justify-start">
+          Weather
+        </SectionEyebrow>
+      </div>
       <div className="flex flex-col items-center">
         <p className="mb-3 text-center text-[11px] font-medium tracking-[0.02em] text-[var(--rr-text-muted)] sm:mb-4 sm:text-xs">
           {dateLine}
@@ -151,11 +158,8 @@ export function WeatherWidget() {
               {iconForForecast(data?.shortForecast ?? "", 26)}
             </div>
           </div>
-          <div className="min-w-0 text-left">
-            <p className="text-[10px] font-semibold tracking-[0.2em] text-[var(--rr-mint)] uppercase">
-              Weather
-            </p>
-            <p className="mt-1.5 text-[2.125rem] leading-none font-semibold tracking-tight text-[var(--rr-ink)] sm:text-[2.5rem]">
+          <div className="min-w-0 text-center sm:text-left">
+            <p className="mt-0 text-[2.125rem] leading-none font-semibold tracking-tight text-[var(--rr-ink)] sm:text-[2.5rem]">
               {temperatureText}
             </p>
             <p className="mt-1.5 max-w-[16rem] text-[13px] leading-snug text-[var(--rr-text)] sm:text-[0.9375rem]">

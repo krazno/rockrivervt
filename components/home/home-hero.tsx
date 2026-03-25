@@ -3,13 +3,65 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Droplets, Leaf, MapPin, Sparkles, Volume2, VolumeX } from "lucide-react";
 
-import { getHeroBackdropImage } from "@/data/media";
+import { cn } from "@/lib/utils";
+import {
+  getHeroBackdropImage,
+  getHeroCircleGalleryPhotos,
+  type MediaItem,
+} from "@/data/media";
+
+const HERO_CIRCLE_SLIDE_MS = 7000;
+const HERO_CIRCLE_FADE_MS = 1600;
+
+function HeroCircleSlideshow({
+  photos,
+}: {
+  photos: (MediaItem & { type: "image"; width: number; height: number })[];
+}) {
+  const reduceMotion = useReducedMotion();
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    if (photos.length <= 1 || reduceMotion) return;
+    const id = window.setInterval(() => {
+      setActive((i) => (i + 1) % photos.length);
+    }, HERO_CIRCLE_SLIDE_MS);
+    return () => window.clearInterval(id);
+  }, [photos.length, reduceMotion]);
+
+  if (photos.length === 0) return null;
+
+  return (
+    <>
+      {photos.map((photo, i) => (
+        <Image
+          key={photo.src}
+          src={photo.src}
+          alt={i === active ? photo.alt : ""}
+          title={photo.title}
+          fill
+          sizes="(max-width: 640px) 120px, 180px"
+          priority={i === 0}
+          className={cn(
+            "object-cover object-center transition-opacity ease-in-out motion-reduce:transition-none",
+            i === active ? "z-[1] opacity-100" : "z-0 opacity-0",
+          )}
+          style={{
+            transitionDuration: reduceMotion ? "0ms" : `${HERO_CIRCLE_FADE_MS}ms`,
+          }}
+          aria-hidden={i !== active}
+        />
+      ))}
+    </>
+  );
+}
 
 export function HomeHero() {
   const hero = getHeroBackdropImage();
+  const circlePhotos = useMemo(() => getHeroCircleGalleryPhotos(), []);
   const sectionRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
@@ -135,15 +187,8 @@ export function HomeHero() {
                   className="pointer-events-none absolute -inset-1 animate-pulse rounded-full bg-gradient-to-tr from-[#7a9a8e]/22 via-transparent to-[#8eb8c4]/18 blur-md motion-reduce:animate-none [animation-duration:3.5s]"
                   aria-hidden
                 />
-                <div className="relative mx-auto overflow-hidden rounded-full border-2 border-[#faf8f4]/90 shadow-[0_12px_40px_-16px_rgba(22,38,48,0.45)] ring-2 ring-[var(--rr-widget-border)]/80">
-                  <Image
-                    src="/media/home/river-montage.gif"
-                    alt="Glimpses of Rock River water and shore"
-                    width={220}
-                    height={220}
-                    unoptimized
-                    className="h-[7.5rem] w-[7.5rem] object-cover object-center sm:h-[8.25rem] sm:w-[8.25rem] lg:h-[9rem] lg:w-[9rem]"
-                  />
+                <div className="relative mx-auto h-[7.5rem] w-[7.5rem] overflow-hidden rounded-full border-2 border-[#faf8f4]/90 shadow-[0_12px_40px_-16px_rgba(22,38,48,0.45)] ring-2 ring-[var(--rr-widget-border)]/80 sm:h-[8.25rem] sm:w-[8.25rem] lg:h-[9rem] lg:w-[9rem]">
+                  <HeroCircleSlideshow photos={circlePhotos} />
                 </div>
               </div>
               <div

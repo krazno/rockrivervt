@@ -206,6 +206,57 @@ export function getHeroBackdropImage(): MediaItem | null {
   return pano ?? sorted[0] ?? null;
 }
 
+/** Curated file numbers for the hero circle slideshow (mix of trail, water, shore). */
+const HERO_CIRCLE_GALLERY_ORDER: readonly number[] = [
+  10, 22, 7, 12, 19, 3, 15, 21, 17, 24, 5, 8, 14, 11, 16,
+];
+
+/** At least 10 images when assets exist; fills from the rest of the catalog if needed. */
+export function getHeroCircleGalleryPhotos(): (MediaItem & {
+  type: "image";
+  width: number;
+  height: number;
+})[] {
+  const imgs = getSiteImages();
+  const out: (MediaItem & { type: "image"; width: number; height: number })[] =
+    [];
+  const seen = new Set<string>();
+
+  for (const n of HERO_CIRCLE_GALLERY_ORDER) {
+    const pad = String(n).padStart(3, "0");
+    const src = `/media/images/rock-river-newfane-vermont-outdoors-${pad}.jpg`;
+    const item = imgs.find((m) => m.src === src);
+    if (
+      item &&
+      item.type === "image" &&
+      typeof item.width === "number" &&
+      typeof item.height === "number" &&
+      !seen.has(item.src)
+    ) {
+      out.push(item);
+      seen.add(item.src);
+    }
+    if (out.length >= 13) break;
+  }
+
+  const rest = [...imgs].sort(sortByOrder);
+  for (const m of rest) {
+    if (out.length >= 10) break;
+    if (
+      m.type !== "image" ||
+      typeof m.width !== "number" ||
+      typeof m.height !== "number" ||
+      seen.has(m.src)
+    ) {
+      continue;
+    }
+    out.push(m);
+    seen.add(m.src);
+  }
+
+  return out;
+}
+
 /** Featured trail tour MP4 for homepage hero section. */
 export function getTrailTourVideo(): MediaItem | null {
   const v = media.find(

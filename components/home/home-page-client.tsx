@@ -26,7 +26,7 @@ import { HomeVermontView } from "@/components/home/home-vermont-view";
 
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
-import { SectionEyebrow } from "@/components/shared/section-eyebrow";
+import { HomeSectionHeader } from "@/components/home/home-section-header";
 import { WeatherWidget } from "@/components/conditions/weather-widget";
 import { RiverWidget } from "@/components/conditions/river-widget";
 import { VisitInsightsWidget } from "@/components/conditions/visit-insights-widget";
@@ -127,10 +127,13 @@ export function HomePageClient({ hasTrailVideo, todayLabel }: HomePageClientProp
           className="rr-section mx-auto w-full max-w-6xl scroll-mt-28 px-4 sm:px-6 lg:px-8"
         >
           <div className="rr-glass-strong p-7 sm:p-9">
-            <header className="mb-8 sm:mb-10">
-              <SectionEyebrow icon={Calendar}>Today</SectionEyebrow>
-              <h2 className="rr-h2 mt-3 max-w-[28ch] text-balance">{todayLabel}</h2>
-            </header>
+            <HomeSectionHeader
+              eyebrow="Today"
+              icon={Calendar}
+              title={todayLabel}
+              titleClassName="max-w-[28ch]"
+              className="mb-8 sm:mb-10"
+            />
 
             <VisitInsightsWidget />
 

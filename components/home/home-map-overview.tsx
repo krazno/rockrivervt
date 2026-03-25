@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
-import { Film, Maximize2, X } from "lucide-react";
+import { Film, MapPinned, Maximize2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
+import { HomeSectionHeader } from "@/components/home/home-section-header";
 import { InteractiveMap } from "@/components/map/interactive-map";
 import {
   ROCK_RIVER_TRAIL_YOUTUBE_URL,
@@ -35,8 +36,16 @@ export function HomeMapOverview() {
   return (
     <section
       className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8"
-      aria-label="Map and trail video"
+      aria-labelledby="map-trail-overview-heading"
     >
+      <HomeSectionHeader
+        eyebrow="Find your way"
+        icon={MapPinned}
+        id="map-trail-overview-heading"
+        title="Map & trail"
+        description="Interactive map and a short trail film—expand for detail or open the full map page."
+        className="mb-6 sm:mb-8"
+      />
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6">
         <div className="rr-glass-strong overflow-hidden shadow-[var(--rr-shadow-card)]">
           <div className="border-b border-[var(--rr-widget-border)] px-5 py-4 sm:px-6 sm:py-5">
