@@ -11,8 +11,21 @@ import {
   truncateMetaDescription,
 } from "@/lib/seo";
 
+/** Fresh “today” line for the home snapshot (America/New_York). */
+export const dynamic = "force-dynamic";
+
+function todayInVermont(): string {
+  return new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "America/New_York",
+  }).format(new Date());
+}
+
 const HOME_DESC = truncateMetaDescription(
-  "Guide to Rock River in Newfane Vermont with map, trail access, swimming holes, photos, and visitor info near Brattleboro and Windham County.",
+  "Rock River Vermont homepage—today’s visit window, weather, river levels, crowd feel, trail map, and full trail video for Newfane & Windham County VT.",
   META_DESC_MAX,
 );
 
@@ -59,5 +72,7 @@ export const metadata: Metadata = {
 export default function Home() {
   const hasTrailVideo = trailTourVideoFileExists();
 
-  return <HomePageClient hasTrailVideo={hasTrailVideo} />;
+  return (
+    <HomePageClient hasTrailVideo={hasTrailVideo} todayLabel={todayInVermont()} />
+  );
 }

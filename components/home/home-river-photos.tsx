@@ -14,18 +14,15 @@ export function HomeRiverPhotos() {
     <section className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
       <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div className="max-w-2xl">
-          <SectionEyebrow icon={ImageIcon}>Gallery</SectionEyebrow>
-          <h2 className="rr-h2 mt-3">Two frames</h2>
-          <p className="rr-lead mt-3">
-            From the same archive—see the full{" "}
+          <SectionEyebrow icon={ImageIcon}>Photos</SectionEyebrow>
+          <h2 className="rr-h2 mt-3">
             <Link
               href="/gallery"
-              className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
+              className="text-[var(--rr-ink)] underline-offset-4 transition hover:text-[var(--rr-link)] hover:underline"
             >
-              gallery
+              Gallery
             </Link>
-            .
-          </p>
+          </h2>
         </div>
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">

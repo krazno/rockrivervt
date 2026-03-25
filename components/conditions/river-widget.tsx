@@ -11,6 +11,17 @@ import type {
 import { CLEANLINESS_DISPLAY, CLARITY_DISPLAY } from "@/lib/river-config";
 import { cn } from "@/lib/utils";
 
+function formatReadingTime(iso: string | null | undefined): string | null {
+  if (!iso) return null;
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return null;
+  return d.toLocaleString(undefined, {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "America/New_York",
+  });
+}
+
 function cleanlinessStyles(status: CleanlinessStatus) {
   switch (status) {
     case "good":
@@ -66,6 +77,9 @@ export function RiverWidget() {
   const clarity: ClarityStatus = data?.clarityStatus ?? "clear";
   const cleanliness: CleanlinessStatus = data?.cleanlinessStatus ?? "good";
 
+  const gaugeTime = formatReadingTime(data?.timestampIso);
+  const estimateTime = formatReadingTime(data?.estimatesAsOfIso);
+
   const rowClass =
     "flex items-baseline justify-between gap-3 border-b border-[#d8d2c6]/55 py-2.5 last:border-0";
 
@@ -75,7 +89,39 @@ export function RiverWidget() {
         River
       </h3>
 
+      {!loading && data?.siteName ? (
+        <p className="mt-2 text-[12px] font-medium leading-snug text-[var(--rr-ink)] sm:text-[13px]">
+          {data.siteName}
+        </p>
+      ) : null}
+      {!loading && data?.dataLabel ? (
+        <p className="mt-1 text-[11px] leading-relaxed text-[var(--rr-text-muted)] sm:text-xs">
+          {data.dataLabel}
+        </p>
+      ) : null}
+      {!loading && gaugeTime ? (
+        <p className="mt-1 text-[10px] leading-snug text-[var(--rr-text-muted)] sm:text-[11px]">
+          Latest gauge reading: {gaugeTime} ET
+        </p>
+      ) : null}
+
       <div className="mt-4 space-y-0 text-[var(--rr-text)]">
+        <div className={rowClass}>
+          <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-xs text-[var(--rr-text-muted)]">
+            <span className="flex items-center gap-2">
+              <span className="inline-block h-3.5 w-3.5 text-center text-[10px] opacity-70" aria-hidden>
+                ′
+              </span>
+              Water level
+            </span>
+            <span className="text-[10px] font-normal normal-case tracking-normal text-[var(--rr-text-muted)] opacity-90">
+              Gage height (USGS)
+            </span>
+          </span>
+          <span className="shrink-0 font-medium tabular-nums text-base text-[var(--rr-ink)]">
+            {loading ? "—" : formatGage(data?.gageHeightFt ?? null)}
+          </span>
+        </div>
         <div className={rowClass}>
           <span className="flex items-center gap-2 text-xs text-[var(--rr-text-muted)]">
             <Waves className="h-3.5 w-3.5 opacity-70" aria-hidden />
@@ -86,22 +132,22 @@ export function RiverWidget() {
           </span>
         </div>
         <div className={rowClass}>
-          <span className="flex items-center gap-2 text-xs text-[var(--rr-text-muted)]">
-            <span className="inline-block h-3.5 w-3.5 text-center text-[10px] opacity-70" aria-hidden>
-              ′
+          <span className="flex min-w-0 flex-1 flex-col gap-0.5 text-xs text-[var(--rr-text-muted)]">
+            <span className="flex items-center gap-2">
+              <Thermometer className="h-3.5 w-3.5 opacity-70" aria-hidden />
+              Est. water temp
             </span>
-            Gage
+            {data?.estimatedWaterTempSummary ? (
+              <span className="text-[10px] font-normal normal-case tracking-normal leading-snug text-[var(--rr-text-muted)]">
+                {data.estimatedWaterTempSummary}
+              </span>
+            ) : (
+              <span className="text-[10px] font-normal normal-case tracking-normal text-[var(--rr-text-muted)]">
+                From air temperature, not measured in-river
+              </span>
+            )}
           </span>
-          <span className="font-medium tabular-nums text-base text-[var(--rr-ink)]">
-            {loading ? "—" : formatGage(data?.gageHeightFt ?? null)}
-          </span>
-        </div>
-        <div className={rowClass}>
-          <span className="flex items-center gap-2 text-xs text-[var(--rr-text-muted)]">
-            <Thermometer className="h-3.5 w-3.5 opacity-70" aria-hidden />
-            Water
-          </span>
-          <span className="font-medium tabular-nums text-base text-[var(--rr-ink)]">
+          <span className="shrink-0 text-right font-medium tabular-nums text-base text-[var(--rr-ink)]">
             {loading
               ? "—"
               : typeof data?.estimatedWaterTempF === "number"
@@ -110,6 +156,21 @@ export function RiverWidget() {
           </span>
         </div>
       </div>
+
+      {!loading &&
+      typeof data?.airTemperatureUsedF === "number" &&
+      !Number.isNaN(data.airTemperatureUsedF) ? (
+        <p className="mt-2 text-[10px] leading-snug text-[var(--rr-text-muted)] sm:text-[11px]">
+          Air temperature used for estimate: {Math.round(data.airTemperatureUsedF)}°F
+          {estimateTime ? ` · modeled ${estimateTime} ET` : null}
+        </p>
+      ) : null}
+
+      {!loading && data?.transparencyNote ? (
+        <p className="mt-3 text-[10px] leading-relaxed text-[var(--rr-text-muted)] sm:text-[11px]">
+          {data.transparencyNote}
+        </p>
+      ) : null}
 
       <div className="mt-4 space-y-3 border-t border-[#d8d2c6]/45 pt-4">
         <div className="flex items-start gap-2">

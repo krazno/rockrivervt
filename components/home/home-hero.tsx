@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { MapPin, Volume2, VolumeX } from "lucide-react";
+import { Droplets, Leaf, MapPin, Sparkles, Volume2, VolumeX } from "lucide-react";
 
 import { getHeroBackdropImage } from "@/data/media";
 
@@ -88,7 +88,9 @@ export function HomeHero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            className="flex w-full flex-col gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12"
           >
+            <div className="min-w-0 flex-1 lg:py-2">
             <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-[var(--rr-widget-border)] bg-[#faf8f4]/90 px-3 py-1.5 text-[11px] font-semibold tracking-[0.12em] text-[var(--rr-mint)] shadow-sm backdrop-blur-sm">
               <MapPin className="h-3.5 w-3.5 text-[var(--rr-forest)]" aria-hidden />
               Newfane · Windham County
@@ -109,12 +111,6 @@ export function HomeHero() {
               <Link href="/conditions" className="rr-btn-ghost">
                 Conditions
               </Link>
-              <Link
-                href="/gallery"
-                className="inline-flex items-center justify-center rounded-full px-4 py-3 text-sm font-medium text-[var(--rr-link)] underline-offset-[6px] transition hover:text-[var(--rr-ink)] hover:underline"
-              >
-                Gallery
-              </Link>
               {audioReady ? (
                 <button
                   type="button"
@@ -130,6 +126,40 @@ export function HomeHero() {
                   {playing ? "Pause" : "Sound"}
                 </button>
               ) : null}
+            </div>
+            </div>
+
+            <div className="flex w-full shrink-0 flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5 lg:w-[min(100%,13rem)] lg:flex-col lg:justify-center lg:self-center">
+              <div className="relative mx-auto lg:mx-0">
+                <div
+                  className="pointer-events-none absolute -inset-1 animate-pulse rounded-full bg-gradient-to-tr from-[#7a9a8e]/22 via-transparent to-[#8eb8c4]/18 blur-md motion-reduce:animate-none [animation-duration:3.5s]"
+                  aria-hidden
+                />
+                <div className="relative mx-auto overflow-hidden rounded-full border-2 border-[#faf8f4]/90 shadow-[0_12px_40px_-16px_rgba(22,38,48,0.45)] ring-2 ring-[var(--rr-widget-border)]/80">
+                  <Image
+                    src="/media/home/river-montage.gif"
+                    alt="Glimpses of Rock River water and shore"
+                    width={220}
+                    height={220}
+                    unoptimized
+                    className="h-[7.5rem] w-[7.5rem] object-cover object-center sm:h-[8.25rem] sm:w-[8.25rem] lg:h-[9rem] lg:w-[9rem]"
+                  />
+                </div>
+              </div>
+              <div
+                className="flex justify-center gap-2 rounded-full border border-[var(--rr-widget-border)] bg-[#faf8f4]/88 px-2.5 py-2 shadow-sm backdrop-blur-sm sm:gap-2.5 sm:px-3 lg:mx-auto"
+                aria-hidden
+              >
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#e8f0ec] text-[#2d5a42] shadow-inner">
+                  <Sparkles className="h-4 w-4" />
+                </span>
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#eef5f0] text-[#2f6048] shadow-inner">
+                  <Leaf className="h-4 w-4" />
+                </span>
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#eaf2f5] text-[#2f5f6e] shadow-inner">
+                  <Droplets className="h-4 w-4" />
+                </span>
+              </div>
             </div>
           </motion.div>
         </div>

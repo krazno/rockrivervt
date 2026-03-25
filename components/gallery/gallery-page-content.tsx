@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { X } from "lucide-react";
+import { ExternalLink, Instagram, X } from "lucide-react";
 
 import { MediaImage } from "@/components/MediaImage";
 import { SiteFooter } from "@/components/layout/site-footer";
@@ -10,10 +10,12 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { Container } from "@/components/shared/container";
 import type { MediaItem } from "@/data/media";
 import { getGalleryMediaSorted } from "@/data/media";
+import { INSTAGRAM_ROCK_RIVER_LOCATION_URL } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 export function GalleryPageContent() {
   const galleryMedia = getGalleryMediaSorted();
+  const instaPreview = galleryMedia.filter((i) => i.type === "image").slice(0, 6);
   const [active, setActive] = useState<MediaItem | null>(null);
 
   const close = useCallback(() => setActive(null), []);
@@ -70,6 +72,67 @@ export function GalleryPageContent() {
               </Link>
             </p>
           </header>
+
+          <section
+            className="mt-12 rounded-[var(--rr-radius-xl)] border border-[var(--rr-widget-border)] bg-[#faf8f4]/90 p-6 shadow-[var(--rr-shadow-card)] sm:p-8"
+            aria-labelledby="instagram-community-heading"
+          >
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between lg:gap-8">
+              <div className="max-w-xl">
+                <p
+                  id="instagram-community-heading"
+                  className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.26em] text-[var(--rr-mint)]"
+                >
+                  <Instagram className="h-3.5 w-3.5" aria-hidden />
+                  Instagram
+                </p>
+                <h2 className="font-heading mt-2 text-lg font-semibold text-[var(--rr-ink)] sm:text-xl">
+                  Rock River VT on Instagram
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed text-[var(--rr-text-muted)]">
+                  Meta doesn’t offer a simple way to embed the live location page here without their
+                  Graph API and app review—so we link straight out. Below are a few stills from this
+                  site’s gallery while you’re here.
+                </p>
+                <a
+                  href={INSTAGRAM_ROCK_RIVER_LOCATION_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center gap-2 rounded-full border border-[var(--rr-forest)] bg-[var(--rr-forest)] px-5 py-2.5 text-sm font-semibold text-[#faf8f4] shadow-sm transition hover:bg-[#3d4a3d]"
+                >
+                  Open location feed
+                  <ExternalLink className="h-3.5 w-3.5 opacity-90" aria-hidden />
+                </a>
+              </div>
+              {instaPreview.length > 0 ? (
+                <ul
+                  className="grid grid-cols-3 gap-2 sm:grid-cols-3 sm:gap-3 lg:w-[min(100%,24rem)]"
+                  role="list"
+                  aria-label="Sample photos from this site’s gallery"
+                >
+                  {instaPreview.map((item) => (
+                    <li key={`insta-prev-${item.src}`}>
+                      <button
+                        type="button"
+                        onClick={() => setActive(item)}
+                        className="group relative aspect-square w-full overflow-hidden rounded-lg border border-[var(--rr-widget-border)] bg-[#e8e4db]/80 shadow-sm transition hover:border-[var(--rr-glow)]/35 hover:shadow-md"
+                      >
+                        <MediaImage
+                          src={item.thumbnailSrc ?? item.src}
+                          alt={item.alt}
+                          title={item.title}
+                          fill
+                          sizes="120px"
+                          className="object-cover transition duration-500 ease-out group-hover:scale-[1.04]"
+                        />
+                        <span className="sr-only">{item.alt}</span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+          </section>
 
           <ul
             className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6"

@@ -23,6 +23,16 @@ type WeatherResponse = {
     icon: string;
     probabilityOfPrecipitation: number | null;
   }>;
+  /** Up to 12 hourly slots for visit-window hints (same shape as `nextFourHours`). */
+  nextTwelveHours: Array<{
+    startTime: string;
+    temperature: number;
+    windSpeed: string;
+    windDirection: string;
+    shortForecast: string;
+    icon: string;
+    probabilityOfPrecipitation: number | null;
+  }>;
 };
 
 type NwsPointsResponse = {
@@ -205,8 +215,7 @@ export async function GET(): Promise<Response> {
 
   const threeDayForecast = buildThreeDayForecast(dailyPeriods, timeZone);
 
-  const nextFourHours = hourlyPeriods
-    .slice(0, 4)
+  const hourlyFiltered = hourlyPeriods
     .filter(
       (p): p is NwsPeriod =>
         typeof p.startTime === "string" &&
@@ -216,6 +225,7 @@ export async function GET(): Promise<Response> {
         typeof p.shortForecast === "string" &&
         typeof p.icon === "string",
     )
+    .slice(0, 12)
     .map((p) => ({
       startTime: p.startTime!,
       temperature: p.temperature!,
@@ -229,6 +239,9 @@ export async function GET(): Promise<Response> {
           : null,
     }));
 
+  const nextFourHours = hourlyFiltered.slice(0, 4);
+  const nextTwelveHours = hourlyFiltered;
+
   const payload: WeatherResponse = {
     temperature: period.temperature,
     shortForecast: period.shortForecast,
@@ -238,6 +251,7 @@ export async function GET(): Promise<Response> {
     timezone: timeZone,
     threeDayForecast,
     nextFourHours,
+    nextTwelveHours,
   };
 
   return Response.json(payload, {

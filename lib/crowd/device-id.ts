@@ -16,23 +16,3 @@ export function getOrCreateCrowdDeviceId(): string {
     return `rr-fallback-${Date.now()}`;
   }
 }
-
-const SUBMIT_DATE_KEY = "rockrivervt_crowd_submitted_date";
-
-export function getCrowdSubmittedReportDate(): string | null {
-  if (typeof window === "undefined") return null;
-  try {
-    return window.localStorage.getItem(SUBMIT_DATE_KEY);
-  } catch {
-    return null;
-  }
-}
-
-export function setCrowdSubmittedReportDate(reportDate: string) {
-  if (typeof window === "undefined") return;
-  try {
-    window.localStorage.setItem(SUBMIT_DATE_KEY, reportDate);
-  } catch {
-    /* ignore */
-  }
-}

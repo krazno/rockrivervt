@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Rock River Vermont — Newfane & Windham County guide",
     short_name: "Rock River VT",
     description:
-      "Unofficial guide to Rock River in Newfane, Vermont—map, swimming holes, conditions, and trails near Brattleboro.",
+      "Rock River Vermont—map, swimming holes, live conditions, trail, and visitor guide for Newfane & Windham County.",
     start_url: "/",
     display: "standalone",
     background_color: "#eef2ea",

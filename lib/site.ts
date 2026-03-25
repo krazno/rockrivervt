@@ -2,7 +2,11 @@
  * Site-wide contact & social — set `href` when profiles go live; omitted links are not rendered as anchors.
  */
 /** Primary inbox for mailto links */
-export const CONTACT_FORM_EMAIL = "grassvale@gmail.com";
+export const CONTACT_FORM_EMAIL = "kraznodesign@gmail.com";
+
+/** Instagram location page for Rock River VT (public grid opens in app/browser.) */
+export const INSTAGRAM_ROCK_RIVER_LOCATION_URL =
+  "https://www.instagram.com/explore/locations/880409681/rock-river-vt/recent/";
 
 export type SocialProfile = {
   label: string;
@@ -14,7 +18,11 @@ export type SocialProfile = {
 
 /** Scaffold: add real URLs in production. Used for footer + schema sameAs. */
 export const socialProfiles: SocialProfile[] = [
-  { key: "instagram", label: "Instagram", href: null },
+  {
+    key: "instagram",
+    label: "Instagram — Rock River VT",
+    href: INSTAGRAM_ROCK_RIVER_LOCATION_URL,
+  },
   { key: "reddit", label: "Reddit", href: null },
   { key: "facebook", label: "Facebook", href: null },
   { key: "youtube", label: "YouTube", href: null },

@@ -2,12 +2,14 @@
 
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
-import { MapPinned, Maximize2, X } from "lucide-react";
-
-import { SectionEyebrow } from "@/components/shared/section-eyebrow";
+import { Film, Maximize2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import { InteractiveMap } from "@/components/map/interactive-map";
+import {
+  ROCK_RIVER_TRAIL_YOUTUBE_URL,
+  rockRiverTrailEmbedSrc,
+} from "@/lib/youtube";
 
 export function HomeMapOverview() {
   const [mapOpen, setMapOpen] = useState(false);
@@ -28,41 +30,77 @@ export function HomeMapOverview() {
     setModalMapHeight(Math.max(420, h));
   }, [mapOpen]);
 
+  const embedSrc = rockRiverTrailEmbedSrc({ autoplay: true });
+
   return (
-    <section className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div className="rr-glass-strong overflow-hidden shadow-[var(--rr-shadow-card)]">
-        <div className="border-b border-[var(--rr-widget-border)] px-6 py-7 sm:px-9 sm:py-8">
-          <SectionEyebrow icon={MapPinned}>Orient</SectionEyebrow>
-          <h2 className="rr-h2 mt-3">Map</h2>
-          <p className="rr-lead mt-3 max-w-xl">
-            Tap features for detail. Expand for a larger view.
-          </p>
+    <section
+      className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8"
+      aria-label="Map and trail video"
+    >
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6">
+        <div className="rr-glass-strong overflow-hidden shadow-[var(--rr-shadow-card)]">
+          <div className="border-b border-[var(--rr-widget-border)] px-5 py-4 sm:px-6 sm:py-5">
+            <h3 className="font-heading text-base font-semibold text-[var(--rr-ink)] sm:text-[1.05rem]">
+              Map
+            </h3>
+          </div>
+          <div className="bg-[#f0ebe6]/80 px-4 py-5 sm:px-6 sm:py-6">
+            <InteractiveMap
+              mode="preview"
+              height={360}
+              showLegend
+              showControls
+              geoJsonUrl="/geo/map.geojson"
+              tone="light"
+              ariaLabel="Rock River area map preview"
+            />
+            <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <button
+                type="button"
+                onClick={() => setMapOpen(true)}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--rr-widget-border)] bg-[#faf8f4]/90 px-5 py-2.5 text-sm font-medium text-[var(--rr-link)] shadow-sm transition hover:border-[var(--rr-glow)]/35 hover:bg-[#f5f2eb]"
+              >
+                <Maximize2 className="h-4 w-4 opacity-90" aria-hidden />
+                Expand
+              </button>
+              <Link
+                href="/map"
+                className="text-center text-sm font-medium text-[var(--rr-link)] underline-offset-2 transition hover:text-[var(--rr-ink)] hover:underline sm:text-left"
+              >
+                Full page →
+              </Link>
+            </div>
+          </div>
         </div>
-        <div className="bg-[#f0ebe6]/80 px-4 py-5 sm:px-6 sm:py-6">
-          <InteractiveMap
-            mode="preview"
-            height={360}
-            showLegend
-            showControls
-            geoJsonUrl="/geo/map.geojson"
-            tone="light"
-            ariaLabel="Rock River area map preview"
-          />
-          <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <button
-              type="button"
-              onClick={() => setMapOpen(true)}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-[var(--rr-widget-border)] bg-[#faf8f4]/90 px-5 py-2.5 text-sm font-medium text-[var(--rr-link)] shadow-sm transition hover:border-[var(--rr-glow)]/35 hover:bg-[#f5f2eb]"
-            >
-              <Maximize2 className="h-4 w-4 opacity-90" aria-hidden />
-              Expand
-            </button>
-            <Link
-              href="/map"
-              className="text-center text-sm font-medium text-[var(--rr-link)] underline-offset-2 transition hover:text-[var(--rr-ink)] hover:underline sm:text-left"
-            >
-              Full page →
-            </Link>
+
+        <div className="rr-glass-strong overflow-hidden shadow-[var(--rr-shadow-card)]">
+          <div className="flex items-center gap-2 border-b border-[var(--rr-widget-border)] px-5 py-4 sm:px-6 sm:py-5">
+            <Film className="h-4 w-4 shrink-0 text-[var(--rr-forest)]" aria-hidden />
+            <h3 className="font-heading text-base font-semibold text-[var(--rr-ink)] sm:text-[1.05rem]">
+              Trail
+            </h3>
+          </div>
+          <div className="border-t border-[var(--rr-widget-border)] bg-[#f4f1ea] px-3 py-4 sm:px-5 sm:py-5">
+            <div className="relative aspect-video w-full overflow-hidden rounded-[var(--rr-radius-lg)] border border-[var(--rr-widget-border)] bg-white shadow-[var(--rr-shadow-card)]">
+              <iframe
+                title="Rock River full trail walk on YouTube"
+                src={embedSrc}
+                className="absolute inset-0 h-full w-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            </div>
+            <p className="mt-3 text-center text-[11px] text-[var(--rr-text-muted)] sm:text-xs">
+              <a
+                href={ROCK_RIVER_TRAIL_YOUTUBE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
+              >
+                Open on YouTube
+              </a>
+            </p>
           </div>
         </div>
       </div>

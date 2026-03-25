@@ -41,6 +41,11 @@ const USGS_URL_BASE = `https://waterservices.usgs.gov/nwis/iv/?format=json&sites
 
 const DEFAULT_SITE_NAME = "West River near Newfane, VT";
 
+const RIVER_DATA_LABEL = "West River at Newfane (USGS proxy for Rock River access)";
+const RIVER_TRANSPARENCY_NOTE =
+  "Flow and water level are from USGS gage 01156000 on the West River—same regional watershed as Rock River swimming holes, useful for trends and relative depth, not an on-site Rock River measurement. " +
+  "Water temperature is estimated from nearby air temperature (NWS), not a probe in the river.";
+
 function userAgent() {
   return "rockrivervt.com (unofficial community guide)";
 }
@@ -202,8 +207,8 @@ function buildPayload(partial: Partial<RiverApiResponse>): RiverApiResponse {
     error: partial.error,
     siteId: SITE_ID,
     siteName: partial.siteName ?? null,
-    dataLabel: partial.dataLabel ?? "USGS regional",
-    transparencyNote: partial.transparencyNote ?? "",
+    dataLabel: partial.dataLabel ?? RIVER_DATA_LABEL,
+    transparencyNote: partial.transparencyNote ?? RIVER_TRANSPARENCY_NOTE,
     proxyGaugeAvailable,
     flowCfs: partial.flowCfs ?? null,
     gageHeightFt: partial.gageHeightFt ?? null,
@@ -237,6 +242,8 @@ export async function GET(): Promise<Response> {
     ok: true,
     error: usgs.error,
     siteName: usgs.siteName,
+    dataLabel: RIVER_DATA_LABEL,
+    transparencyNote: RIVER_TRANSPARENCY_NOTE,
     flowCfs: usgs.flowCfs,
     gageHeightFt: usgs.gageHeightFt,
     timestampIso: usgs.timestampIso,

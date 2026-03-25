@@ -34,6 +34,15 @@ type WeatherData = {
     icon: string;
     probabilityOfPrecipitation: number | null;
   }>;
+  nextTwelveHours: Array<{
+    startTime: string;
+    temperature: number;
+    windSpeed: string;
+    windDirection: string;
+    shortForecast: string;
+    icon: string;
+    probabilityOfPrecipitation: number | null;
+  }>;
 };
 
 const FORECAST_DAY_LABELS = ["Today", "Tomorrow", "Next"] as const;

@@ -4,7 +4,6 @@ import {
   useCallback,
   useEffect,
   useMemo,
-  useRef,
   useState,
   type FormEvent,
 } from "react";
@@ -19,11 +18,7 @@ import {
   type CrowdAreaKey,
   type CrowdLevel,
 } from "@/lib/crowd/constants";
-import {
-  getCrowdSubmittedReportDate,
-  getOrCreateCrowdDeviceId,
-  setCrowdSubmittedReportDate,
-} from "@/lib/crowd/device-id";
+import { getOrCreateCrowdDeviceId } from "@/lib/crowd/device-id";
 import { buildCrowdSummaries } from "@/lib/crowd/summary";
 import type { CrowdAreaSummary, CrowdSummaryResponse } from "@/lib/crowd/types";
 import { cn } from "@/lib/utils";
@@ -69,10 +64,11 @@ function fallbackSummaries(): CrowdAreaSummary[] {
 
 function rowSubtitle(row: CrowdAreaSummary): string {
   if (row.blendSource === "baseline_only" || row.reportCount === 0) {
-    return "Typical for today";
+    return "Home baseline only—no ratings for this spot yet today";
   }
   const n = row.reportCount;
-  return n === 1 ? "1 visit today" : `${n} visits today`;
+  const ratings = n === 1 ? "1 rating" : `${n} ratings`;
+  return `${ratings} today, blended with the baseline`;
 }
 
 export function CrowdWidget() {
@@ -85,16 +81,13 @@ export function CrowdWidget() {
   >({});
   const [displayName, setDisplayName] = useState("");
 
-  const [submitState, setSubmitState] = useState<
-    "idle" | "submitting" | "thanks" | "already_today" | "error"
-  >("idle");
+  const [submitState, setSubmitState] = useState<"idle" | "submitting" | "error">(
+    "idle",
+  );
   const [submitMessage, setSubmitMessage] = useState<string | null>(null);
   /** Dev-only: extra context from API (never secrets). */
   const [submitDevHint, setSubmitDevHint] = useState<string | null>(null);
   const [modalSuccess, setModalSuccess] = useState(false);
-  /** When true, closing the modal (timer or user) should show the inline thanks state. */
-  const pendingWidgetThanksRef = useRef(false);
-
   const deviceId = useMemo(() => getOrCreateCrowdDeviceId(), []);
 
   const backendReady = loadState === "ready";
@@ -123,12 +116,6 @@ export function CrowdWidget() {
 
       setSummary(json as CrowdSummaryResponse);
       setLoadState("ready");
-
-      const submitted = getCrowdSubmittedReportDate();
-      if (submitted && submitted === json.reportDate) {
-        setSubmitState("thanks");
-        setModalOpen(false);
-      }
     } catch {
       setSummary(null);
       setLoadState("error");
@@ -144,19 +131,13 @@ export function CrowdWidget() {
   }, [refreshSummary]);
 
   const closeModal = useCallback(() => {
-    const promoteThanks = pendingWidgetThanksRef.current;
-    pendingWidgetThanksRef.current = false;
     setModalSuccess(false);
     setModalOpen(false);
     setSelections({});
     setDisplayName("");
     setSubmitMessage(null);
     setSubmitDevHint(null);
-    if (promoteThanks) {
-      setSubmitState("thanks");
-    } else {
-      setSubmitState((prev) => (prev === "error" ? "idle" : prev));
-    }
+    setSubmitState((prev) => (prev === "error" ? "idle" : prev));
   }, []);
 
   useEffect(() => {
@@ -215,7 +196,6 @@ export function CrowdWidget() {
       return;
     }
 
-    pendingWidgetThanksRef.current = false;
     setModalSuccess(false);
     setSubmitState("submitting");
     try {
@@ -230,17 +210,6 @@ export function CrowdWidget() {
       });
 
       const json = await readCrowdResponseJson(res);
-
-      if (res.status === 409) {
-        const rd = json?.reportDate ?? summary?.reportDate;
-        if (rd) setCrowdSubmittedReportDate(rd);
-        setSubmitState("already_today");
-        setSubmitMessage(null);
-        setSubmitDevHint(null);
-        setModalOpen(false);
-        void refreshSummary();
-        return;
-      }
 
       if (!res.ok) {
         setSubmitState("error");
@@ -292,11 +261,9 @@ export function CrowdWidget() {
         return;
       }
 
-      setCrowdSubmittedReportDate(rd);
       setSelections({});
       setDisplayName("");
       setSubmitState("idle");
-      pendingWidgetThanksRef.current = true;
       setModalSuccess(true);
       void refreshSummary();
     } catch {
@@ -310,14 +277,12 @@ export function CrowdWidget() {
   }
 
   const modalFormDisabled =
-    submitState === "submitting" ||
-    submitState === "thanks" ||
-    submitState === "already_today" ||
-    modalSuccess ||
-    !backendReady;
+    submitState === "submitting" || modalSuccess || !backendReady;
 
-  const showReportButton =
-    submitState !== "thanks" && submitState !== "already_today";
+  const totalCheckIns =
+    loadState === "ready" && summary
+      ? (summary.totalReportsToday ?? 0)
+      : null;
 
   return (
     <div className="rounded-2xl border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg)] p-4 shadow-[var(--rr-shadow-card)] backdrop-blur-sm sm:p-5">
@@ -331,8 +296,18 @@ export function CrowdWidget() {
               Crowd feel
             </h3>
             <p className="mt-1 max-w-md text-[12px] leading-snug text-[var(--rr-text-muted)] sm:text-[13px]">
-              Anonymous check-ins—a vibe, not a head count.
+              Anonymous check-ins—a vibe, not a head count. Check in as often as you like; we merge
+              everything from today (UTC) into one picture per spot.
             </p>
+            {totalCheckIns !== null ? (
+              <p className="mt-1.5 text-[11px] font-medium tabular-nums text-[var(--rr-forest)] sm:text-xs">
+                {totalCheckIns === 0
+                  ? "No check-ins yet today"
+                  : totalCheckIns === 1
+                    ? "1 check-in merged into today’s view"
+                    : `${totalCheckIns.toLocaleString()} check-ins merged into today’s view`}
+              </p>
+            ) : null}
           </div>
         </div>
       </div>
@@ -384,49 +359,27 @@ export function CrowdWidget() {
       </div>
 
       <div className="mt-4 border-t border-[var(--rr-widget-border)] pt-3.5 sm:mt-5 sm:pt-4">
-        {submitState === "thanks" ? (
-          <div className="rounded-lg border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg-soft)] px-3 py-3 text-center sm:px-4 sm:py-3.5">
-            <p className="text-[13px] font-medium text-[var(--rr-ink)] sm:text-sm">
-              Thanks
-            </p>
-            <p className="mt-1 text-[12px] leading-relaxed text-[var(--rr-text-muted)] sm:text-[13px]">
-              Tomorrow you can update again.
-            </p>
-          </div>
-        ) : submitState === "already_today" ? (
-          <div className="rounded-lg border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg-soft)] px-3 py-3 text-center sm:px-4 sm:py-3.5">
-            <p className="text-[13px] font-medium text-[var(--rr-ink)] sm:text-sm">
-              Already checked in today
-            </p>
-            <p className="mt-1 text-[12px] leading-relaxed text-[var(--rr-text-muted)] sm:text-[13px]">
-              One save per browser per day.
-            </p>
-          </div>
-        ) : (
-          showReportButton ? (
-            <div className="flex flex-col items-stretch gap-2 sm:items-center">
-              <button
-                type="button"
-                disabled={!backendReady || submitState === "submitting"}
-                onClick={() => {
-                  if (!backendReady) return;
-                  setModalOpen(true);
-                  setSubmitMessage(null);
-                  setSubmitDevHint(null);
-                  setSubmitState((s) => (s === "error" ? "idle" : s));
-                }}
-                className={cn(
-                  "w-full rounded-full border px-5 py-2.5 text-sm font-medium transition sm:max-w-sm sm:self-center sm:py-3",
-                  backendReady
-                    ? "border-[var(--rr-forest)] bg-[var(--rr-forest)] text-[#faf8f4] shadow-[var(--rr-shadow-card)] hover:bg-[#3d4a3d]"
-                    : "cursor-not-allowed border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg-soft)] text-[var(--rr-text-muted)]",
-                )}
-              >
-                Check in
-              </button>
-            </div>
-          ) : null
-        )}
+        <div className="flex flex-col items-stretch gap-2 sm:items-center">
+          <button
+            type="button"
+            disabled={!backendReady || submitState === "submitting"}
+            onClick={() => {
+              if (!backendReady) return;
+              setModalOpen(true);
+              setSubmitMessage(null);
+              setSubmitDevHint(null);
+              setSubmitState((s) => (s === "error" ? "idle" : s));
+            }}
+            className={cn(
+              "w-full rounded-full border px-5 py-2.5 text-sm font-medium transition sm:max-w-sm sm:self-center sm:py-3",
+              backendReady
+                ? "border-[var(--rr-forest)] bg-[var(--rr-forest)] text-[#faf8f4] shadow-[var(--rr-shadow-card)] hover:bg-[#3d4a3d]"
+                : "cursor-not-allowed border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg-soft)] text-[var(--rr-text-muted)]",
+            )}
+          >
+            Check in
+          </button>
+        </div>
       </div>
 
       {modalOpen && backendReady ? (
@@ -459,7 +412,8 @@ export function CrowdWidget() {
                   Quick check-in
                 </h4>
                 <p className="mt-0.5 text-[11px] leading-snug text-[#6b7f88] sm:text-[12px]">
-                  Tap how busy each spot felt. One anonymous save per browser, per day.
+                  Tap how busy each spot felt. You can submit again anytime—each check-in refines
+                  today’s merged view.
                 </p>
               </div>
               <button

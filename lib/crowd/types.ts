@@ -10,7 +10,7 @@ export type CrowdDailyBaselineRow = {
 };
 
 /**
- * One row in `crowd_reports` — one submission per device per day, areas stored as JSON.
+ * One row in `crowd_reports` — anonymous submission; multiple per device per UTC day allowed.
  */
 export type CrowdReportRow = {
   id: string;
@@ -39,6 +39,8 @@ export type CrowdSummaryResponse = {
   reportDate: string;
   /** Hint for clients; “today” is computed in UTC in the API for consistency. */
   dateScope: "utc_day";
+  /** Rows in `crowd_reports` for this UTC day (each row is one check-in). */
+  totalReportsToday: number;
   areas: CrowdAreaSummary[];
 };
 

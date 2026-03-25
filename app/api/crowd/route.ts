@@ -128,10 +128,12 @@ export async function GET() {
   );
 
   const areas = buildCrowdSummaries(baselineByArea, reportLevelsByArea);
+  const totalReportsToday = (reportsRes.data ?? []).length;
 
   const payload: CrowdSummaryResponse = {
     reportDate,
     dateScope: "utc_day",
+    totalReportsToday,
     areas,
   };
 
@@ -169,33 +171,6 @@ export async function POST(request: Request) {
   const { deviceId, displayName, areas } = parsed.value;
   const reportDate = utcReportDateString();
 
-  const { data: existing, error: exErr } = await supabase
-    .from("crowd_reports")
-    .select("id")
-    .eq("report_date", reportDate)
-    .eq("device_id", deviceId)
-    .maybeSingle();
-
-  if (exErr) {
-    logCrowd("POST: existing_check_failed", {
-      code: exErr.code,
-      message: exErr.message,
-    });
-    return NextResponse.json(
-      {
-        error: "Could not verify existing submission",
-        ...(isDev ? { detail: exErr.message } : {}),
-      },
-      { status: 502 },
-    );
-  }
-  if (existing?.id) {
-    return NextResponse.json(
-      { error: "Already submitted today for this device", reportDate },
-      { status: 409 },
-    );
-  }
-
   const { data: inserted, error: insErr } = await supabase
     .from("crowd_reports")
     .insert({
@@ -212,16 +187,6 @@ export async function POST(request: Request) {
       code: insErr.code,
       message: insErr.message,
     });
-    // Race: two submits same device/day — unique (report_date, device_id)
-    if (insErr.code === "23505") {
-      return NextResponse.json(
-        {
-          error: "Already submitted today for this device",
-          reportDate,
-        },
-        { status: 409 },
-      );
-    }
     return NextResponse.json(
       {
         error: "Failed to save report",

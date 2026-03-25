@@ -1,10 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "motion/react";
 import {
   BookOpen,
-  CloudSun,
+  Calendar,
   Footprints,
   Gem,
   MapPin,
@@ -17,11 +16,11 @@ import {
 import { HomeGuide } from "@/components/home/home-guide";
 import { HomeHero } from "@/components/home/home-hero";
 import { HomeMapOverview } from "@/components/home/home-map-overview";
+import { HomeSeasonBanner } from "@/components/home/home-season-banner";
 import {
   HomeQuickLinks,
   type HomeQuickLinkItem,
 } from "@/components/home/home-quick-links";
-import { HomeRiverPhotos } from "@/components/home/home-river-photos";
 import { HomeTrailTour } from "@/components/home/home-trail-tour";
 import { HomeVermontView } from "@/components/home/home-vermont-view";
 
@@ -30,6 +29,7 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { SectionEyebrow } from "@/components/shared/section-eyebrow";
 import { WeatherWidget } from "@/components/conditions/weather-widget";
 import { RiverWidget } from "@/components/conditions/river-widget";
+import { VisitInsightsWidget } from "@/components/conditions/visit-insights-widget";
 import { CrowdWidget } from "@/components/crowd/crowd-widget";
 
 const SITE_URL = "https://rockrivervt.com";
@@ -37,49 +37,41 @@ const SITE_URL = "https://rockrivervt.com";
 const quickLinks: HomeQuickLinkItem[] = [
   {
     title: "Discoveries",
-    description: "What to notice along the river.",
     href: "/discoveries",
     icon: Gem,
   },
   {
     title: "Community",
-    description: "Stewardship and people who care for the place.",
     href: "/community",
     icon: Users,
   },
   {
     title: "Resources",
-    description: "Maps and links worth saving.",
     href: "/resources",
     icon: BookOpen,
   },
   {
     title: "Local",
-    description: "Towns and culture nearby.",
     href: "/local",
     icon: MapPin,
   },
   {
     title: "Visit",
-    description: "What to expect on the banks and trail.",
     href: "/visit",
     icon: Footprints,
   },
   {
     title: "Land & River",
-    description: "How this stretch fits the valley.",
     href: "/land-river",
     icon: Trees,
   },
   {
     title: "Guidelines",
-    description: "Parking, etiquette, dogs, privacy.",
     href: "/guidelines",
     icon: ShieldCheck,
   },
   {
     title: "History",
-    description: "Care, floods, protection.",
     href: "/history",
     icon: ScrollText,
   },
@@ -87,9 +79,11 @@ const quickLinks: HomeQuickLinkItem[] = [
 
 type HomePageClientProps = {
   hasTrailVideo: boolean;
+  /** Long date string for the conditions block (computed on the server). */
+  todayLabel: string;
 };
 
-export function HomePageClient({ hasTrailVideo }: HomePageClientProps) {
+export function HomePageClient({ hasTrailVideo, todayLabel }: HomePageClientProps) {
   const homeJsonLd =
     hasTrailVideo ?
       {
@@ -118,8 +112,11 @@ export function HomePageClient({ hasTrailVideo }: HomePageClientProps) {
         />
       ) : null}
       <SiteHeader />
+      <HomeSeasonBanner />
       <main className="rr-body flex flex-col">
         <HomeHero />
+
+        <HomeMapOverview />
 
         <motion.section
           id="today-at-rock-river"
@@ -130,39 +127,29 @@ export function HomePageClient({ hasTrailVideo }: HomePageClientProps) {
           className="rr-section mx-auto w-full max-w-6xl scroll-mt-28 px-4 sm:px-6 lg:px-8"
         >
           <div className="rr-glass-strong p-7 sm:p-9">
-            <header className="mb-8 max-w-lg sm:mb-10">
-              <SectionEyebrow icon={CloudSun}>Now</SectionEyebrow>
-              <h2 className="rr-h2 mt-3 max-w-[18ch]">Conditions</h2>
-              <p className="rr-lead mt-3 max-w-md">
-                Weather, river, crowd.{" "}
-                <Link
-                  href="/conditions"
-                  className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
-                >
-                  More
-                </Link>
-              </p>
+            <header className="mb-8 sm:mb-10">
+              <SectionEyebrow icon={Calendar}>Today</SectionEyebrow>
+              <h2 className="rr-h2 mt-3 max-w-[28ch] text-balance">{todayLabel}</h2>
             </header>
 
+            <VisitInsightsWidget />
+
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7">
-              <WeatherWidget />
-              <RiverWidget />
               <div className="sm:col-span-2">
                 <CrowdWidget />
               </div>
+              <WeatherWidget />
+              <RiverWidget />
             </div>
           </div>
         </motion.section>
 
         <HomeGuide />
 
-        <HomeMapOverview />
-
         <HomeTrailTour videoAvailable={hasTrailVideo} />
 
         <HomeQuickLinks links={quickLinks} />
         <HomeVermontView />
-        <HomeRiverPhotos />
       </main>
       <SiteFooter />
     </>
