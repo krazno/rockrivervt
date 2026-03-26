@@ -135,8 +135,9 @@ export default function RootLayout({
   return (
     <html lang="en-US" className={`${outfit.variable} ${cormorant.variable} h-full`}>
       <head>
-        <GoogleTagManagerHeadScript />
+        {/* Google tag (gtag.js) — first in <head> per Google “Install manually” */}
         <GoogleTagGtagHead />
+        <GoogleTagManagerHeadScript />
       </head>
       <body className="flex min-h-full flex-col font-sans antialiased">
         <GoogleTagManagerNoscript />
