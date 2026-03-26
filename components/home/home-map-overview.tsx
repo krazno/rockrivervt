@@ -1,18 +1,22 @@
 "use client";
 
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Film, MapPinned, Maximize2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
+import { HomeCollapsibleSection } from "@/components/home/home-collapsible-section";
 import { HomeSectionHeader } from "@/components/home/home-section-header";
 import { InteractiveMap } from "@/components/map/interactive-map";
-import {
-  ROCK_RIVER_TRAIL_YOUTUBE_URL,
-  rockRiverTrailEmbedSrc,
-} from "@/lib/youtube";
+import { RockRiverTrailYoutubeEmbed } from "@/components/home/rock-river-trail-youtube";
 
-export function HomeMapOverview() {
+type HomeMapOverviewProps = {
+  /** When false, map-only landing layout (trail film lives on the trail page). */
+  includeTrailFilm?: boolean;
+};
+
+export function HomeMapOverview({ includeTrailFilm = false }: HomeMapOverviewProps) {
   const [mapOpen, setMapOpen] = useState(false);
   const [modalMapHeight, setModalMapHeight] = useState(560);
 
@@ -34,26 +38,50 @@ export function HomeMapOverview() {
     return () => cancelAnimationFrame(id);
   }, [mapOpen]);
 
-  const embedSrc = rockRiverTrailEmbedSrc({ autoplay: true });
+  const headerDescription: ReactNode =
+    includeTrailFilm ?
+      "Interactive map and a short trail film—expand for detail or open the full map page."
+    : (
+        <>
+          Interactive map—expand for detail or open the full map page. Short trail film and full
+          walkthrough:{" "}
+          <Link
+            href="/rock-river-trail-vermont#trail-film"
+            className="font-semibold text-[#4F6B52] underline-offset-2 hover:underline"
+          >
+            Rock River trail Vermont
+          </Link>{" "}
+          page.
+        </>
+      );
 
   return (
     <section
       className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8"
       aria-labelledby="map-trail-overview-heading"
     >
-      <HomeSectionHeader
-        eyebrow="Find your way"
-        icon={MapPinned}
-        id="map-trail-overview-heading"
-        title="Map & trail"
-        description="Interactive map and a short trail film—expand for detail or open the full map page."
-        descriptionClassName="text-[#6B6F68]"
-        titleClassName="text-[#1F2A24] font-bold"
-        eyebrowClassName="text-[9px] tracking-[0.22em] text-[#6B6F68]"
-        eyebrowIconClassName="h-4 w-4 text-[#4F6B52]"
-        className="mb-8 sm:mb-10"
-      />
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-stretch lg:gap-6">
+      <HomeCollapsibleSection
+        panelId="map-overview-panel"
+        summaryContent={
+          <HomeSectionHeader
+            eyebrow="Find your way"
+            icon={MapPinned}
+            id="map-trail-overview-heading"
+            title="Map & trail"
+            description={headerDescription}
+            descriptionClassName="text-[#6B6F68]"
+            titleClassName="text-[#1F2A24] font-bold"
+            eyebrowClassName="text-[9px] tracking-[0.22em] text-[#6B6F68]"
+            eyebrowIconClassName="h-4 w-4 text-[#4F6B52]"
+            className="mb-8 sm:mb-10"
+          />
+        }
+      >
+        <div
+          className={
+            includeTrailFilm ? "grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-stretch lg:gap-6" : "grid grid-cols-1 gap-6"
+          }
+        >
         <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-[#E2E0D8] bg-white shadow-sm">
           <div className="flex shrink-0 items-center gap-3 border-b border-[#E2E0D8] px-6 py-5">
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#E2E0D8] bg-[#F6F4EF] text-[#4F6B52]">
@@ -95,42 +123,24 @@ export function HomeMapOverview() {
           </div>
         </div>
 
-        <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-[#E2E0D8] bg-white shadow-sm">
-          <div className="flex shrink-0 items-center gap-3 border-b border-[#E2E0D8] px-6 py-5">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#E2E0D8] bg-[#F6F4EF] text-[#4F6B52]">
-              <Film className="h-5 w-5" aria-hidden />
-            </span>
-            <div>
-              <h3 className="font-heading text-lg font-bold text-[#1F2A24] sm:text-xl">Trail</h3>
-              <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#6B6F68]">
-                Short film · YouTube
-              </p>
+        {includeTrailFilm ?
+          <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-[#E2E0D8] bg-white shadow-sm">
+            <div className="flex shrink-0 items-center gap-3 border-b border-[#E2E0D8] px-6 py-5">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#E2E0D8] bg-[#F6F4EF] text-[#4F6B52]">
+                <Film className="h-5 w-5" aria-hidden />
+              </span>
+              <div>
+                <h3 className="font-heading text-lg font-bold text-[#1F2A24] sm:text-xl">Trail</h3>
+                <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#6B6F68]">
+                  Short film · YouTube
+                </p>
+              </div>
             </div>
+            <RockRiverTrailYoutubeEmbed autoplay />
           </div>
-          <div className="flex flex-1 flex-col justify-between gap-4 bg-[#F6F4EF]/35 px-6 py-6">
-            <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-[#E2E0D8] bg-white shadow-sm">
-              <iframe
-                title="Rock River full trail walk on YouTube"
-                src={embedSrc}
-                className="absolute inset-0 h-full w-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              />
-            </div>
-            <p className="text-center text-[10px] font-medium text-[#6B6F68] sm:text-xs">
-              <a
-                href={ROCK_RIVER_TRAIL_YOUTUBE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
-              >
-                Open on YouTube
-              </a>
-            </p>
-          </div>
+        : null}
         </div>
-      </div>
+      </HomeCollapsibleSection>
 
       <AnimatePresence>
         {mapOpen ? (

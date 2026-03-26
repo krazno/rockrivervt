@@ -9,6 +9,7 @@ import type {
   RiverApiResponse,
 } from "@/lib/river-types";
 import { CLEANLINESS_DISPLAY, CLARITY_DISPLAY } from "@/lib/river-config";
+import type { HomeHeroSnapshotMode } from "@/components/home/home-hero-snapshot-mode";
 import { SectionEyebrow } from "@/components/shared/section-eyebrow";
 import { cn } from "@/lib/utils";
 
@@ -45,9 +46,11 @@ const SHELL = {
 
 type RiverWidgetProps = {
   variant?: keyof typeof SHELL;
+  /** Homepage hero focus; only affects copy when `variant` is `home`. */
+  homeHeroMode?: HomeHeroSnapshotMode;
 };
 
-export function RiverWidget({ variant = "default" }: RiverWidgetProps) {
+export function RiverWidget({ variant = "default", homeHeroMode = "water" }: RiverWidgetProps) {
   const [data, setData] = useState<RiverApiResponse | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -92,6 +95,14 @@ export function RiverWidget({ variant = "default" }: RiverWidgetProps) {
   const gaugeTime = formatReadingTime(data?.timestampIso);
   const estimateTime = formatReadingTime(data?.estimatesAsOfIso);
 
+  const home = variant === "home";
+  const riverEyebrow =
+    home ?
+      homeHeroMode === "leaf" ? "River & banks"
+      : homeHeroMode === "star" ? "Swim & flow"
+      : "River"
+    : "River";
+
   const rowClass =
     "flex items-baseline justify-between gap-3 border-b border-[#d8d2c6]/55 py-2.5 last:border-0";
 
@@ -107,7 +118,7 @@ export function RiverWidget({ variant = "default" }: RiverWidgetProps) {
           )}
           iconClassName={variant === "home" ? "h-4 w-4" : undefined}
         >
-          River
+          {riverEyebrow}
         </SectionEyebrow>
       </div>
 

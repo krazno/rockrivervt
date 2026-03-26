@@ -118,6 +118,7 @@ export const PATH_LABELS: Record<string, string> = {
   guidelines: "Guidelines",
   preservation: "Preservation",
   visit: "Visit",
+  "visitor-guide": "Visitor guide",
   weather: "Weather",
   gallery: "Photos",
   discoveries: "Discoveries",

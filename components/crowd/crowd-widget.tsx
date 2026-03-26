@@ -9,6 +9,7 @@ import {
 } from "react";
 import { Users, X } from "lucide-react";
 
+import type { HomeHeroSnapshotMode } from "@/components/home/home-hero-snapshot-mode";
 import { SectionEyebrow } from "@/components/shared/section-eyebrow";
 
 import {
@@ -82,9 +83,17 @@ const SHELL = {
 
 type CrowdWidgetProps = {
   variant?: keyof typeof SHELL;
+  /** Homepage hero focus; only affects copy when `variant` is `home`. */
+  homeHeroMode?: HomeHeroSnapshotMode;
 };
 
-export function CrowdWidget({ variant = "default" }: CrowdWidgetProps) {
+const CROWD_INTRO_DEFAULT =
+  "Quick, anonymous check-ins—more of a feel than a head count. Check in as often as you like; we merge everything from today (UTC) into one picture per spot.";
+
+export function CrowdWidget({
+  variant = "default",
+  homeHeroMode = "water",
+}: CrowdWidgetProps) {
   const [loadState, setLoadState] = useState<LoadState>("loading");
   const [summary, setSummary] = useState<CrowdSummaryResponse | null>(null);
 
@@ -297,6 +306,22 @@ export function CrowdWidget({ variant = "default" }: CrowdWidgetProps) {
       ? (summary.totalReportsToday ?? 0)
       : null;
 
+  const crowdEyebrow =
+    variant === "home" ?
+      homeHeroMode === "leaf" ? "Shore pace"
+      : homeHeroMode === "star" ? "Busy feel"
+      : "Crowd feel"
+    : "Crowd feel";
+
+  const crowdIntro =
+    variant === "home" ?
+      homeHeroMode === "leaf" ?
+        "Anonymous check-ins for a trail-and-river day—shoreline tone before head counts."
+      : homeHeroMode === "star" ?
+        "Check-ins help flag busier spans—pair with the best window card for timing."
+      : CROWD_INTRO_DEFAULT
+    : CROWD_INTRO_DEFAULT;
+
   return (
     <div className={cn(SHELL[variant])}>
       <header className="w-full text-center sm:text-left">
@@ -309,7 +334,7 @@ export function CrowdWidget({ variant = "default" }: CrowdWidgetProps) {
           )}
           iconClassName={variant === "home" ? "h-4 w-4" : undefined}
         >
-          Crowd feel
+          {crowdEyebrow}
         </SectionEyebrow>
         <p
           className={cn(
@@ -317,8 +342,7 @@ export function CrowdWidget({ variant = "default" }: CrowdWidgetProps) {
             variant === "home" ? "text-[#6B6F68]" : "text-[var(--rr-text-muted)]",
           )}
         >
-          Quick, anonymous check-ins—more of a feel than a head count. Check in as often as you like; we merge
-          everything from today (UTC) into one picture per spot.
+          {crowdIntro}
         </p>
         {totalCheckIns !== null ? (
           <p

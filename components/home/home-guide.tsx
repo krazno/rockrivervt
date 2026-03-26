@@ -41,7 +41,7 @@ function ProseLink({
 }
 
 /**
- * Long-form guide for the homepage (SEO + visitors). All body copy preserved; structure aids scanning.
+ * Long-form visitor guide (SEO + readers). Rendered on `/visitor-guide`; structure aids scanning.
  */
 export function HomeGuide() {
   return (

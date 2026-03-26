@@ -72,7 +72,10 @@ export default function RockRiverVermontPage() {
           Rock River trail Vermont
         </Link>
         . The long-form{" "}
-        <Link href="/#guide-top" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">
+        <Link
+          href="/visitor-guide#guide-top"
+          className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline"
+        >
           homepage guide
         </Link>{" "}
         adds history, safety, and community context.

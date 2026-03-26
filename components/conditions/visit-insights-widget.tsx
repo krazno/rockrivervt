@@ -11,6 +11,7 @@ import {
   Users,
 } from "lucide-react";
 
+import type { HomeHeroSnapshotMode } from "@/components/home/home-hero-snapshot-mode";
 import type { HomeVisitSnapshot } from "@/components/home/use-home-visit-snapshot";
 import { SectionEyebrow } from "@/components/shared/section-eyebrow";
 import { cn } from "@/lib/utils";
@@ -56,9 +57,15 @@ type VisitInsightsWidgetProps = {
   variant?: keyof typeof SHELL;
   /** Shared homepage snapshot (single fetch with `useHomeVisitSnapshot` in the parent). */
   snapshot: HomeVisitSnapshot;
+  /** Homepage hero icon focus; ignored when `variant` is not `home`. */
+  heroMode?: HomeHeroSnapshotMode;
 };
 
-export function VisitInsightsWidget({ variant = "default", snapshot }: VisitInsightsWidgetProps) {
+export function VisitInsightsWidget({
+  variant = "default",
+  snapshot,
+  heroMode = "water",
+}: VisitInsightsWidgetProps) {
   const {
     loading,
     weather,
@@ -70,6 +77,51 @@ export function VisitInsightsWidget({ variant = "default", snapshot }: VisitInsi
   } = snapshot;
   const ParkingIcon = parkingUi.icon;
   const home = variant === "home";
+  const focusMode: HomeHeroSnapshotMode = home ? heroMode : "water";
+
+  const planEyebrow =
+    home ?
+      focusMode === "leaf" ? "On the trail"
+      : focusMode === "star" ? "Today’s highlight"
+      : "Plan today"
+    : "Plan today";
+
+  const planSubtitle =
+    home ?
+      focusMode === "leaf" ?
+        "Trail shade, river banks, and a calmer read from the same snapshot data."
+      : focusMode === "star" ?
+        "Best window, parking blend, and how busy it feels—hourly NOAA plus today’s check-ins."
+      : "NOAA hourly forecast, est. water temp, and today’s crowd check-ins."
+    : "NOAA hourly forecast, est. water temp, and today’s crowd check-ins.";
+
+  const bestWindowFootnote =
+    home ?
+      focusMode === "leaf" ?
+        "Woods stay cooler under cover; pace this window with trail breaks and water stops."
+      : focusMode === "star" ?
+        "Best span for swim comfort and easier parking if today’s blend holds."
+      : "Best 2–4 hour span in the next ~12 hours (drier, calmer sky scores higher)."
+    : "Best 2–4 hour span in the next ~12 hours (drier, calmer sky scores higher).";
+
+  const waterMetricLead =
+    home ?
+      focusMode === "leaf" ? "River & banks: "
+      : focusMode === "star" ? "Swim window: "
+      : ""
+    : "";
+  const crowdMetricLead =
+    home ?
+      focusMode === "leaf" ? "Shoreline tone: "
+      : focusMode === "star" ? "Busy feel: "
+      : ""
+    : "";
+  const skyMetricLead =
+    home ?
+      focusMode === "leaf" ? "Forest air: "
+      : focusMode === "star" ? "Sky now: "
+      : ""
+    : "";
 
   return (
     <section
@@ -87,7 +139,7 @@ export function VisitInsightsWidget({ variant = "default", snapshot }: VisitInsi
             )}
             iconClassName={home ? "h-4 w-4" : undefined}
           >
-            Plan today
+            {planEyebrow}
           </SectionEyebrow>
           <h2
             id="visit-insights-heading"
@@ -104,7 +156,7 @@ export function VisitInsightsWidget({ variant = "default", snapshot }: VisitInsi
               home ? "text-[#6B6F68]" : "text-[var(--rr-text-muted)]",
             )}
           >
-            NOAA hourly forecast, est. water temp, and today’s crowd check-ins.
+            {planSubtitle}
           </p>
         </header>
         <div
@@ -173,7 +225,7 @@ export function VisitInsightsWidget({ variant = "default", snapshot }: VisitInsi
                   home ? "text-[#6B6F68]" : "text-[var(--rr-text-muted)]",
                 )}
               >
-                Best 2–4 hour span in the next ~12 hours (drier, calmer sky scores higher).
+                {bestWindowFootnote}
               </p>
             </>
           )}
@@ -181,17 +233,21 @@ export function VisitInsightsWidget({ variant = "default", snapshot }: VisitInsi
 
         <div className="flex flex-col gap-3">
           <MetricRow icon={Droplets} iconSize={home ? "home" : "default"}>
+            {waterMetricLead}
             {waterLine}
           </MetricRow>
           <MetricRow icon={Users} iconSize={home ? "home" : "default"}>
+            {crowdMetricLead}
             {beachLine}
           </MetricRow>
           <MetricRow icon={CloudSun} iconSize={home ? "home" : "default"}>
             {typeof weather?.temperature === "number" && weather.shortForecast ?
-              <>Now about {weather.temperature}°F — {weather.shortForecast}</>
+              <>
+                {skyMetricLead}Now about {weather.temperature}°F — {weather.shortForecast}
+              </>
             : loading ?
-              "Current sky…"
-            : "Current conditions from NOAA load above when available."}
+              `${skyMetricLead}Current sky…`
+            : `${skyMetricLead}Current conditions from NOAA load above when available.`}
           </MetricRow>
         </div>
       </div>

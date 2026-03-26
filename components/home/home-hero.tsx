@@ -12,6 +12,7 @@ import {
   getHeroCircleGalleryPhotos,
   type MediaItem,
 } from "@/data/media";
+import type { HomeHeroSnapshotMode } from "@/components/home/home-hero-snapshot-mode";
 
 const HERO_CIRCLE_SLIDE_MS = 7000;
 const HERO_CIRCLE_FADE_MS = 1600;
@@ -59,7 +60,15 @@ function HeroCircleSlideshow({
   );
 }
 
-export function HomeHero() {
+type HomeHeroProps = {
+  heroMode: HomeHeroSnapshotMode;
+  onHeroModeChange: (mode: HomeHeroSnapshotMode) => void;
+};
+
+const iconBtnClass =
+  "flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border-0 p-0 shadow-inner focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/80";
+
+export function HomeHero({ heroMode, onHeroModeChange }: HomeHeroProps) {
   const hero = getHeroBackdropImage();
   const circlePhotos = useMemo(() => getHeroCircleGalleryPhotos(), []);
   const sectionRef = useRef<HTMLElement>(null);
@@ -174,7 +183,11 @@ export function HomeHero() {
                 Start with the <Link href="/map" className={inText}>interactive map</Link> and{" "}
                 <Link href="/conditions" className={inText}>conditions</Link>, skim the{" "}
                 <Link href="/visit" className={inText}>visit guide</Link> for parking and etiquette, then
-                drop into the <Link href="#guide-top" className={inText}>longer visitor guide</Link> for
+                drop into the{" "}
+                <Link href="/visitor-guide#guide-top" className={inText}>
+                  longer visitor guide
+                </Link>{" "}
+                for
                 history, safety, and local culture. <Link href="/gallery" className={inText}>Photos</Link>{" "}
                 help set expectations before you head out from Brattleboro or the West River valley.
               </p>
@@ -227,18 +240,37 @@ export function HomeHero() {
                 </div>
               </div>
               <div
+                role="group"
+                aria-label="Choose today’s visit focus"
                 className="flex justify-center gap-2 rounded-full border border-[var(--rr-widget-border)] bg-[#faf8f4]/88 px-2.5 py-2 shadow-sm backdrop-blur-sm sm:gap-2.5 sm:px-3 lg:mx-auto"
-                aria-hidden
               >
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#e8f0ec] text-[#2d5a42] shadow-inner">
-                  <Sparkles className="h-4 w-4" />
-                </span>
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#eef5f0] text-[#2f6048] shadow-inner">
-                  <Leaf className="h-4 w-4" />
-                </span>
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#eaf2f5] text-[#2f5f6e] shadow-inner">
-                  <Droplets className="h-4 w-4" />
-                </span>
+                <button
+                  type="button"
+                  aria-pressed={heroMode === "star"}
+                  aria-label="Highlights: best conditions and recommended time"
+                  onClick={() => onHeroModeChange("star")}
+                  className={cn(iconBtnClass, "bg-[#e8f0ec] text-[#2d5a42]")}
+                >
+                  <Sparkles className="h-4 w-4" aria-hidden />
+                </button>
+                <button
+                  type="button"
+                  aria-pressed={heroMode === "leaf"}
+                  aria-label="Nature: trail, calm shoreline, and season context"
+                  onClick={() => onHeroModeChange("leaf")}
+                  className={cn(iconBtnClass, "bg-[#eef5f0] text-[#2f6048]")}
+                >
+                  <Leaf className="h-4 w-4" aria-hidden />
+                </button>
+                <button
+                  type="button"
+                  aria-pressed={heroMode === "water"}
+                  aria-label="River: swimming comfort and water conditions"
+                  onClick={() => onHeroModeChange("water")}
+                  className={cn(iconBtnClass, "bg-[#eaf2f5] text-[#2f5f6e]")}
+                >
+                  <Droplets className="h-4 w-4" aria-hidden />
+                </button>
               </div>
             </div>
           </motion.div>

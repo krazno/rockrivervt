@@ -1,8 +1,11 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 
+import { HomeTrailTour } from "@/components/home/home-trail-tour";
+import { RockRiverTrailYoutubeEmbed } from "@/components/home/rock-river-trail-youtube";
 import { AuthorityLanding } from "@/components/seo/authority-landing";
-import { buildPageMetadata } from "@/lib/seo";
+import { trailTourVideoFileExists } from "@/lib/media-server";
+import { buildPageMetadata, SITE_URL } from "@/lib/seo";
 
 const path = "/rock-river-trail-vermont";
 
@@ -18,8 +21,36 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function RockRiverTrailVermontPage() {
+  const hasTrailVideo = trailTourVideoFileExists();
+
+  const trailVideoJsonLd =
+    hasTrailVideo ?
+      {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        name: "Rock River Trail Tour — full hike",
+        description:
+          "Trail tour of the Rock River recreation area—Newfane, Windham County, Vermont.",
+        thumbnailUrl: `${SITE_URL}/media/images/rock-river-newfane-vermont-outdoors-010.jpg`,
+        contentUrl: `${SITE_URL}/media/videos/rock-river-trail-tour-full-hike.mp4`,
+        uploadDate: "2026-03-19",
+        publisher: {
+          "@type": "Organization",
+          name: "Rock River Vermont",
+          url: SITE_URL,
+        },
+      }
+    : null;
+
   return (
-    <AuthorityLanding
+    <>
+      {trailVideoJsonLd ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(trailVideoJsonLd) }}
+        />
+      ) : null}
+      <AuthorityLanding
       path={path}
       jsonName="Rock River trail Vermont — access & map"
       jsonDescription={pageDesc}
@@ -56,7 +87,7 @@ export default function RockRiverTrailVermontPage() {
         felt obvious last season may not match this year.
       </p>
       <p>
-        Trail video and context: see the homepage trail embed after you read{" "}
+        Trail film and full walkthrough: watch below after you read{" "}
         <Link href="/rock-river-conditions" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">
           Rock River conditions
         </Link>
@@ -66,11 +97,35 @@ export default function RockRiverTrailVermontPage() {
         </Link>
         .
       </p>
+      <section
+        id="trail-film"
+        className="scroll-mt-28 mt-10 space-y-4"
+        aria-labelledby="trail-film-heading"
+      >
+        <div>
+          <h2
+            id="trail-film-heading"
+            className="font-heading text-xl font-semibold tracking-tight text-[var(--rr-ink)]"
+          >
+            Short trail film
+          </h2>
+          <p className="mt-1 text-sm text-[var(--rr-text-muted)]">
+            YouTube · one continuous pass along the path (same embed as the former homepage block).
+          </p>
+        </div>
+        <div className="overflow-hidden rounded-2xl border border-[var(--rr-widget-border)] bg-white shadow-sm">
+          <RockRiverTrailYoutubeEmbed autoplay={false} />
+        </div>
+      </section>
+      <div className="mt-10">
+        <HomeTrailTour videoAvailable={hasTrailVideo} />
+      </div>
       <p>
         <Link href="/" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">
           ← Rock River Vermont home
         </Link>
       </p>
     </AuthorityLanding>
+    </>
   );
 }

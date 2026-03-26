@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 
 import { HomePageClient } from "@/components/home/home-page-client";
 import { HomePageJsonLd } from "@/components/seo/home-page-json-ld";
-import { trailTourVideoFileExists } from "@/lib/media-server";
 import {
   DEFAULT_OG_ALT,
   META_DESC_MAX,
@@ -11,19 +10,6 @@ import {
   SITE_URL,
   truncateMetaDescription,
 } from "@/lib/seo";
-
-/** Fresh “today” line for the home snapshot (America/New_York). */
-export const dynamic = "force-dynamic";
-
-function todayInVermont(): string {
-  return new Intl.DateTimeFormat("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-    timeZone: "America/New_York",
-  }).format(new Date());
-}
 
 const HOME_DESC = truncateMetaDescription(
   "Complete guide to Rock River in Newfane Vermont. Map, trail, swimming holes, parking, weather, river conditions, and visitor info for Windham County VT.",
@@ -71,12 +57,10 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const hasTrailVideo = trailTourVideoFileExists();
-
   return (
     <>
       <HomePageJsonLd description={HOME_DESC} />
-      <HomePageClient hasTrailVideo={hasTrailVideo} todayLabel={todayInVermont()} />
+      <HomePageClient />
     </>
   );
 }

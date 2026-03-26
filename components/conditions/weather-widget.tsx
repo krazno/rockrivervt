@@ -11,6 +11,7 @@ import {
   Sun,
 } from "lucide-react";
 
+import type { HomeHeroSnapshotMode } from "@/components/home/home-hero-snapshot-mode";
 import { SectionEyebrow } from "@/components/shared/section-eyebrow";
 import { cn } from "@/lib/utils";
 
@@ -70,9 +71,11 @@ const SHELL = {
 type WeatherWidgetProps = {
   /** Homepage uses higher-contrast “field guide” card shell. */
   variant?: keyof typeof SHELL;
+  /** Homepage hero focus; only affects copy when `variant` is `home`. */
+  homeHeroMode?: HomeHeroSnapshotMode;
 };
 
-export function WeatherWidget({ variant = "default" }: WeatherWidgetProps) {
+export function WeatherWidget({ variant = "default", homeHeroMode = "water" }: WeatherWidgetProps) {
   const [data, setData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -125,6 +128,14 @@ export function WeatherWidget({ variant = "default" }: WeatherWidgetProps) {
   const threeDay = data?.threeDayForecast;
   const forecastSectionLoading = loading && !data;
 
+  const home = variant === "home";
+  const weatherEyebrow =
+    home ?
+      homeHeroMode === "leaf" ? "Sky & woods"
+      : homeHeroMode === "star" ? "Sky today"
+      : "Weather"
+    : "Weather";
+
   const iconForForecast = (forecast: string, size = 18) => {
     const text = forecast.toLowerCase();
 
@@ -166,7 +177,7 @@ export function WeatherWidget({ variant = "default" }: WeatherWidgetProps) {
           )}
           iconClassName={variant === "home" ? "h-4 w-4" : undefined}
         >
-          Weather
+          {weatherEyebrow}
         </SectionEyebrow>
       </div>
       <div className="flex flex-col items-center">
