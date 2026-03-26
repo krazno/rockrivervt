@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 
 import { SectionEyebrow } from "@/components/shared/section-eyebrow";
+import { cn } from "@/lib/utils";
 
 type ForecastDaySlice = {
   shortForecast: string;
@@ -59,7 +60,19 @@ function formatHighLow(day: ForecastDaySlice): string {
   return `${t}°`;
 }
 
-export function WeatherWidget() {
+const SHELL = {
+  default:
+    "h-full rounded-[1.35rem] border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg)] p-5 shadow-[var(--rr-shadow-card)] backdrop-blur-sm sm:p-6",
+  home:
+    "flex h-full flex-col rounded-2xl border border-[#E2E0D8] bg-white p-6 shadow-sm sm:p-6",
+} as const;
+
+type WeatherWidgetProps = {
+  /** Homepage uses higher-contrast “field guide” card shell. */
+  variant?: keyof typeof SHELL;
+};
+
+export function WeatherWidget({ variant = "default" }: WeatherWidgetProps) {
   const [data, setData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -142,14 +155,27 @@ export function WeatherWidget() {
   };
 
   return (
-    <div className="h-full rounded-[1.35rem] border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg)] p-5 shadow-[var(--rr-shadow-card)] backdrop-blur-sm sm:p-6">
+    <div className={cn(SHELL[variant])}>
       <div className="mb-2 w-full sm:mb-3">
-        <SectionEyebrow icon={CloudSun} align="center" className="sm:justify-start">
+        <SectionEyebrow
+          icon={CloudSun}
+          align="center"
+          className={cn(
+            "sm:justify-start",
+            variant === "home" && "text-[9px] tracking-[0.22em] text-[#6B6F68]",
+          )}
+          iconClassName={variant === "home" ? "h-4 w-4" : undefined}
+        >
           Weather
         </SectionEyebrow>
       </div>
       <div className="flex flex-col items-center">
-        <p className="mb-3 text-center text-[11px] font-medium tracking-[0.02em] text-[var(--rr-text-muted)] sm:mb-4 sm:text-xs">
+        <p
+          className={cn(
+            "mb-3 text-center text-[11px] font-medium tracking-[0.02em] sm:mb-4 sm:text-xs",
+            variant === "home" ? "text-[#6B6F68]" : "text-[var(--rr-text-muted)]",
+          )}
+        >
           {dateLine}
         </p>
         <div className="flex items-center gap-3 sm:gap-5">
@@ -159,21 +185,48 @@ export function WeatherWidget() {
             </div>
           </div>
           <div className="min-w-0 text-center sm:text-left">
-            <p className="mt-0 text-[2.125rem] leading-none font-semibold tracking-tight text-[var(--rr-ink)] sm:text-[2.5rem]">
+            <p
+              className={cn(
+                "mt-0 text-[2.125rem] leading-none font-semibold tracking-tight sm:text-[2.5rem]",
+                variant === "home" ? "text-[#1F2A24]" : "text-[var(--rr-ink)]",
+              )}
+            >
               {temperatureText}
             </p>
-            <p className="mt-1.5 max-w-[16rem] text-[13px] leading-snug text-[var(--rr-text)] sm:text-[0.9375rem]">
+            <p
+              className={cn(
+                "mt-1.5 max-w-[16rem] text-[13px] leading-snug sm:text-[0.9375rem]",
+                variant === "home" ? "text-[#1F2A24]" : "text-[var(--rr-text)]",
+              )}
+            >
               {shortForecastText}
             </p>
-            <p className="mt-1 text-[11px] tracking-wide text-[var(--rr-text-muted)]">
+            <p
+              className={cn(
+                "mt-1 text-[11px] tracking-wide",
+                variant === "home" ? "text-[#6B6F68]" : "text-[var(--rr-text-muted)]",
+              )}
+            >
               Newfane
             </p>
           </div>
         </div>
       </div>
 
-      <div className="mt-5 rounded-2xl border border-[var(--rr-widget-border)]/80 bg-gradient-to-b from-[var(--rr-widget-bg-soft)]/90 to-transparent p-3 sm:p-4">
-        <h3 className="text-center text-[10px] font-semibold tracking-[0.18em] text-[var(--rr-mint)] uppercase">
+      <div
+        className={cn(
+          "mt-5 rounded-2xl border p-3 sm:p-4",
+          variant === "home" ?
+            "border-[#E2E0D8] bg-[#F6F4EF]/50"
+          : "border-[var(--rr-widget-border)]/80 bg-gradient-to-b from-[var(--rr-widget-bg-soft)]/90 to-transparent",
+        )}
+      >
+        <h3
+          className={cn(
+            "text-center text-[10px] font-semibold uppercase tracking-[0.16em]",
+            variant === "home" ? "text-[#6B6F68]" : "tracking-[0.18em] text-[var(--rr-mint)]",
+          )}
+        >
           Next few hours
         </h3>
         <div className="mt-3 space-y-2">
@@ -213,8 +266,20 @@ export function WeatherWidget() {
         </div>
       </div>
 
-      <div className="mt-5 rounded-2xl border border-[var(--rr-widget-border)]/80 bg-gradient-to-b from-[var(--rr-widget-bg-soft)]/85 to-transparent p-4 sm:p-5">
-        <h3 className="text-center text-[10px] font-semibold tracking-[0.16em] text-[var(--rr-mint)] uppercase">
+      <div
+        className={cn(
+          "mt-5 rounded-2xl border p-4 sm:p-5",
+          variant === "home" ?
+            "border-[#E2E0D8] bg-[#F6F4EF]/50"
+          : "border-[var(--rr-widget-border)]/80 bg-gradient-to-b from-[var(--rr-widget-bg-soft)]/85 to-transparent",
+        )}
+      >
+        <h3
+          className={cn(
+            "text-center text-[10px] font-semibold uppercase tracking-[0.16em]",
+            variant === "home" ? "text-[#6B6F68]" : "text-[var(--rr-mint)]",
+          )}
+        >
           Outlook
         </h3>
         <div className="mt-4 grid grid-cols-3 gap-2.5 sm:gap-3">
@@ -253,7 +318,14 @@ export function WeatherWidget() {
         </div>
       </div>
 
-      <div className="mt-5 flex justify-center pb-0.5">
+      {variant === "home" ? <div className="min-h-4 flex-1" aria-hidden /> : null}
+
+      <div
+        className={cn(
+          "flex justify-center pb-0.5",
+          variant === "home" ? "mt-auto pt-5" : "mt-5",
+        )}
+      >
         <a
           href="https://radar.weather.gov/station/KENX/standard"
           target="_blank"

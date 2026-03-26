@@ -122,7 +122,7 @@ export function SiteFooter() {
 
         <div className="pt-8 text-center">
           <p className="text-xs leading-relaxed text-[var(--rr-text-muted)]">
-            Be kind. Leave no trace. Signed clothing-optional areas—everyone welcome.
+            Be kind. Leave no trace. Signed clothing-optional areas—be respectful and give others space.
           </p>
           <p className="mt-4 text-[11px] text-[var(--rr-text-muted)]/80">
             © {new Date().getFullYear()} Rock River VT · Community guide ·{" "}

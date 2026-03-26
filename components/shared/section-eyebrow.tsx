@@ -9,6 +9,8 @@ type SectionEyebrowProps = {
   /** Center the label + icon (mobile sections); pair with sm:text-left on the parent for desktop. */
   align?: "start" | "center";
   className?: string;
+  /** Tailwind size classes for the icon (default matches compact labels). */
+  iconClassName?: string;
 };
 
 /** Small caps label + optional nature icon — use across sections for rhythm. */
@@ -17,6 +19,7 @@ export function SectionEyebrow({
   icon: Icon,
   align = "start",
   className,
+  iconClassName = "h-3.5 w-3.5",
 }: SectionEyebrowProps) {
   return (
     <p
@@ -27,7 +30,11 @@ export function SectionEyebrow({
       )}
     >
       {Icon ? (
-        <Icon className="h-3.5 w-3.5 shrink-0 opacity-[0.72]" strokeWidth={1.6} aria-hidden />
+        <Icon
+          className={cn("shrink-0 opacity-[0.72]", iconClassName)}
+          strokeWidth={1.6}
+          aria-hidden
+        />
       ) : null}
       {children}
     </p>

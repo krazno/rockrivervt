@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { ExternalLink, Instagram, X } from "lucide-react";
 
 import { MediaImage } from "@/components/MediaImage";
@@ -10,13 +10,78 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { Container } from "@/components/shared/container";
 import type { MediaItem } from "@/data/media";
 import { getGalleryMediaSorted } from "@/data/media";
+import {
+  GALLERY_GROUP_LABEL,
+  galleryGroupForItem,
+  type GalleryGroup,
+} from "@/lib/gallery-group";
 import { INSTAGRAM_ROCK_RIVER_LOCATION_URL } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
+const GROUP_ORDER: GalleryGroup[] = ["trail", "water", "other"];
+
+function sortByOrder(a: MediaItem, b: MediaItem): number {
+  return (a.order ?? 9999) - (b.order ?? 9999);
+}
+
+function GalleryImageTile({
+  item,
+  onOpen,
+}: {
+  item: MediaItem;
+  onOpen: (item: MediaItem) => void;
+}) {
+  return (
+    <figure className="flex flex-col">
+      <button
+        type="button"
+        onClick={() => onOpen(item)}
+        className="group relative w-full overflow-hidden rounded-[var(--rr-radius-lg)] border border-[var(--rr-widget-border)] bg-[#faf8f4]/90 text-left shadow-[var(--rr-shadow-card)] transition duration-300 hover:-translate-y-0.5 hover:border-[var(--rr-glow)]/30 hover:shadow-[var(--rr-shadow-card-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rr-glow)]/35"
+      >
+        <span className="relative block aspect-[4/3] w-full overflow-hidden bg-[#e8e4db]/70">
+          <MediaImage
+            src={item.thumbnailSrc ?? item.src}
+            alt={item.alt}
+            title={item.title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover transition duration-500 ease-out group-hover:scale-[1.03]"
+          />
+          <span
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent opacity-0 transition duration-300 group-hover:opacity-100"
+            aria-hidden
+          />
+        </span>
+        <span className="sr-only">{item.alt}</span>
+      </button>
+      <figcaption className="mt-2 line-clamp-3 text-left text-[11px] leading-snug text-[var(--rr-text-muted)] sm:text-xs">
+        {item.alt}
+      </figcaption>
+    </figure>
+  );
+}
+
 export function GalleryPageContent() {
-  const galleryMedia = getGalleryMediaSorted();
-  const instaPreview = galleryMedia.filter((i) => i.type === "image").slice(0, 6);
+  const galleryMedia = useMemo(() => getGalleryMediaSorted(), []);
   const [active, setActive] = useState<MediaItem | null>(null);
+
+  const { videoItems, imagesByGroup, instaPreview } = useMemo(() => {
+    const videos = galleryMedia.filter((m) => m.type === "video").sort(sortByOrder);
+    const images = galleryMedia.filter((m) => m.type === "image").sort(sortByOrder);
+    const byGroup: Record<GalleryGroup, MediaItem[]> = {
+      trail: [],
+      water: [],
+      other: [],
+    };
+    for (const img of images) {
+      byGroup[galleryGroupForItem(img)].push(img);
+    }
+    return {
+      videoItems: videos,
+      imagesByGroup: byGroup,
+      instaPreview: images.slice(0, 6),
+    };
+  }, [galleryMedia]);
 
   const close = useCallback(() => setActive(null), []);
 
@@ -34,47 +99,62 @@ export function GalleryPageContent() {
     };
   }, [active, close]);
 
+  const openItem = useCallback((item: MediaItem) => setActive(item), []);
+
   return (
     <>
       <SiteHeader />
       <main className="rr-body pb-20 text-[var(--rr-text)]">
-        <Container className="py-12 sm:py-14">
-          <header className="max-w-2xl">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
-              Gallery
+        <Container className="py-10 sm:py-12">
+          <header className="mx-auto max-w-3xl">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[#6B6F68]">
+              Photos &amp; video
             </p>
-            <h1 className="font-heading mt-3 text-[clamp(1.75rem,3vw+1rem,2.5rem)] font-semibold tracking-tight text-[var(--rr-ink)]">
-              Rock River photos &amp; video
+            <h1 className="font-heading mt-2 text-[clamp(1.85rem,3vw+1rem,2.55rem)] font-bold tracking-tight text-[var(--rr-ink)]">
+              Rock River Vermont in pictures
             </h1>
-            <p className="rr-lead mt-4 sm:text-[1.0625rem]">
-              Tap stills to enlarge. Video fills the frame—use controls to play.
+            <p className="mt-4 text-base leading-relaxed text-[#3f4840] sm:text-lg">
+              Still images are grouped loosely by what dominates the frame—woods and trail, or
+              water and stone—so you can set expectations before you visit. Alt text doubles as a
+              caption; tap any still to enlarge.
+            </p>
+            <p className="mt-4 text-sm leading-relaxed text-[var(--rr-text-muted)]">
+              Seasons change light and foliage faster than we re-sort files—use these images as a
+              mood board, not a weather forecast.
             </p>
             <p className="mt-5 text-sm text-[var(--rr-text-muted)]">
               <Link
                 href="/visit"
-                className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
+                className="font-semibold text-[var(--rr-link)] underline-offset-2 hover:underline"
               >
                 Visit
               </Link>
               {" · "}
               <Link
                 href="/map"
-                className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
+                className="font-semibold text-[var(--rr-link)] underline-offset-2 hover:underline"
               >
                 Map
               </Link>
               {" · "}
               <Link
                 href="/conditions"
-                className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
+                className="font-semibold text-[var(--rr-link)] underline-offset-2 hover:underline"
               >
                 Conditions
+              </Link>
+              {" · "}
+              <Link
+                href="/guidelines"
+                className="font-semibold text-[var(--rr-link)] underline-offset-2 hover:underline"
+              >
+                Guidelines
               </Link>
             </p>
           </header>
 
           <section
-            className="mt-12 rounded-[var(--rr-radius-xl)] border border-[var(--rr-widget-border)] bg-[#faf8f4]/90 p-6 shadow-[var(--rr-shadow-card)] sm:p-8"
+            className="mt-12 rounded-2xl border border-[var(--rr-widget-border)] bg-[#faf8f4]/90 p-6 shadow-[var(--rr-shadow-card)] sm:p-8"
             aria-labelledby="instagram-community-heading"
           >
             <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between lg:gap-8">
@@ -134,65 +214,94 @@ export function GalleryPageContent() {
             </div>
           </section>
 
-          <ul
-            className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6"
-            role="list"
-          >
-            {galleryMedia.map((item) => (
-              <li key={item.src}>
-                {item.type === "image" ? (
-                  <button
-                    type="button"
-                    onClick={() => setActive(item)}
-                    className="group relative w-full overflow-hidden rounded-[var(--rr-radius-lg)] border border-[var(--rr-widget-border)] bg-[#faf8f4]/90 text-left shadow-[var(--rr-shadow-card)] transition duration-300 hover:-translate-y-0.5 hover:border-[var(--rr-glow)]/30 hover:shadow-[var(--rr-shadow-card-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--rr-glow)]/35"
-                  >
-                    <span className="relative block aspect-[4/3] w-full overflow-hidden bg-[#e8e4db]/70">
-                      <MediaImage
-                        src={item.thumbnailSrc ?? item.src}
-                        alt={item.alt}
-                        title={item.title}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover transition duration-500 ease-out group-hover:scale-[1.03]"
-                      />
-                      <span
-                        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent opacity-0 transition duration-300 group-hover:opacity-100"
-                        aria-hidden
-                      />
-                    </span>
-                    <span className="sr-only">{item.alt}</span>
-                  </button>
-                ) : (
-                  <div className="overflow-hidden rounded-[var(--rr-radius-lg)] border border-[var(--rr-widget-border)] bg-[#faf8f4]/90 shadow-[var(--rr-shadow-card)]">
-                    <div className="border-b border-[var(--rr-widget-border)] px-3 py-2.5 sm:px-4">
-                      <p className="text-sm font-semibold text-[var(--rr-ink)]">{item.title}</p>
-                      <p className="text-[11px] text-[var(--rr-text-muted)]">Video</p>
-                    </div>
-                    <div className="relative aspect-video w-full overflow-hidden bg-[#2a2824]">
-                      <video
-                        controls
-                        preload="metadata"
-                        playsInline
-                        poster={item.poster}
-                        className="absolute inset-0 h-full w-full object-cover"
-                        title={item.title}
+          {videoItems.length > 0 ? (
+            <section className="mt-12" aria-labelledby="gallery-video-heading">
+              <h2
+                id="gallery-video-heading"
+                className="font-heading text-xl font-semibold text-[var(--rr-ink)] sm:text-2xl"
+              >
+                Trail tour &amp; video
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--rr-text-muted)]">
+                Video gives length and elevation change that stills cannot—use it beside the{" "}
+                <Link href="/map" className="font-semibold text-[var(--rr-link)] underline-offset-2 hover:underline">
+                  map
+                </Link>{" "}
+                when you are planning footwear and time on the trail.
+              </p>
+              <ul className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-1" role="list">
+                {videoItems.map((item) => (
+                  <li key={item.src}>
+                    <div className="overflow-hidden rounded-[var(--rr-radius-lg)] border border-[var(--rr-widget-border)] bg-[#faf8f4]/90 shadow-[var(--rr-shadow-card)]">
+                      <div className="border-b border-[var(--rr-widget-border)] px-4 py-3 sm:px-5">
+                        <p className="text-sm font-semibold text-[var(--rr-ink)]">{item.title}</p>
+                        <p className="mt-1 text-[11px] leading-relaxed text-[var(--rr-text-muted)]">
+                          {item.alt}
+                        </p>
+                      </div>
+                      <div className="relative aspect-video w-full overflow-hidden bg-[#2a2824]">
+                        <video
+                          controls
+                          preload="metadata"
+                          playsInline
+                          poster={item.poster}
+                          className="absolute inset-0 h-full w-full object-cover"
+                          title={item.title}
+                        >
+                          <source src={item.src} type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setActive(item)}
+                        className="w-full px-4 py-2.5 text-center text-xs font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
                       >
-                        <source src={item.src} type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
+                        Open larger view
+                      </button>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => setActive(item)}
-                      className="w-full px-3 py-2 text-center text-xs font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
-                    >
-                      Open larger view
-                    </button>
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {GROUP_ORDER.map((group) => {
+            const items = imagesByGroup[group];
+            if (items.length === 0) return null;
+            return (
+              <section
+                key={group}
+                className="mt-12"
+                aria-labelledby={`gallery-group-${group}`}
+              >
+                <h2
+                  id={`gallery-group-${group}`}
+                  className="font-heading text-xl font-semibold text-[var(--rr-ink)] sm:text-2xl"
+                >
+                  {GALLERY_GROUP_LABEL[group]}
+                </h2>
+                <p className="mt-2 max-w-2xl text-sm text-[var(--rr-text-muted)]">
+                  {group === "trail" ?
+                    "Forest floor, tread, and corridor shots—what the walk in tends to look like."
+                  : group === "water" ?
+                    "Pools, cobbles, and open water—useful for picturing depth and sun exposure."
+                  : "Mixed angles that still belong to the same visit."
+                  }
+                </p>
+                <ul
+                  className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8"
+                  role="list"
+                >
+                  {items.map((item) => (
+                    <li key={item.src}>
+                      <GalleryImageTile item={item} onOpen={openItem} />
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            );
+          })}
         </Container>
       </main>
 
@@ -237,7 +346,7 @@ export function GalleryPageContent() {
             </div>
             <div className="min-h-0 flex-1 overflow-auto p-4">
               {active.type === "image" && active.width && active.height ? (
-                <div className="flex justify-center">
+                <div className="flex flex-col items-center gap-3">
                   <MediaImage
                     src={active.src}
                     alt={active.alt}
@@ -248,6 +357,9 @@ export function GalleryPageContent() {
                     sizes="(max-width: 1200px) 100vw, 1200px"
                     className="h-auto max-h-[75vh] w-auto max-w-full object-contain"
                   />
+                  <p className="max-w-2xl text-center text-xs leading-relaxed text-[var(--rr-text-muted)]">
+                    {active.alt}
+                  </p>
                 </div>
               ) : active.type === "video" ? (
                 <div className="relative aspect-video w-full max-w-full overflow-hidden rounded-lg bg-[#050807]">

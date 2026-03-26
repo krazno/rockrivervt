@@ -198,6 +198,11 @@
   padding-bottom: var(--rr-section-y);
 }
 
+/* Homepage: rhythm + palette (#F6F4EF page, #E2E0D8 borders, #4F6B52 accent, #1F2A24 / #6B6F68 text) */
+main.home-page-main .rr-section {
+  padding-bottom: clamp(3.75rem, 6.5vw, 6rem);
+}
+
 .rr-card {
   border-radius: var(--rr-radius-lg);
   border: 1px solid rgb(218 210 198 / 0.45);

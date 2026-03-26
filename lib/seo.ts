@@ -124,6 +124,11 @@ export const PATH_LABELS: Record<string, string> = {
   local: "Local",
   resources: "Resources",
   community: "Community",
+  "rock-river-vermont": "Rock River Vermont",
+  "rock-river-swimming-hole": "Swimming hole",
+  "rock-river-trail-vermont": "Trail",
+  "rock-river-conditions": "Conditions",
+  "rock-river-map": "Map guide",
 };
 
 export function defaultBreadcrumbItems(path: string): { name: string; path: string }[] {

@@ -36,7 +36,18 @@ function cleanlinessStyles(status: CleanlinessStatus) {
   }
 }
 
-export function RiverWidget() {
+const SHELL = {
+  default:
+    "h-full rounded-[1.35rem] border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg)] p-5 shadow-[var(--rr-shadow-card)] backdrop-blur-sm sm:p-6",
+  home:
+    "flex h-full flex-col rounded-2xl border border-[#E2E0D8] bg-white p-6 shadow-sm sm:p-6",
+} as const;
+
+type RiverWidgetProps = {
+  variant?: keyof typeof SHELL;
+};
+
+export function RiverWidget({ variant = "default" }: RiverWidgetProps) {
   const [data, setData] = useState<RiverApiResponse | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -85,25 +96,48 @@ export function RiverWidget() {
     "flex items-baseline justify-between gap-3 border-b border-[#d8d2c6]/55 py-2.5 last:border-0";
 
   return (
-    <div className="h-full rounded-[1.35rem] border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg)] p-5 shadow-[var(--rr-shadow-card)] backdrop-blur-sm sm:p-6">
+    <div className={cn(SHELL[variant])}>
       <div className="mb-1 sm:mb-2">
-        <SectionEyebrow icon={Waves} align="center" className="sm:justify-start">
+        <SectionEyebrow
+          icon={Waves}
+          align="center"
+          className={cn(
+            "sm:justify-start",
+            variant === "home" && "text-[9px] tracking-[0.22em] text-[#6B6F68]",
+          )}
+          iconClassName={variant === "home" ? "h-4 w-4" : undefined}
+        >
           River
         </SectionEyebrow>
       </div>
 
       {!loading && data?.siteName ? (
-        <p className="mt-2 text-[12px] font-medium leading-snug text-[var(--rr-ink)] sm:text-[13px]">
+        <p
+          className={cn(
+            "mt-2 text-[12px] font-medium leading-snug sm:text-[13px]",
+            variant === "home" ? "text-[#1F2A24]" : "text-[var(--rr-ink)]",
+          )}
+        >
           {data.siteName}
         </p>
       ) : null}
       {!loading && data?.dataLabel ? (
-        <p className="mt-1 text-[11px] leading-relaxed text-[var(--rr-text-muted)] sm:text-xs">
+        <p
+          className={cn(
+            "mt-1 text-[11px] leading-relaxed sm:text-xs",
+            variant === "home" ? "text-[#6B6F68]" : "text-[var(--rr-text-muted)]",
+          )}
+        >
           {data.dataLabel}
         </p>
       ) : null}
       {!loading && gaugeTime ? (
-        <p className="mt-1 text-[10px] leading-snug text-[var(--rr-text-muted)] sm:text-[11px]">
+        <p
+          className={cn(
+            "mt-1 text-[10px] leading-snug sm:text-[11px]",
+            variant === "home" ? "text-[#6B6F68]" : "text-[var(--rr-text-muted)]",
+          )}
+        >
           Latest gauge reading: {gaugeTime} ET
         </p>
       ) : null}
@@ -121,7 +155,12 @@ export function RiverWidget() {
               Gage height (USGS)
             </span>
           </span>
-          <span className="shrink-0 font-medium tabular-nums text-base text-[var(--rr-ink)]">
+          <span
+            className={cn(
+              "shrink-0 font-medium tabular-nums text-base",
+              variant === "home" ? "text-[#1F2A24]" : "text-[var(--rr-ink)]",
+            )}
+          >
             {loading ? "—" : formatGage(data?.gageHeightFt ?? null)}
           </span>
         </div>
@@ -130,7 +169,12 @@ export function RiverWidget() {
             <Waves className="h-3.5 w-3.5 opacity-70" aria-hidden />
             Flow
           </span>
-          <span className="font-medium tabular-nums text-base text-[var(--rr-ink)]">
+          <span
+            className={cn(
+              "font-medium tabular-nums text-base",
+              variant === "home" ? "text-[#1F2A24]" : "text-[var(--rr-ink)]",
+            )}
+          >
             {loading ? "—" : formatFlow(data?.flowCfs ?? null)}
           </span>
         </div>
@@ -150,7 +194,12 @@ export function RiverWidget() {
               </span>
             )}
           </span>
-          <span className="shrink-0 text-right font-medium tabular-nums text-base text-[var(--rr-ink)]">
+          <span
+            className={cn(
+              "shrink-0 text-right font-medium tabular-nums text-base",
+              variant === "home" ? "text-[#1F2A24]" : "text-[var(--rr-ink)]",
+            )}
+          >
             {loading
               ? "—"
               : typeof data?.estimatedWaterTempF === "number"
@@ -163,26 +212,50 @@ export function RiverWidget() {
       {!loading &&
       typeof data?.airTemperatureUsedF === "number" &&
       !Number.isNaN(data.airTemperatureUsedF) ? (
-        <p className="mt-2 text-[10px] leading-snug text-[var(--rr-text-muted)] sm:text-[11px]">
+        <p
+          className={cn(
+            "mt-2 text-[10px] leading-snug sm:text-[11px]",
+            variant === "home" ? "text-[#6B6F68]" : "text-[var(--rr-text-muted)]",
+          )}
+        >
           Air temperature used for estimate: {Math.round(data.airTemperatureUsedF)}°F
           {estimateTime ? ` · modeled ${estimateTime} ET` : null}
         </p>
       ) : null}
 
       {!loading && data?.transparencyNote ? (
-        <p className="mt-3 text-[10px] leading-relaxed text-[var(--rr-text-muted)] sm:text-[11px]">
+        <p
+          className={cn(
+            "mt-3 text-[10px] leading-relaxed sm:text-[11px]",
+            variant === "home" ? "text-[#6B6F68]" : "text-[var(--rr-text-muted)]",
+          )}
+        >
           {data.transparencyNote}
         </p>
       ) : null}
 
-      <div className="mt-4 space-y-3 border-t border-[#d8d2c6]/45 pt-4">
+      {variant === "home" ? <div className="min-h-2 flex-1" aria-hidden /> : null}
+
+      <div
+        className={cn(
+          "space-y-3 border-t border-[#d8d2c6]/45 pt-4",
+          variant === "home" ? "mt-0" : "mt-4",
+        )}
+      >
         <div className="flex items-start gap-2">
           <Eye className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[var(--rr-mint)] opacity-80" aria-hidden />
           <div className="min-w-0 flex-1">
             <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--rr-text-muted)]">
               Clarity
             </p>
-            <p className="mt-1 text-sm font-medium text-[var(--rr-ink)]">{CLARITY_DISPLAY[clarity]}</p>
+            <p
+              className={cn(
+                "mt-1 text-sm font-medium",
+                variant === "home" ? "text-[#1F2A24]" : "text-[var(--rr-ink)]",
+              )}
+            >
+              {CLARITY_DISPLAY[clarity]}
+            </p>
           </div>
         </div>
         <div className="flex items-start gap-2">

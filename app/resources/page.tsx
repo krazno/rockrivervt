@@ -1,22 +1,37 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 
-import { ArticleShell } from "@/components/marketing/article-shell";
+import { GuidePageFrame } from "@/components/guide/guide-page-frame";
+import { GuideSection } from "@/components/guide/guide-section";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { WebPageJsonLd } from "@/components/seo/web-page-json-ld";
-import { buildPageMetadata } from "@/lib/seo";
+import { SOURCE_REGISTRY } from "@/content/sourced/source-registry";
+import { buildPageMetadata, truncateMetaDescription, META_DESC_MAX } from "@/lib/seo";
 
-const pageDesc =
-  "Rock River resources: maps, conditions, official links, and planning for Newfane and Windham County Vermont. Southern Vermont context near Brattleboro.";
+const pageDesc = truncateMetaDescription(
+  "Rock River Vermont resources: official preservation links, Vermont geology and ANR context, USGS river data, maps, conditions, and planning pages for Newfane & Windham County.",
+  META_DESC_MAX,
+);
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Resources",
   description: pageDesc,
   path: "/resources",
-  keywords: ["Rock River resources", "Newfane VT links", "Windham County maps", "Rock River planning"],
+  titleAbsolute:
+    "Rock River resources | Maps, official links & planning — Newfane VT, Windham County",
+  keywords: [
+    "Rock River resources",
+    "Newfane VT links",
+    "Windham County maps",
+    "Rock River planning",
+    "Rock River Preservation official",
+    "Vermont river safety",
+  ],
 });
 
 export default function ResourcesPage() {
+  const agencySources = SOURCE_REGISTRY.filter((s) => s.url && s.id !== "rrp-official");
+
   return (
     <>
       <WebPageJsonLd
@@ -25,71 +40,125 @@ export default function ResourcesPage() {
         path="/resources"
       />
       <BreadcrumbJsonLd path="/resources" />
-      <ArticleShell
-        eyebrow="Planning"
+      <GuidePageFrame
+        eyebrow="Planning hub"
         title="Resources"
-        lead="Quick paths to maps, conditions, stewardship context, and official links—bookmark what you use."
+        lead="Bookmark what you use: this site’s maps and live tools first, then official stewardship and state agencies for context. Municipal websites change URLs often—search “Town of Newfane Vermont” for the current roads and notices page when you need it."
       >
-        <section>
-          <h2>This site</h2>
-          <ul>
+        <GuideSection eyebrow="On RockRiverVT" title="This guide">
+          <ul className="list-disc space-y-2 pl-5">
             <li>
-              <Link href="/map">Interactive map</Link> — parking, trails, beaches
+              <Link href="/map">Interactive map</Link> — parking, trails, shoreline labels
             </li>
             <li>
-              <Link href="/conditions">Conditions</Link> — weather &amp; river context
+              <Link href="/conditions">Conditions</Link> — weather, river context, crowd check-ins
             </li>
             <li>
-              <Link href="/gallery">Photos &amp; video</Link>
+              <Link href="/visit">Visit</Link> — practical planning and first-timer notes
             </li>
             <li>
-              <Link href="/preservation">Preservation</Link>
+              <Link href="/gallery">Photos &amp; video</Link> — visual expectations
             </li>
             <li>
               <Link href="/guidelines">Visitor guidelines</Link>
             </li>
             <li>
-              <Link href="/visit">Visiting Rock River</Link>
+              <Link href="/weather">Dedicated weather page</Link>
+            </li>
+            <li>
+              <Link href="/daily-updates">Daily updates</Link> — when notes are posted
             </li>
           </ul>
-        </section>
-        <section>
-          <h2>Town &amp; region</h2>
+        </GuideSection>
+
+        <GuideSection eyebrow="Stewardship" title="Rock River Preservation (official)">
           <p>
-            For official notices, roads, and municipal services, use the Town of Newfane and
-            Windham County, Vermont, websites. State outdoor and conservation programs are listed
-            on Vermont state sites. This page stays focused on on-site links above.
+            Policies, donations, and volunteer onboarding live with the nonprofit—not this
+            volunteer website.
           </p>
-        </section>
-        <section>
-          <h2>Safety &amp; weather</h2>
-          <ul>
+          <ul className="list-disc space-y-2 pl-5">
             <li>
-              <Link href="/conditions">Live conditions hub</Link>
+              <a
+                href="https://www.rockriverpreservation.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-[#4F6B52] underline-offset-2 hover:underline"
+              >
+                rockriverpreservation.org
+              </a>{" "}
+              — land protection and access mission
             </li>
             <li>
-              <Link href="/weather">Rock River weather</Link>
-            </li>
-          </ul>
-        </section>
-        <section>
-          <h2>Community &amp; history</h2>
-          <ul>
-            <li>
-              <Link href="/community">Community &amp; legacy</Link>
-            </li>
-            <li>
+              On-site context: <Link href="/preservation">Preservation overview</Link> and{" "}
               <Link href="/history">History</Link>
             </li>
+          </ul>
+        </GuideSection>
+
+        <GuideSection eyebrow="Geology & maps" title="Vermont and federal context">
+          <p>
+            Use these for regional background— not as permission to collect material from the
+            river bed or banks.
+          </p>
+          <ul className="list-disc space-y-2 pl-5">
+            {agencySources.map((s) => (
+              <li key={s.id}>
+                <a
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-[#4F6B52] underline-offset-2 hover:underline"
+                >
+                  {s.label}
+                </a>
+                <span className="text-[#6B6F68]"> — {s.publicBlurb}</span>
+              </li>
+            ))}
+          </ul>
+        </GuideSection>
+
+        <GuideSection eyebrow="Place" title="Local and watershed context">
+          <ul className="list-disc space-y-2 pl-5">
             <li>
-              <Link href="/land-river">Land &amp; river</Link>
+              <Link href="/local">Local guide</Link> — Newfane, Brattleboro, Windham County
+              texture
             </li>
             <li>
-              <Link href="/discoveries">Discoveries</Link>
+              <Link href="/land-river">Land &amp; river</Link> — Rock River and the West River
+              watershed
+            </li>
+            <li>
+              <Link href="/rock-river-vermont">Rock River Vermont overview</Link>
             </li>
           </ul>
-        </section>
-      </ArticleShell>
+        </GuideSection>
+
+        <GuideSection eyebrow="Safety" title="Planning and etiquette">
+          <ul className="list-disc space-y-2 pl-5">
+            <li>
+              <Link href="/conditions">Conditions &amp; live widgets</Link>
+            </li>
+            <li>
+              <Link href="/discoveries">Discoveries</Link> — notice, don’t remove
+            </li>
+            <li>
+              <Link href="/community">Community</Link> — shoreline respect and corrections
+            </li>
+          </ul>
+        </GuideSection>
+
+        <GuideSection eyebrow="Editors" title="Reviewable content layer">
+          <p>
+            Sourced factual framing for the discoveries page and source registry for agencies live
+            under{" "}
+            <code className="rounded bg-[#F6F4EF] px-1 py-0.5 text-[13px] text-[#3d4540]">
+              content/sourced/
+            </code>
+            . Internal reviewer notes stay in those files—edit there before changing geology or
+            stewardship claims sitewide.
+          </p>
+        </GuideSection>
+      </GuidePageFrame>
     </>
   );
 }

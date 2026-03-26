@@ -98,14 +98,13 @@ export default function LandRiverPage() {
               <strong className="font-medium text-[var(--rr-mint)]">Third Beach</strong> welcomes
               a mixed crowd; signage marks expectations at the site. At the end of the
               trails, a sandy bank known as{" "}
-              <strong className="font-medium text-[var(--rr-mint)]">Fifth Beach</strong> has been
-              a traditional gathering place for gay and bisexual men and their friends.
+              <strong className="font-medium text-[var(--rr-mint)]">Fifth Beach</strong>—unofficial
+              but well known to locals—has long been a gathering place for gay and bisexual men and
+              their friends. Be respectful and give others space—the usual courtesies apply.
             </p>
             <p className="mt-3 text-sm leading-7 text-slate-600">
-              <strong className="font-medium text-[var(--rr-mint)]">All are welcome</strong> on
-              this site and at the river when we meet each other with respect—for
-              neighbors, for the land, and for the many communities who share this
-              corridor.
+              This site and the river work best for a mixed crowd when we are respectful toward
+              neighbors, the land, and everyone sharing the corridor. Leave no trace.
             </p>
 
             <h2

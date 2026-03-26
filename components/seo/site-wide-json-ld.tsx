@@ -15,7 +15,7 @@ export function SiteWideJsonLd() {
       alternateName: ["Rock River VT", "Rock River Newfane Vermont"],
       url: SITE_URL,
       description:
-        "Rock River Vermont—unofficial guide to Newfane swimming holes, trail, map, live conditions, and preserve access near Brattleboro, Windham County.",
+        "Rock River Vermont—neighbor-sourced notes on Newfane swimming holes, trail, map, live conditions, and preserve access near Brattleboro, Windham County.",
       inLanguage: "en-US",
       publisher: { "@id": `${SITE_URL}/#organization` },
     },
@@ -48,10 +48,15 @@ export function SiteWideJsonLd() {
     {
       "@type": ["Place", "TouristAttraction"],
       "@id": `${SITE_URL}/#rock-river-place`,
-      name: "Rock River recreation area — Newfane, Vermont",
+      name: "Rock River",
+      alternateName: [
+        "Rock River Newfane Vermont",
+        "Rock River Windham County Vermont",
+        "Rock River recreation area",
+      ],
       isAccessibleForFree: true,
       description:
-        "Rock River swimming holes, trail, and river pools in Windham County, southern Vermont, near Brattleboro. Includes Rock River Preserve access.",
+        "Rock River swimming holes, Rock River trail, and river pools in Newfane and Windham County, southern Vermont, near Brattleboro and the West River valley. Includes Rock River Preserve access.",
       address: {
         "@type": "PostalAddress",
         addressLocality: "Newfane",

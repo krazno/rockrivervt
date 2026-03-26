@@ -20,7 +20,7 @@ export const metadata: Metadata = buildPageMetadata({
     "Rock River etiquette",
     "Newfane river rules",
     "Rock River LGBTQ friendly Vermont",
-    "Rock River nudist beach etiquette",
+    "Rock River clothing optional etiquette",
   ],
 });
 
@@ -38,17 +38,17 @@ export default function GuidelinesPage() {
         <Container className="py-10">
           <article className="rr-glass-strong mx-auto max-w-3xl p-6 sm:p-8">
             <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
-              Living best practices
+              What usually works here
             </p>
             <h1 className="font-heading mt-1.5 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
               Rock River visitor guidelines
             </h1>
             <p className="mt-3 text-base leading-relaxed text-slate-600 sm:text-lg">
               Land stewarded by Rock River Preservation is open to the public for lawful
-              use and must follow posted rules. Above all, visit in a spirit of respect—for
-              neighbors, for the river corridor, and for everyone sharing the trail and the
-              water. <strong className="font-medium text-[var(--rr-mint)]">All are welcome</strong>{" "}
-              when we choose kindness, discretion, and care.
+              use and must follow posted rules. Most days go smoothly when people treat neighbors,
+              the river corridor, and everyone on the trail and in the water with ordinary
+              courtesy—quiet voices, patience, and care. There is room for a mixed crowd when we
+              give others space and keep sound human-scale.
             </p>
 
             <div className="mt-8 overflow-hidden rounded-2xl border border-amber-200/80 bg-amber-50 p-5 sm:p-6">
@@ -82,10 +82,10 @@ export default function GuidelinesPage() {
               Respect our community
             </h2>
             <p className="mt-3 text-sm leading-7 text-slate-600">
-              Honor the privacy of adjacent landowners and local norms. Act in ways that
-              strengthen public regard for the river and help protect access for the
-              future. Outside marked clothing-optional areas, wear clothing as you would
-              in any shared outdoor space in town.
+              Honor the privacy of adjacent landowners and what people here usually expect.
+              Small courtesies—picking up after yourself, not cutting through yards—help keep
+              access open. Outside signed clothing-optional areas, dress as you would in any
+              shared outdoor space in town.
             </p>
             <ul className="mt-3 list-disc space-y-2 pl-5 text-sm leading-7 text-slate-600">
               <li>
@@ -146,8 +146,8 @@ export default function GuidelinesPage() {
             <p className="mt-3 text-sm leading-7 text-slate-600">
               Stewards designated by the Rock River Preservation board help visitors align
               with these guidelines. Their direction should be honored—it keeps the
-              shoreline safer and calmer for families, longtime regulars, LGBTQ+
-              visitors, and everyone in between.
+              shoreline calmer for families, long-time visitors, queer folks, and everyone
+              else sharing the mixed crowd.
             </p>
 
             <h2

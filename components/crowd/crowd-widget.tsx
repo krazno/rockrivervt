@@ -73,7 +73,18 @@ function rowSubtitle(row: CrowdAreaSummary): string {
   return `${ratings} today, blended with the baseline`;
 }
 
-export function CrowdWidget() {
+const SHELL = {
+  default:
+    "rounded-2xl border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg)] p-4 shadow-[var(--rr-shadow-card)] backdrop-blur-sm sm:p-5",
+  home:
+    "flex h-full flex-col rounded-2xl border border-[#E2E0D8] bg-white p-6 shadow-sm sm:p-6",
+} as const;
+
+type CrowdWidgetProps = {
+  variant?: keyof typeof SHELL;
+};
+
+export function CrowdWidget({ variant = "default" }: CrowdWidgetProps) {
   const [loadState, setLoadState] = useState<LoadState>("loading");
   const [summary, setSummary] = useState<CrowdSummaryResponse | null>(null);
 
@@ -287,17 +298,35 @@ export function CrowdWidget() {
       : null;
 
   return (
-    <div className="rounded-2xl border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg)] p-4 shadow-[var(--rr-shadow-card)] backdrop-blur-sm sm:p-5">
+    <div className={cn(SHELL[variant])}>
       <header className="w-full text-center sm:text-left">
-        <SectionEyebrow icon={Users} align="center" className="sm:justify-start">
+        <SectionEyebrow
+          icon={Users}
+          align="center"
+          className={cn(
+            "sm:justify-start",
+            variant === "home" && "text-[9px] tracking-[0.22em] text-[#6B6F68]",
+          )}
+          iconClassName={variant === "home" ? "h-4 w-4" : undefined}
+        >
           Crowd feel
         </SectionEyebrow>
-        <p className="mx-auto mt-2 max-w-md text-[12px] leading-snug text-[var(--rr-text-muted)] sm:mx-0 sm:mt-2 sm:text-[13px]">
-          Anonymous check-ins—a vibe, not a head count. Check in as often as you like; we merge
+        <p
+          className={cn(
+            "mx-auto mt-2 max-w-md text-[12px] leading-snug sm:mx-0 sm:mt-2 sm:text-[13px]",
+            variant === "home" ? "text-[#6B6F68]" : "text-[var(--rr-text-muted)]",
+          )}
+        >
+          Quick, anonymous check-ins—more of a feel than a head count. Check in as often as you like; we merge
           everything from today (UTC) into one picture per spot.
         </p>
         {totalCheckIns !== null ? (
-          <p className="mt-1.5 text-[11px] font-medium tabular-nums text-[var(--rr-forest)] sm:text-xs">
+          <p
+            className={cn(
+              "mt-1.5 text-[11px] font-medium tabular-nums sm:text-xs",
+              variant === "home" ? "text-[#4F6B52]" : "text-[var(--rr-forest)]",
+            )}
+          >
             {totalCheckIns === 0
               ? "No check-ins yet today"
               : totalCheckIns === 1
@@ -330,10 +359,20 @@ export function CrowdWidget() {
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0 flex-1">
-                      <p className="text-[13px] font-medium leading-tight text-[var(--rr-ink)] sm:text-sm">
+                      <p
+                        className={cn(
+                          "text-[13px] font-medium leading-tight sm:text-sm",
+                          variant === "home" ? "text-[#1F2A24]" : "text-[var(--rr-ink)]",
+                        )}
+                      >
                         {row.label}
                       </p>
-                      <p className="mt-0.5 text-[10px] leading-snug text-[var(--rr-text-muted)] sm:text-[11px]">
+                      <p
+                        className={cn(
+                          "mt-0.5 text-[10px] leading-snug sm:text-[11px]",
+                          variant === "home" ? "text-[#6B6F68]" : "text-[var(--rr-text-muted)]",
+                        )}
+                      >
                         {rowSubtitle(row)}
                       </p>
                     </div>
@@ -353,7 +392,14 @@ export function CrowdWidget() {
             })}
       </div>
 
-      <div className="mt-4 border-t border-[var(--rr-widget-border)] pt-3.5 sm:mt-5 sm:pt-4">
+      {variant === "home" ? <div className="min-h-2 flex-1" aria-hidden /> : null}
+
+      <div
+        className={cn(
+          "border-t border-[var(--rr-widget-border)] pt-3.5 sm:pt-4",
+          variant === "home" ? "mt-0" : "mt-4 sm:mt-5",
+        )}
+      >
         <div className="flex flex-col items-stretch gap-2 sm:items-center">
           <button
             type="button"
@@ -368,7 +414,9 @@ export function CrowdWidget() {
             className={cn(
               "w-full rounded-full border px-5 py-2.5 text-sm font-medium transition sm:max-w-sm sm:self-center sm:py-3",
               backendReady
-                ? "border-[var(--rr-forest)] bg-[var(--rr-forest)] text-[#faf8f4] shadow-[var(--rr-shadow-card)] hover:bg-[#3d4a3d]"
+                ? variant === "home"
+                  ? "border-[#4F6B52] bg-[#4F6B52] text-white shadow-sm hover:bg-[#3d5240]"
+                  : "border-[var(--rr-forest)] bg-[var(--rr-forest)] text-[#faf8f4] shadow-[var(--rr-shadow-card)] hover:bg-[#3d4a3d]"
                 : "cursor-not-allowed border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg-soft)] text-[var(--rr-text-muted)]",
             )}
           >

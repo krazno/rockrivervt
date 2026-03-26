@@ -50,7 +50,7 @@ export default function DailyUpdatesPage() {
                 Live conditions
               </Link>
               <Link href="/conditions" className="rr-btn-ghost px-5 py-2.5 text-sm">
-                Conditions hub
+                Conditions page
               </Link>
               <Link href="/map" className="rr-btn-ghost px-5 py-2.5 text-sm">
                 Map

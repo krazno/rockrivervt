@@ -33,24 +33,24 @@ export default function LocalPage() {
       <ArticleShell
         eyebrow="Southern Vermont"
         title="Local · Welcoming places"
-        lead="Rock River sits between small towns and a region where a lot of people already know how to share space. This isn’t a brochure list—just context and room to add real spots later."
+        lead="Rock River sits between small Vermont towns where people are used to sharing trails and parking without much fuss. This page is context, not a brochure—we may add specific spots later."
       >
         <section>
           <h2>Nearby towns</h2>
           <p>
             <strong className="text-[var(--rr-ink)]">Newfane</strong> is the town anchor;
             <strong className="text-[var(--rr-ink)]"> Brattleboro</strong> is the nearest
-            hub for food, supplies, and culture. Windham County is small-town Vermont:
-            low key, neighborly, and—for many visitors and residents—openly welcoming to
-            LGBTQ+ people without making a campaign of it.
+            larger town for food, supplies, and culture. Windham County is small-town Vermont:
+            low key and neighborly, and—for many visitors and residents—welcoming to LGBTQ+
+            people in an everyday, low-key way.
           </p>
         </section>
         <section>
           <h2>On the river</h2>
           <p>
-            The river has long drawn a mix of families, swimmers, hikers, and others—
-            including clothing-optional beaches where signposting and community norms apply.
-            Respect and discretion keep that mix workable; see{" "}
+            The river has long drawn a mixed crowd—families, swimmers, hikers, and others—
+            including signed clothing-optional areas where posted norms apply. Be respectful,
+            give others space, and see{" "}
             <Link href="/guidelines">guidelines</Link> for the plain version.
           </p>
         </section>

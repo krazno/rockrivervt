@@ -1,26 +1,33 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 
+import { GuideSection } from "@/components/guide/guide-section";
+import { InteractiveMap } from "@/components/map/interactive-map";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { WebPageJsonLd } from "@/components/seo/web-page-json-ld";
-import { InteractiveMap } from "@/components/map/interactive-map";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
-import { buildPageMetadata } from "@/lib/seo";
+import { Container } from "@/components/shared/container";
+import { buildPageMetadata, truncateMetaDescription, META_DESC_MAX } from "@/lib/seo";
 
-const pageDesc =
-  "Rock River VT map: parking, trails, beaches, and swimming holes in Newfane and Windham County Vermont, near Brattleboro. Pair with conditions and visit info.";
+const pageDesc = truncateMetaDescription(
+  "Interactive Rock River Vermont map: parking, trail, beaches, and swimming holes in Newfane and Windham County—how to use the layers, read labels, and plan with visit & conditions.",
+  META_DESC_MAX,
+);
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Map",
   description: pageDesc,
   path: "/map",
+  titleAbsolute:
+    "Rock River VT map | Newfane parking, trail & swimming holes — Windham County",
   keywords: [
     "Rock River map",
     "Rock River directions",
     "Newfane VT map",
     "Rock River parking",
     "Rock River trail map",
+    "Windham County Vermont map",
   ],
 });
 
@@ -34,50 +41,44 @@ export default function MapPage() {
       />
       <BreadcrumbJsonLd path="/map" />
       <SiteHeader />
-      <main className="rr-body pb-20 text-[var(--rr-text)]">
-        <div className="mx-auto w-full max-w-5xl px-4 pt-10 sm:px-6 lg:px-8">
-          <nav aria-label="Breadcrumb" className="text-sm">
-            <ol className="flex flex-wrap items-center gap-1 text-[var(--rr-text-muted)]">
-              <li>
-                <Link
-                  href="/"
-                  className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline"
-                >
-                  Home
-                </Link>
-              </li>
-              <li aria-hidden className="text-[var(--rr-widget-border)]">
-                /
-              </li>
-              <li className="text-[var(--rr-ink)]">Map</li>
-            </ol>
-          </nav>
-          <Link
-            href="/"
-            className="mt-5 inline-block text-sm font-medium text-[var(--rr-link)] underline-offset-4 hover:underline"
-          >
-            ← Back to home
-          </Link>
+      <main className="rr-body pb-20 text-[#1F2A24]">
+        <Container className="py-10 sm:py-12">
+          <header className="mx-auto max-w-3xl">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-[#6B6F68]">
+              Wayfinding
+            </p>
+            <h1 className="font-heading mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
+              Rock River map & directions
+            </h1>
+            <p className="mt-4 text-base leading-relaxed text-[#3f4840] sm:text-lg">
+              Same GeoJSON layers as the home preview—full width here so you can pan, zoom, and
+              read the legend before you lose signal near the river. Pair the map with{" "}
+              <Link
+                href="/visit"
+                className="font-semibold text-[#4F6B52] underline-offset-2 hover:underline"
+              >
+                visit planning
+              </Link>{" "}
+              and{" "}
+              <Link
+                href="/conditions"
+                className="font-semibold text-[#4F6B52] underline-offset-2 hover:underline"
+              >
+                live conditions
+              </Link>
+              .
+            </p>
+          </header>
 
-          <article>
-            <header className="mt-8">
-              <h1 className="font-heading text-[clamp(1.5rem,2vw+1rem,2.25rem)] font-semibold tracking-tight text-[var(--rr-ink)]">
-                Rock River map & directions
-              </h1>
-              <p className="rr-lead mt-4 max-w-xl">
-                Pan, zoom, and tap features—same GeoJSON as the home preview. Scroll wheel
-                zooms on this full-page map of the Rock River corridor in southern Vermont.
-              </p>
-            </header>
-
-            <section className="mt-10" aria-labelledby="map-embed-heading">
+          <div className="mx-auto mt-10 max-w-6xl space-y-8 sm:space-y-10">
+            <section aria-labelledby="map-embed-heading">
               <h2 id="map-embed-heading" className="sr-only">
                 Interactive Rock River map
               </h2>
-              <div className="overflow-hidden rounded-[var(--rr-radius-xl)] border border-[var(--rr-widget-border)] bg-[#f0ebe6]/70 p-4 shadow-[var(--rr-shadow-card)] sm:p-6">
+              <div className="overflow-hidden rounded-2xl border border-[#E2E0D8] bg-white p-4 shadow-sm sm:p-6">
                 <InteractiveMap
                   mode="full"
-                  height={500}
+                  height={520}
                   showLegend
                   showControls
                   geoJsonUrl="/geo/map.geojson"
@@ -87,55 +88,58 @@ export default function MapPage() {
               </div>
             </section>
 
-            <section className="mt-12" aria-labelledby="map-context-heading">
-              <h2
-                id="map-context-heading"
-                className="font-heading text-lg font-semibold tracking-tight text-[var(--rr-ink)] sm:text-xl"
-              >
-                Parking, beaches & trail context
-              </h2>
-              <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[var(--rr-text-muted)]">
-                Labels orient you to beaches and landmarks along Rock River. For driving and
-                access notes, see{" "}
-                <Link
-                  href="/visit"
-                  className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
-                >
-                  Visiting Rock River Vermont
-                </Link>
-                ,{" "}
-                <Link
-                  href="/conditions"
-                  className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
-                >
-                  conditions & weather
-                </Link>
-                , and{" "}
-                <Link
-                  href="/land-river"
-                  className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
-                >
-                  Land &amp; River
-                </Link>
-                . Stewardship and etiquette:{" "}
-                <Link
-                  href="/guidelines"
-                  className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
-                >
-                  Guidelines
-                </Link>
-                ,{" "}
-                <Link
-                  href="/resources"
-                  className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
-                >
-                  Resources
-                </Link>
-                .
-              </p>
-            </section>
-          </article>
-        </div>
+            <div className="mx-auto flex max-w-3xl flex-col gap-6 sm:gap-8">
+              <GuideSection eyebrow="Controls" title="How to use this map">
+                <p>
+                  Scroll or pinch to zoom; drag to pan. Toggle layers from the legend so parking,
+                  trails, and shoreline labels match what you expect on the ground. On phones,
+                  landscape often makes it easier to tap small icons.
+                </p>
+              </GuideSection>
+
+              <GuideSection eyebrow="Arrival" title="Parking orientation">
+                <p>
+                  Public parking associated with access sits along{" "}
+                  <strong className="font-semibold text-[#1F2A24]">Route 30 in Dummerston</strong>{" "}
+                  near the Depot Road area—see the pinned markers and respect road paint. If the
+                  map looks different after a storm, assume crossings and informal paths may have
+                  shifted; walk in cautiously.
+                </p>
+              </GuideSection>
+
+              <GuideSection eyebrow="On the ground" title="Trail route notes">
+                <p>
+                  The trail follows the corridor in segments—some stretches are smooth, others are
+                  rooty or steep. The map orients you to named beaches and reference points; it
+                  does not replace watching your footing. Trail context:{" "}
+                  <Link href="/rock-river-trail-vermont">Rock River trail Vermont</Link>.
+                </p>
+              </GuideSection>
+
+              <GuideSection eyebrow="Labels" title="How areas are labeled">
+                <p>
+                  Beach and shoreline names on the map match long-time local usage; signage on
+                  site can be light. When in doubt, follow posted rules, stay on marked trails,
+                  and treat ambiguous junctions as a cue to slow down.
+                </p>
+              </GuideSection>
+
+              <GuideSection eyebrow="Related" title="Plan the rest of the day">
+                <p>
+                  <Link href="/visit">Visit</Link>
+                  {" · "}
+                  <Link href="/conditions">Conditions</Link>
+                  {" · "}
+                  <Link href="/guidelines">Guidelines</Link>
+                  {" · "}
+                  <Link href="/gallery">Photos</Link>
+                  {" · "}
+                  <Link href="/resources">Resources</Link>
+                </p>
+              </GuideSection>
+            </div>
+          </div>
+        </Container>
       </main>
       <SiteFooter />
     </>

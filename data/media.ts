@@ -180,6 +180,16 @@ function pickSiteImage(preferredIndex: number, ...fallbacks: number[]) {
   return imgs[0];
 }
 
+/** Horizontal carousel on the homepage — varied scenes, stable order. */
+export function getHomePhotoCarouselPhotos(): (MediaItem & {
+  type: "image";
+  width: number;
+  height: number;
+})[] {
+  const imgs = getSiteImages();
+  return [...imgs].sort(sortByOrder).slice(0, 14);
+}
+
 /** Curated pair — fewer, stronger images on the home stripe. */
 export function getHomeRiverStripePhotos() {
   const imgs = homepageImagesSorted();

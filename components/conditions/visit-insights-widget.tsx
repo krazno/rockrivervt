@@ -1,11 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
 import {
   CalendarHeart,
-  Car,
   CloudSun,
   Droplets,
   ShieldAlert,
@@ -13,176 +11,99 @@ import {
   Users,
 } from "lucide-react";
 
+import type { HomeVisitSnapshot } from "@/components/home/use-home-visit-snapshot";
 import { SectionEyebrow } from "@/components/shared/section-eyebrow";
-
-import type { CrowdSummaryResponse } from "@/lib/crowd/types";
-import type { RiverApiResponse } from "@/lib/river-types";
-import {
-  beachCrowdPhrase,
-  bestVisitWindow,
-  findParkingSummary,
-  parkingFromCrowdLevel,
-  waterComfortPhrase,
-  type ParkingDifficulty,
-  type WeatherHourSlice,
-} from "@/lib/visit-insights";
 import { cn } from "@/lib/utils";
-
-type WeatherPayload = {
-  timezone?: string;
-  shortForecast?: string;
-  temperature?: number;
-  nextTwelveHours?: WeatherHourSlice[];
-};
-
-const PARKING_UI: Record<
-  ParkingDifficulty,
-  { label: string; sub: string; icon: LucideIcon; ring: string; chip: string }
-> = {
-  easy: {
-    label: "Easy",
-    sub: "Mostly easy—updates when people check in parking",
-    icon: Car,
-    ring: "ring-[#b8d4c8]/45",
-    chip: "border-[#c5ddd2] bg-[#eef6f2] text-[#2d4f3c]",
-  },
-  moderate: {
-    label: "Moderate",
-    sub: "Crowdsourced parking feel",
-    icon: Car,
-    ring: "ring-[#c9b86a]/45",
-    chip: "border-[#d4c89a] bg-[#f5f0e0] text-[#5a4a1a]",
-  },
-  hard: {
-    label: "Hard",
-    sub: "Crowdsourced parking feel",
-    icon: Car,
-    ring: "ring-[#d4a878]/45",
-    chip: "border-[#d4b4a8] bg-[#f7ece8] text-[#6b2f24]",
-  },
-  full: {
-    label: "Full",
-    sub: "Crowdsourced parking feel",
-    icon: Car,
-    ring: "ring-[#c98a8a]/50",
-    chip: "border-[#d4a8a8] bg-[#f7e8e8] text-[#5c2222]",
-  },
-};
 
 function MetricRow({
   icon: Icon,
   children,
+  iconSize = "default",
 }: {
   icon: LucideIcon;
   children: ReactNode;
+  iconSize?: "default" | "home";
 }) {
+  const wrap =
+    iconSize === "home" ?
+      "mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#E2E0D8] bg-[#F6F4EF] text-[#4F6B52]"
+    : "mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg-soft)] text-[var(--rr-forest)]";
+  const ico = iconSize === "home" ? "h-5 w-5" : "h-4 w-4";
+  const rowShell =
+    iconSize === "home" ?
+      "flex gap-3 rounded-xl border border-[#E2E0D8]/90 bg-[#F6F4EF]/60 px-3 py-2.5 sm:px-3.5 sm:py-3"
+    : "flex gap-3 rounded-xl border border-[var(--rr-widget-border)]/70 bg-[#faf8f4]/80 px-3 py-2.5 sm:px-3.5 sm:py-3";
+
   return (
-    <div className="flex gap-3 rounded-xl border border-[var(--rr-widget-border)]/70 bg-[#faf8f4]/80 px-3 py-2.5 sm:px-3.5 sm:py-3">
-      <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg-soft)] text-[var(--rr-forest)]">
-        <Icon className="h-4 w-4" aria-hidden />
+    <div className={rowShell}>
+      <span className={wrap}>
+        <Icon className={ico} aria-hidden />
       </span>
-      <p className="min-w-0 flex-1 text-[13px] leading-snug text-[var(--rr-ink)] sm:text-sm">
+      <p className="min-w-0 flex-1 text-[13px] leading-snug text-[#1F2A24] sm:text-sm">
         {children}
       </p>
     </div>
   );
 }
 
-export function VisitInsightsWidget() {
-  const [weather, setWeather] = useState<WeatherPayload | null>(null);
-  const [crowd, setCrowd] = useState<CrowdSummaryResponse | null>(null);
-  const [river, setRiver] = useState<RiverApiResponse | null>(null);
-  const [loading, setLoading] = useState(true);
+const SHELL = {
+  default:
+    "mb-7 rounded-[1.35rem] border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg)] p-5 shadow-[var(--rr-shadow-card)] backdrop-blur-sm sm:mb-8 sm:p-6",
+  home: "rounded-2xl border border-[#E2E0D8] bg-white p-6 shadow-sm",
+} as const;
 
-  useEffect(() => {
-    let alive = true;
-    async function load() {
-      try {
-        const [wRes, cRes, rRes] = await Promise.all([
-          fetch("/api/weather", { cache: "no-store" }),
-          fetch("/api/crowd", { cache: "no-store" }),
-          fetch("/api/river", { cache: "no-store" }),
-        ]);
-        const [wJson, cJson, rJson] = await Promise.all([
-          wRes.ok ? wRes.json() : null,
-          cRes.ok ? cRes.json() : null,
-          rRes.ok ? rRes.json() : null,
-        ]);
-        if (!alive) return;
-        setWeather(wJson as WeatherPayload);
-        setCrowd(cJson as CrowdSummaryResponse);
-        setRiver(rJson as RiverApiResponse);
-      } catch {
-        if (!alive) return;
-        setWeather(null);
-        setCrowd(null);
-        setRiver(null);
-      } finally {
-        if (alive) setLoading(false);
-      }
-    }
-    void load();
-    return () => {
-      alive = false;
-    };
-  }, []);
+type VisitInsightsWidgetProps = {
+  variant?: keyof typeof SHELL;
+  /** Shared homepage snapshot (single fetch with `useHomeVisitSnapshot` in the parent). */
+  snapshot: HomeVisitSnapshot;
+};
 
-  const tz = weather?.timezone ?? "America/New_York";
-  const hours = weather?.nextTwelveHours ?? [];
-
-  const windowHint = useMemo(
-    () => bestVisitWindow(hours, tz),
-    [hours, tz],
-  );
-
-  const waterLine = useMemo(
-    () => waterComfortPhrase(river?.estimatedWaterTempF ?? null),
-    [river?.estimatedWaterTempF],
-  );
-
-  const beachLine = useMemo(() => {
-    if (!crowd?.areas?.length) {
-      return "Crowd at beaches — check-ins update through the day";
-    }
-    return beachCrowdPhrase(crowd.areas);
-  }, [crowd?.areas]);
-
-  const parkingRow = useMemo(() => {
-    const p = crowd?.areas ? findParkingSummary(crowd.areas) : undefined;
-    const hasParkingCheckins = Boolean(p && p.reportCount > 0);
-    const level: ParkingDifficulty =
-      hasParkingCheckins && p ?
-        parkingFromCrowdLevel(p.displayedLevel)
-      : "easy";
-    return { level, hasSignal: hasParkingCheckins };
-  }, [crowd?.areas]);
-
-  const parkingUi = PARKING_UI[parkingRow.level];
+export function VisitInsightsWidget({ variant = "default", snapshot }: VisitInsightsWidgetProps) {
+  const {
+    loading,
+    weather,
+    windowHint,
+    waterLine,
+    beachLine,
+    parkingUi,
+    timeRangeText,
+  } = snapshot;
   const ParkingIcon = parkingUi.icon;
-
-  const timeRangeText =
-    windowHint ?
-      `${windowHint.startLabel}–${windowHint.endLabel}`
-    : loading ? "…"
-    : "Weather windows loading";
+  const home = variant === "home";
 
   return (
     <section
-      className="mb-7 rounded-[1.35rem] border border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg)] p-5 shadow-[var(--rr-shadow-card)] backdrop-blur-sm sm:mb-8 sm:p-6"
+      className={SHELL[variant]}
       aria-labelledby="visit-insights-heading"
     >
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
         <header className="w-full text-center sm:min-w-0 sm:flex-1 sm:text-left">
-          <SectionEyebrow icon={Sparkles} align="center" className="sm:justify-start">
+          <SectionEyebrow
+            icon={Sparkles}
+            align="center"
+            className={cn(
+              "sm:justify-start",
+              home && "text-[9px] tracking-[0.22em] text-[#6B6F68]",
+            )}
+            iconClassName={home ? "h-4 w-4" : undefined}
+          >
             Plan today
           </SectionEyebrow>
           <h2
             id="visit-insights-heading"
-            className="font-heading mt-2 text-lg font-semibold tracking-tight text-[var(--rr-ink)] sm:mt-2 sm:text-xl"
+            className={cn(
+              "font-heading mt-2 text-lg font-semibold tracking-tight sm:mt-2 sm:text-xl",
+              home ? "text-[#1F2A24] font-bold" : "text-[var(--rr-ink)]",
+            )}
           >
             Best time to visit today
           </h2>
-          <p className="mt-1 text-[12px] text-[var(--rr-text-muted)] sm:text-[13px]">
+          <p
+            className={cn(
+              "mt-1 text-[12px] sm:text-[13px]",
+              home ? "text-[#6B6F68]" : "text-[var(--rr-text-muted)]",
+            )}
+          >
             NOAA hourly forecast, est. water temp, and today’s crowd check-ins.
           </p>
         </header>
@@ -200,24 +121,58 @@ export function VisitInsightsWidget() {
       </div>
 
       <div className="mt-5 grid gap-3 sm:grid-cols-2">
-        <div className="rounded-2xl border border-[var(--rr-widget-border)] bg-gradient-to-br from-[var(--rr-widget-bg-soft)] to-transparent p-4 sm:p-5">
-          <div className="flex items-center gap-2 text-[var(--rr-mint)]">
+        <div
+          className={cn(
+            "rounded-2xl border p-4 sm:p-5",
+            home ?
+              "border-[#E2E0D8] bg-[#F6F4EF]/50"
+            : "border-[var(--rr-widget-border)] bg-gradient-to-br from-[var(--rr-widget-bg-soft)] to-transparent",
+          )}
+        >
+          <div
+            className={cn(
+              "flex items-center gap-2",
+              home ? "text-[#4F6B52]" : "text-[var(--rr-mint)]",
+            )}
+          >
             <CalendarHeart className="h-4 w-4" aria-hidden />
             <p className="text-[10px] font-semibold uppercase tracking-[0.16em]">
               Best window
             </p>
           </div>
           {loading && !windowHint ? (
-            <p className="mt-2 text-sm text-[var(--rr-text-muted)]">Loading…</p>
+            <p
+              className={cn(
+                "mt-2 text-sm",
+                home ? "text-[#6B6F68]" : "text-[var(--rr-text-muted)]",
+              )}
+            >
+              Loading…
+            </p>
           ) : (
             <>
-              <p className="mt-2 font-heading text-base font-semibold text-[var(--rr-ink)] sm:text-lg">
+              <p
+                className={cn(
+                  "mt-2 font-heading text-base font-semibold sm:text-lg",
+                  home ? "text-[#1F2A24]" : "text-[var(--rr-ink)]",
+                )}
+              >
                 {windowHint?.summary ?? "Check weather"}
               </p>
-              <p className="mt-1 text-sm font-medium tabular-nums text-[var(--rr-forest)]">
+              <p
+                className={cn(
+                  "mt-1 text-sm font-medium tabular-nums",
+                  home ? "text-[#4F6B52]" : "text-[var(--rr-forest)]",
+                )}
+              >
                 {timeRangeText}
               </p>
-              <p className="mt-2 text-[12px] leading-relaxed text-[var(--rr-text-muted)]">
+              <p
+                className={cn(
+                  "mt-2 text-[12px] leading-relaxed",
+                  home ? "text-[#6B6F68]" : "text-[var(--rr-text-muted)]",
+                )}
+              >
                 Best 2–4 hour span in the next ~12 hours (drier, calmer sky scores higher).
               </p>
             </>
@@ -225,9 +180,13 @@ export function VisitInsightsWidget() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <MetricRow icon={Droplets}>{waterLine}</MetricRow>
-          <MetricRow icon={Users}>{beachLine}</MetricRow>
-          <MetricRow icon={CloudSun}>
+          <MetricRow icon={Droplets} iconSize={home ? "home" : "default"}>
+            {waterLine}
+          </MetricRow>
+          <MetricRow icon={Users} iconSize={home ? "home" : "default"}>
+            {beachLine}
+          </MetricRow>
+          <MetricRow icon={CloudSun} iconSize={home ? "home" : "default"}>
             {typeof weather?.temperature === "number" && weather.shortForecast ?
               <>Now about {weather.temperature}°F — {weather.shortForecast}</>
             : loading ?
@@ -237,10 +196,24 @@ export function VisitInsightsWidget() {
         </div>
       </div>
 
-      <p className="mt-4 flex items-start gap-2 text-[11px] leading-relaxed text-[var(--rr-text-muted)] sm:text-xs">
+      <p
+        className={cn(
+          "mt-4 flex items-start gap-2 text-[11px] leading-relaxed sm:text-xs",
+          home ? "text-[#6B6F68]" : "text-[var(--rr-text-muted)]",
+        )}
+      >
         <ShieldAlert className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#8b6a42]" aria-hidden />
         <span>
-          Parking starts as <strong className="font-semibold text-[var(--rr-ink)]">Easy</strong> until
+          Parking starts as{" "}
+          <strong
+            className={cn(
+              "font-semibold",
+              home ? "text-[#1F2A24]" : "text-[var(--rr-ink)]",
+            )}
+          >
+            Easy
+          </strong>{" "}
+          until
           parking check-ins roll in; then it follows the blend. Not a guarantee of open spaces.
         </span>
       </p>

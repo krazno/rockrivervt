@@ -1,189 +1,188 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 
+import { GuidePageFrame } from "@/components/guide/guide-page-frame";
+import { GuideSection } from "@/components/guide/guide-section";
+import { KnowledgeSectionProse } from "@/components/guide/knowledge-section-prose";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { WebPageJsonLd } from "@/components/seo/web-page-json-ld";
-import { SiteFooter } from "@/components/layout/site-footer";
-import { SiteHeader } from "@/components/layout/site-header";
-import { Container } from "@/components/shared/container";
-import { buildPageMetadata } from "@/lib/seo";
+import { getKnowledgeSection } from "@/lib/knowledge";
+import { buildPageMetadata, truncateMetaDescription, META_DESC_MAX } from "@/lib/seo";
 
-const pageDesc =
-  "Visit Rock River in Newfane Vermont: parking, trail access to swimming holes, spring safety, map link, and respectful use in Windham County near Brattleboro.";
+const pageDesc = truncateMetaDescription(
+  "Plan a Rock River Vermont visit: seasons, what to pack for town and trail, parking and driveways, mixed shoreline etiquette, and first-trip tips—Newfane, Windham County, southern VT.",
+  META_DESC_MAX,
+);
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Visit",
   description: pageDesc,
   path: "/visit",
+  titleAbsolute:
+    "Visit Rock River Vermont | Newfane VT swimming hole, trail access & parking",
   keywords: [
     "Rock River directions",
     "Rock River parking",
     "Newfane VT river access",
     "Rock River swimming hole parking",
+    "Rock River trail Newfane",
+    "Windham County Vermont swimming",
   ],
 });
 
+/** Split on period-boundary spaces; keeps sentences stable for knowledge-base lines. */
+function sentences(text: string): string[] {
+  const t = text.replace(/\s+/g, " ").trim();
+  if (!t) return [];
+  return t
+    .split(/(?<=\.)\s+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
 export default function VisitPage() {
+  const seasonsOverview = getKnowledgeSection("seasons", "overview") ?? "";
+  const seasonsNotes = getKnowledgeSection("seasons", "notes") ?? "";
+  const seasonsVisitor = getKnowledgeSection("seasons", "visitor_context") ?? "";
+
+  const cultureOverview = getKnowledgeSection("culture", "overview") ?? "";
+  const cultureVisitor = getKnowledgeSection("culture", "visitor_context") ?? "";
+
+  const localOverview = getKnowledgeSection("local", "overview") ?? "";
+  const localVisitor = getKnowledgeSection("local", "visitor_context") ?? "";
+
+  const noteSents = sentences(seasonsNotes);
+  const visitorSents = sentences(seasonsVisitor);
+  const localSents = sentences(localVisitor);
+
+  /** Split layout only when KB sentences are still in the expected shape—avoids duplicate lines. */
+  const canSplit =
+    noteSents.length >= 4 && visitorSents.length >= 3 && localSents.length >= 2;
+
+  const springNote = canSplit ? (noteSents[0] ?? "") : "";
+  const summerParkingNote = canSplit ? (noteSents[1] ?? "") : "";
+  const fallTrailNote = canSplit ? (noteSents[2] ?? "") : "";
+  const winterNote = canSplit ? (noteSents[3] ?? "") : "";
+
+  const whenTools = canSplit ? (visitorSents[0] ?? "") : seasonsVisitor;
+  const footwearLayers = canSplit ? (visitorSents[1] ?? "") : "";
+  const daylightTrail = canSplit ? (visitorSents[2] ?? "") : "";
+
+  const localPlanning = canSplit ? (localSents[0] ?? "") : localVisitor;
+  const localDriveways = canSplit ? (localSents[1] ?? "") : "";
+
+  const whenToGoBody = canSplit
+    ? [seasonsOverview, whenTools].filter(Boolean).join("\n\n")
+    : [seasonsOverview, seasonsNotes, seasonsVisitor].filter(Boolean).join("\n\n");
+
+  const whatToBringBody = canSplit
+    ? [footwearLayers, localPlanning].filter(Boolean).join("\n\n")
+    : localVisitor.trim();
+
   return (
     <>
       <WebPageJsonLd
-        name="Visiting Rock River Vermont — Newfane & Windham County"
+        name="Visit Rock River Vermont — Newfane & Windham County"
         description={pageDesc}
         path="/visit"
       />
       <BreadcrumbJsonLd path="/visit" />
-      <SiteHeader />
-      <main className="rr-body text-slate-800">
-        <Container className="py-10">
-          <section className="rr-glass-strong p-6 sm:p-8">
-            <div className="max-w-3xl">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
-                Plan with care
-              </p>
-              <h1 className="font-heading mt-1.5 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-                Visiting Rock River Vermont
-              </h1>
-              <p className="mt-3 text-base leading-7 text-slate-600 sm:text-lg">
-                Rock River is best met at a walking pace—woodland trails, uneven stone,
-                and water that changes with the season.{" "}
-                <strong className="font-medium text-[var(--rr-mint)]">All are welcome</strong>{" "}
-                when we move gently, watch our footing, and leave room for neighbors,
-                wildlife, and each other.
-              </p>
-            </div>
+      <GuidePageFrame
+        eyebrow="Practical planning"
+        title="Visit Rock River Vermont"
+        lead="A Windham County river day shifts with the season—busy banks in summer, cold water in spring, quieter woods after leaf-drop. What follows is drawn from the site knowledge files; pair it with the map and conditions before you go."
+      >
+        <GuideSection id="when-to-go" eyebrow="Timing" title="When to go">
+          <KnowledgeSectionProse content={whenToGoBody} />
+        </GuideSection>
 
-            <div className="mt-6 overflow-hidden rounded-2xl border border-amber-200/80 bg-amber-50 p-5 sm:p-6">
-              <h2 className="text-sm font-semibold tracking-tight text-amber-900">
-                Spring river note
-              </h2>
-              <p className="mt-2 text-sm leading-relaxed text-amber-950/90">
-                Snowmelt and warm afternoons can raise flows and strengthen currents
-                through the day. Consider staying on one bank, wear sturdy shoes, and
-                read the full spring guidance on{" "}
-                <Link
-                  href="/conditions"
-                  className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
-                >
-                  Conditions
-                </Link>{" "}
-                and{" "}
-                <Link
-                  href="/guidelines"
-                  className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
-                >
-                  Guidelines
-                </Link>
-                .
-              </p>
-            </div>
+        {springNote ? (
+          <div className="rounded-2xl border border-amber-200/85 bg-amber-50/90 p-5 sm:p-6">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-amber-900/80">
+              Spring runoff
+            </p>
+            <p className="mt-2 text-sm leading-relaxed text-amber-950/90">{springNote}</p>
+          </div>
+        ) : null}
 
-            <div className="mt-6 grid grid-cols-1 gap-5">
-              <section>
-                <h2 className="text-sm font-semibold tracking-[0.12em] text-[var(--rr-mint)] uppercase">
-                  Parking & access
-                </h2>
-                <p className="mt-2 text-sm leading-6 text-slate-600">
-                  The public parking associated with river access is along{" "}
-                  <strong className="font-medium text-[var(--rr-mint)]">
-                    Route 30 in Dummerston
-                  </strong>{" "}
-                  (near the Depot Road area). Respect signage, road paint, and
-                  neighbors’ driveways. From there, woodland trails connect to the
-                  shoreline—allow extra time and patience on busy days.
-                </p>
-              </section>
+        <GuideSection id="what-to-bring" eyebrow="Gear & town" title="What to bring">
+          {whatToBringBody ? <KnowledgeSectionProse content={whatToBringBody} /> : null}
+          <p className="mt-4 text-sm text-[#6B6F68]">
+            Errands or dinner after swimming:{" "}
+            <Link href="/local" className="font-semibold text-[#4F6B52] underline-offset-2 hover:underline">
+              Local guide
+            </Link>
+            .
+          </p>
+        </GuideSection>
 
-              <section>
-                <h2 className="text-sm font-semibold tracking-[0.12em] text-[var(--rr-mint)] uppercase">
-                  Walking to the river
-                </h2>
-                <p className="mt-2 text-sm leading-6 text-slate-600">
-                  Paths are unpaved and can be steep or slick after rain. Keep hands free
-                  on rocky pitches, choose footwear with grip, and pause where you need
-                  to. If water or trail conditions feel beyond your comfort, enjoy a
-                  shorter outing or return another day—that’s part of caring for yourself
-                  and the place.
-                </p>
-              </section>
+        <GuideSection id="parking-notes" eyebrow="Arrival" title="Parking notes">
+          {localOverview ? <KnowledgeSectionProse content={localOverview} /> : null}
+          {summerParkingNote ? (
+            <p className={localOverview ? "mt-3" : undefined}>{summerParkingNote}</p>
+          ) : null}
+          {canSplit && localDriveways ? <p className="mt-3">{localDriveways}</p> : null}
+          <p className="mt-4 text-sm text-[#6B6F68]">
+            Pins and labels:{" "}
+            <Link href="/map" className="font-semibold text-[#4F6B52] underline-offset-2 hover:underline">
+              Map
+            </Link>
+            .
+          </p>
+        </GuideSection>
 
-              <section>
-                <h2 className="text-sm font-semibold tracking-[0.12em] text-[var(--rr-mint)] uppercase">
-                  Respectful visiting
-                </h2>
-                <p className="mt-2 text-sm leading-6 text-slate-600">
-                  Pack out what you pack in, keep sound human-scale, ask before
-                  photographing anyone, and honor clothing-optional boundaries marked on
-                  site. Full etiquette, steward expectations, and safety notes live on
-                  the{" "}
-                  <Link
-                    href="/guidelines"
-                    className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
-                  >
-                    Guidelines
-                  </Link>{" "}
-                  page.
-                </p>
-              </section>
+        <GuideSection id="trail-expectations" eyebrow="On foot" title="Trail expectations">
+          {fallTrailNote ? <p>{fallTrailNote}</p> : null}
+          {daylightTrail ? <p className={fallTrailNote ? "mt-3" : undefined}>{daylightTrail}</p> : null}
+          <p className="mt-4 text-sm text-[#6B6F68]">
+            <Link href="/rock-river-trail-vermont" className="font-semibold text-[#4F6B52] underline-offset-2 hover:underline">
+              Trail notes
+            </Link>
+            {" · "}
+            <Link href="/map" className="font-semibold text-[#4F6B52] underline-offset-2 hover:underline">
+              Map legend
+            </Link>
+          </p>
+        </GuideSection>
 
-              <section>
-                <h2 className="text-sm font-semibold tracking-[0.12em] text-[var(--rr-mint)] uppercase">
-                  Map & live tools
-                </h2>
-                <p className="mt-2 text-sm leading-6 text-slate-600">
-                  Open the{" "}
-                  <Link
-                    href="/map"
-                    className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
-                  >
-                    Rock River map
-                  </Link>{" "}
-                  for parking and trail context, the{" "}
-                  <Link
-                    href="/conditions"
-                    className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
-                  >
-                    conditions hub
-                  </Link>
-                  , and the{" "}
-                  <Link
-                    href="/#today-at-rock-river"
-                    className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
-                  >
-                    home page widgets
-                  </Link>{" "}
-                  for weather, river notes, and gentle crowd check-ins. Bookmark{" "}
-                  <Link
-                    href="/resources"
-                    className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
-                  >
-                    Resources
-                  </Link>{" "}
-                  for maps and official links.
-                </p>
-              </section>
+        <GuideSection
+          id="mixed-use-shoreline"
+          eyebrow="Shoreline"
+          title="Mixed-use shoreline etiquette"
+        >
+          <KnowledgeSectionProse content={cultureOverview} />
+          <p className="mt-4 text-sm text-[#6B6F68]">
+            Posted expectations:{" "}
+            <Link href="/guidelines" className="font-semibold text-[#4F6B52] underline-offset-2 hover:underline">
+              Guidelines
+            </Link>
+            {" · "}
+            <Link href="/community" className="font-semibold text-[#4F6B52] underline-offset-2 hover:underline">
+              Community
+            </Link>
+            .
+          </p>
+        </GuideSection>
 
-              <section>
-                <h2 className="text-sm font-semibold tracking-[0.12em] text-[var(--rr-mint)] uppercase">
-                  Stewardship
-                </h2>
-                <p className="mt-2 text-sm leading-6 text-slate-600">
-                  The shoreline many of us love is cared for by volunteers through Rock
-                  River Preservation. Understanding that history helps explain why rules
-                  exist and why kindness to stewards matters. Read{" "}
-                  <Link
-                    href="/preservation"
-                    className="font-medium text-[var(--rr-mint)] underline-offset-2 hover:underline"
-                  >
-                    Preservation
-                  </Link>{" "}
-                  for land tenure, easements, and how to volunteer.
-                </p>
-              </section>
-            </div>
-          </section>
-        </Container>
-      </main>
-      <SiteFooter />
+        <GuideSection id="first-visit-tips" eyebrow="First trip" title="First visit tips">
+          <KnowledgeSectionProse content={cultureVisitor} />
+          {winterNote ? <p className="mt-4">{winterNote}</p> : null}
+        </GuideSection>
+
+        <GuideSection eyebrow="More" title="Related on this guide">
+          <p>
+            <Link href="/map">Map</Link>
+            {" · "}
+            <Link href="/conditions">Conditions</Link>
+            {" · "}
+            <Link href="/gallery">Photos</Link>
+            {" · "}
+            <Link href="/resources">Resources</Link>
+            {" · "}
+            <Link href="/discoveries">Discoveries</Link>
+          </p>
+        </GuideSection>
+      </GuidePageFrame>
     </>
   );
 }

@@ -13,16 +13,24 @@ import {
   Users,
 } from "lucide-react";
 
+import { HomeExploreArea } from "@/components/home/home-explore-area";
 import { HomeGuide } from "@/components/home/home-guide";
 import { HomeHero } from "@/components/home/home-hero";
+import { HomeKnowBeforeYouGo } from "@/components/home/home-know-before-go";
 import { HomeMapOverview } from "@/components/home/home-map-overview";
+import { HomePhotoCarousel } from "@/components/home/home-photo-carousel";
 import { HomeSeasonBanner } from "@/components/home/home-season-banner";
+import { HomeSeasonalNote } from "@/components/home/home-seasonal-note";
+import { HomeTodayStrip } from "@/components/home/home-today-strip";
+import { HomeVisitorGuideBlock } from "@/components/home/home-visitor-guide-block";
+import { HomeWhyLoveRockRiver } from "@/components/home/home-why-love";
 import {
   HomeQuickLinks,
   type HomeQuickLinkItem,
 } from "@/components/home/home-quick-links";
 import { HomeTrailTour } from "@/components/home/home-trail-tour";
 import { HomeVermontView } from "@/components/home/home-vermont-view";
+import { useHomeVisitSnapshot } from "@/components/home/use-home-visit-snapshot";
 
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -84,6 +92,8 @@ type HomePageClientProps = {
 };
 
 export function HomePageClient({ hasTrailVideo, todayLabel }: HomePageClientProps) {
+  const visitSnapshot = useHomeVisitSnapshot();
+
   const homeJsonLd =
     hasTrailVideo ?
       {
@@ -113,46 +123,73 @@ export function HomePageClient({ hasTrailVideo, todayLabel }: HomePageClientProp
       ) : null}
       <SiteHeader />
       <HomeSeasonBanner />
-      <main className="rr-body flex flex-col">
+      <main className="home-page-main flex min-h-screen flex-col bg-[#F6F4EF] text-[#1F2A24] antialiased">
+        <p className="mx-auto w-full max-w-6xl px-4 pt-3 text-center text-[11px] leading-snug text-[#6B6F68] sm:px-6 sm:pt-4 sm:text-[12px] lg:px-8">
+          Independent guide to Rock River Vermont. Community maintained. Not a town or agency site.
+        </p>
         <HomeHero />
 
-        <HomeMapOverview />
+        <div className="mt-2 space-y-12 sm:mt-3 sm:space-y-14 lg:space-y-16">
+          <HomeTodayStrip snapshot={visitSnapshot} />
 
-        <motion.section
-          id="today-at-rock-river"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.45 }}
-          className="rr-section mx-auto w-full max-w-6xl scroll-mt-28 px-4 sm:px-6 lg:px-8"
-        >
-          <div className="rr-glass-strong p-7 sm:p-9">
+          <HomeVisitorGuideBlock />
+
+          <div className="rr-section mx-auto w-full max-w-6xl space-y-14 px-4 sm:space-y-16 sm:px-6 lg:px-8">
+            <HomeMapOverview />
+            <HomeTrailTour videoAvailable={hasTrailVideo} />
+          </div>
+
+          <motion.section
+            id="today-at-rock-river"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.45 }}
+            className="rr-section mx-auto w-full max-w-6xl scroll-mt-28 space-y-6 px-4 sm:space-y-8 sm:px-6 lg:px-8"
+          >
             <HomeSectionHeader
               eyebrow="Today"
               icon={Calendar}
               title={todayLabel}
-              titleClassName="max-w-[28ch]"
-              className="mb-8 sm:mb-10"
+              titleClassName="max-w-[28ch] text-[#1F2A24] font-bold"
+              eyebrowClassName="text-[9px] tracking-[0.22em] text-[#6B6F68]"
+              eyebrowIconClassName="h-4 w-4 text-[#4F6B52]"
+              className="mb-0 sm:mb-0"
             />
 
-            <VisitInsightsWidget />
+            <HomeSeasonalNote />
 
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7">
-              <div className="sm:col-span-2">
-                <CrowdWidget />
-              </div>
-              <WeatherWidget />
-              <RiverWidget />
+            <VisitInsightsWidget variant="home" snapshot={visitSnapshot} />
+          </motion.section>
+
+          <motion.section
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.45 }}
+            className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8"
+            aria-label="Weather, river, and crowd"
+          >
+            <div className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-3 lg:gap-6">
+              <WeatherWidget variant="home" />
+              <RiverWidget variant="home" />
+              <CrowdWidget variant="home" />
             </div>
-          </div>
-        </motion.section>
+          </motion.section>
 
-        <HomeGuide />
+          <HomePhotoCarousel />
 
-        <HomeTrailTour videoAvailable={hasTrailVideo} />
+          <HomeKnowBeforeYouGo />
 
-        <HomeQuickLinks links={quickLinks} />
-        <HomeVermontView />
+          <HomeGuide />
+
+          <HomeExploreArea />
+
+          <HomeWhyLoveRockRiver />
+
+          <HomeQuickLinks links={quickLinks} />
+          <HomeVermontView />
+        </div>
       </main>
       <SiteFooter />
     </>

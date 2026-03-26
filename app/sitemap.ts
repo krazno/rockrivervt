@@ -19,6 +19,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const routes: RouteConfig[] = [
     { path: "", changeFrequency: "daily", priority: 1 },
+    { path: "/rock-river-vermont", changeFrequency: "weekly", priority: 0.95 },
+    { path: "/rock-river-swimming-hole", changeFrequency: "weekly", priority: 0.95 },
+    { path: "/rock-river-trail-vermont", changeFrequency: "weekly", priority: 0.95 },
+    { path: "/rock-river-conditions", changeFrequency: "daily", priority: 0.95 },
+    { path: "/rock-river-map", changeFrequency: "weekly", priority: 0.95 },
     { path: "/conditions", changeFrequency: "daily", priority: 0.95 },
     { path: "/map", changeFrequency: "weekly", priority: 0.95 },
     { path: "/visit", changeFrequency: "monthly", priority: 0.9 },

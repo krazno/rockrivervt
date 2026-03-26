@@ -26,12 +26,12 @@ function todayInVermont(): string {
 }
 
 const HOME_DESC = truncateMetaDescription(
-  "Rock River Vermont homepage—today’s visit window, weather, river levels, crowd feel, trail map, and full trail video for Newfane & Windham County VT.",
+  "Complete guide to Rock River in Newfane Vermont. Map, trail, swimming holes, parking, weather, river conditions, and visitor info for Windham County VT.",
   META_DESC_MAX,
 );
 
-/** Default title &lt; 60 chars */
-const HOME_TITLE_ABSOLUTE = "Rock River Vermont | Newfane VT Swimming Hole Guide";
+const HOME_TITLE_ABSOLUTE =
+  "Rock River Vermont | Map, Conditions, Swimming Hole, Trail | Newfane VT Guide";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

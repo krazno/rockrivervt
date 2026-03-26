@@ -12,6 +12,11 @@ type HomeSectionHeaderProps = {
   description?: ReactNode;
   id?: string;
   titleClassName?: string;
+  /** Passed to `SectionEyebrow` (e.g. homepage label tone). */
+  eyebrowClassName?: string;
+  eyebrowIconClassName?: string;
+  /** Merged onto the description wrapper (defaults to theme muted). */
+  descriptionClassName?: string;
   className?: string;
 };
 
@@ -25,6 +30,9 @@ export function HomeSectionHeader({
   description,
   id,
   titleClassName,
+  eyebrowClassName,
+  eyebrowIconClassName,
+  descriptionClassName,
   className,
 }: HomeSectionHeaderProps) {
   return (
@@ -34,20 +42,30 @@ export function HomeSectionHeader({
         className,
       )}
     >
-      <SectionEyebrow icon={Icon} align="center" className="sm:justify-start">
+      <SectionEyebrow
+        icon={Icon}
+        align="center"
+        className={cn("sm:justify-start", eyebrowClassName)}
+        iconClassName={eyebrowIconClassName}
+      >
         {eyebrow}
       </SectionEyebrow>
       <h2
         id={id}
         className={cn(
-          "font-heading rr-h2 mt-2.5 text-balance sm:mt-3",
+          "font-heading mt-2.5 text-balance text-[clamp(1.35rem,2.2vw,1.95rem)] font-semibold tracking-tight text-[var(--rr-ink)] sm:mt-3",
           titleClassName,
         )}
       >
         {title}
       </h2>
       {description ?
-        <div className="mx-auto mt-2 max-w-xl text-[13px] leading-relaxed text-[var(--rr-text-muted)] sm:mx-0 sm:mt-3 sm:text-[0.9375rem]">
+        <div
+          className={cn(
+            "mx-auto mt-2 max-w-xl text-[13px] leading-relaxed sm:mx-0 sm:mt-3 sm:text-[0.9375rem]",
+            descriptionClassName ?? "text-[var(--rr-text-muted)]",
+          )}
+        >
           {description}
         </div>
       : null}
