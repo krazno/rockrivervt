@@ -2,6 +2,10 @@ import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Outfit } from "next/font/google";
 
 import { AnalyticsScripts } from "@/components/seo/analytics";
+import {
+  GoogleTagManager,
+  GoogleTagManagerNoscript,
+} from "@/components/seo/google-tag-manager";
 import { SiteWideJsonLd } from "@/components/seo/site-wide-json-ld";
 import {
   DEFAULT_OG_ALT,
@@ -131,6 +135,8 @@ export default function RootLayout({
   return (
     <html lang="en-US" className={`${outfit.variable} ${cormorant.variable} h-full`}>
       <body className="flex min-h-full flex-col font-sans antialiased">
+        <GoogleTagManagerNoscript />
+        <GoogleTagManager />
         <AnalyticsScripts />
         <SiteWideJsonLd />
         {children}
