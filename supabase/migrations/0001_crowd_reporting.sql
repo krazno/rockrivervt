@@ -39,8 +39,8 @@ create index if not exists crowd_daily_baselines_report_date_idx
 create index if not exists crowd_reports_report_date_idx
   on public.crowd_reports (report_date);
 
-comment on table public.crowd_daily_baselines is 'Manual baseline per area per UTC day; optional.';
-comment on table public.crowd_reports is 'One row per device per UTC day; areas = JSON object area_key → level.';
+comment on table public.crowd_daily_baselines is 'Manual baseline per area per calendar day (app uses America/New_York date); optional.';
+comment on table public.crowd_reports is 'Legacy comment: one row per device per day until 0002. After 0002: multiple rows per device per day; areas = JSON area_key → level.';
 
 alter table public.crowd_daily_baselines enable row level security;
 alter table public.crowd_reports enable row level security;

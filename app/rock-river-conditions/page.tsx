@@ -28,19 +28,23 @@ export default function RockRiverConditionsPage() {
       intro={
         <>
           <p>
-            <strong>Rock River conditions</strong> change with storms in the Green Mountains and
-            tributaries above <strong>Newfane, Vermont</strong>. This page is a short orientation to how
-            people usually read swim windows in <strong>Windham County</strong>, then hands you off to the live tools. Always
-            read the river in person: if it looks loud, brown, or fast, wait for another day, whether
-            you drove from <strong>Brattleboro</strong> or from farther across <strong>southern Vermont</strong>.
-          </p>
-          <p>
-            Open the main{" "}
+            <strong>Role:</strong> this URL orients search traffic; the live dashboard is the main{" "}
             <Link href="/conditions" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">
               conditions page
+            </Link>
+            —weather, river context, crowd check-ins, and the same “right now” card as the home page.
+            Water changes fast after mountain rain—always read the river in person.
+          </p>
+          <p>
+            If it looks loud, brown, or fast, wait for another day. Pair tools with{" "}
+            <Link href="/visit" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">
+              visit
             </Link>{" "}
-            for NOAA weather, regional flow context, crowd check-ins, and the “plan today” summary on
-            the homepage.
+            for parking reality and{" "}
+            <Link href="/map" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">
+              map
+            </Link>{" "}
+            for pins.
           </p>
         </>
       }
@@ -54,15 +58,19 @@ export default function RockRiverConditionsPage() {
         when you want radar and hourly detail.
       </p>
       <p>
-        Planning a <strong>Vermont swimming hole</strong> weekend? Check{" "}
+        Swimming culture and shoreline norms:{" "}
         <Link href="/rock-river-swimming-hole" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">
-          Rock River swimming hole
-        </Link>{" "}
-        etiquette, then confirm parking on the{" "}
+          swimming hole notes
+        </Link>
+        . Parking and approach:{" "}
         <Link href="/rock-river-map" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">
-          Rock River map
+          map landing
         </Link>{" "}
-        page before you lose signal near the <strong>West River</strong> hills.
+        → full{" "}
+        <Link href="/map" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">
+          map
+        </Link>
+        .
       </p>
       <p>
         <Link href="/rock-river-vermont" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">

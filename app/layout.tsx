@@ -126,7 +126,7 @@ export default function RootLayout({
         <GoogleTagGtagHead />
         <GoogleTagManagerHeadScript />
       </head>
-      <body className="flex min-h-full flex-col font-sans antialiased">
+      <body className="rr-site-root flex min-h-full flex-col font-sans antialiased">
         <GoogleTagManagerNoscript />
         <SiteWideJsonLd />
         {children}

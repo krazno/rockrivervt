@@ -6,6 +6,7 @@ import { ImageIcon } from "lucide-react";
 import { MediaImage } from "@/components/MediaImage";
 import { SectionEyebrow } from "@/components/shared/section-eyebrow";
 import { getHomePhotoCarouselPhotos } from "@/data/media";
+import { mailtoPhotoSubmission } from "@/lib/site";
 
 export function HomePhotoCarousel() {
   const photos = getHomePhotoCarouselPhotos();
@@ -26,13 +27,25 @@ export function HomePhotoCarousel() {
           >
             Photos from Rock River
           </h2>
+          <p className="mt-2 max-w-xl text-sm leading-snug text-[#6B6F68]">
+            Field shots for context—email if you have one you’re happy to share (reviewed before it
+            goes live).
+          </p>
         </div>
-        <Link
-          href="/gallery"
-          className="text-sm font-medium text-[#4F6B52] underline-offset-4 hover:underline"
-        >
-          Open full gallery
-        </Link>
+        <div className="flex flex-col items-end gap-1 sm:flex-row sm:items-center sm:gap-4">
+          <a
+            href={mailtoPhotoSubmission()}
+            className="text-sm font-medium text-[#4F6B52] underline-offset-4 hover:underline"
+          >
+            Send a photo
+          </a>
+          <Link
+            href="/gallery"
+            className="text-sm font-medium text-[#4F6B52] underline-offset-4 hover:underline"
+          >
+            Open full gallery
+          </Link>
+        </div>
       </div>
 
       <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 pt-1 [scrollbar-width:thin] sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
@@ -41,13 +54,14 @@ export function HomePhotoCarousel() {
             key={photo.src}
             className="w-[min(78vw,280px)] shrink-0 snap-start sm:w-[260px]"
           >
-            <div className="relative h-44 overflow-hidden rounded-[1rem] bg-[#e8e4db] shadow-[0_8px_24px_rgba(31,42,36,0.12)] sm:h-52">
+            <div className="relative h-48 overflow-hidden rounded-[1rem] bg-[#e8e4db] shadow-[0_8px_24px_rgba(31,42,36,0.12)] sm:h-56">
               <MediaImage
-                src={photo.thumbnailSrc ?? photo.src}
+                src={photo.src}
                 alt={photo.alt}
                 title={photo.title}
                 fill
-                sizes="(max-width: 640px) 78vw, 260px"
+                sizes="(max-width: 640px) 85vw, (max-width: 1280px) 30vw, 320px"
+                quality={88}
                 className="object-cover"
               />
             </div>

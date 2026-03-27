@@ -32,11 +32,16 @@ const IS_DEV = process.env.NODE_ENV === "development";
 
 
 type CrowdApiJson = {
+  configured?: boolean;
+  ok?: boolean;
   error?: string;
   detail?: string;
   envIssues?: string[];
   reportDate?: string;
   areas?: unknown;
+  dateScope?: string;
+  totalReportsToday?: number;
+  submissionId?: string;
 };
 
 async function readCrowdResponseJson(res: Response): Promise<CrowdApiJson | null> {
@@ -65,9 +70,12 @@ function fallbackSummaries(): CrowdAreaSummary[] {
   }));
 }
 
-function rowSubtitle(row: CrowdAreaSummary): string {
+function rowSubtitle(row: CrowdAreaSummary, offlineFallback: boolean): string {
+  if (offlineFallback) {
+    return "Typical baseline only—live check-ins didn’t load";
+  }
   if (row.blendSource === "baseline_only" || row.reportCount === 0) {
-    return "Home baseline only—no ratings for this spot yet today";
+    return "Baseline only—no visitor ratings for this spot yet today";
   }
   const n = row.reportCount;
   const ratings = n === 1 ? "1 rating" : `${n} ratings`;
@@ -88,7 +96,11 @@ type CrowdWidgetProps = {
 };
 
 const CROWD_INTRO_DEFAULT =
-  "Quick, anonymous check-ins—more of a feel than a head count. Check in as often as you like; we merge everything from today (UTC) into one picture per spot.";
+  "Quick, anonymous check-ins—more of a feel than a head count. Check in as often as you like; we merge everything from today (Vermont date) into one picture per spot.";
+
+/** Homepage: one short line (widgets row is already dense). */
+const CROWD_INTRO_HOME_SHORT =
+  "Anonymous check-ins by area—blended into one view for today.";
 
 export function CrowdWidget({
   variant = "default",
@@ -96,6 +108,8 @@ export function CrowdWidget({
 }: CrowdWidgetProps) {
   const [loadState, setLoadState] = useState<LoadState>("loading");
   const [summary, setSummary] = useState<CrowdSummaryResponse | null>(null);
+  /** Set when GET fails so we don’t imply “no check-ins yet” for offline/error. */
+  const [loadErrorHint, setLoadErrorHint] = useState<string | null>(null);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [selections, setSelections] = useState<
@@ -116,6 +130,7 @@ export function CrowdWidget({
 
   const refreshSummary = useCallback(async () => {
     setLoadState("loading");
+    setLoadErrorHint(null);
     try {
       const res = await fetch("/api/crowd", { cache: "no-store" });
       const json = await readCrowdResponseJson(res);
@@ -123,6 +138,14 @@ export function CrowdWidget({
       if (!res.ok) {
         setSummary(null);
         setLoadState("error");
+        const hint =
+          res.status === 503 ?
+            json?.error ??
+            "Check-ins need Supabase configured (see site ops docs)."
+          : res.status === 502 ?
+            json?.error ?? "Couldn’t read crowd data from the database."
+          : json?.error ?? "Couldn’t load live check-ins.";
+        setLoadErrorHint(hint);
         if (IS_DEV && json?.error) {
           console.warn("[crowd] GET /api/crowd failed:", res.status, json);
         }
@@ -132,6 +155,7 @@ export function CrowdWidget({
       if (!json || !Array.isArray(json.areas)) {
         setSummary(null);
         setLoadState("error");
+        setLoadErrorHint("Unexpected response from the crowd service.");
         if (IS_DEV) console.warn("[crowd] GET /api/crowd: unexpected JSON shape");
         return;
       }
@@ -141,7 +165,23 @@ export function CrowdWidget({
     } catch {
       setSummary(null);
       setLoadState("error");
+      setLoadErrorHint("Network error while loading check-ins.");
       if (IS_DEV) console.warn("[crowd] GET /api/crowd: network or parse error");
+    }
+  }, []);
+
+  /** After a successful POST: refresh counts without flashing the full-widget loading skeleton. */
+  const refreshSummaryQuiet = useCallback(async () => {
+    try {
+      const res = await fetch("/api/crowd", { cache: "no-store" });
+      const json = await readCrowdResponseJson(res);
+      if (res.ok && json && Array.isArray(json.areas)) {
+        setSummary(json as CrowdSummaryResponse);
+        setLoadErrorHint(null);
+        setLoadState("ready");
+      }
+    } catch {
+      /* submit already succeeded; keep prior summary */
     }
   }, []);
 
@@ -186,13 +226,15 @@ export function CrowdWidget({
     return () => window.clearTimeout(t);
   }, [modalSuccess, closeModal]);
 
+  const offlineFallback = loadState === "error";
+
   const areasForDisplay: CrowdAreaSummary[] =
     loadState === "ready" && summary
       ? summary.areas.map((a) => ({
           ...a,
           label: CROWD_WIDGET_AREA_LABEL[a.areaKey],
         }))
-      : loadState === "error"
+      : offlineFallback
         ? fallbackSummaries()
         : [];
 
@@ -279,15 +321,15 @@ export function CrowdWidget({
         if (IS_DEV) {
           setSubmitDevHint("Missing reportDate in success JSON");
         }
-        void refreshSummary();
+        void refreshSummaryQuiet();
         return;
       }
 
       setSelections({});
       setDisplayName("");
       setSubmitState("idle");
+      await refreshSummaryQuiet();
       setModalSuccess(true);
-      void refreshSummary();
     } catch {
       setSubmitState("error");
       setSubmitMessage("We couldn’t reach the server. Check your connection and try again.");
@@ -313,14 +355,7 @@ export function CrowdWidget({
       : "Crowd feel"
     : "Crowd feel";
 
-  const crowdIntro =
-    variant === "home" ?
-      homeHeroMode === "leaf" ?
-        "Anonymous check-ins for a trail-and-river day—shoreline tone before head counts."
-      : homeHeroMode === "star" ?
-        "Check-ins help flag busier spans—pair with the best window card for timing."
-      : CROWD_INTRO_DEFAULT
-    : CROWD_INTRO_DEFAULT;
+  const crowdIntro = variant === "home" ? CROWD_INTRO_HOME_SHORT : CROWD_INTRO_DEFAULT;
 
   return (
     <div className={cn(SHELL[variant])}>
@@ -344,7 +379,17 @@ export function CrowdWidget({
         >
           {crowdIntro}
         </p>
-        {totalCheckIns !== null ? (
+        {loadState === "error" && loadErrorHint ?
+          <p
+            className={cn(
+              "mt-2 rounded-lg border border-amber-200/90 bg-amber-50/95 px-3 py-2 text-[11px] leading-snug text-amber-950/90 sm:text-xs",
+              variant === "home" && "text-left",
+            )}
+            role="status"
+          >
+            {loadErrorHint} Showing static baselines below—not live visitor data.
+          </p>
+        : totalCheckIns !== null ?
           <p
             className={cn(
               "mt-1.5 text-[11px] font-medium tabular-nums sm:text-xs",
@@ -357,7 +402,7 @@ export function CrowdWidget({
                 ? "1 check-in merged into today’s view"
                 : `${totalCheckIns.toLocaleString()} check-ins merged into today’s view`}
           </p>
-        ) : null}
+        : null}
       </header>
 
       <div className="mt-3 space-y-1.5 sm:mt-4">
@@ -397,7 +442,7 @@ export function CrowdWidget({
                           variant === "home" ? "text-[#6B6F68]" : "text-[var(--rr-text-muted)]",
                         )}
                       >
-                        {rowSubtitle(row)}
+                        {rowSubtitle(row, offlineFallback)}
                       </p>
                     </div>
                     <span
@@ -479,8 +524,8 @@ export function CrowdWidget({
                   Quick check-in
                 </h4>
                 <p className="mt-0.5 text-[11px] leading-snug text-[#6b7f88] sm:text-[12px]">
-                  Tap how busy each spot felt. You can submit again anytime—each check-in refines
-                  today’s merged view.
+                  Tap how busy each spot felt. You can submit again anytime—each check-in adds to
+                  today’s merged view (same device allowed).
                 </p>
               </div>
               <button
@@ -496,9 +541,9 @@ export function CrowdWidget({
 
             {modalSuccess ? (
               <div className="flex flex-1 flex-col items-center justify-center px-4 py-8 text-center sm:py-10">
-                <p className="text-sm font-medium text-[#2a3842]">Thanks for sharing</p>
-                <p className="mt-1.5 max-w-[16rem] text-[12px] leading-relaxed text-[#5a6b78]">
-                  Your check-in helps visitors get a feel for today’s activity.
+                <p className="text-sm font-medium text-[#2a3842]">Thanks—saved</p>
+                <p className="mt-1.5 max-w-[17rem] text-[12px] leading-relaxed text-[#5a6b78]">
+                  Your check-in is in today’s merged view. Submit again anytime if the feel changes.
                 </p>
               </div>
             ) : (

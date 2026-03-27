@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { PageGalleryBackdrop } from "@/components/layout/page-gallery-backdrop";
 import { Container } from "@/components/shared/container";
 
 type GuidePageFrameProps = {
@@ -16,7 +17,8 @@ export function GuidePageFrame({ eyebrow, title, lead, children }: GuidePageFram
   return (
     <>
       <SiteHeader />
-      <main className="rr-body pb-20 text-[#1F2A24]">
+      <PageGalleryBackdrop />
+      <main className="relative z-[1] rr-body pb-20 text-[#1F2A24]">
         <Container className="py-10 sm:py-12">
           <header className="mx-auto max-w-3xl">
             <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-[#6B6F68]">

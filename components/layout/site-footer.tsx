@@ -2,7 +2,12 @@ import Link from "next/link";
 import { Facebook, Instagram, Mail, MessageCircle, Youtube } from "lucide-react";
 
 import { Container } from "@/components/shared/container";
-import { CONTACT_FORM_EMAIL, socialProfiles, type SocialProfile } from "@/lib/site";
+import {
+  CONTACT_FORM_EMAIL,
+  SITE_STUDIO_BRAND,
+  socialProfiles,
+  type SocialProfile,
+} from "@/lib/site";
 import { primaryNav, secondaryNav } from "@/lib/nav";
 
 function SocialIcon({ profile }: { profile: SocialProfile }) {
@@ -43,7 +48,7 @@ function SocialIcon({ profile }: { profile: SocialProfile }) {
 
 export function SiteFooter() {
   return (
-    <footer className="mt-auto border-t border-[var(--rr-widget-border)] bg-gradient-to-b from-[#f0ebe6]/90 to-[#e8e4db]/50">
+    <footer className="relative z-[1] mt-auto border-t border-[var(--rr-widget-border)] bg-gradient-to-b from-[#f0ebe6]/90 to-[#e8e4db]/50">
       <Container className="py-12 sm:py-14">
         <div className="grid grid-cols-1 gap-10 border-b border-[var(--rr-widget-border)] pb-10 md:grid-cols-2 lg:grid-cols-12 lg:gap-8 lg:pb-12">
           <div className="lg:col-span-4">
@@ -127,6 +132,13 @@ export function SiteFooter() {
           <p className="mt-4 text-[11px] text-[var(--rr-text-muted)]/80">
             © {new Date().getFullYear()} Rock River VT · Community guide ·{" "}
             <span className="text-[var(--rr-text-muted)]">Not official or legal advice</span>
+            {" · "}
+            <a
+              href={`mailto:${CONTACT_FORM_EMAIL}?subject=${encodeURIComponent("Rock River VT — site")}`}
+              className="text-[var(--rr-text-muted)] underline-offset-2 hover:text-[var(--rr-link)] hover:underline"
+            >
+              {SITE_STUDIO_BRAND}
+            </a>
           </p>
         </div>
       </Container>

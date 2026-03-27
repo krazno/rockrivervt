@@ -41,21 +41,20 @@ export default function ConditionsPage() {
       <GuidePageFrame
         eyebrow="Live tools"
         title="Rock River conditions & weather"
-        lead="Use this page the way you would a trailhead board: check the sky, the water, and how crowded it felt to people who checked in—then make your own call on the ground."
+        lead="Use this page like a trailhead board: sky, water context, and how busy it felt to people who checked in—then make your own call at the river."
       >
         <div className="space-y-3">
           <p className="text-sm leading-relaxed text-[#3f4840] sm:text-[15px]">
-            The planning card below uses the same NOAA hourly blend, estimated water comfort,
-            beach crowd feel, and parking hint as the home page—one fetch, no duplicate story.
+            The planning card below matches the home page: same hourly forecast blend, water-comfort
+            estimate, shoreline feel, and parking hint—so you are not reading two different stories.
           </p>
           <VisitInsightsStandalone />
         </div>
 
         <GuideSection eyebrow="Instruments" title="Live weather, river, and crowd">
           <p className="!mb-6">
-            Widgets pull public feeds and this site’s crowd summaries. If something fails to
-            load, try again on a signal-friendly screen—the river still needs to be read in
-            person.
+            Widgets pull public feeds and this site’s crowd summaries. If something fails to load,
+            try again when you have a better connection—the river still has to be read in person.
           </p>
           <ConditionsLiveWidgets />
         </GuideSection>
@@ -81,7 +80,7 @@ export default function ConditionsPage() {
 
         <GuideSection eyebrow="Data" title="What the numbers are (and aren’t)">
           <p>
-            Flow and gage height come from a regional USGS-style context in this site’s river
+            Flow and gage height come from regional river gauges surfaced in this site’s river
             tool; they help you compare “high” vs “typical,” not to guess depth at every pool.
             Water temperature shown here is an estimate based on available air and proxy
             readings—not a probe in the swim hole.
@@ -125,6 +124,8 @@ export default function ConditionsPage() {
             <Link href="/map">Map</Link>
             {" · "}
             <Link href="/visit">Visit planning</Link>
+            {" · "}
+            <Link href="/visit#visit-faq">Quick visit Q&amp;A</Link>
             {" · "}
             <Link href="/guidelines">Guidelines</Link>
             {" · "}

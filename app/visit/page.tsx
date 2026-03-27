@@ -1,11 +1,14 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 
+import { GuideFaqSection } from "@/components/guide/guide-faq-section";
 import { GuidePageFrame } from "@/components/guide/guide-page-frame";
 import { GuideSection } from "@/components/guide/guide-section";
 import { KnowledgeSectionProse } from "@/components/guide/knowledge-section-prose";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { WebPageJsonLd } from "@/components/seo/web-page-json-ld";
+import { VISIT_PAGE_FAQ } from "@/content/visitor-faq";
 import { getKnowledgeSection } from "@/lib/knowledge";
 import { buildPageMetadata, truncateMetaDescription, META_DESC_MAX } from "@/lib/seo";
 
@@ -86,12 +89,19 @@ export default function VisitPage() {
         description={pageDesc}
         path="/visit"
       />
+      <FaqJsonLd items={VISIT_PAGE_FAQ} />
       <BreadcrumbJsonLd path="/visit" />
       <GuidePageFrame
         eyebrow="Practical planning"
         title="Visit Rock River Vermont"
-        lead="A Windham County river day shifts with the season—busy banks in summer, cold water in spring, quieter woods after leaf-drop. What follows is drawn from the site knowledge files; pair it with the map and conditions before you go."
+        lead="A Windham County river day shifts with the season—busy banks in summer, cold water in spring, quieter woods after leaf-drop. The river runs through Newfane; the pull-offs most people use sit along Route 30 on the Dummerston side—same place, different town label on the map. Pair this page with the map, conditions, and guidelines before you go. Quick questions below; deeper sections follow."
       >
+        <GuideFaqSection
+          id="visit-faq"
+          title="Quick answers"
+          items={VISIT_PAGE_FAQ}
+        />
+
         <GuideSection id="when-to-go" eyebrow="Timing" title="When to go">
           <KnowledgeSectionProse content={whenToGoBody} />
         </GuideSection>
@@ -117,6 +127,12 @@ export default function VisitPage() {
         </GuideSection>
 
         <GuideSection id="parking-notes" eyebrow="Arrival" title="Parking notes">
+          <p className="mb-4 text-sm leading-relaxed text-[#3f4840] sm:text-[15px]">
+            People say “Rock River, Newfane,” but the signed parking along the recreation corridor is
+            typically on <strong className="font-semibold text-[#1F2A24]">Vermont Route 30</strong> on the{" "}
+            <strong className="font-semibold text-[#1F2A24]">Dummerston</strong> side—same river, same
+            visit. Use the <Link href="/map">map pins</Link> rather than guessing from town names alone.
+          </p>
           {localOverview ? <KnowledgeSectionProse content={localOverview} /> : null}
           {summerParkingNote ? (
             <p className={localOverview ? "mt-3" : undefined}>{summerParkingNote}</p>
@@ -175,11 +191,15 @@ export default function VisitPage() {
             {" · "}
             <Link href="/conditions">Conditions</Link>
             {" · "}
+            <Link href="/land-river">Land &amp; river</Link>
+            {" · "}
             <Link href="/gallery">Photos</Link>
             {" · "}
             <Link href="/resources">Resources</Link>
             {" · "}
             <Link href="/discoveries">Discoveries</Link>
+            {" · "}
+            <Link href="/community">Community</Link>
           </p>
         </GuideSection>
       </GuidePageFrame>

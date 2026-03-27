@@ -147,15 +147,11 @@ export default function ResourcesPage() {
           </ul>
         </GuideSection>
 
-        <GuideSection eyebrow="Editors" title="Reviewable content layer">
+        <GuideSection eyebrow="Contributors" title="Sourced facts">
           <p>
-            Sourced factual framing for the discoveries page and source registry for agencies live
-            under{" "}
-            <code className="rounded bg-[#F6F4EF] px-1 py-0.5 text-[13px] text-[#3d4540]">
-              content/sourced/
-            </code>
-            . Internal reviewer notes stay in those files—edit there before changing geology or
-            stewardship claims sitewide.
+            Stewardship and geology wording on <Link href="/discoveries">Discoveries</Link> should match
+            the curated source registry—update those references before changing factual claims about the
+            river or land.
           </p>
         </GuideSection>
       </GuidePageFrame>

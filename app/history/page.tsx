@@ -5,6 +5,7 @@ import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { WebPageJsonLd } from "@/components/seo/web-page-json-ld";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { PageGalleryBackdrop } from "@/components/layout/page-gallery-backdrop";
 import { Container } from "@/components/shared/container";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -28,7 +29,8 @@ export default function HistoryPage() {
       />
       <BreadcrumbJsonLd path="/history" />
       <SiteHeader />
-      <main className="rr-body text-slate-800">
+      <PageGalleryBackdrop />
+      <main className="relative z-[1] rr-body text-slate-800">
         <Container className="py-10">
           <article className="rr-glass-strong mx-auto max-w-3xl p-6 sm:p-8">
             <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">

@@ -5,6 +5,7 @@ import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { WebPageJsonLd } from "@/components/seo/web-page-json-ld";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { PageGalleryBackdrop } from "@/components/layout/page-gallery-backdrop";
 
 export type AuthorityLandingProps = {
   path: string;
@@ -35,7 +36,8 @@ export function AuthorityLanding({
       <WebPageJsonLd name={jsonName} description={jsonDescription} path={path} />
       <BreadcrumbJsonLd path={path} />
       <SiteHeader />
-      <main className="rr-body pb-20 text-[var(--rr-text)]">
+      <PageGalleryBackdrop />
+      <main className="relative z-[1] rr-body pb-20 text-[var(--rr-text)]">
         <div className="mx-auto w-full max-w-3xl px-4 pt-10 sm:px-6 lg:px-8">
           <nav aria-label="Breadcrumb" className="text-sm">
             <ol className="flex flex-wrap items-center gap-1 text-[var(--rr-text-muted)]">

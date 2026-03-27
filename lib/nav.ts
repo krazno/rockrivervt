@@ -12,6 +12,7 @@ export const primaryNav = [
 
 /** Secondary links — footer, mobile “also,” internal discovery. */
 export const secondaryNav = [
+  { href: "/local-business", label: "Area partners" },
   { href: "/local", label: "Local · LGBTQ-friendly" },
   { href: "/land-river", label: "Land & River" },
   { href: "/history", label: "History" },

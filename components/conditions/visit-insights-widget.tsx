@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useMemo, type ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
 import {
   CalendarHeart,
@@ -123,6 +123,15 @@ export function VisitInsightsWidget({
       : ""
     : "";
 
+  const homePlainRead = useMemo(() => {
+    if (!home) return null;
+    if (loading && !windowHint) {
+      return "Pulling today’s blend from forecast and check-ins…";
+    }
+    const win = windowHint?.summary ?? "Open the weather tools if no window shows yet.";
+    return `${win} Parking: ${parkingUi.label.toLowerCase()} until more people check in. Rows below spell out water and shoreline—the river itself is always the final answer.`;
+  }, [home, loading, windowHint, parkingUi.label]);
+
   return (
     <section
       className={SHELL[variant]}
@@ -148,7 +157,7 @@ export function VisitInsightsWidget({
               home ? "text-[#1F2A24] font-bold" : "text-[var(--rr-ink)]",
             )}
           >
-            Best time to visit today
+            {home ? "Is today reasonable?" : "Best time to visit today"}
           </h2>
           <p
             className={cn(
@@ -158,6 +167,12 @@ export function VisitInsightsWidget({
           >
             {planSubtitle}
           </p>
+          {home && homePlainRead ?
+            <p className="mt-3 text-left text-[13px] leading-relaxed text-[#3d4a42] sm:text-sm">
+              <span className="font-semibold text-[#1F2A24]">Plain read: </span>
+              {homePlainRead}
+            </p>
+          : null}
         </header>
         <div
           className={cn(
@@ -254,7 +269,17 @@ export function VisitInsightsWidget({
 
       <p
         className={cn(
-          "mt-4 flex items-start gap-2 text-[11px] leading-relaxed sm:text-xs",
+          "mt-4 border-t pt-4 text-[11px] leading-relaxed sm:text-xs",
+          home ? "border-[#E2E0D8]/80 text-[#6B6F68]" : "border-[var(--rr-widget-border)]/60 text-[var(--rr-text-muted)]",
+        )}
+      >
+        Forecasts and check-ins are guides—if the river looks fast, brown, or wrong, trust what you see at
+        the water.
+      </p>
+
+      <p
+        className={cn(
+          "mt-3 flex items-start gap-2 text-[11px] leading-relaxed sm:text-xs",
           home ? "text-[#6B6F68]" : "text-[var(--rr-text-muted)]",
         )}
       >

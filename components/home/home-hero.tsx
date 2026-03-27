@@ -158,58 +158,70 @@ export function HomeHero({ heroMode, onHeroModeChange }: HomeHeroProps) {
             className="flex w-full flex-col gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12"
           >
             <div className="min-w-0 flex-1 space-y-5 lg:py-2">
-            <p className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/20 px-3.5 py-1.5 text-[10px] font-semibold tracking-[0.14em] text-white/95 shadow-sm backdrop-blur-md">
-              <MapPin className="h-3.5 w-3.5 text-[#c8e0c8]" aria-hidden />
-              Newfane · Windham County
-            </p>
-            <h1 className="font-heading max-w-4xl text-[2.75rem] font-extrabold leading-[1.02] tracking-tight text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.35)] sm:text-[3.25rem] sm:leading-[1.02] lg:text-[4rem]">
-              Rock River Vermont Visitor Guide
-              <span className="mt-3 block text-[1.25rem] font-bold tracking-tight text-white/95 drop-shadow-[0_1px_16px_rgba(0,0,0,0.3)] sm:text-2xl lg:text-[2rem]">
-                Newfane, Vermont · Windham County
+            <div className="inline-flex max-w-md flex-col gap-1 rounded-2xl border border-white/25 bg-white/15 px-3.5 py-2.5 text-left shadow-sm backdrop-blur-md sm:max-w-none">
+              <span className="inline-flex items-center gap-2 text-[10px] font-semibold tracking-[0.14em] text-white/95">
+                <MapPin className="h-3.5 w-3.5 shrink-0 text-[#c8e0c8]" aria-hidden />
+                Newfane · Windham County
+              </span>
+              <span className="text-[9px] font-medium leading-snug tracking-[0.12em] text-white/88 sm:text-[10px]">
+                River in Newfane · usual parking along Route 30 (Dummerston side)
+              </span>
+            </div>
+            <h1 className="font-heading max-w-4xl text-[2.5rem] font-extrabold leading-[1.05] tracking-tight text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.35)] sm:text-[3.1rem] sm:leading-[1.04] lg:text-[3.65rem]">
+              Rock River
+              <span className="mt-2 block text-[1.2rem] font-semibold leading-snug tracking-tight text-white/95 drop-shadow-[0_1px_16px_rgba(0,0,0,0.28)] sm:mt-3 sm:text-[1.45rem] lg:text-[1.65rem]">
+                Unofficial guide for a real river day
+              </span>
+              <span className="mt-3 block text-[1.05rem] font-bold tracking-tight text-white/92 sm:text-xl">
+                Newfane, Vermont
               </span>
             </h1>
             <div className="max-w-2xl space-y-4">
               <p className="text-sm leading-relaxed text-white/95 drop-shadow-[0_1px_10px_rgba(0,0,0,0.4)] sm:text-base">
-                Spending a day on <strong className="font-semibold">Rock River Vermont</strong> or{" "}
-                <strong className="font-semibold">Rock River Newfane VT</strong>? Here you will find the{" "}
-                <Link href="/rock-river-map" className={inText}>Rock River map</Link>, current{" "}
-                <Link href="/rock-river-conditions" className={inText}>Rock River conditions</Link>, and notes on
-                the <Link href="/rock-river-trail-vermont" className={inText}>Rock River trail</Link>{" "}
-                and the main <Link href="/rock-river-swimming-hole" className={inText}>Rock River swimming hole</Link>{" "}
-                pools—practical context for a <strong className="font-semibold">Newfane Vermont swimming hole</strong> outing in{" "}
-                <strong className="font-semibold">Windham County Vermont</strong>, in the same spirit as other southern Vermont river days.
+                Use the <Link href="/map" className={inText}>map</Link>,{" "}
+                <Link href="/conditions" className={inText}>live conditions</Link>, and{" "}
+                <Link href="/visit" className={inText}>visit</Link> notes—neighbor-sourced, not the town.
+                LGBTQ+ visitors have shared this river for generations where posted areas apply; the same
+                quiet respect you’d want on any shoreline applies here.
               </p>
               <p className="text-sm font-medium leading-relaxed text-white/90 drop-shadow-[0_1px_10px_rgba(0,0,0,0.4)] sm:text-[0.95rem]">
-                Start with the <Link href="/map" className={inText}>interactive map</Link> and{" "}
-                <Link href="/conditions" className={inText}>conditions</Link>, skim the{" "}
-                <Link href="/visit" className={inText}>visit guide</Link> for parking and etiquette, then
-                drop into the{" "}
-                <Link href="/visitor-guide#guide-top" className={inText}>
-                  longer visitor guide
-                </Link>{" "}
-                for
-                history, safety, and local culture. <Link href="/gallery" className={inText}>Photos</Link>{" "}
-                help set expectations before you head out from Brattleboro or the West River valley.
+                <span className="text-white/95">First time?</span>{" "}
+                <Link href="/map" className={inText}>Map</Link>
+                {" → "}
+                <Link href="/#plan-today" className={inText}>
+                  Today’s snapshot
+                </Link>
+                {" → "}
+                <Link href="/visit" className={inText}>Visit tips</Link>. More depth in the{" "}
+                <Link href="/visitor-guide#guide-top" className={inText}>visitor guide</Link>;{" "}
+                <Link href="/gallery" className={inText}>photos</Link> only hint at conditions—always look at
+                the water yourself.
               </p>
             </div>
-            <div className="flex flex-wrap items-center gap-3 pt-2 sm:gap-4">
+            <div className="flex flex-wrap items-center gap-3 pt-2 sm:gap-3.5">
               <Link
                 href="/map"
-                className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#4F6B52] px-8 py-3.5 text-base font-semibold text-white shadow-lg shadow-[#1F2A24]/20 transition hover:bg-[#3d5240] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1F2A24]/50"
+                className="inline-flex min-h-12 items-center justify-center rounded-full bg-[#4F6B52] px-7 py-3.5 text-[0.9375rem] font-semibold text-white shadow-lg shadow-[#1F2A24]/20 transition hover:bg-[#3d5240] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#1F2A24]/50 sm:px-8 sm:text-base"
               >
-                Map
+                Open map
+              </Link>
+              <Link
+                href="/#plan-today"
+                className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/35 bg-white/95 px-7 py-3.5 text-[0.9375rem] font-semibold text-[#1F2A24] shadow-md backdrop-blur-sm transition hover:bg-white sm:px-8 sm:text-base"
+              >
+                Today’s snapshot
               </Link>
               <Link
                 href="/conditions"
-                className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/35 bg-white/95 px-8 py-3.5 text-base font-semibold text-[#1F2A24] shadow-md backdrop-blur-sm transition hover:bg-white"
+                className="inline-flex min-h-12 items-center justify-center rounded-full border-2 border-white/90 bg-white/10 px-7 py-3.5 text-[0.9375rem] font-semibold text-white shadow-sm backdrop-blur-[2px] transition hover:bg-white/18 sm:px-8 sm:text-base"
               >
                 Conditions
               </Link>
               <Link
                 href="/visit"
-                className="inline-flex min-h-12 items-center justify-center rounded-full border-2 border-white/90 bg-transparent px-8 py-3.5 text-base font-semibold text-white shadow-sm backdrop-blur-[2px] transition hover:bg-white/10"
+                className="inline-flex min-h-12 items-center justify-center rounded-full border-2 border-white/55 bg-transparent px-7 py-3.5 text-[0.9375rem] font-semibold text-white shadow-sm backdrop-blur-[2px] transition hover:bg-white/10 sm:px-8 sm:text-base"
               >
-                Visit guide
+                Visit tips
               </Link>
               {audioReady ? (
                 <button

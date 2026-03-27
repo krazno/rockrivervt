@@ -43,7 +43,7 @@ export const HOME_PAGE_TITLE_ABSOLUTE =
   "Rock River Vermont | Welcoming LGBTQ-friendly river guide · Newfane";
 
 const HOME_META_RAW =
-  "Community-run, LGBTQ-welcoming guide to Rock River in Newfane VT—map, live conditions, swimming holes, trail, and Windham County tips. Not a government site.";
+  "Neighbor-run guide to Rock River in Newfane VT—map, live snapshot, conditions, trail, and pools. LGBTQ-welcoming. Not a government site.";
 
 /** Homepage meta description (Google snippet) */
 export const HOME_PAGE_DESCRIPTION = truncateMetaDescription(HOME_META_RAW, META_DESC_MAX);
@@ -141,6 +141,7 @@ export const PATH_LABELS: Record<string, string> = {
   gallery: "Photos",
   discoveries: "Discoveries",
   local: "Local",
+  "local-business": "Area partners",
   resources: "Resources",
   community: "Community",
   "rock-river-vermont": "Rock River Vermont",

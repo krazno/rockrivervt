@@ -11,8 +11,6 @@ import {
   Users,
 } from "lucide-react";
 
-import { HomeCollapsibleSection } from "@/components/home/home-collapsible-section";
-
 const cardShellClass =
   "flex h-full items-center gap-4 rounded-2xl border border-[#E2E0D8] bg-white p-6 shadow-sm transition duration-300 ease-out hover:-translate-y-0.5 hover:shadow-md";
 
@@ -21,8 +19,8 @@ const bullets: { label: string; icon: typeof MapPinned; href?: string }[] = [
   { label: "Swimming holes", icon: Droplets, href: "/visit" },
   { label: "Conditions", icon: CloudSun, href: "/conditions" },
   { label: "Parking", icon: Car, href: "/map" },
-  { label: "Guidelines", icon: Shield },
-  { label: "Community info", icon: Users },
+  { label: "Guidelines", icon: Shield, href: "/guidelines" },
+  { label: "Community", icon: Users, href: "/community" },
 ];
 
 export function HomeVisitorGuideBlock() {
@@ -35,21 +33,18 @@ export function HomeVisitorGuideBlock() {
       className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8"
       aria-labelledby="visitor-guide-identity-heading"
     >
-      <HomeCollapsibleSection
-        panelId="visitor-guide-panel"
-        summaryContent={
-          <h2
-            id="visitor-guide-identity-heading"
-            className="font-heading text-balance text-3xl font-extrabold tracking-tight text-[#1F2A24] sm:text-4xl"
-          >
-            Rock River Visitor Guide
-          </h2>
-        }
+      <div className="rr-photo-surface rr-photo-surface--trail rounded-[1.35rem] border border-[#E2E0D8]/85 p-6 shadow-[0_12px_40px_-24px_rgba(31,42,36,0.12)] sm:p-8">
+      <h2
+        id="visitor-guide-identity-heading"
+        className="font-heading text-balance text-3xl font-extrabold tracking-tight text-[#1F2A24] sm:text-4xl"
       >
-        <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#6B6F68] sm:text-lg">
-          Neighbor-written notes on Rock River swimming holes, the trail, and the preserve in Newfane Vermont—unofficial but well known.
-        </p>
-        <ul className="mt-12 grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+        Plan with the local guide
+      </h2>
+      <p className="mt-4 max-w-2xl text-base leading-relaxed text-[#6B6F68] sm:mt-5 sm:text-lg">
+        First time? Use the map and trail section above, then today’s snapshot and live conditions
+        below. Neighbor-maintained field notes—not a town or park office.
+      </p>
+      <ul className="mt-8 grid gap-4 sm:mt-10 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
         {bullets.map(({ label, icon: Icon, href }) => {
           const card = (
             <div className={cardShellClass}>
@@ -72,7 +67,7 @@ export function HomeVisitorGuideBlock() {
           );
         })}
       </ul>
-      </HomeCollapsibleSection>
+      </div>
     </motion.section>
   );
 }

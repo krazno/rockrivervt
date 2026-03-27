@@ -5,13 +5,15 @@ import Link from "next/link";
 import { WeatherWidget } from "@/components/conditions/weather-widget";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { PageGalleryBackdrop } from "@/components/layout/page-gallery-backdrop";
 import { Container } from "@/components/shared/container";
 
 export function WeatherPageClient() {
   return (
     <>
       <SiteHeader />
-      <main className="rr-body text-[var(--rr-text)]">
+      <PageGalleryBackdrop />
+      <main className="relative z-[1] rr-body text-[var(--rr-text)]">
         <Container className="py-10">
           <div className="mx-auto max-w-3xl">
             <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
@@ -42,7 +44,7 @@ export function WeatherPageClient() {
             </div>
             <p className="mt-6 text-center text-sm text-[var(--rr-text-muted)] sm:text-left">
               <Link
-                href="/#today-at-rock-river"
+                href="/#plan-today"
                 className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
               >
                 Home conditions

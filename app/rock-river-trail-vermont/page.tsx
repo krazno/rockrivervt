@@ -10,7 +10,7 @@ import { buildPageMetadata, SITE_URL } from "@/lib/seo";
 const path = "/rock-river-trail-vermont";
 
 const pageDesc =
-  "Rock River trail Vermont: footpath along the river in Newfane, parking links, and how the corridor connects swimming holes in Windham County.";
+  "Rock River trail: riverside footpath in Newfane, parking via map, mud-season cautions, and how the path ties to swimming pockets—Windham County VT.";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Rock River trail Vermont",
@@ -51,81 +51,81 @@ export default function RockRiverTrailVermontPage() {
         />
       ) : null}
       <AuthorityLanding
-      path={path}
-      jsonName="Rock River trail Vermont — access & map"
-      jsonDescription={pageDesc}
-      breadcrumbLabel="Trail"
-      h1="Rock River trail Vermont"
-      intro={
-        <>
-          <p>
-            The <strong>Rock River trail</strong> in <strong>Vermont</strong> is a modest riverside
-            path—not a long summit hike. It links parking pockets to beaches and pools along{" "}
-            <strong>Rock River</strong> in <strong>Newfane</strong>, <strong>Windham County</strong>.
-            If you are visiting from <strong>Brattleboro</strong> or elsewhere in{" "}
-            <strong>southern Vermont</strong>, expect roots, stone, and short climbs; mud season
-            softens tread in spring. The same tread supports anglers, families, and swimmers heading
-            to popular <strong>Vermont swimming hole</strong> pockets in summer.
-          </p>
-          <p>
-            Use the{" "}
-            <Link href="/map" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">
-              full map
-            </Link>{" "}
-            to orient before cell signal drops, and skim{" "}
-            <Link href="/rock-river-map" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">
-              Rock River map notes
-            </Link>{" "}
-            for how the map layers line up with what you will see on the ground.
-          </p>
-        </>
-      }
-    >
-      <p>
-        The corridor parallels the main stem while side brooks feed in from the hills above the{" "}
-        <strong>West River</strong> basin. After high water, crossings and social trails shift—what
-        felt obvious last season may not match this year.
-      </p>
-      <p>
-        Trail film and full walkthrough: watch below after you read{" "}
-        <Link href="/rock-river-conditions" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">
-          Rock River conditions
-        </Link>
-        . For swim-focused planning, jump to{" "}
-        <Link href="/rock-river-swimming-hole" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">
-          Rock River swimming hole
-        </Link>
-        .
-      </p>
-      <section
-        id="trail-film"
-        className="scroll-mt-28 mt-10 space-y-4"
-        aria-labelledby="trail-film-heading"
+        path={path}
+        jsonName="Rock River trail Vermont — access & map"
+        jsonDescription={pageDesc}
+        breadcrumbLabel="Trail"
+        h1="Rock River trail Vermont"
+        intro={
+          <>
+            <p>
+              <strong>Role:</strong> trail character, film, and foot-travel context—not the live map
+              tool. This is a modest riverside path in the Newfane corridor: parking pockets to beaches
+              and pools, roots and stone underfoot, short climbs. Mud season softens tread in spring.
+              Anglers, families, and swimmers share the same tread.
+            </p>
+            <p>
+              Open the{" "}
+              <Link href="/map" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">
+                interactive map
+              </Link>{" "}
+              before signal fades; the{" "}
+              <Link href="/rock-river-map" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">
+                map landing page
+              </Link>{" "}
+              explains how layers match the ground. For swim-focused norms, see{" "}
+              <Link href="/rock-river-swimming-hole" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">
+                swimming hole notes
+              </Link>
+              .
+            </p>
+          </>
+        }
       >
-        <div>
-          <h2
-            id="trail-film-heading"
-            className="font-heading text-xl font-semibold tracking-tight text-[var(--rr-ink)]"
-          >
-            Short trail film
-          </h2>
-          <p className="mt-1 text-sm text-[var(--rr-text-muted)]">
-            YouTube · one continuous pass along the path (same embed as the former homepage block).
-          </p>
+        <p>
+          Side brooks feed from the hills; after high water, crossings and social paths shift. What felt
+          obvious last season may not match this year—walk in prepared to turn back.
+        </p>
+        <p>
+          Check{" "}
+          <Link href="/rock-river-conditions" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">
+            conditions
+          </Link>{" "}
+          before you leave; pair with{" "}
+          <Link href="/visit" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">
+            visit
+          </Link>{" "}
+          for parking wording (Route 30 / Dummerston pins).
+        </p>
+        <section
+          id="trail-film"
+          className="scroll-mt-28 mt-10 space-y-4"
+          aria-labelledby="trail-film-heading"
+        >
+          <div>
+            <h2
+              id="trail-film-heading"
+              className="font-heading text-xl font-semibold tracking-tight text-[var(--rr-ink)]"
+            >
+              Short trail film
+            </h2>
+            <p className="mt-1 text-sm text-[var(--rr-text-muted)]">
+              YouTube — one continuous pass along the path (same clip as on the home page).
+            </p>
+          </div>
+          <div className="overflow-hidden rounded-2xl border border-[var(--rr-widget-border)] bg-white shadow-sm">
+            <RockRiverTrailYoutubeEmbed autoplay={false} />
+          </div>
+        </section>
+        <div className="mt-10">
+          <HomeTrailTour videoAvailable={hasTrailVideo} />
         </div>
-        <div className="overflow-hidden rounded-2xl border border-[var(--rr-widget-border)] bg-white shadow-sm">
-          <RockRiverTrailYoutubeEmbed autoplay={false} />
-        </div>
-      </section>
-      <div className="mt-10">
-        <HomeTrailTour videoAvailable={hasTrailVideo} />
-      </div>
-      <p>
-        <Link href="/" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">
-          ← Rock River Vermont home
-        </Link>
-      </p>
-    </AuthorityLanding>
+        <p>
+          <Link href="/" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">
+            ← Rock River Vermont home
+          </Link>
+        </p>
+      </AuthorityLanding>
     </>
   );
 }

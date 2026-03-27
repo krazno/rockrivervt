@@ -10,7 +10,7 @@ import { getKnowledgeSection } from "@/lib/knowledge";
 import { buildPageMetadata, truncateMetaDescription, META_DESC_MAX } from "@/lib/seo";
 
 const pageDesc = truncateMetaDescription(
-  "Rock River field notes from the local knowledge base: river stones and ice-age context, plants and wildlife along the corridor, seasons in Windham County—and why to look without taking.",
+  "Rock River field notes: river stones and ice-age context, plants and wildlife along the corridor, seasons in Windham County—and why to look without taking.",
   META_DESC_MAX,
 );
 
@@ -71,7 +71,7 @@ export default function DiscoveriesPage() {
       <GuidePageFrame
         eyebrow="In the field"
         title="Discoveries along Rock River"
-        lead="Slow down enough to see cobbles, shade, and who shares the corridor with you. What follows comes straight from this site’s local knowledge files—river stones and ice-age context, plants and animals, seasons—written for neighbors, not textbooks."
+        lead="Slow down enough to see cobbles, shade, and who shares the corridor with you. What follows is drawn from the same notes that power this guide—river stones and ice-age context, plants and animals, seasons—written for neighbors, not textbooks."
       >
         <GuideSection eyebrow="Underfoot" title="River stones and glacial shaping">
           <KnowledgeSectionProse content={stonesBody} />

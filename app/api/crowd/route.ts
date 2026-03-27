@@ -5,7 +5,7 @@ import {
   type CrowdAreaKey,
   type CrowdLevel,
 } from "@/lib/crowd/constants";
-import { utcReportDateString } from "@/lib/crowd/date";
+import { crowdReportDateString } from "@/lib/crowd/date";
 import { buildCrowdSummaries } from "@/lib/crowd/summary";
 import type { CrowdSummaryResponse } from "@/lib/crowd/types";
 import { isCrowdLevel, parseCrowdReportBody } from "@/lib/crowd/validate";
@@ -24,8 +24,19 @@ function crowdDebugPayload() {
 }
 
 function logCrowd(event: string, data: Record<string, unknown> = {}) {
-  if (!isDev) return;
-  console.error(`[crowd] ${event}`, data);
+  const line = `[crowd] ${event}`;
+  if (isDev) {
+    console.error(line, data);
+    return;
+  }
+  // Production: log failures without secrets (env never included here).
+  if (
+    event.includes("failed") ||
+    event.includes("unavailable") ||
+    event.includes("error")
+  ) {
+    console.error(line, data);
+  }
 }
 
 type BaselineRow = {
@@ -68,6 +79,7 @@ export async function GET() {
     logCrowd("GET: supabase_unavailable", { ...crowdDebugPayload() });
     return NextResponse.json(
       {
+        configured: false,
         error:
           "Crowd data is not configured. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (service role, server-only).",
         ...(isDev ? crowdDebugPayload() : {}),
@@ -76,7 +88,7 @@ export async function GET() {
     );
   }
 
-  const reportDate = utcReportDateString();
+  const reportDate = crowdReportDateString();
 
   const [baselineRes, reportsRes] = await Promise.all([
     supabase
@@ -93,6 +105,7 @@ export async function GET() {
     });
     return NextResponse.json(
       {
+        configured: true,
         error: "Failed to load baselines",
         ...(isDev ? { detail: baselineRes.error.message } : {}),
       },
@@ -106,6 +119,7 @@ export async function GET() {
     });
     return NextResponse.json(
       {
+        configured: true,
         error: "Failed to load reports",
         ...(isDev ? { detail: reportsRes.error.message } : {}),
       },
@@ -131,8 +145,9 @@ export async function GET() {
   const totalReportsToday = (reportsRes.data ?? []).length;
 
   const payload: CrowdSummaryResponse = {
+    configured: true,
     reportDate,
-    dateScope: "utc_day",
+    dateScope: "America/New_York",
     totalReportsToday,
     areas,
   };
@@ -148,6 +163,7 @@ export async function POST(request: Request) {
     logCrowd("POST: supabase_unavailable", { ...crowdDebugPayload() });
     return NextResponse.json(
       {
+        configured: false,
         error:
           "Crowd reporting is not configured. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (service role, server-only).",
         ...(isDev ? crowdDebugPayload() : {}),
@@ -160,16 +176,22 @@ export async function POST(request: Request) {
   try {
     json = await request.json();
   } catch {
-    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+    return NextResponse.json(
+      { configured: true, error: "Invalid JSON" },
+      { status: 400 },
+    );
   }
 
   const parsed = parseCrowdReportBody(json);
   if (!parsed.ok) {
-    return NextResponse.json({ error: parsed.error }, { status: 400 });
+    return NextResponse.json(
+      { configured: true, error: parsed.error },
+      { status: 400 },
+    );
   }
 
   const { deviceId, displayName, areas } = parsed.value;
-  const reportDate = utcReportDateString();
+  const reportDate = crowdReportDateString();
 
   const { data: inserted, error: insErr } = await supabase
     .from("crowd_reports")
@@ -189,6 +211,7 @@ export async function POST(request: Request) {
     });
     return NextResponse.json(
       {
+        configured: true,
         error: "Failed to save report",
         ...(isDev ? { detail: insErr.message } : {}),
       },
@@ -200,6 +223,7 @@ export async function POST(request: Request) {
     logCrowd("POST: insert_no_row", {});
     return NextResponse.json(
       {
+        configured: true,
         error: "Failed to save report",
         ...(isDev ? { detail: "Insert returned no row" } : {}),
       },
@@ -207,9 +231,28 @@ export async function POST(request: Request) {
     );
   }
 
-  return NextResponse.json({
+  const { count: totalAfter, error: countErr } = await supabase
+    .from("crowd_reports")
+    .select("*", { count: "exact", head: true })
+    .eq("report_date", reportDate);
+
+  const body = {
     ok: true,
+    configured: true,
     submissionId: inserted.id,
     reportDate,
-  });
+    ...(countErr == null && typeof totalAfter === "number" ?
+      { totalReportsToday: totalAfter }
+    : {}),
+  };
+
+  if (!isDev) {
+    console.error("[crowd] POST: saved", {
+      submissionId: inserted.id,
+      reportDate,
+      totalReportsToday: body.totalReportsToday,
+    });
+  }
+
+  return NextResponse.json(body);
 }

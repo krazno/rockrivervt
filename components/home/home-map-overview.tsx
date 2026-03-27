@@ -6,13 +6,12 @@ import { AnimatePresence, motion } from "motion/react";
 import { Film, MapPinned, Maximize2, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
-import { HomeCollapsibleSection } from "@/components/home/home-collapsible-section";
 import { HomeSectionHeader } from "@/components/home/home-section-header";
 import { InteractiveMap } from "@/components/map/interactive-map";
 import { RockRiverTrailYoutubeEmbed } from "@/components/home/rock-river-trail-youtube";
 
 type HomeMapOverviewProps = {
-  /** When false, map-only landing layout (trail film lives on the trail page). */
+  /** When false, map-only layout (trail film on trail page). */
   includeTrailFilm?: boolean;
 };
 
@@ -40,7 +39,7 @@ export function HomeMapOverview({ includeTrailFilm = false }: HomeMapOverviewPro
 
   const headerDescription: ReactNode =
     includeTrailFilm ?
-      "Interactive map and a short trail film—expand for detail or open the full map page."
+      "Interactive map and a short trail film—pins show parking (most pull-offs along Route 30 on the Dummerston side), trail, and beaches. Expand for detail or open the full map page."
     : (
         <>
           Interactive map—expand for detail or open the full map page. Short trail film and full
@@ -60,28 +59,25 @@ export function HomeMapOverview({ includeTrailFilm = false }: HomeMapOverviewPro
       className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8"
       aria-labelledby="map-trail-overview-heading"
     >
-      <HomeCollapsibleSection
-        panelId="map-overview-panel"
-        summaryContent={
-          <HomeSectionHeader
-            eyebrow="Find your way"
-            icon={MapPinned}
-            id="map-trail-overview-heading"
-            title="Map & trail"
-            description={headerDescription}
-            descriptionClassName="text-[#6B6F68]"
-            titleClassName="text-[#1F2A24] font-bold"
-            eyebrowClassName="text-[9px] tracking-[0.22em] text-[#6B6F68]"
-            eyebrowIconClassName="h-4 w-4 text-[#4F6B52]"
-            className="mb-8 sm:mb-10"
-          />
+      <HomeSectionHeader
+        eyebrow="Find your way"
+        icon={MapPinned}
+        id="map-trail-overview-heading"
+        title="Map & trail"
+        description={headerDescription}
+        descriptionClassName="text-[#6B6F68]"
+        titleClassName="text-[#1F2A24] font-bold"
+        eyebrowClassName="text-[9px] tracking-[0.22em] text-[#6B6F68]"
+        eyebrowIconClassName="h-4 w-4 text-[#4F6B52]"
+        className="mb-8 sm:mb-10"
+      />
+      <div
+        className={
+          includeTrailFilm ?
+            "grid grid-cols-1 gap-6 md:grid-cols-2 md:items-stretch md:gap-6"
+          : "grid grid-cols-1 gap-6"
         }
       >
-        <div
-          className={
-            includeTrailFilm ? "grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-stretch lg:gap-6" : "grid grid-cols-1 gap-6"
-          }
-        >
         <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-[#E2E0D8] bg-white shadow-sm">
           <div className="flex shrink-0 items-center gap-3 border-b border-[#E2E0D8] px-6 py-5">
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#E2E0D8] bg-[#F6F4EF] text-[#4F6B52]">
@@ -139,8 +135,7 @@ export function HomeMapOverview({ includeTrailFilm = false }: HomeMapOverviewPro
             <RockRiverTrailYoutubeEmbed autoplay />
           </div>
         : null}
-        </div>
-      </HomeCollapsibleSection>
+      </div>
 
       <AnimatePresence>
         {mapOpen ? (

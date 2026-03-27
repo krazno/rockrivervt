@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "verify:crowd": "node scripts/verify-crowd-e2e.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.99.3",

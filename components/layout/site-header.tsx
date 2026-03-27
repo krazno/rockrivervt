@@ -18,6 +18,7 @@ import {
   homeSeasonFromMonth,
   vermontCalendarMonth,
 } from "@/lib/home-seasonal";
+import { InclusionFlags } from "@/components/layout/inclusion-flags";
 import { cn } from "@/lib/utils";
 
 function useHeaderSeasonLine() {
@@ -130,18 +131,22 @@ export function SiteHeader() {
         <Container
           className={cn(
             "flex items-center gap-4 transition-[padding] duration-300",
-            scrolled ? "lg:gap-5" : "lg:gap-6",
+            scrolled ? "pb-2 lg:gap-5" : "pb-3 lg:gap-6",
           )}
         >
           <Link
             href="/"
-            className="group flex min-w-0 shrink-0 flex-col leading-[1.15] transition-opacity duration-200 hover:opacity-[0.88]"
+            className="group flex min-w-0 shrink-0 items-center gap-3 leading-[1.15] transition-opacity duration-200 hover:opacity-[0.88] sm:gap-3.5"
+            aria-label="Rock River Vermont — LGBTQ+ and trans-inclusive visitor guide"
           >
-            <span className="font-heading text-[1.125rem] font-semibold tracking-[-0.025em] text-[#1F2A24] sm:text-[1.2rem]">
-              Rock River
-            </span>
-            <span className="text-[9px] font-semibold uppercase tracking-[0.34em] text-[#5c6d62]">
-              Vermont
+            <InclusionFlags className="shrink-0" />
+            <span className="flex min-w-0 flex-col">
+              <span className="font-heading text-[1.125rem] font-semibold tracking-[-0.025em] text-[#1F2A24] sm:text-[1.2rem]">
+                Rock River
+              </span>
+              <span className="text-[9px] font-semibold uppercase tracking-[0.34em] text-[#5c6d62]">
+                Vermont
+              </span>
             </span>
           </Link>
 
@@ -174,10 +179,10 @@ export function SiteHeader() {
             </Link>
           </div>
 
-          <div className="flex items-center gap-2 lg:hidden">
+          <div className="flex items-center gap-3.5 pl-1 lg:hidden">
             <Link
               href="/map"
-              className="rr-btn-primary whitespace-nowrap px-3.5 py-2 text-[11px] font-medium tracking-[0.05em]"
+              className="rr-btn-primary whitespace-nowrap px-3.5 py-2.5 text-[11px] font-medium tracking-[0.05em]"
             >
               Open map
             </Link>
@@ -186,7 +191,7 @@ export function SiteHeader() {
               aria-expanded={open}
               aria-controls="mobile-nav-drawer"
               onClick={() => setOpen((o) => !o)}
-              className="inline-flex h-11 min-w-[2.75rem] shrink-0 items-center justify-center rounded-2xl border border-[#dcd6cc]/95 bg-[#f7f4ed]/90 text-[#1F2A24] shadow-sm transition hover:bg-[#f0ebe2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6d8574]/28"
+              className="inline-flex h-11 min-w-[3rem] shrink-0 items-center justify-center rounded-2xl border border-[#dcd6cc]/95 bg-[#f7f4ed]/90 text-[#1F2A24] shadow-sm transition hover:bg-[#f0ebe2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6d8574]/28"
             >
               {open ? <X className="h-5 w-5" aria-hidden /> : <Menu className="h-5 w-5" aria-hidden />}
               <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
@@ -197,7 +202,7 @@ export function SiteHeader() {
         <div
           className={cn(
             "border-t transition-[padding,border-color] duration-300",
-            scrolled ? "border-[#e0dad0]/95 py-1" : "border-[#ebe6dc]/55 py-1.5",
+            scrolled ? "border-[#e0dad0]/95 py-2" : "border-[#ebe6dc]/55 py-2.5",
           )}
         >
           <Container className="!px-4 sm:!px-6 lg:!px-8">
@@ -237,13 +242,17 @@ export function SiteHeader() {
                   <Link
                     href="/"
                     onClick={() => setOpen(false)}
-                    className="inline-flex flex-col leading-tight"
+                    className="inline-flex items-center gap-2.5 leading-tight"
+                    aria-label="Rock River Vermont — LGBTQ+ and trans-inclusive visitor guide"
                   >
-                    <span className="font-heading text-[1.35rem] font-semibold tracking-[-0.02em] text-[#1F2A24]">
-                      Rock River
-                    </span>
-                    <span className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#5c6d62]">
-                      Vermont
+                    <InclusionFlags className="shrink-0" />
+                    <span className="flex flex-col">
+                      <span className="font-heading text-[1.35rem] font-semibold tracking-[-0.02em] text-[#1F2A24]">
+                        Rock River
+                      </span>
+                      <span className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.32em] text-[#5c6d62]">
+                        Vermont
+                      </span>
                     </span>
                   </Link>
                   <p className="mt-4 max-w-[18rem] text-[0.8125rem] leading-relaxed text-[#6B6F68]">

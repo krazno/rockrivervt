@@ -5,6 +5,7 @@ import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { WebPageJsonLd } from "@/components/seo/web-page-json-ld";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { PageGalleryBackdrop } from "@/components/layout/page-gallery-backdrop";
 import { Container } from "@/components/shared/container";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -28,7 +29,8 @@ export default function DailyUpdatesPage() {
       />
       <BreadcrumbJsonLd path="/daily-updates" />
       <SiteHeader />
-      <main className="rr-body py-10 text-[var(--rr-text)]">
+      <PageGalleryBackdrop />
+      <main className="relative z-[1] rr-body py-10 text-[var(--rr-text)]">
         <Container className="max-w-3xl">
           <div className="rr-glass-strong overflow-hidden p-6 sm:p-8">
             <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.26em] text-[var(--rr-mint)]">
@@ -44,7 +46,7 @@ export default function DailyUpdatesPage() {
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
-                href="/#today-at-rock-river"
+                href="/#plan-today"
                 className="rr-btn-primary inline-flex px-5 py-2.5 text-sm"
               >
                 Live conditions

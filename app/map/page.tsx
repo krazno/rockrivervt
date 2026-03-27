@@ -7,6 +7,7 @@ import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { WebPageJsonLd } from "@/components/seo/web-page-json-ld";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { PageGalleryBackdrop } from "@/components/layout/page-gallery-backdrop";
 import { Container } from "@/components/shared/container";
 import { buildPageMetadata, truncateMetaDescription, META_DESC_MAX } from "@/lib/seo";
 
@@ -41,7 +42,8 @@ export default function MapPage() {
       />
       <BreadcrumbJsonLd path="/map" />
       <SiteHeader />
-      <main className="rr-body pb-20 text-[#1F2A24]">
+      <PageGalleryBackdrop />
+      <main className="relative z-[1] rr-body pb-20 text-[#1F2A24]">
         <Container className="py-10 sm:py-12">
           <header className="mx-auto max-w-3xl">
             <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-[#6B6F68]">
@@ -99,10 +101,15 @@ export default function MapPage() {
 
               <GuideSection eyebrow="Arrival" title="Parking orientation">
                 <p>
-                  Public parking associated with access sits along{" "}
-                  <strong className="font-semibold text-[#1F2A24]">Route 30 in Dummerston</strong>{" "}
-                  near the Depot Road area—see the pinned markers and respect road paint. If the
-                  map looks different after a storm, assume crossings and informal paths may have
+                  The recreation area is most often talked about as <strong className="font-semibold text-[#1F2A24]">Newfane</strong>, but
+                  public parking tied to trail access is along{" "}
+                  <strong className="font-semibold text-[#1F2A24]">Vermont Route 30</strong> on the{" "}
+                  <strong className="font-semibold text-[#1F2A24]">Dummerston</strong> side near the Depot Road
+                  area—see pinned markers on the map and respect road paint. Same river, same visit; town
+                  names here follow how people navigate and where the pull-offs sit.
+                </p>
+                <p className="mt-3">
+                  If the map looks different after a storm, assume crossings and informal paths may have
                   shifted; walk in cautiously.
                 </p>
               </GuideSection>
@@ -127,6 +134,8 @@ export default function MapPage() {
               <GuideSection eyebrow="Related" title="Plan the rest of the day">
                 <p>
                   <Link href="/visit">Visit</Link>
+                  {" · "}
+                  <Link href="/visit#visit-faq">Visit Q&amp;A</Link>
                   {" · "}
                   <Link href="/conditions">Conditions</Link>
                   {" · "}

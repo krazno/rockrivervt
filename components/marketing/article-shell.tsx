@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { PageGalleryBackdrop } from "@/components/layout/page-gallery-backdrop";
 import { Container } from "@/components/shared/container";
 
 type ArticleShellProps = {
@@ -18,7 +19,8 @@ export function ArticleShell({ eyebrow, title, lead, children }: ArticleShellPro
   return (
     <>
       <SiteHeader />
-      <main className="rr-body pb-20">
+      <PageGalleryBackdrop />
+      <main className="relative z-[1] rr-body pb-20">
         <Container className="py-10 sm:py-12">
           <article className="rr-panel-light mx-auto max-w-3xl px-6 py-8 sm:px-10 sm:py-10">
             <header>

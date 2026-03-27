@@ -10,6 +10,8 @@ export type MediaImageProps = {
   /** Default gallery grid sizing hint */
   sizes?: string;
   priority?: boolean;
+  /** Next/Image quality 1–100; higher = sharper for large displays */
+  quality?: number;
 } & (
   | {
       fill: true;
@@ -35,6 +37,7 @@ export function MediaImage(props: MediaImageProps) {
     className,
     sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
     priority = false,
+    quality = 82,
   } = props;
 
   if (props.fill) {
@@ -46,6 +49,7 @@ export function MediaImage(props: MediaImageProps) {
         fill
         sizes={props.sizes}
         priority={priority}
+        quality={quality}
         loading={priority ? undefined : "lazy"}
         className={cn(className)}
       />
@@ -60,6 +64,7 @@ export function MediaImage(props: MediaImageProps) {
       width={props.width}
       height={props.height}
       priority={priority}
+      quality={quality}
       loading={priority ? undefined : "lazy"}
       sizes={sizes}
       className={cn(className)}

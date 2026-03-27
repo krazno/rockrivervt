@@ -187,7 +187,8 @@ export function getHomePhotoCarouselPhotos(): (MediaItem & {
   height: number;
 })[] {
   const imgs = getSiteImages();
-  return [...imgs].sort(sortByOrder).slice(0, 14);
+  /** Full catalog — same hi-res files as the gallery (carousel tiles stay modest width for layout). */
+  return [...imgs].sort(sortByOrder);
 }
 
 /** Curated pair — fewer, stronger images on the home stripe. */

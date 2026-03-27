@@ -57,10 +57,10 @@ export default function LocalPage() {
         <section>
           <h2>Cafés, shops, lodging</h2>
           <p>
-            Brattleboro’s downtown has groceries, cafés, and lodging within a short drive of
-            Rock River; Newfane village is smaller but has essentials nearby. Pick what fits
-            your trip—this guide does not list individual businesses so listings stay current
-            without endorsements.
+            Brattleboro’s downtown has groceries, cafés, and lodging within a short drive of Rock
+            River; Newfane village is smaller but has essentials nearby. This page stays general; if you
+            are looking for spots that want to welcome river visitors, see{" "}
+            <Link href="/local-business">Area partners</Link>.
           </p>
         </section>
         <section>

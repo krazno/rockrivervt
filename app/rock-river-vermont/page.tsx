@@ -33,23 +33,20 @@ export default function RockRiverVermontPage() {
       intro={
         <>
           <p>
-            <strong>Rock River Vermont</strong> is a free-flowing corridor in{" "}
-            <strong>Newfane, Vermont</strong>, in <strong>Windham County</strong>. Visitors treat it as
-            one of the best-known <strong>southern Vermont</strong> river days: wading, swimming holes,
-            and a footpath that stays close to the water. The valley sits near{" "}
-            <strong>Brattleboro</strong> and the <strong>West River</strong> watershed, so many trip
-            plans pair a <strong>Vermont swimming hole</strong> here with errands or dinner downstream.
+            Rock River is a Windham County corridor—wading, pools, and a trail that hugs the water in
+            Newfane. Day trips often combine it with Brattleboro or the West River valley; this page is a
+            short orientation, not the full planning tools.
           </p>
           <p>
-            This site is a volunteer guide—not a government page. Use the{" "}
+            For real trip planning, use the live{" "}
             <Link href="/map" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">
-              Rock River map
-            </Link>
-            ,{" "}
+              map
+            </Link>{" "}
+            and{" "}
             <Link href="/conditions" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">
               conditions
             </Link>
-            , and the topic pages below to plan a respectful visit.
+            . This site is volunteer-maintained—not a government page.
           </p>
         </>
       }
@@ -76,7 +73,7 @@ export default function RockRiverVermontPage() {
           href="/visitor-guide#guide-top"
           className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline"
         >
-          homepage guide
+          visitor guide
         </Link>{" "}
         adds history, safety, and community context.
       </p>

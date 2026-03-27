@@ -15,7 +15,7 @@ import {
   galleryGroupForItem,
   type GalleryGroup,
 } from "@/lib/gallery-group";
-import { INSTAGRAM_ROCK_RIVER_LOCATION_URL } from "@/lib/site";
+import { INSTAGRAM_ROCK_RIVER_LOCATION_URL, mailtoPhotoSubmission } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const GROUP_ORDER: GalleryGroup[] = ["trail", "water", "other"];
@@ -121,6 +121,16 @@ export function GalleryPageContent() {
             <p className="mt-4 text-sm leading-relaxed text-[var(--rr-text-muted)]">
               Seasons change light and foliage faster than we re-sort files—use these images as a
               mood board, not a weather forecast.
+            </p>
+            <p className="mt-4 text-sm leading-relaxed text-[var(--rr-text-muted)]" id="share-photos">
+              Have a shot you’re willing to share?{" "}
+              <a
+                href={mailtoPhotoSubmission()}
+                className="font-semibold text-[var(--rr-link)] underline-offset-2 hover:underline"
+              >
+                Email it for the gallery
+              </a>
+              —we review before adding anything to this page.
             </p>
             <p className="mt-5 text-sm text-[var(--rr-text-muted)]">
               <Link

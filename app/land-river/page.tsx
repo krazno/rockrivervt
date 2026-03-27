@@ -5,6 +5,7 @@ import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { WebPageJsonLd } from "@/components/seo/web-page-json-ld";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { PageGalleryBackdrop } from "@/components/layout/page-gallery-backdrop";
 import { Container } from "@/components/shared/container";
 import { buildPageMetadata } from "@/lib/seo";
 
@@ -33,7 +34,8 @@ export default function LandRiverPage() {
       />
       <BreadcrumbJsonLd path="/land-river" />
       <SiteHeader />
-      <main className="rr-body text-slate-800">
+      <PageGalleryBackdrop />
+      <main className="relative z-[1] rr-body text-slate-800">
         <Container className="py-10">
           <article className="rr-glass-strong mx-auto max-w-3xl p-6 sm:p-8">
             <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--rr-mint)]">
@@ -99,8 +101,8 @@ export default function LandRiverPage() {
               a mixed crowd; signage marks expectations at the site. At the end of the
               trails, a sandy bank known as{" "}
               <strong className="font-medium text-[var(--rr-mint)]">Fifth Beach</strong>—unofficial
-              but well known to locals—has long been a gathering place for gay and bisexual men and
-              their friends. Be respectful and give others space—the usual courtesies apply.
+              but well known to locals—has long been a gathering place for gay, bi, and queer visitors
+              and friends. Be respectful and give others space—the usual courtesies apply.
             </p>
             <p className="mt-3 text-sm leading-7 text-slate-600">
               This site and the river work best for a mixed crowd when we are respectful toward

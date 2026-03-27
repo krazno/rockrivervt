@@ -5,6 +5,7 @@ import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { WebPageJsonLd } from "@/components/seo/web-page-json-ld";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { PageGalleryBackdrop } from "@/components/layout/page-gallery-backdrop";
 import { buildPageMetadata, META_DESC_MAX, truncateMetaDescription } from "@/lib/seo";
 
 const pageDesc = truncateMetaDescription(
@@ -35,7 +36,8 @@ export default function VisitorGuidePage() {
       />
       <BreadcrumbJsonLd path="/visitor-guide" />
       <SiteHeader />
-      <main className="flex min-h-screen flex-col bg-[#F6F4EF] pb-16 text-[#1F2A24] antialiased">
+      <PageGalleryBackdrop />
+      <main className="relative z-[1] flex min-h-screen flex-col bg-[#F6F4EF]/95 pb-16 text-[#1F2A24] antialiased backdrop-blur-[1px]">
         <HomeGuide />
       </main>
       <SiteFooter />

@@ -10,7 +10,8 @@ export type CrowdDailyBaselineRow = {
 };
 
 /**
- * One row in `crowd_reports` — anonymous submission; multiple per device per UTC day allowed.
+ * One row in `crowd_reports` — anonymous submission; multiple per device per calendar day allowed
+ * (day = America/New_York). Requires migration `0002_crowd_multiple_reports_per_device.sql` applied.
  */
 export type CrowdReportRow = {
   id: string;
@@ -35,11 +36,13 @@ export type CrowdAreaSummary = {
 };
 
 export type CrowdSummaryResponse = {
-  /** UTC calendar date used for this summary (YYYY-MM-DD). */
+  /** Present on successful GET; false only when `/api/crowd` returns 503 (missing Supabase env). */
+  configured: true;
+  /** Eastern (America/New_York) calendar date for this summary (YYYY-MM-DD). */
   reportDate: string;
-  /** Hint for clients; “today” is computed in UTC in the API for consistency. */
-  dateScope: "utc_day";
-  /** Rows in `crowd_reports` for this UTC day (each row is one check-in). */
+  /** “Today” follows Vermont-local calendar date, not UTC midnight. */
+  dateScope: "America/New_York";
+  /** Rows in `crowd_reports` for this calendar day (each row is one check-in). */
   totalReportsToday: number;
   areas: CrowdAreaSummary[];
 };
@@ -55,6 +58,9 @@ export type CrowdReportPostBody = {
 
 export type CrowdReportPostResult = {
   ok: true;
+  configured: true;
   submissionId: string;
   reportDate: string;
+  /** Count of rows for `reportDate` after insert; omitted if the follow-up count query failed. */
+  totalReportsToday?: number;
 };

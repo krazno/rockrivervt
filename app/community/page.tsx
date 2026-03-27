@@ -6,7 +6,11 @@ import { GuideSection } from "@/components/guide/guide-section";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { WebPageJsonLd } from "@/components/seo/web-page-json-ld";
 import { buildPageMetadata, truncateMetaDescription, META_DESC_MAX } from "@/lib/seo";
-import { CONTACT_FORM_EMAIL } from "@/lib/site";
+import {
+  CONTACT_FORM_EMAIL,
+  mailtoPhotoSubmission,
+  SITE_STUDIO_BRAND,
+} from "@/lib/site";
 
 const pageDesc = truncateMetaDescription(
   "Rock River community: a mixed shoreline, volunteer stewardship, respectful use, and how to send corrections to this neighbor-maintained guide—Newfane VT, Windham County.",
@@ -82,17 +86,35 @@ export default function CommunityPage() {
 
         <GuideSection eyebrow="This website" title="Corrections and contact">
           <p>
-            RockRiverVT is a volunteer field guide—not the nonprofit, not a town office. Photos,
-            map tweaks, and gentle corrections help the next visitor:
+            RockRiverVT is a volunteer field guide—not the nonprofit, not a town office. Map tweaks,
+            gentle corrections, and gallery photos help the next visitor.
+          </p>
+          <p>
+            <strong className="font-semibold text-[#1F2A24]">Crowd check-ins:</strong> The “how busy
+            it feels” widget saves anonymous ratings (you can check in more than once per day; each
+            submission adds to the merged view) when Supabase is configured. If the database is
+            unavailable, the widget shows baselines only and check-in is disabled—same on the home and
+            conditions pages.
+          </p>
+          <p>
+            <strong className="font-semibold text-[#1F2A24]">Photos:</strong> There is no drag-and-drop
+            uploader here yet.{" "}
+            <a
+              href={mailtoPhotoSubmission()}
+              className="font-semibold text-[#4F6B52] underline-offset-2 hover:underline"
+            >
+              Email photos for the gallery
+            </a>
+            ; we review before publishing.
           </p>
           <p>
             <a
               href={`mailto:${CONTACT_FORM_EMAIL}?subject=${encodeURIComponent("Rock River VT — note")}`}
               className="font-semibold text-[#4F6B52] underline-offset-2 hover:underline"
             >
-              Email the editors
-            </a>
-            . For formal volunteer onboarding or policies, use official{" "}
+              Email {SITE_STUDIO_BRAND}
+            </a>{" "}
+            for anything else. For formal volunteer onboarding or policies, use official{" "}
             <a
               href="https://www.rockriverpreservation.org"
               target="_blank"
@@ -112,6 +134,10 @@ export default function CommunityPage() {
             <Link href="/map">Map</Link>
             {" · "}
             <Link href="/conditions">Conditions</Link>
+            {" · "}
+            <Link href="/guidelines">Guidelines</Link>
+            {" · "}
+            <Link href="/land-river">Land &amp; river</Link>
             {" · "}
             <Link href="/resources">Resources</Link>
             {" · "}

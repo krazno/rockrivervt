@@ -28,20 +28,17 @@ export default function RockRiverMapPage() {
       intro={
         <>
           <p>
-            The working <strong>Rock River map</strong> on this site is the same interactive
-            GeoJSON view you will use on the full{" "}
+            <strong>Role:</strong> this URL is the long-search landing; the working tool is the full{" "}
             <Link href="/map" className="font-medium text-[var(--rr-link)] underline-offset-4 hover:underline">
-              /map
-            </Link>{" "}
-            page: parking pull-offs, trail alignment, beaches, and context for{" "}
-            <strong>Newfane, Vermont</strong> visitors navigating <strong>Windham County</strong>.
-            If you are comparing <strong>southern Vermont</strong> river days, bookmark both this
-            explainer and the live embed so you can zoom before you leave <strong>Brattleboro</strong>{" "}
-            or the <strong>West River</strong> valley.
+              interactive map
+            </Link>
+            —same layers: parking, trail, beaches, and shoreline labels. Open it to pan, zoom, and read the
+            legend before you lose signal.
           </p>
           <p>
-            Start here, then open the full map for pan, zoom, and legend; the homepage hero still offers
-            a quick preview if you need it.
+            The river is in Newfane; most parking pins sit along Route 30 on the Dummerston side—use the
+            map, not town names alone. The home page shows a smaller preview of the same map if you want a
+            quick glance first.
           </p>
         </>
       }
