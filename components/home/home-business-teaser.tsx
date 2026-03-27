@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { Building2, Mail, Sparkles } from "lucide-react";
 
+import { PhotoAccentRow } from "@/components/shared/photo-accent-row";
 import { SITE_STUDIO_BRAND, mailtoBusinessPartners } from "@/lib/site";
 
-/** On-ramp for the area partners program—clear CTA to CrowdStone Design. */
+/** On-ramp for the area partners program—clear CTA to Krasno Design. */
 export function HomeBusinessTeaser() {
   return (
     <section
@@ -55,6 +56,7 @@ export function HomeBusinessTeaser() {
             </Link>
           </div>
         </div>
+        <PhotoAccentRow seed="home-windham-partners" className="mt-8 opacity-95" />
       </div>
     </section>
   );

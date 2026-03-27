@@ -53,7 +53,7 @@ export function HomeSectionHeader({
       <h2
         id={id}
         className={cn(
-          "font-heading mt-2.5 text-balance text-[clamp(1.35rem,2.2vw,1.95rem)] font-semibold tracking-tight text-[var(--rr-ink)] sm:mt-3",
+          "font-heading mt-2.5 text-balance text-[clamp(1.2rem,2vw,1.85rem)] font-semibold tracking-tight text-[var(--rr-ink)] sm:mt-3",
           titleClassName,
         )}
       >

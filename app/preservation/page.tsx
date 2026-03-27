@@ -40,6 +40,7 @@ export default function PreservationPage() {
         eyebrow="Stewardship & protection"
         title="Rock River preservation"
         lead="Rock River Preservation, Inc. is a volunteer-run nonprofit formed in 2005 to keep publicly accessible recreation along Rock River intact as southern Vermont faces development pressure, pollution, and erosion. Conserved land is both an ecological refuge and a shared cultural space when use stays lawful, respectful, and nature-first."
+        photoAccentSeed="preservation-stewardship"
       >
         <GuideSection eyebrow="Mission" title="Why land protection matters here">
           <p>

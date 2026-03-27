@@ -10,6 +10,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { PageGalleryBackdrop } from "@/components/layout/page-gallery-backdrop";
 import { Container } from "@/components/shared/container";
+import { PhotoAccentRow } from "@/components/shared/photo-accent-row";
 import { buildPageMetadata } from "@/lib/seo";
 
 const pageDesc =
@@ -76,6 +77,8 @@ export default function GuidelinesPage() {
               neighbors, the corridor, and everyone on the trail and in the water with ordinary
               courtesy—quiet voices, patience, and care.
             </p>
+
+            <PhotoAccentRow seed="page-guidelines" className="mt-8" />
 
             <div className="mt-8 overflow-hidden rounded-2xl border border-amber-200/80 bg-amber-50 p-5 sm:p-6">
               <h2

@@ -34,6 +34,7 @@ export default function LocalPage() {
         eyebrow="Southern Vermont"
         title="Local · Welcoming places"
         lead="Rock River sits between small Vermont towns where people are used to sharing trails and parking without much fuss. This page is context, not a brochure—we may add specific spots later."
+        photoAccentSeed="local-windham"
       >
         <section>
           <h2>Nearby towns</h2>

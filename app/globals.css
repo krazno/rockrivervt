@@ -442,6 +442,32 @@ main.home-page-main .rr-section {
   opacity: 0.14;
 }
 
+@keyframes rr-photo-accent-drift {
+  0%,
+  100% {
+    transform: scale(1.03) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.06) translate(1%, -0.5%);
+  }
+}
+
+.rr-photo-accent-tile img {
+  transform-origin: center;
+  animation: rr-photo-accent-drift 14s ease-in-out infinite;
+}
+
+.rr-photo-accent-tile--delay img {
+  animation-delay: -4.5s;
+  animation-duration: 16s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rr-photo-accent-tile img {
+    animation: none;
+  }
+}
+
 .rr-season-photo-band {
   position: relative;
   isolation: isolate;

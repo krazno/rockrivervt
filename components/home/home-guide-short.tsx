@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 
 import { HomeSectionHeader } from "@/components/home/home-section-header";
+import { PhotoAccentRow } from "@/components/shared/photo-accent-row";
 
 const MORE_LINKS: {
   href: string;
@@ -90,14 +91,15 @@ export function HomeGuideShort() {
           icon={BookOpen}
           id="home-guide-short-heading"
           title="Where to next"
-          titleClassName="text-[#1F2A24] text-xl font-bold sm:text-2xl"
+          titleClassName="text-[#1F2A24] text-xl font-bold tracking-tight sm:text-2xl"
           eyebrowClassName="text-[9px] tracking-[0.22em] text-[#6B6F68]"
           eyebrowIconClassName="h-4 w-4 text-[#4F6B52]"
-          description="Tap a card—full guides open in one click."
+          description="Pick a destination—each tile opens the full guide in one tap."
           descriptionClassName="text-[#6B6F68]"
-          className="mb-6 border-b border-[#E2E0D8]/80 pb-6 text-center sm:mb-8 sm:pb-8 sm:text-left"
+          className="mb-5 border-b border-[#E2E0D8]/80 pb-5 text-center sm:mb-6 sm:pb-6 sm:text-left"
         />
-        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <PhotoAccentRow seed="home-explore-strip" className="mb-6" />
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {MORE_LINKS.map(({ href, label, sub, icon: Icon, iconBg }) => (
             <li key={href}>
               <Link

@@ -42,6 +42,7 @@ export default function ConditionsPage() {
         eyebrow="Live tools"
         title="Rock River conditions & weather"
         lead="Use this page like a trailhead board: sky, water context, and how busy it felt to people who checked in—then make your own call at the river."
+        photoAccentSeed="conditions-live"
       >
         <div className="space-y-3">
           <p className="text-sm leading-relaxed text-[#3f4840] sm:text-[15px]">

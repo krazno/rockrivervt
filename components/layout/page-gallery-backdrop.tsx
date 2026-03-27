@@ -17,8 +17,8 @@ export function PageGalleryBackdrop() {
   if (!img) return null;
 
   const isHome = pathname === "/";
-  const opacity = isHome ? "opacity-[0.055]" : "opacity-[0.09]";
-  const wash = isHome ? "bg-[#faf8f4]/93" : "bg-[#faf8f4]/90";
+  const opacity = isHome ? "opacity-[0.09]" : "opacity-[0.11]";
+  const wash = isHome ? "bg-[#faf8f4]/86" : "bg-[#faf8f4]/84";
 
   return (
     <div

@@ -48,12 +48,12 @@ export function HomePageClient() {
       <HomeSeasonBanner />
       <PageGalleryBackdrop />
       <main className="home-page-main relative z-[1] flex min-h-screen flex-col bg-[#F6F4EF]/88 text-[#1F2A24] antialiased backdrop-blur-[2px]">
-        <p className="mx-auto w-full max-w-6xl px-4 pt-3 text-center text-[11px] leading-snug text-[#6B6F68] sm:px-6 sm:pt-4 sm:text-[12px] lg:px-8">
+        <p className="mx-auto w-full max-w-6xl px-4 pt-2 text-center text-[11px] leading-snug text-[#6B6F68] sm:px-6 sm:pt-3 sm:text-[12px] lg:px-8">
           Neighbor-run field guide—map, live snapshot, and local context. Not a government or agency site.
         </p>
         <HomeHero heroMode={heroMode} onHeroModeChange={setHeroMode} />
 
-        <div className="mt-2 space-y-10 sm:mt-3 sm:space-y-12 lg:space-y-14">
+        <div className="mt-2 space-y-8 sm:mt-3 sm:space-y-10 lg:space-y-12">
           <motion.section
             id="plan-today"
             initial={{ opacity: 0, y: 16 }}

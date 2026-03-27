@@ -4,16 +4,26 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { PageGalleryBackdrop } from "@/components/layout/page-gallery-backdrop";
 import { Container } from "@/components/shared/container";
+import { PhotoAccentRow } from "@/components/shared/photo-accent-row";
+import { cn } from "@/lib/utils";
 
 type GuidePageFrameProps = {
   eyebrow: string;
   title: string;
   lead: string;
+  /** When set, shows a deterministic trio of gallery stills under the lead. */
+  photoAccentSeed?: string;
   children: ReactNode;
 };
 
 /** Full-bleed guide page shell — matches homepage cream field (#F6F4EF via rr-body). */
-export function GuidePageFrame({ eyebrow, title, lead, children }: GuidePageFrameProps) {
+export function GuidePageFrame({
+  eyebrow,
+  title,
+  lead,
+  photoAccentSeed,
+  children,
+}: GuidePageFrameProps) {
   return (
     <>
       <SiteHeader />
@@ -28,8 +38,18 @@ export function GuidePageFrame({ eyebrow, title, lead, children }: GuidePageFram
               {title}
             </h1>
             <p className="mt-4 text-base leading-relaxed text-[#3f4840] sm:text-lg">{lead}</p>
+            {photoAccentSeed ?
+              <PhotoAccentRow seed={photoAccentSeed} className="mt-8" />
+            : null}
           </header>
-          <div className="mx-auto mt-10 flex max-w-3xl flex-col gap-6 sm:gap-8">{children}</div>
+          <div
+            className={cn(
+              "mx-auto flex max-w-3xl flex-col gap-6 sm:gap-8",
+              photoAccentSeed ? "mt-8 sm:mt-10" : "mt-10",
+            )}
+          >
+            {children}
+          </div>
         </Container>
       </main>
       <SiteFooter />

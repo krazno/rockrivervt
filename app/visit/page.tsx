@@ -95,6 +95,7 @@ export default function VisitPage() {
         eyebrow="Practical planning"
         title="Visit Rock River Vermont"
         lead="A Windham County river day shifts with the season—busy banks in summer, cold water in spring, quieter woods after leaf-drop. The river runs through Newfane; the pull-offs most people use sit along Route 30 on the Dummerston side—same place, different town label on the map. Pair this page with the map, conditions, and guidelines before you go. Quick questions below; deeper sections follow."
+        photoAccentSeed="visit-guide"
       >
         <GuideFaqSection
           id="visit-faq"

@@ -215,7 +215,7 @@ export function SiteHeader() {
 
       <AnimatePresence>
         {open ? (
-          <div className="fixed inset-0 z-[80] lg:hidden" key="nav-overlay">
+          <div className="fixed inset-0 z-[95] lg:hidden" key="nav-overlay">
             <motion.button
               type="button"
               aria-label="Close menu"

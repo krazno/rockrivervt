@@ -21,12 +21,13 @@ import {
   type CrowdAreaKey,
   type CrowdLevel,
 } from "@/lib/crowd/constants";
+import { crowdReportDateString } from "@/lib/crowd/date";
 import { getOrCreateCrowdDeviceId } from "@/lib/crowd/device-id";
 import { buildCrowdSummaries } from "@/lib/crowd/summary";
 import type { CrowdAreaSummary, CrowdSummaryResponse } from "@/lib/crowd/types";
 import { cn } from "@/lib/utils";
 
-type LoadState = "loading" | "ready" | "error";
+type LoadState = "loading" | "ready";
 
 const IS_DEV = process.env.NODE_ENV === "development";
 
@@ -54,25 +55,27 @@ async function readCrowdResponseJson(res: Response): Promise<CrowdApiJson | null
   }
 }
 
-function fallbackSummaries(): CrowdAreaSummary[] {
-  return buildCrowdSummaries(
-    {},
-    {
-      parking: [],
-      trails: [],
-      family_beach: [],
-      third_beach: [],
-      fifth_beach: [],
-    },
-  ).map((a) => ({
-    ...a,
-    label: CROWD_WIDGET_AREA_LABEL[a.areaKey],
-  }));
+const EMPTY_REPORT_LEVELS: Record<CrowdAreaKey, CrowdLevel[]> = {
+  parking: [],
+  trails: [],
+  family_beach: [],
+  third_beach: [],
+  fifth_beach: [],
+};
+
+function baselineOnlySummaryResponse(): CrowdSummaryResponse {
+  return {
+    configured: true,
+    reportDate: crowdReportDateString(),
+    dateScope: "America/New_York",
+    totalReportsToday: 0,
+    areas: buildCrowdSummaries({}, EMPTY_REPORT_LEVELS),
+  };
 }
 
-function rowSubtitle(row: CrowdAreaSummary, offlineFallback: boolean): string {
-  if (offlineFallback) {
-    return "Typical baseline only—live check-ins didn’t load";
+function rowSubtitle(row: CrowdAreaSummary, liveConnected: boolean): string {
+  if (!liveConnected && (row.blendSource === "baseline_only" || row.reportCount === 0)) {
+    return "Typical weekday feel—visitor check-ins will blend in when the live feed is on";
   }
   if (row.blendSource === "baseline_only" || row.reportCount === 0) {
     return "Baseline only—no visitor ratings for this spot yet today";
@@ -108,8 +111,8 @@ export function CrowdWidget({
 }: CrowdWidgetProps) {
   const [loadState, setLoadState] = useState<LoadState>("loading");
   const [summary, setSummary] = useState<CrowdSummaryResponse | null>(null);
-  /** Set when GET fails so we don’t imply “no check-ins yet” for offline/error. */
-  const [loadErrorHint, setLoadErrorHint] = useState<string | null>(null);
+  /** True only after a successful GET from a live-configured API (not baseline placeholder). */
+  const [liveCrowdBackend, setLiveCrowdBackend] = useState(false);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [selections, setSelections] = useState<
@@ -126,47 +129,38 @@ export function CrowdWidget({
   const [modalSuccess, setModalSuccess] = useState(false);
   const deviceId = useMemo(() => getOrCreateCrowdDeviceId(), []);
 
-  const backendReady = loadState === "ready";
-
   const refreshSummary = useCallback(async () => {
     setLoadState("loading");
-    setLoadErrorHint(null);
     try {
       const res = await fetch("/api/crowd", { cache: "no-store" });
       const json = await readCrowdResponseJson(res);
 
       if (!res.ok) {
-        setSummary(null);
-        setLoadState("error");
-        const hint =
-          res.status === 503 ?
-            json?.error ??
-            "Check-ins need Supabase configured (see site ops docs)."
-          : res.status === 502 ?
-            json?.error ?? "Couldn’t read crowd data from the database."
-          : json?.error ?? "Couldn’t load live check-ins.";
-        setLoadErrorHint(hint);
         if (IS_DEV && json?.error) {
-          console.warn("[crowd] GET /api/crowd failed:", res.status, json);
+          console.warn("[crowd] GET /api/crowd:", res.status, json);
         }
+        setSummary(baselineOnlySummaryResponse());
+        setLiveCrowdBackend(false);
+        setLoadState("ready");
         return;
       }
 
       if (!json || !Array.isArray(json.areas)) {
-        setSummary(null);
-        setLoadState("error");
-        setLoadErrorHint("Unexpected response from the crowd service.");
         if (IS_DEV) console.warn("[crowd] GET /api/crowd: unexpected JSON shape");
+        setSummary(baselineOnlySummaryResponse());
+        setLiveCrowdBackend(false);
+        setLoadState("ready");
         return;
       }
 
       setSummary(json as CrowdSummaryResponse);
+      setLiveCrowdBackend(true);
       setLoadState("ready");
     } catch {
-      setSummary(null);
-      setLoadState("error");
-      setLoadErrorHint("Network error while loading check-ins.");
       if (IS_DEV) console.warn("[crowd] GET /api/crowd: network or parse error");
+      setSummary(baselineOnlySummaryResponse());
+      setLiveCrowdBackend(false);
+      setLoadState("ready");
     }
   }, []);
 
@@ -177,7 +171,7 @@ export function CrowdWidget({
       const json = await readCrowdResponseJson(res);
       if (res.ok && json && Array.isArray(json.areas)) {
         setSummary(json as CrowdSummaryResponse);
-        setLoadErrorHint(null);
+        setLiveCrowdBackend(true);
         setLoadState("ready");
       }
     } catch {
@@ -226,17 +220,13 @@ export function CrowdWidget({
     return () => window.clearTimeout(t);
   }, [modalSuccess, closeModal]);
 
-  const offlineFallback = loadState === "error";
-
   const areasForDisplay: CrowdAreaSummary[] =
     loadState === "ready" && summary
       ? summary.areas.map((a) => ({
           ...a,
           label: CROWD_WIDGET_AREA_LABEL[a.areaKey],
         }))
-      : offlineFallback
-        ? fallbackSummaries()
-        : [];
+      : [];
 
   const showSummarySkeleton = loadState === "loading";
 
@@ -281,7 +271,7 @@ export function CrowdWidget({
           setSubmitMessage(json.error);
         } else if (res.status === 503) {
           setSubmitMessage(
-            "Saving isn’t available right now—the site needs its database connection configured.",
+            "Check-ins aren’t live on this deployment yet—we’re showing typical baselines instead.",
           );
           if (IS_DEV && json?.envIssues?.length) {
             setSubmitDevHint(`Env: ${json.envIssues.join(", ")}`);
@@ -341,7 +331,7 @@ export function CrowdWidget({
   }
 
   const modalFormDisabled =
-    submitState === "submitting" || modalSuccess || !backendReady;
+    submitState === "submitting" || modalSuccess || !liveCrowdBackend;
 
   const totalCheckIns =
     loadState === "ready" && summary
@@ -379,17 +369,18 @@ export function CrowdWidget({
         >
           {crowdIntro}
         </p>
-        {loadState === "error" && loadErrorHint ?
+        {loadState === "ready" && summary && !liveCrowdBackend ?
           <p
             className={cn(
-              "mt-2 rounded-lg border border-amber-200/90 bg-amber-50/95 px-3 py-2 text-[11px] leading-snug text-amber-950/90 sm:text-xs",
+              "mt-2 text-[11px] leading-snug text-[#6B6F68] sm:text-[12px]",
               variant === "home" && "text-left",
             )}
             role="status"
           >
-            {loadErrorHint} Showing static baselines below—not live visitor data.
+            Typical weekday vibes by area—live community check-ins will show here when the data feed
+            is connected.
           </p>
-        : totalCheckIns !== null ?
+        : totalCheckIns !== null && liveCrowdBackend ?
           <p
             className={cn(
               "mt-1.5 text-[11px] font-medium tabular-nums sm:text-xs",
@@ -442,7 +433,7 @@ export function CrowdWidget({
                           variant === "home" ? "text-[#6B6F68]" : "text-[var(--rr-text-muted)]",
                         )}
                       >
-                        {rowSubtitle(row, offlineFallback)}
+                        {rowSubtitle(row, liveCrowdBackend)}
                       </p>
                     </div>
                     <span
@@ -472,9 +463,9 @@ export function CrowdWidget({
         <div className="flex flex-col items-stretch gap-2 sm:items-center">
           <button
             type="button"
-            disabled={!backendReady || submitState === "submitting"}
+            disabled={!liveCrowdBackend || submitState === "submitting"}
             onClick={() => {
-              if (!backendReady) return;
+              if (!liveCrowdBackend) return;
               setModalOpen(true);
               setSubmitMessage(null);
               setSubmitDevHint(null);
@@ -482,19 +473,24 @@ export function CrowdWidget({
             }}
             className={cn(
               "w-full rounded-full border px-5 py-2.5 text-sm font-medium transition sm:max-w-sm sm:self-center sm:py-3",
-              backendReady
+              liveCrowdBackend
                 ? variant === "home"
                   ? "border-[#4F6B52] bg-[#4F6B52] text-white shadow-sm hover:bg-[#3d5240]"
                   : "border-[var(--rr-forest)] bg-[var(--rr-forest)] text-[#faf8f4] shadow-[var(--rr-shadow-card)] hover:bg-[#3d4a3d]"
-                : "cursor-not-allowed border-[var(--rr-widget-border)] bg-[var(--rr-widget-bg-soft)] text-[var(--rr-text-muted)]",
+                : "cursor-not-allowed border-[#e8e6e0] bg-[#f3f2ee] text-[#8a918c]",
             )}
           >
-            Check in
+            {liveCrowdBackend ? "Check in" : "Check in when live"}
           </button>
+          {!liveCrowdBackend && loadState === "ready" ?
+            <p className="text-center text-[10px] leading-snug text-[#9aa39c] sm:text-[11px]">
+              Button enables automatically when live check-ins connect—baselines stay useful either way.
+            </p>
+          : null}
         </div>
       </div>
 
-      {modalOpen && backendReady ? (
+      {modalOpen && liveCrowdBackend ? (
         <div
           className="fixed inset-0 z-[100] flex items-end justify-center p-0 sm:items-center sm:p-4"
           aria-hidden={false}

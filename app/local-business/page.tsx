@@ -13,7 +13,7 @@ import {
 import { CONTACT_FORM_EMAIL, SITE_STUDIO_BRAND, mailtoBusinessPartners } from "@/lib/site";
 
 const pageDesc = truncateMetaDescription(
-  "Windham County area partners for Rock River visitors: cafés, shops, lodging near Newfane & Brattleboro. LGBTQ-friendly guide—list your business, optional perks & sponsors. Email CrowdStone Design.",
+  "Windham County area partners for Rock River visitors: cafés, shops, lodging near Newfane & Brattleboro. LGBTQ-friendly guide—list your business, optional perks & sponsors. Email Krasno Design.",
   META_DESC_MAX,
 );
 
@@ -45,6 +45,7 @@ export default function LocalBusinessPage() {
         eyebrow="Windham County"
         title="Area partners"
         lead="The river pulls a friendly, mixed crowd—families, hikers, swimmers, and plenty of LGBTQ+ folks who already treat southern Vermont as home for the weekend. This page is where local spots can show up next to the map and conditions: helpful, clearly labeled, never a junky coupon wall."
+        photoAccentSeed="area-partners"
       >
         <GuideSection eyebrow="Why list here" title="Meet people at the right moment">
           <p>

@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { PageGalleryBackdrop } from "@/components/layout/page-gallery-backdrop";
 import { Container } from "@/components/shared/container";
+import { PhotoAccentRow } from "@/components/shared/photo-accent-row";
 import { buildPageMetadata } from "@/lib/seo";
 
 const pageDesc =
@@ -44,6 +45,8 @@ export default function HistoryPage() {
               who loved the water and the trails enough to organize, fundraise, and keep
               showing up—through storms, negotiations, and the slow work of stewardship.
             </p>
+
+            <PhotoAccentRow seed="page-history" className="mt-8" />
 
             <h2
               id="volunteer-preservation-path"

@@ -44,6 +44,7 @@ export default function ResourcesPage() {
         eyebrow="Planning hub"
         title="Resources"
         lead="Bookmark what you use: this site’s maps and live tools first, then official stewardship and state agencies for context. Municipal websites change URLs often—search “Town of Newfane Vermont” for the current roads and notices page when you need it."
+        photoAccentSeed="resources-hub"
       >
         <GuideSection eyebrow="On RockRiverVT" title="This guide">
           <ul className="list-disc space-y-2 pl-5">

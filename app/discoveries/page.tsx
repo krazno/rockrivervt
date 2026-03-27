@@ -72,6 +72,7 @@ export default function DiscoveriesPage() {
         eyebrow="In the field"
         title="Discoveries along Rock River"
         lead="Slow down enough to see cobbles, shade, and who shares the corridor with you. What follows is drawn from the same notes that power this guide—river stones and ice-age context, plants and animals, seasons—written for neighbors, not textbooks."
+        photoAccentSeed="discoveries-field"
       >
         <GuideSection eyebrow="Underfoot" title="River stones and glacial shaping">
           <KnowledgeSectionProse content={stonesBody} />
