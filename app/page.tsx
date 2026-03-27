@@ -3,31 +3,22 @@ import type { Metadata } from "next";
 import { HomePageClient } from "@/components/home/home-page-client";
 import { HomePageJsonLd } from "@/components/seo/home-page-json-ld";
 import {
-  DEFAULT_OG_ALT,
-  META_DESC_MAX,
-  OG_IMAGE,
+  HOME_PAGE_DESCRIPTION,
+  HOME_PAGE_TITLE_ABSOLUTE,
   SITE_NAME_LONG,
   SITE_URL,
-  truncateMetaDescription,
 } from "@/lib/seo";
-
-const HOME_DESC = truncateMetaDescription(
-  "Complete guide to Rock River in Newfane Vermont. Map, trail, swimming holes, parking, weather, river conditions, and visitor info for Windham County VT.",
-  META_DESC_MAX,
-);
-
-const HOME_TITLE_ABSOLUTE =
-  "Rock River Vermont | Map, Conditions, Swimming Hole, Trail | Newfane VT Guide";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { absolute: HOME_TITLE_ABSOLUTE },
-  description: HOME_DESC,
+  title: { absolute: HOME_PAGE_TITLE_ABSOLUTE },
+  description: HOME_PAGE_DESCRIPTION,
   keywords: [
     "rock river vermont",
     "rock river newfane vt",
-    "rock river newfane vermont",
-    "rock river swimming hole vermont",
+    "LGBTQ friendly Vermont",
+    "LGBTQ Vermont swimming",
+    "Windham County LGBTQ",
     "newfane vermont swimming hole",
     "brattleboro swimming hole",
     "southern vermont swimming hole",
@@ -43,23 +34,21 @@ export const metadata: Metadata = {
     type: "website",
     url: SITE_URL,
     siteName: SITE_NAME_LONG,
-    title: HOME_TITLE_ABSOLUTE,
-    description: HOME_DESC,
-    images: [{ ...OG_IMAGE, alt: DEFAULT_OG_ALT }],
+    title: HOME_PAGE_TITLE_ABSOLUTE,
+    description: HOME_PAGE_DESCRIPTION,
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: HOME_TITLE_ABSOLUTE,
-    description: HOME_DESC,
-    images: [{ url: OG_IMAGE.url, alt: DEFAULT_OG_ALT }],
+    title: HOME_PAGE_TITLE_ABSOLUTE,
+    description: HOME_PAGE_DESCRIPTION,
   },
 };
 
 export default function Home() {
   return (
     <>
-      <HomePageJsonLd description={HOME_DESC} />
+      <HomePageJsonLd description={HOME_PAGE_DESCRIPTION} />
       <HomePageClient />
     </>
   );

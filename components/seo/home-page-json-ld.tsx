@@ -1,12 +1,9 @@
 import {
-  OG_IMAGE,
+  HOME_PAGE_TITLE_ABSOLUTE,
   SITE_URL,
   absoluteUrl,
   breadcrumbListJsonLd,
 } from "@/lib/seo";
-
-const HOME_PAGE_TITLE =
-  "Rock River Vermont | Map, Conditions, Swimming Hole, Trail | Newfane VT Guide";
 
 type HomePageJsonLdProps = {
   description: string;
@@ -26,20 +23,20 @@ export function HomePageJsonLd({ description }: HomePageJsonLdProps) {
     "@type": "WebPage",
     "@id": webPageId,
     url: SITE_URL,
-    name: HOME_PAGE_TITLE,
+    name: HOME_PAGE_TITLE_ABSOLUTE,
     description,
     isPartOf: { "@id": `${SITE_URL}/#website` },
     about: { "@id": placeId },
     primaryImageOfPage: { "@id": `${SITE_URL}/#default-og-image` },
-    image: absoluteUrl(OG_IMAGE.url),
+    image: absoluteUrl("/opengraph-image"),
     inLanguage: "en-US",
   };
 
   const article = {
     "@type": "Article",
     "@id": `${SITE_URL}/#homepage-article`,
-    headline: "Rock River Vermont Visitor Guide",
-    name: "Rock River Vermont Visitor Guide",
+    headline: HOME_PAGE_TITLE_ABSOLUTE,
+    name: "Rock River Vermont — welcoming visitor guide",
     description,
     url: SITE_URL,
     inLanguage: "en-US",
@@ -47,7 +44,7 @@ export function HomePageJsonLd({ description }: HomePageJsonLdProps) {
     publisher: { "@type": "Organization", "@id": orgId },
     mainEntityOfPage: { "@id": webPageId },
     about: { "@id": placeId },
-    image: absoluteUrl(OG_IMAGE.url),
+    image: absoluteUrl("/opengraph-image"),
   };
 
   const breadcrumbs = breadcrumbListJsonLd([{ name: "Home", path: "/" }]);

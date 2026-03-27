@@ -8,13 +8,10 @@ import {
 } from "@/components/seo/google-tag-manager";
 import { SiteWideJsonLd } from "@/components/seo/site-wide-json-ld";
 import {
-  DEFAULT_OG_ALT,
-  META_DESC_MAX,
-  OG_IMAGE,
+  HOME_PAGE_DESCRIPTION,
   SITE_NAME_LONG,
   SITE_URL,
   TITLE_TEMPLATE,
-  truncateMetaDescription,
 } from "@/lib/seo";
 
 import "./globals.css";
@@ -38,14 +35,13 @@ const cormorant = Cormorant_Garamond({
 const googleSiteVerification =
   process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ?? "";
 
-const defaultDesc = truncateMetaDescription(
-  "Rock River Vermont guide—Newfane swimming holes, trail map, river conditions, weather, and visitor tips in Windham County near Brattleboro.",
-  META_DESC_MAX,
-);
+const defaultDesc = HOME_PAGE_DESCRIPTION;
 
 const rootKeywords = [
   "Rock River Vermont",
   "Rock River Newfane VT",
+  "LGBTQ friendly Vermont",
+  "Windham County LGBTQ",
   "Newfane swimming hole",
   "Rock River trail Vermont",
   "Windham County swimming hole",
@@ -75,21 +71,12 @@ export const metadata: Metadata = {
     siteName: SITE_NAME_LONG,
     title: SITE_NAME_LONG,
     description: defaultDesc,
-    images: [
-      {
-        url: OG_IMAGE.url,
-        width: OG_IMAGE.width,
-        height: OG_IMAGE.height,
-        alt: DEFAULT_OG_ALT,
-      },
-    ],
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_NAME_LONG,
     description: defaultDesc,
-    images: [{ url: OG_IMAGE.url, alt: DEFAULT_OG_ALT }],
   },
   category: "travel",
   robots: {

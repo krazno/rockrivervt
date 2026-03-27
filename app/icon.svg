@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Rock River Vermont">
+  <defs>
+    <linearGradient id="rr-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14332a"/>
+      <stop offset="100%" stop-color="#2d6b52"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="8" fill="url(#rr-bg)"/>
+  <g transform="translate(0, 24)">
+    <rect x="0" y="0" width="5.33" height="8" fill="#E40303"/>
+    <rect x="5.33" y="0" width="5.33" height="8" fill="#FF8C00"/>
+    <rect x="10.66" y="0" width="5.33" height="8" fill="#FFED00"/>
+    <rect x="16" y="0" width="5.33" height="8" fill="#008026"/>
+    <rect x="21.33" y="0" width="5.33" height="8" fill="#24408E"/>
+    <rect x="26.66" y="0" width="5.34" height="8" fill="#732982"/>
+  </g>
+  <path
+    d="M5 15c2.8-2.2 6.2-2.2 9 0 2.8 2.2 6.2 2.2 9 0 2.8-2.2 6.2-2.2 9 0"
+    stroke="#f4faf6"
+    stroke-width="1.75"
+    fill="none"
+    stroke-linecap="round"
+    opacity="0.95"
+  />
+</svg>

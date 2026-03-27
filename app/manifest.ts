@@ -2,19 +2,20 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Rock River Vermont — Newfane & Windham County guide",
+    name: "Rock River Vermont — welcoming LGBTQ-friendly guide",
     short_name: "Rock River VT",
     description:
-      "Rock River Vermont—map, swimming holes, live conditions, trail, and visitor guide for Newfane & Windham County.",
+      "LGBTQ-welcoming, community-run guide to Rock River—map, conditions, swimming holes, trail, Newfane & Windham County VT.",
     start_url: "/",
     display: "standalone",
     background_color: "#eef2ea",
     theme_color: "#31584b",
     icons: [
       {
-        src: "/favicon.ico",
+        src: "/icon.svg",
         sizes: "any",
-        type: "image/x-icon",
+        type: "image/svg+xml",
+        purpose: "any",
       },
     ],
   };

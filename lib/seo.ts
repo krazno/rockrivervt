@@ -9,9 +9,9 @@ export const SITE_NAME_SHORT = "Rock River VT";
 /** Root template segment — keep page titles short so full title stays under ~60 chars with template. */
 export const TITLE_TEMPLATE = "%s | Rock River Vermont";
 
-/** Default share image (1200×630) */
+/** Default share image alt (inner pages still use OG_IMAGE url when present) */
 export const DEFAULT_OG_ALT =
-  "Rock River swimming hole and trail in Newfane, Windham County Vermont, near Brattleboro";
+  "Rock River Vermont—LGBTQ-welcoming guide to the river, trail, and swimming area in Newfane & Windham County";
 
 export const OG_IMAGE = {
   url: "/rock-river-hero.png",
@@ -37,6 +37,24 @@ export function truncateMetaDescription(text: string, max = META_DESC_MAX): stri
   const lastSpace = cut.lastIndexOf(" ");
   return (lastSpace > 40 ? cut.slice(0, lastSpace) : cut).trim() + "…";
 }
+
+/** Homepage `<title>` / SERP — keep near ~60 characters for Google display */
+export const HOME_PAGE_TITLE_ABSOLUTE =
+  "Rock River Vermont | Welcoming LGBTQ-friendly river guide · Newfane";
+
+const HOME_META_RAW =
+  "Community-run, LGBTQ-welcoming guide to Rock River in Newfane VT—map, live conditions, swimming holes, trail, and Windham County tips. Not a government site.";
+
+/** Homepage meta description (Google snippet) */
+export const HOME_PAGE_DESCRIPTION = truncateMetaDescription(HOME_META_RAW, META_DESC_MAX);
+
+/** Dynamic Open Graph image (`app/opengraph-image.tsx`) */
+export const HOME_OG_ALT =
+  "Rock River Vermont — LGBTQ-welcoming visitor guide: river, trail, and swimming holes in Newfane & Windham County VT";
+
+export const HOME_OG_TITLE_LINE = "Rock River Vermont";
+export const HOME_OG_DESCRIPTION_LINE =
+  "LGBTQ-welcoming guide · map, live conditions, swimming holes & trail · Windham County VT";
 
 export type BuildPageMetaArgs = {
   /** Title segment (used with root `title.template`) unless `absoluteTitle` is set */
