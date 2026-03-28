@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { motion } from "motion/react";
 import { useSectionViewSentinel } from "@/hooks/use-section-view-sentinel";
-import { Calendar, MapPin } from "lucide-react";
+import { Calendar } from "lucide-react";
 
 import { HomeBusinessTeaser } from "@/components/home/home-business-teaser";
 import { HomeGuideShort } from "@/components/home/home-guide-short";
@@ -83,31 +83,26 @@ export function HomePageClient({
         <HomePageFlowSpine />
         <HomeLeafAtmosphere />
         <div className="relative z-[2] flex min-h-screen flex-col">
-        <p className="mx-auto w-full max-w-6xl px-4 pt-2 text-center text-[11px] leading-snug text-[#6B6F68] sm:px-6 sm:pt-3 sm:text-[12px] lg:px-8">
-          Neighbor-run field guide—map, live snapshot, and local context. Not a government or agency site.
-        </p>
-        <div
-          className="mx-auto w-full max-w-6xl px-4 pb-1 pt-2 text-center sm:px-6 sm:pb-2 sm:pt-2.5 lg:px-8"
-          aria-label="Where Rock River is"
-        >
-          <p className="flex flex-wrap items-center justify-center gap-x-1.5 gap-y-0.5 text-[10px] font-medium leading-snug text-[#5c645c] sm:text-[11px]">
-            <MapPin
-              className="h-3 w-3 shrink-0 text-[#4F6B52]/75 sm:h-3.5 sm:w-3.5"
-              aria-hidden
-            />
-            <span>
-              <span className="text-[#4a524a]">Newfane, Vermont</span>
-              <span className="text-[#6B6F68]"> · Windham County</span>
-            </span>
-          </p>
-          <p className="mt-0.5 text-[10px] leading-snug text-[#8a918c] sm:text-[11px]">
-            River in Newfane · usual parking pull-offs along Vermont Route 30 (Dummerston side)
-          </p>
-        </div>
         <HomeHero />
+        <div className="mx-auto w-full max-w-6xl px-4 pt-5 text-center sm:px-6 sm:pt-7 lg:px-8">
+          <p className="text-[12px] font-normal leading-relaxed text-[#6B6F68] sm:text-[13px]">
+            Neighbor-run guide—not a town or agency site.
+          </p>
+          <div
+            className="mx-auto mt-5 max-w-xl sm:mt-6"
+            aria-label="Where Rock River is"
+          >
+            <p className="text-[11px] font-normal leading-snug text-[#6B6F68] sm:text-xs">
+              📍 Newfane, Vermont · Windham County
+            </p>
+            <p className="mt-1.5 text-[11px] font-normal leading-snug text-[#8a918c] sm:text-xs">
+              Most people park along Route 30 on the Dummerston side
+            </p>
+          </div>
+        </div>
         <HomePeopleSplash />
 
-        <div className="mt-2 flex flex-col gap-10 sm:mt-3 sm:gap-12 lg:gap-[3.25rem]">
+        <div className="mt-6 flex flex-col gap-10 sm:mt-8 sm:gap-12 lg:gap-[3.25rem]">
           <div className="flex flex-col gap-7 sm:gap-8 lg:gap-9">
             <motion.section
               ref={bindPlanToday}

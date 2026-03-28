@@ -19,10 +19,10 @@ export function HomePeopleSplash() {
 
   return (
     <div
-      className="mx-auto flex w-full max-w-6xl flex-col items-center px-4 pb-1 pt-2 sm:px-6 sm:pb-2 sm:pt-3 lg:px-8"
+      className="mx-auto flex w-full max-w-6xl flex-col items-center px-4 pb-2 pt-4 sm:px-6 sm:pb-3 sm:pt-5 lg:px-8"
       aria-label="Visitors at Rock River"
     >
-      <p className="mb-3 text-center text-[10px] font-medium uppercase tracking-[0.2em] text-[#8a918c]">
+      <p className="mb-4 text-center text-[10px] font-medium tracking-[0.14em] text-[#8a918c] sm:mb-4 sm:text-[11px] sm:tracking-[0.12em]">
         Real river days
       </p>
       <div className="flex justify-center" role="list">
@@ -35,27 +35,27 @@ export function HomePeopleSplash() {
               reduceMotion ?
                 undefined
               : {
-                  scale: 1.03,
+                  scale: 1.055,
                   y: -1,
-                  transition: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
+                  transition: { duration: 0.32, ease: [0.22, 1, 0.36, 1] },
                 }
             }
             className={cn(
               "relative",
-              i > 0 && "-ml-3 sm:-ml-3.5",
+              i > 0 && "-ml-[1.125rem] sm:-ml-5",
             )}
             style={{ zIndex: items.length - i }}
           >
             <Link
               href="/gallery"
-              className="relative block h-[3.25rem] w-[3.25rem] overflow-hidden rounded-full border-2 border-[#faf8f4] bg-[#eef0ec] shadow-[0_4px_18px_-10px_rgba(31,42,36,0.18)] ring-2 ring-[#E2E0D8]/75 transition-shadow duration-300 hover:shadow-[0_8px_24px_-12px_rgba(31,42,36,0.2)] hover:ring-[#4F6B52]/22 sm:h-14 sm:w-14"
+              className="relative block h-16 w-16 overflow-hidden rounded-full border-2 border-[#faf8f4] bg-[#eef0ec] shadow-[0_4px_18px_-10px_rgba(31,42,36,0.18)] ring-2 ring-[#E2E0D8]/75 transition-[box-shadow,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:shadow-[0_8px_24px_-12px_rgba(31,42,36,0.2)] hover:ring-[#4F6B52]/22 sm:h-[4.5rem] sm:w-[4.5rem] motion-reduce:transition-shadow"
             >
               <Image
                 src={img.src}
                 alt={img.alt}
                 title={img.title}
                 fill
-                sizes="56px"
+                sizes="72px"
                 className="object-cover object-center"
               />
               <span className="sr-only">{img.title}</span>

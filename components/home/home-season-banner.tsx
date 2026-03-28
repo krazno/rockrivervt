@@ -27,9 +27,6 @@ export function HomeSeasonBanner() {
             <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-[#8a918c] sm:text-[11px] sm:tracking-[0.24em]">
               Newfane · Windham County · Southern Vermont
             </p>
-            <p className="mt-2 max-w-[18ch] text-[11px] font-medium leading-relaxed text-[#6B6F68] sm:max-w-none sm:text-xs">
-              Neighbor-run guide—not a town or agency site.
-            </p>
           </div>
 
           <div className="mt-5 border-t border-[#dcd6cc]/80 pt-5 lg:mt-0 lg:border-t-0 lg:pt-0 lg:pl-2">

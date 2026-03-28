@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rock River VT — Content audit visual rundown</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    :root {
+      --sage: #4f6b52;
+      --ink: #1f2a24;
+      --muted: #6b6f68;
+      --paper: #f6f4ef;
+      --card: #fff;
+      --border: #e2e0d8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.5;
+      margin: 0;
+      padding: 2rem 1.25rem 4rem;
+      max-width: 1100px;
+      margin-inline: auto;
+    }
+    h1 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.25rem;
+    }
+    .sub {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+    }
+    h2 {
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--sage);
+      margin: 2.25rem 0 1rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.35rem;
+    }
+    .grid-3 {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+    .tier {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem 1.1rem;
+      box-shadow: 0 4px 20px -12px rgba(31, 42, 36, 0.12);
+    }
+    .tier h3 {
+      margin: 0 0 0.75rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--sage);
+    }
+    .tier ul { margin: 0; padding-left: 1.1rem; font-size: 0.88rem; }
+    .tier li { margin-bottom: 0.35rem; }
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.8rem;
+    }
+    .stack-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.45rem 0.65rem;
+    }
+    .stack-row i {
+      font-style: normal;
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 6px;
+      background: rgba(79, 107, 82, 0.12);
+      color: var(--sage);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .mermaid { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1rem; margin: 1rem 0; }
+    .note {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px dashed var(--border);
+    }
+    a { color: var(--sage); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>Rock River VT — visual rundown</h1>
+  <p class="sub">
+    Companion to <code>docs/CONTENT_EXPANSION_AUDIT.md</code> · Source inventory: <code>SITE_STATUS_AND_CONTENT.md</code>
+  </p>
+
+  <h2>Homepage stack (order)</h2>
+  <div class="stack" aria-label="Homepage section order">
+    <div class="stack-row"><i>1</i> Header</div>
+    <div class="stack-row"><i>2</i> Monthly modal · Season banner · Welcome ribbon</div>
+    <div class="stack-row"><i>3</i> Trust line + location context + Hero</div>
+    <div class="stack-row"><i>4</i> People splash</div>
+    <div class="stack-row"><i>5</i> Right now · Seasonal note · Visit insights</div>
+    <div class="stack-row"><i>6</i> Today’s feel · Daily pulse · River intelligence</div>
+    <div class="stack-row"><i>7</i> Map & trail · Visitor guide block · Today strip</div>
+    <div class="stack-row"><i>8</i> Conditions widgets · Carousel · Local teaser</div>
+    <div class="stack-row"><i>9</i> Visitor moments · Why love · Business teaser</div>
+    <div class="stack-row"><i>10</i> Connection strip · Where to next · Footer</div>
+  </div>
+
+  <h2>Information architecture (header groups)</h2>
+  <div class="mermaid">
+flowchart LR
+  subgraph EXP[Explore]
+    M[Map]
+    C[Conditions]
+    U[Updates]
+    P[Photos]
+  end
+  subgraph VIS[Visit]
+    A[After river]
+    PL[Plan day]
+    V[Visit]
+  end
+  subgraph ABT[About]
+    H[History]
+    G[Guidelines]
+    CM[Community]
+  end
+  EXP --> VIS
+  VIS --> ABT
+  </div>
+
+  <h2>Content sources → surfaces</h2>
+  <div class="mermaid">
+flowchart TB
+  DN[daily-notes.ts] --> DU[/daily-updates/]
+  DN --> HP[Home pulse]
+  LE[local-ecosystem.ts] --> AR[/after-the-river/]
+  LE --> HP2[Home local teaser]
+  WN[WEEKLY_RIVER_NOTES] --> RI[Home river intel]
+  PI[plan-itineraries.ts] --> PYD[/plan-your-day/]
+  VF[visitor-faq.ts] --> VS[/visit/]
+  VF --> GL[/guidelines/]
+  API[APIs: weather river crowd] --> CD[/conditions/]
+  API --> HP3[Home widgets]
+  </div>
+
+  <h2>Page groups (inventory)</h2>
+  <div class="grid-3">
+    <div class="tier">
+      <h3>Core journey</h3>
+      <ul>
+        <li>/ · /visit · /visitor-guide</li>
+        <li>/conditions · /weather</li>
+        <li>/map · /gallery · /guidelines</li>
+      </ul>
+    </div>
+    <div class="tier">
+      <h3>SEO aliases</h3>
+      <ul>
+        <li>/rock-river-vermont</li>
+        <li>/rock-river-swimming-hole</li>
+        <li>/rock-river-trail-vermont</li>
+        <li>/rock-river-conditions · /rock-river-map</li>
+      </ul>
+    </div>
+    <div class="tier">
+      <h3>Community & place</h3>
+      <ul>
+        <li>/community · /preservation</li>
+        <li>/land-river · /history</li>
+        <li>/why-rock-river · /discoveries</li>
+      </ul>
+    </div>
+    <div class="tier">
+      <h3>Planning & local</h3>
+      <ul>
+        <li>/daily-updates · /plan-your-day</li>
+        <li>/after-the-river · /local</li>
+        <li>/local-business · /get-featured</li>
+      </ul>
+    </div>
+    <div class="tier">
+      <h3>Other</h3>
+      <ul>
+        <li>/resources · /legal</li>
+        <li>/research · /trading ⚠ off-guide</li>
+      </ul>
+    </div>
+    <div class="tier">
+      <h3>APIs</h3>
+      <ul>
+        <li>/api/weather</li>
+        <li>/api/river</li>
+        <li>/api/crowd</li>
+        <li>/api/visitors</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Roadmap (tiers)</h2>
+  <div class="grid-3">
+    <div class="tier">
+      <h3>Tier 1 — Now</h3>
+      <ul>
+        <li>noindex research + trading</li>
+        <li>Alias intros + canonicals</li>
+        <li>“How to read conditions” section</li>
+        <li>LOCAL_PICKS field audit</li>
+        <li>Partners: ship or soften copy</li>
+      </ul>
+    </div>
+    <div class="tier">
+      <h3>Tier 2 — 2–3 wk</h3>
+      <ul>
+        <li>RSS / JSON for daily notes</li>
+        <li>Seasonal playbook</li>
+        <li>Print-friendly /visit</li>
+        <li>Gallery filters + lightbox</li>
+        <li>Crowd rollup (Supabase/cron)</li>
+      </ul>
+    </div>
+    <div class="tier">
+      <h3>Tier 3 — Later</h3>
+      <ul>
+        <li>Email digest</li>
+        <li>Sighting log</li>
+        <li>Labeled supporter slot</li>
+        <li>PDF map pack</li>
+        <li>History multimedia</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="note">
+    Full narrative audit: open <strong>docs/CONTENT_EXPANSION_AUDIT.md</strong> in your editor.
+    Mermaid diagrams require network for the CDN script; print this page or save PDF from browser if needed.
+  </p>
+
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: "neutral", securityLevel: "loose" });
+  </script>
+</body>
+</html>
