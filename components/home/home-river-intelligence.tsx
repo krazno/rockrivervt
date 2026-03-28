@@ -1,8 +1,12 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
+import { useMemo } from "react";
 import { CalendarRange, Clock } from "lucide-react";
 
 import type { HomeVisitSnapshot } from "@/components/home/use-home-visit-snapshot";
+import { getHomeRiverIntelPeopleAccent } from "@/lib/people-media";
 
 type WeeklySerial = {
   headline: string;
@@ -20,6 +24,7 @@ type HomeRiverIntelligenceProps = {
  */
 export function HomeRiverIntelligence({ weekly, snapshot }: HomeRiverIntelligenceProps) {
   const { loading, windowHint, timeRangeText } = snapshot;
+  const trailFace = useMemo(() => getHomeRiverIntelPeopleAccent(), []);
 
   const windowSummary =
     loading ? "Loading forecast…"
@@ -38,7 +43,23 @@ export function HomeRiverIntelligence({ weekly, snapshot }: HomeRiverIntelligenc
       aria-label="This week and best visit window"
     >
       <div className="grid gap-4 md:grid-cols-2">
-        <div className="rounded-2xl border border-[#E2E0D8] bg-white/90 p-5 shadow-sm sm:p-6">
+        <div className="relative overflow-hidden rounded-2xl border border-[#E2E0D8] bg-white/90 p-5 shadow-sm sm:p-6 sm:pr-[7.5rem]">
+          {trailFace ?
+            <Link
+              href="/gallery"
+              className="absolute right-4 top-4 hidden h-16 w-16 overflow-hidden rounded-full border-2 border-[#faf8f4] shadow-md ring-2 ring-[#E2E0D8]/80 transition duration-300 hover:ring-[#4F6B52]/30 sm:block"
+              aria-label={`${trailFace.title} — open gallery`}
+            >
+              <Image
+                src={trailFace.src}
+                alt={trailFace.alt}
+                title={trailFace.title}
+                fill
+                sizes="64px"
+                className="object-cover object-center"
+              />
+            </Link>
+          : null}
           <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#6B6F68]">
             <CalendarRange className="h-4 w-4 text-[#4F6B52]" aria-hidden />
             This week at Rock River

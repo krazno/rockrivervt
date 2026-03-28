@@ -13,23 +13,8 @@ import {
   type HeaderNavLink,
   headerNavByGroup,
 } from "@/lib/nav";
-import {
-  HOME_SEASON_STRIP,
-  homeSeasonFromMonth,
-  vermontCalendarMonth,
-} from "@/lib/home-seasonal";
 import { InclusionFlags } from "@/components/layout/inclusion-flags";
-import { YoutubeShortHeaderChip } from "@/components/media/youtube-short-clip";
-import { getRiverCharacterShort } from "@/data/media";
 import { cn } from "@/lib/utils";
-
-function useHeaderSeasonLine() {
-  return useMemo(() => {
-    const month = vermontCalendarMonth();
-    const season = homeSeasonFromMonth(month);
-    return HOME_SEASON_STRIP[season];
-  }, []);
-}
 
 function useScrolledPast(thresholdPx: number) {
   const [scrolled, setScrolled] = useState(false);
@@ -108,10 +93,8 @@ export function SiteHeader() {
   const pathname = usePathname() ?? "/";
   const [open, setOpen] = useState(false);
   const scrolled = useScrolledPast(10);
-  const seasonLine = useHeaderSeasonLine();
   const mobileGroups = useMemo(() => headerNavByGroup(), []);
-  const riverShort = useMemo(() => getRiverCharacterShort(), []);
-  const showHeaderRiverClip = pathname === "/" && riverShort;
+  const showLocationStrip = pathname !== "/";
 
   useEffect(() => {
     if (!open) return;
@@ -169,18 +152,6 @@ export function SiteHeader() {
           </nav>
 
           <div className="ml-auto hidden items-center gap-5 lg:flex">
-            {showHeaderRiverClip ?
-              <YoutubeShortHeaderChip
-                videoId={riverShort.youtubeId}
-                title={riverShort.title}
-              />
-            : null}
-            <p
-              className="max-w-[12.5rem] text-right text-[11px] font-medium leading-snug tracking-[0.03em] text-[#6B6F68]"
-              title={seasonLine}
-            >
-              {seasonLine}
-            </p>
             <Link
               href="/map"
               className="rr-btn-primary shrink-0 px-4 py-2 text-xs font-medium tracking-[0.06em] sm:text-[0.8125rem]"
@@ -209,18 +180,20 @@ export function SiteHeader() {
           </div>
         </Container>
 
-        <div
-          className={cn(
-            "border-t transition-[padding,border-color] duration-300",
-            scrolled ? "border-[#e0dad0]/95 py-2" : "border-[#ebe6dc]/55 py-2.5",
-          )}
-        >
-          <Container className="!px-4 sm:!px-6 lg:!px-8">
-            <p className="text-center text-[10px] font-medium uppercase tracking-[0.2em] text-[#8a918c] sm:text-[11px] sm:tracking-[0.24em]">
-              Newfane · Windham County · Southern Vermont
-            </p>
-          </Container>
-        </div>
+        {showLocationStrip ?
+          <div
+            className={cn(
+              "border-t transition-[padding,border-color] duration-300",
+              scrolled ? "border-[#e0dad0]/95 py-2" : "border-[#ebe6dc]/55 py-2.5",
+            )}
+          >
+            <Container className="!px-4 sm:!px-6 lg:!px-8">
+              <p className="text-center text-[10px] font-medium uppercase tracking-[0.2em] text-[#8a918c] sm:text-[11px] sm:tracking-[0.24em]">
+                Newfane · Windham County · Southern Vermont
+              </p>
+            </Container>
+          </div>
+        : null}
       </header>
 
       <AnimatePresence>

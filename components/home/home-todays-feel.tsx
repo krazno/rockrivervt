@@ -5,6 +5,8 @@ import { MessageCircleHeart } from "lucide-react";
 
 import type { HomeVisitSnapshot } from "@/components/home/use-home-visit-snapshot";
 import { SectionEyebrow } from "@/components/shared/section-eyebrow";
+import { PeoplePresenceStackedPair } from "@/components/shared/people-presence-circles";
+import { getHomeTodaysFeelPeoplePair } from "@/lib/people-media";
 import { buildTodaysFeel, vermontMonth } from "@/lib/todays-feel";
 
 type HomeTodaysFeelProps = {
@@ -15,6 +17,8 @@ type HomeTodaysFeelProps = {
  * “River honesty” — one human line from weather, water, crowd, and season. No new APIs.
  */
 export function HomeTodaysFeel({ snapshot }: HomeTodaysFeelProps) {
+  const peoplePair = useMemo(() => getHomeTodaysFeelPeoplePair(), []);
+
   const feel = useMemo(() => {
     const now = new Date();
     return buildTodaysFeel({
@@ -37,18 +41,29 @@ export function HomeTodaysFeel({ snapshot }: HomeTodaysFeelProps) {
       aria-labelledby="todays-feel-heading"
     >
       <div className="rounded-2xl border border-dashed border-[#c9d4c9]/90 bg-[#fbfaf7]/90 px-4 py-4 shadow-sm sm:px-5 sm:py-5">
-        <SectionEyebrow icon={MessageCircleHeart} iconClassName="h-4 w-4 text-[#4F6B52]">
-          Today’s feel
-        </SectionEyebrow>
-        <h2 id="todays-feel-heading" className="sr-only">
-          Honest read for today
-        </h2>
-        <p className="mt-2 text-[15px] font-medium leading-relaxed text-[#1F2A24] sm:text-base">
-          {feel.line}
-        </p>
-        {feel.aside ?
-          <p className="mt-2 text-[13px] leading-relaxed text-[#6B6F68]">{feel.aside}</p>
-        : null}
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
+          <div className="min-w-0 flex-1">
+            <SectionEyebrow icon={MessageCircleHeart} iconClassName="h-4 w-4 text-[#4F6B52]">
+              Today’s feel
+            </SectionEyebrow>
+            <h2 id="todays-feel-heading" className="sr-only">
+              Honest read for today
+            </h2>
+            <p className="mt-2 text-[15px] font-medium leading-relaxed text-[#1F2A24] sm:text-base">
+              {feel.line}
+            </p>
+            {feel.aside ?
+              <p className="mt-2 text-[13px] leading-relaxed text-[#6B6F68]">{feel.aside}</p>
+            : null}
+          </div>
+          {peoplePair ?
+            <PeoplePresenceStackedPair
+              primary={peoplePair[0]}
+              secondary={peoplePair[1]}
+              className="shrink-0 self-center sm:self-start sm:pt-1"
+            />
+          : null}
+        </div>
       </div>
     </aside>
   );

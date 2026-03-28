@@ -39,7 +39,7 @@ export default function WhyRockRiverPage() {
         eyebrow="Place"
         title="Why this river matters"
         lead="Not poetry—just the reasons people keep coming back and why a field guide like this exists."
-        photoAccentSeed="why-rock-river"
+        peopleAccentPage="why-rock-river"
       >
         <GuideSection eyebrow="Water & stone" title="What people actually experience">
           <p className="text-sm leading-relaxed text-[#3f4840]">

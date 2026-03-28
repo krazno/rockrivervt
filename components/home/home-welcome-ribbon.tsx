@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { LineChart, MapPin, Sparkles } from "lucide-react";
+import { MapPin, Sparkles } from "lucide-react";
 
 import type { VisitorsGeo } from "@/lib/visitors-geo";
 import { formatVisitorGeoLine } from "@/lib/visitors-geo";
@@ -51,6 +51,7 @@ function bumpDemoOpens(): number {
   return next;
 }
 
+/** Right column of the home season strip — welcome, opens tally, optional geo hint. */
 export function HomeWelcomeRibbon() {
   const [demoOpens, setDemoOpens] = useState<number | null>(null);
   const [geoLine, setGeoLine] = useState<string | null>(null);
@@ -68,7 +69,7 @@ export function HomeWelcomeRibbon() {
           setWelcomeLine("Welcome — first visit from this browser today.");
           window.localStorage.setItem(FIRST_DAY_KEY, todayKey);
         } else {
-          setWelcomeLine("Welcome back — nice to see you again.");
+          setWelcomeLine("Welcome back—glad you’re here again.");
         }
       }
     } catch {
@@ -111,39 +112,37 @@ export function HomeWelcomeRibbon() {
     };
   }, [todayKey]);
 
-  const countLabel =
+  const opensSentence =
     demoOpens != null ?
-      `${demoOpens.toLocaleString()} informal guide opens tallied on this device`
+      `This guide has been opened ${demoOpens.toLocaleString()} times on this device. Thanks for being here.`
     : null;
 
-  const hasAny = countLabel || geoLine || welcomeLine;
-
-  if (!hasAny) return null;
-
   return (
-    <div className="flex min-w-0 flex-1 flex-col items-center gap-1.5 sm:items-start">
+    <div className="flex min-w-0 flex-col items-center gap-2 text-center lg:items-end lg:text-right">
       {welcomeLine ?
-        <p className="flex items-center justify-center gap-1.5 text-[11px] font-medium text-[#4F6B52] sm:justify-start sm:text-xs">
+        <p className="flex items-center justify-center gap-1.5 text-[11px] font-medium text-[#4F6B52] sm:text-xs lg:justify-end">
           <Sparkles className="h-3.5 w-3.5 shrink-0" aria-hidden />
           <span>{welcomeLine}</span>
         </p>
       : null}
+      {opensSentence ?
+        <p className="max-w-md text-[11px] font-medium leading-relaxed tabular-nums text-[#3d4540] sm:text-xs">
+          {opensSentence}
+        </p>
+      : null}
       {geoLine ?
-        <p className="flex items-center justify-center gap-1.5 text-[11px] text-[#6B6F68] sm:justify-start sm:text-xs">
+        <p className="flex items-center justify-center gap-1.5 text-[11px] text-[#6B6F68] sm:text-xs lg:justify-end">
           <MapPin className="h-3.5 w-3.5 shrink-0 text-[#4F6B52]/90" aria-hidden />
           <span>{geoLine}</span>
         </p>
       : null}
-      {countLabel ?
-        <p className="flex items-center justify-center gap-1.5 text-[11px] font-medium tabular-nums text-[var(--rr-text-muted)] sm:justify-start sm:text-xs">
-          <LineChart className="h-3.5 w-3.5 shrink-0 text-[var(--rr-mint)]" aria-hidden />
-          <span>{countLabel}</span>
-        </p>
-      : null}
-      <p className="text-center text-[10px] leading-snug text-[#6B6F68]/85 sm:text-left sm:text-[11px]">
-        Friendly counter for the banner—not verified analytics.{" "}
+      <p className="max-w-md text-[10px] leading-snug text-[#8a918c] lg:ml-auto lg:text-right sm:text-[11px]">
+        Friendly local tally—not verified analytics.
         {geoLine ?
-          "Location hint comes from your network region (similar to analytics) and isn’t stored on our servers for this line."
+          <>
+            {" "}
+            Area hint from your network; not stored on our servers for this line.
+          </>
         : null}
       </p>
     </div>

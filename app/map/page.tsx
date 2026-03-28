@@ -10,6 +10,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { PageGalleryBackdrop } from "@/components/layout/page-gallery-backdrop";
 import { Container } from "@/components/shared/container";
+import { PhotoAccentRow } from "@/components/shared/photo-accent-row";
 import { buildPageMetadata, truncateMetaDescription, META_DESC_MAX } from "@/lib/seo";
 
 const pageDesc = truncateMetaDescription(
@@ -72,6 +73,7 @@ export default function MapPage() {
               </Link>
               .
             </p>
+            <PhotoAccentRow peoplePage="map" className="mt-8" />
           </header>
 
           <div className="mx-auto mt-10 max-w-6xl space-y-8 sm:space-y-10">

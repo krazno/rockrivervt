@@ -47,7 +47,7 @@ export default function CommunityPage() {
         eyebrow="People & place"
         title="Community along Rock River"
         lead="Rock River works because many kinds of people share one narrow corridor—families, hikers, swimmers, long-time regulars, and neighbors who live beside the trail. Calm days happen when everyone gives a little room and packs out what they bring."
-        photoAccentSeed="community-shore"
+        peopleAccentPage="community"
       >
         <GuideSection eyebrow="Shoreline" title="A mixed crowd, one river">
           <p>

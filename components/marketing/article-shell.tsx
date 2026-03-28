@@ -5,12 +5,14 @@ import { SiteHeader } from "@/components/layout/site-header";
 import { PageGalleryBackdrop } from "@/components/layout/page-gallery-backdrop";
 import { Container } from "@/components/shared/container";
 import { PhotoAccentRow } from "@/components/shared/photo-accent-row";
+import type { PeopleAccentPageKey } from "@/lib/people-media";
 
 type ArticleShellProps = {
   eyebrow: string;
   title: string;
   lead?: string;
   photoAccentSeed?: string;
+  peopleAccentPage?: PeopleAccentPageKey;
   children: ReactNode;
 };
 
@@ -22,6 +24,7 @@ export function ArticleShell({
   title,
   lead,
   photoAccentSeed,
+  peopleAccentPage,
   children,
 }: ArticleShellProps) {
   return (
@@ -41,7 +44,9 @@ export function ArticleShell({
               {lead ? (
                 <p className="rr-prose-muted mt-4 text-base leading-relaxed sm:text-lg">{lead}</p>
               ) : null}
-              {photoAccentSeed ?
+              {peopleAccentPage ?
+                <PhotoAccentRow peoplePage={peopleAccentPage} className="mt-8" />
+              : photoAccentSeed ?
                 <PhotoAccentRow seed={photoAccentSeed} className="mt-8" />
               : null}
             </header>

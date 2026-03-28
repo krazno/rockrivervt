@@ -68,7 +68,7 @@ export function YoutubeShortClip({
           className="absolute left-1/2 top-1/2 w-full border-0"
           style={{
             height: "177.78%",
-            transform: "translate(-50%, -50%) scale(1.06)",
+            transform: "translate(-50%, -50%) scale(1.22)",
             transformOrigin: "center",
           }}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -123,7 +123,7 @@ export function YoutubeShortEmbedCover({
           className="absolute left-1/2 top-1/2 w-full border-0"
           style={{
             height: "177.78%",
-            transform: "translate(-50%, -50%) scale(1.06)",
+            transform: "translate(-50%, -50%) scale(1.2)",
             transformOrigin: "center",
           }}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -139,8 +139,13 @@ type YoutubeShortHeaderChipProps = {
   title: string;
 };
 
+const HEADER_EMBED_W = 640;
+const HEADER_EMBED_H = 360;
+
 /**
- * Tight 9:16 crop for the sticky header—vertical short scaled to cover (no letterboxing).
+ * Small 16:9 header chip. YouTube serves Shorts inside a 16:9 frame with pillarboxing;
+ * we scale the iframe up past “contain” so overflow clips the bars—background matches river
+ * green if a sliver shows during load.
  */
 export function YoutubeShortHeaderChip({ videoId, title }: YoutubeShortHeaderChipProps) {
   const src = buildYoutubeEmbedSrc(videoId, {
@@ -152,19 +157,26 @@ export function YoutubeShortHeaderChip({ videoId, title }: YoutubeShortHeaderChi
 
   return (
     <div
-      className="relative h-11 w-[24.75px] shrink-0 overflow-hidden rounded-md border border-[#dcd6cc]/90 bg-[#5a7d72] shadow-sm sm:h-12 sm:w-[27px]"
+      className="relative h-9 w-16 shrink-0 overflow-hidden rounded-md border border-[#dcd6cc]/90 shadow-sm"
+      style={{ backgroundColor: "#4d6b55" }}
       title={`${title} — muted loop`}
     >
-      <div className="pointer-events-none absolute inset-0">
+      <div
+        className="pointer-events-none absolute left-1/2 top-1/2"
+        style={{
+          width: HEADER_EMBED_W,
+          height: HEADER_EMBED_H,
+          transform: "translate(-50%, -50%) scale(0.152)",
+          transformOrigin: "center center",
+        }}
+      >
         <iframe
           title={title}
           src={src}
-          className="absolute left-1/2 top-1/2 w-full border-0"
-          style={{
-            height: "177.78%",
-            transform: "translate(-50%, -50%) scale(1.06)",
-            transformOrigin: "center",
-          }}
+          width={HEADER_EMBED_W}
+          height={HEADER_EMBED_H}
+          className="border-0"
+          style={{ display: "block" }}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         />
       </div>

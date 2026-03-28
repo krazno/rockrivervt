@@ -16,14 +16,6 @@ export function homeSeasonFromMonth(m: number): HomeSeasonKind {
   return "winter";
 }
 
-/** Short line for the “today” strip. */
-export const HOME_SEASON_STRIP: Record<HomeSeasonKind, string> = {
-  spring: "Spring flows change quickly—check the river before you wade.",
-  summer: "Best swimming window—still read the river first.",
-  fall: "Lower water, leaves underfoot—foliage is worth the slower pace.",
-  winter: "Limited access—ice, short days, and quiet woods.",
-};
-
 /** Slightly longer note near conditions. */
 export const HOME_SEASON_NOTE: Record<HomeSeasonKind, string> = {
   spring:

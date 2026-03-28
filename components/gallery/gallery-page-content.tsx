@@ -10,7 +10,11 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { Container } from "@/components/shared/container";
 import type { MediaItem } from "@/data/media";
-import { getGalleryMediaSorted } from "@/data/media";
+import {
+  getGalleryMediaSorted,
+  getRiverCharacterShort,
+  RIVER_CHARACTER_SHORT_YOUTUBE_ID,
+} from "@/data/media";
 import {
   GALLERY_GROUP_LABEL,
   galleryGroupForItem,
@@ -64,6 +68,7 @@ function GalleryImageTile({
 
 export function GalleryPageContent() {
   const galleryMedia = useMemo(() => getGalleryMediaSorted(), []);
+  const riverShort = useMemo(() => getRiverCharacterShort(), []);
   const [active, setActive] = useState<MediaItem | null>(null);
 
   const { videoItems, imagesByGroup, instaPreview } = useMemo(() => {
@@ -164,6 +169,28 @@ export function GalleryPageContent() {
             </p>
           </header>
 
+          {riverShort ?
+            <aside
+              className="mx-auto mt-8 max-w-3xl rounded-xl border border-[var(--rr-widget-border)] bg-[#faf8f4]/90 px-4 py-3.5 shadow-sm sm:px-5"
+              aria-label="River moment video"
+            >
+              <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#6B6F68]">
+                River moment
+              </p>
+              <p className="mt-1.5 text-sm leading-relaxed text-[#3f4840]">
+                A short loop from the river (family-friendly, muted in the player)—same clip we
+                sometimes surface in the monthly welcome.{" "}
+                <Link
+                  href="#river-moment-short"
+                  className="font-semibold text-[var(--rr-link)] underline-offset-2 hover:underline"
+                >
+                  Jump to clip
+                </Link>
+                .
+              </p>
+            </aside>
+          : null}
+
           <section
             className="mt-12 rounded-2xl border border-[var(--rr-widget-border)] bg-[#faf8f4]/90 p-6 shadow-[var(--rr-shadow-card)] sm:p-8"
             aria-labelledby="instagram-community-heading"
@@ -233,6 +260,9 @@ export function GalleryPageContent() {
               >
                 Trail tour &amp; clips
               </h2>
+              <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.18em] text-[#8a918c]">
+                Includes the short &ldquo;river moment&rdquo; loop
+              </p>
               <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--rr-text-muted)]">
                 Video gives length and elevation change that stills cannot—use it beside the{" "}
                 <Link href="/map" className="font-semibold text-[var(--rr-link)] underline-offset-2 hover:underline">
@@ -243,7 +273,19 @@ export function GalleryPageContent() {
               </p>
               <ul className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-1" role="list">
                 {videoItems.map((item) => (
-                  <li key={item.src}>
+                  <li
+                    key={item.src}
+                    id={
+                      item.youtubeId === RIVER_CHARACTER_SHORT_YOUTUBE_ID ?
+                        "river-moment-short"
+                      : undefined
+                    }
+                    className={
+                      item.youtubeId === RIVER_CHARACTER_SHORT_YOUTUBE_ID ?
+                        "scroll-mt-28"
+                      : undefined
+                    }
+                  >
                     <div className="overflow-hidden rounded-[var(--rr-radius-lg)] border border-[var(--rr-widget-border)] bg-[#faf8f4]/90 shadow-[var(--rr-shadow-card)]">
                       <div className="border-b border-[var(--rr-widget-border)] px-4 py-3 sm:px-5">
                         <p className="text-sm font-semibold text-[var(--rr-ink)]">{item.title}</p>

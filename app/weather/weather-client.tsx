@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { PageGalleryBackdrop } from "@/components/layout/page-gallery-backdrop";
 import { Container } from "@/components/shared/container";
+import { PhotoAccentRow } from "@/components/shared/photo-accent-row";
 
 export function WeatherPageClient() {
   return (
@@ -36,6 +37,7 @@ export function WeatherPageClient() {
               </Link>{" "}
               for access in Windham County.
             </p>
+            <PhotoAccentRow peoplePage="weather" className="mt-8" />
           </div>
 
           <div className="mx-auto mt-8 max-w-3xl">

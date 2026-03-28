@@ -56,7 +56,7 @@ export default function AfterTheRiverPage() {
         eyebrow="Local ecosystem"
         title="After Rock River"
         lead="The river day doesn’t have to end at the pull-off. Here are calm, specific ideas for food, coffee, towns, and drives—curated for people already in southern Vermont, not generic travel filler."
-        photoAccentSeed="after-river-local"
+        peopleAccentPage="after-the-river"
       >
         <GuideSection eyebrow="Start here" title="What this page is">
           <p>

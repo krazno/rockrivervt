@@ -1,19 +1,29 @@
 import Image from "next/image";
 
 import { getAccentImages } from "@/lib/page-photo-accents";
+import {
+  getPeopleAccentImagesForPage,
+  type PeopleAccentPageKey,
+} from "@/lib/people-media";
 import { cn } from "@/lib/utils";
 
 type PhotoAccentRowProps = {
   /** Stable string so the same page always picks the same photos (SSR/client match). */
-  seed: string;
+  seed?: string;
+  /** Curated people-forward trio for key marketing pages (overrides seed when set). */
+  peoplePage?: PeopleAccentPageKey;
   className?: string;
 };
 
 /**
  * Decorative image strip — improves interior pages without duplicating hero photography.
  */
-export function PhotoAccentRow({ seed, className }: PhotoAccentRowProps) {
-  const imgs = getAccentImages(seed, 3);
+export function PhotoAccentRow({ seed, peoplePage, className }: PhotoAccentRowProps) {
+  const imgs = peoplePage ?
+    getPeopleAccentImagesForPage(peoplePage)
+  : seed ?
+    getAccentImages(seed, 3)
+  : [];
   if (imgs.length === 0) return null;
 
   return (

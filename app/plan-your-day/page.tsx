@@ -41,7 +41,7 @@ export default function PlanYourDayPage() {
         eyebrow="Full day"
         title="Plan your day"
         lead="Three short arcs: river time, then food or a town loop—written for real driving distances and the way people actually use this guide."
-        photoAccentSeed="plan-your-day"
+        peopleAccentPage="plan-your-day"
       >
         <GuideSection eyebrow="How to use this" title="Templates, not bookings">
           <p className="text-sm leading-relaxed text-[#3f4840]">
