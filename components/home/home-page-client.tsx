@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { motion } from "motion/react";
+import { useSectionViewSentinel } from "@/hooks/use-section-view-sentinel";
 import { Calendar } from "lucide-react";
 
 import { HomeBusinessTeaser } from "@/components/home/home-business-teaser";
@@ -15,7 +16,6 @@ import { HomeSeasonalNote } from "@/components/home/home-seasonal-note";
 import { HomeTodayStrip } from "@/components/home/home-today-strip";
 import { HomeVisitorGuideBlock } from "@/components/home/home-visitor-guide-block";
 import { HomeSectionHeader } from "@/components/home/home-section-header";
-import type { HomeHeroSnapshotMode } from "@/components/home/home-hero-snapshot-mode";
 import { useHomeVisitSnapshot } from "@/components/home/use-home-visit-snapshot";
 
 import { SiteFooter } from "@/components/layout/site-footer";
@@ -25,6 +25,15 @@ import { VisitInsightsWidget } from "@/components/conditions/visit-insights-widg
 import { WeatherWidget } from "@/components/conditions/weather-widget";
 import { RiverWidget } from "@/components/conditions/river-widget";
 import { CrowdWidget } from "@/components/crowd/crowd-widget";
+import { HomeConnectionStrip } from "@/components/home/home-connection-strip";
+import { HomeDailyPulse } from "@/components/home/home-daily-pulse";
+import { HomeLocalEcosystemTeaser } from "@/components/home/home-local-ecosystem-teaser";
+import { HomeRiverIntelligence } from "@/components/home/home-river-intelligence";
+import { HomeTodaysFeel } from "@/components/home/home-todays-feel";
+import { HomeVisitorMomentsRow } from "@/components/home/home-visitor-moments-row";
+import { HomeWhyLoveRockRiver } from "@/components/home/home-why-love";
+import type { DailyPulsePayload } from "@/lib/daily-pulse";
+import type { WeeklyRiverClientPayload } from "@/lib/local-ecosystem";
 
 function todayLabelVermont(): string {
   return new Intl.DateTimeFormat("en-US", {
@@ -36,10 +45,30 @@ function todayLabelVermont(): string {
   }).format(new Date());
 }
 
-export function HomePageClient() {
+export function HomePageClient({
+  dailyPulse,
+  weeklyRiver,
+}: {
+  dailyPulse: DailyPulsePayload;
+  weeklyRiver: WeeklyRiverClientPayload;
+}) {
   const visitSnapshot = useHomeVisitSnapshot();
-  const [heroMode, setHeroMode] = useState<HomeHeroSnapshotMode>("water");
   const todayLabel = useMemo(() => todayLabelVermont(), []);
+
+  const bindDailyPulse = useSectionViewSentinel("home_daily_pulse");
+  const bindTodaysFeel = useSectionViewSentinel("home_todays_feel");
+  const bindPlanToday = useSectionViewSentinel("home_plan_today");
+  const bindRiverIntel = useSectionViewSentinel("home_river_intelligence");
+  const bindMapTrail = useSectionViewSentinel("home_map_trail");
+  const bindVisitorGuide = useSectionViewSentinel("home_visitor_guide");
+  const bindTodayStrip = useSectionViewSentinel("home_today_strip");
+  const bindConditions = useSectionViewSentinel("home_conditions_widgets");
+  const bindPhotos = useSectionViewSentinel("home_photo_carousel");
+  const bindLocalPicks = useSectionViewSentinel("home_local_picks");
+  const bindWhyLove = useSectionViewSentinel("home_why_love");
+  const bindBusiness = useSectionViewSentinel("home_business_teaser");
+  const bindConnection = useSectionViewSentinel("home_connection_strip");
+  const bindGuideShort = useSectionViewSentinel("home_guide_short");
 
   return (
     <>
@@ -51,10 +80,11 @@ export function HomePageClient() {
         <p className="mx-auto w-full max-w-6xl px-4 pt-2 text-center text-[11px] leading-snug text-[#6B6F68] sm:px-6 sm:pt-3 sm:text-[12px] lg:px-8">
           Neighbor-run field guide—map, live snapshot, and local context. Not a government or agency site.
         </p>
-        <HomeHero heroMode={heroMode} onHeroModeChange={setHeroMode} />
+        <HomeHero />
 
         <div className="mt-2 space-y-8 sm:mt-3 sm:space-y-10 lg:space-y-12">
           <motion.section
+            ref={bindPlanToday}
             id="plan-today"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -74,18 +104,45 @@ export function HomePageClient() {
               className="mb-0 sm:mb-0"
             />
             <HomeSeasonalNote />
-            <VisitInsightsWidget variant="home" snapshot={visitSnapshot} heroMode={heroMode} />
+            <VisitInsightsWidget variant="home" snapshot={visitSnapshot} heroMode="water" />
           </motion.section>
 
-          <div className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8" id="map-trail">
+          <div ref={bindTodaysFeel}>
+            <HomeTodaysFeel snapshot={visitSnapshot} />
+          </div>
+
+          <motion.div
+            ref={bindDailyPulse}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.4 }}
+          >
+            <HomeDailyPulse pulse={dailyPulse} />
+          </motion.div>
+
+          <div ref={bindRiverIntel}>
+            <HomeRiverIntelligence weekly={weeklyRiver} snapshot={visitSnapshot} />
+          </div>
+
+          <div
+            ref={bindMapTrail}
+            className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8"
+            id="map-trail"
+          >
             <HomeMapOverview includeTrailFilm />
           </div>
 
-          <HomeVisitorGuideBlock />
+          <div ref={bindVisitorGuide}>
+            <HomeVisitorGuideBlock />
+          </div>
 
-          <HomeTodayStrip snapshot={visitSnapshot} />
+          <div ref={bindTodayStrip}>
+            <HomeTodayStrip snapshot={visitSnapshot} />
+          </div>
 
           <motion.section
+            ref={bindConditions}
             id="conditions-widgets"
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -96,25 +153,46 @@ export function HomePageClient() {
           >
             <div className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-3 lg:gap-6">
               <div className="h-full origin-center transition-transform duration-300 ease-out [transform-style:preserve-3d] hover:-translate-y-1 hover:shadow-lg">
-                <WeatherWidget variant="home" homeHeroMode={heroMode} />
+                <WeatherWidget variant="home" homeHeroMode="water" />
               </div>
               <div className="h-full transition-transform duration-300 ease-out hover:-translate-y-1 hover:shadow-lg">
-                <RiverWidget variant="home" homeHeroMode={heroMode} />
+                <RiverWidget variant="home" homeHeroMode="water" />
               </div>
               <div
                 id="crowd-check-in"
                 className="h-full scroll-mt-28 transition-transform duration-300 ease-out hover:-translate-y-1 hover:shadow-lg"
               >
-                <CrowdWidget variant="home" homeHeroMode={heroMode} />
+                <CrowdWidget variant="home" homeHeroMode="water" />
               </div>
             </div>
           </motion.section>
 
-          <HomePhotoCarousel />
+          <div ref={bindPhotos}>
+            <HomePhotoCarousel />
+          </div>
 
-          <HomeBusinessTeaser />
+          <div ref={bindLocalPicks}>
+            <HomeLocalEcosystemTeaser />
+          </div>
 
-          <HomeGuideShort />
+          <div ref={bindWhyLove}>
+            <HomeVisitorMomentsRow />
+            <div className="mt-10 sm:mt-12">
+              <HomeWhyLoveRockRiver />
+            </div>
+          </div>
+
+          <div ref={bindBusiness}>
+            <HomeBusinessTeaser />
+          </div>
+
+          <div ref={bindConnection}>
+            <HomeConnectionStrip />
+          </div>
+
+          <div ref={bindGuideShort}>
+            <HomeGuideShort />
+          </div>
         </div>
       </main>
       <SiteFooter />

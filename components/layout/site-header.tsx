@@ -19,6 +19,8 @@ import {
   vermontCalendarMonth,
 } from "@/lib/home-seasonal";
 import { InclusionFlags } from "@/components/layout/inclusion-flags";
+import { YoutubeShortHeaderChip } from "@/components/media/youtube-short-clip";
+import { getRiverCharacterShort } from "@/data/media";
 import { cn } from "@/lib/utils";
 
 function useHeaderSeasonLine() {
@@ -108,6 +110,8 @@ export function SiteHeader() {
   const scrolled = useScrolledPast(10);
   const seasonLine = useHeaderSeasonLine();
   const mobileGroups = useMemo(() => headerNavByGroup(), []);
+  const riverShort = useMemo(() => getRiverCharacterShort(), []);
+  const showHeaderRiverClip = pathname === "/" && riverShort;
 
   useEffect(() => {
     if (!open) return;
@@ -165,6 +169,12 @@ export function SiteHeader() {
           </nav>
 
           <div className="ml-auto hidden items-center gap-5 lg:flex">
+            {showHeaderRiverClip ?
+              <YoutubeShortHeaderChip
+                videoId={riverShort.youtubeId}
+                title={riverShort.title}
+              />
+            : null}
             <p
               className="max-w-[12.5rem] text-right text-[11px] font-medium leading-snug tracking-[0.03em] text-[#6B6F68]"
               title={seasonLine}

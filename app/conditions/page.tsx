@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 
+import { PageEngagementBeacon } from "@/components/analytics/page-engagement-beacon";
 import { ConditionsLiveWidgets } from "@/components/conditions/conditions-live-widgets";
 import { VisitInsightsStandalone } from "@/components/conditions/visit-insights-standalone";
 import { GuidePageFrame } from "@/components/guide/guide-page-frame";
@@ -32,6 +33,7 @@ export const metadata: Metadata = buildPageMetadata({
 export default function ConditionsPage() {
   return (
     <>
+      <PageEngagementBeacon category="conditions" label="conditions_page" />
       <WebPageJsonLd
         name="Rock River conditions — live weather & river context"
         description={pageDesc}

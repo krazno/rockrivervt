@@ -11,6 +11,43 @@ function withSignoff(lines: string[]): string {
   return [...lines, "", `— ${SITE_STUDIO_BRAND}`].join("\n");
 }
 
+/** Short visitor note for the guide (conditions, trail, courtesy)—manual review. */
+export function mailtoVisitorFieldNote(): string {
+  const subject = encodeURIComponent("Rock River VT — visitor field note");
+  const body = encodeURIComponent(
+    withSignoff([
+      "Hi — I have a short note for the Rock River guide (trail, water, parking, or day-of courtesy).",
+      "",
+      "Date you visited (approx.):",
+      "What you noticed:",
+      "",
+      "OK to summarize anonymously on the site? (yes / no / ask me first)",
+      "",
+      "Thanks!",
+    ]),
+  );
+  return `mailto:${CONTACT_FORM_EMAIL}?subject=${subject}&body=${body}`;
+}
+
+/** Wildlife or seasonal sighting—no guarantees of publication; helps calendar context. */
+export function mailtoSightingNote(): string {
+  const subject = encodeURIComponent("Rock River VT — sighting / season note");
+  const body = encodeURIComponent(
+    withSignoff([
+      "Hi — sharing a sighting or seasonal note along the Rock River corridor.",
+      "",
+      "What you saw (species or phenomenon, best effort):",
+      "Where (approx. — trail, pool, upstream/downstream):",
+      "When:",
+      "",
+      "Photos attached? (yes / no)",
+      "",
+      "Thanks!",
+    ]),
+  );
+  return `mailto:${CONTACT_FORM_EMAIL}?subject=${subject}&body=${body}`;
+}
+
 /** Share photos for the gallery (manual review; no upload pipeline on-site yet). */
 export function mailtoPhotoSubmission(): string {
   const subject = encodeURIComponent("Rock River VT — photo for gallery");
@@ -22,6 +59,39 @@ export function mailtoPhotoSubmission(): string {
       "How to credit you (or “anonymous”):",
       "",
       "Attach your image(s). Landscape or 4:3 works well.",
+      "",
+      "Thanks!",
+    ]),
+  );
+  return `mailto:${CONTACT_FORM_EMAIL}?subject=${subject}&body=${body}`;
+}
+
+/** Featured listing request — structured for review; same inbox as partners. */
+export function mailtoGetFeaturedSubmission(fields: {
+  contactName: string;
+  businessName: string;
+  town: string;
+  website?: string;
+  visitorNote: string;
+}): string {
+  const subject = encodeURIComponent("Rock River VT — Get featured (local business)");
+  const web =
+    fields.website && fields.website.trim().length > 0 ?
+      fields.website.trim()
+    : "(none provided)";
+  const body = encodeURIComponent(
+    withSignoff([
+      "Hi — we’d like to be considered for a featured / area partner listing on Rock River VT.",
+      "",
+      `Contact name: ${fields.contactName.trim()}`,
+      `Business: ${fields.businessName.trim()}`,
+      `Town: ${fields.town.trim()}`,
+      `Website or social: ${web}`,
+      "",
+      "What should visitors know (hours vibe, parking, LGBTQ+ welcome, river-adjacent perk if any):",
+      fields.visitorNote.trim(),
+      "",
+      "We understand listings are editorial and clearly labeled. If paid placement is ever offered, we expect it to be disclosed on the page.",
       "",
       "Thanks!",
     ]),

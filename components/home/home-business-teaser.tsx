@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Building2, Mail, Sparkles } from "lucide-react";
 
 import { PhotoAccentRow } from "@/components/shared/photo-accent-row";
+import { trackRrInteraction } from "@/lib/analytics";
 import { SITE_STUDIO_BRAND, mailtoBusinessPartners } from "@/lib/site";
 
 /** On-ramp for the area partners program—clear CTA to Krasno Design. */
@@ -34,6 +35,13 @@ export function HomeBusinessTeaser() {
             </p>
           </div>
           <div className="flex shrink-0 flex-col gap-3 sm:items-end">
+            <Link
+              href="/get-featured"
+              onClick={() => trackRrInteraction("partner", "home_get_featured_teaser")}
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-[#E2E0D8] bg-white px-5 py-2.5 text-sm font-semibold text-[#2d4a38] shadow-sm transition hover:border-[#4F6B52]/35"
+            >
+              Get featured
+            </Link>
             <Link
               href="/local-business"
               className="inline-flex items-center justify-center gap-2 rounded-full border border-[#4F6B52]/35 bg-[#4F6B52] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#3d5640]"

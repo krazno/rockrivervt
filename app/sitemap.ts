@@ -12,7 +12,7 @@ type RouteConfig = {
  * Next.js serves this at /sitemap.xml (production: rockrivervt.com/sitemap.xml).
  *
  * Keep in sync with app marketing routes: one entry per page.tsx under app/ (path "" = home).
- * Omit API routes. robots.ts should list the same SITE_URL + /sitemap.xml.
+ * Omit API routes. `robots.ts` allows `/` and points crawlers at this sitemap.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
@@ -31,6 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/weather", changeFrequency: "daily", priority: 0.85 },
     { path: "/gallery", changeFrequency: "weekly", priority: 0.85 },
     { path: "/guidelines", changeFrequency: "monthly", priority: 0.85 },
+    { path: "/legal", changeFrequency: "yearly", priority: 0.35 },
     { path: "/daily-updates", changeFrequency: "weekly", priority: 0.8 },
     { path: "/land-river", changeFrequency: "monthly", priority: 0.8 },
     { path: "/preservation", changeFrequency: "monthly", priority: 0.8 },
@@ -39,6 +40,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/discoveries", changeFrequency: "monthly", priority: 0.75 },
     { path: "/history", changeFrequency: "monthly", priority: 0.75 },
     { path: "/local", changeFrequency: "monthly", priority: 0.75 },
+    { path: "/after-the-river", changeFrequency: "weekly", priority: 0.78 },
+    { path: "/plan-your-day", changeFrequency: "weekly", priority: 0.8 },
+    { path: "/get-featured", changeFrequency: "monthly", priority: 0.7 },
+    { path: "/why-rock-river", changeFrequency: "monthly", priority: 0.72 },
     { path: "/local-business", changeFrequency: "monthly", priority: 0.72 },
   ];
 

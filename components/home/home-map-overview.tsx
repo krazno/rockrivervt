@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { HomeSectionHeader } from "@/components/home/home-section-header";
 import { InteractiveMap } from "@/components/map/interactive-map";
 import { RockRiverTrailYoutubeEmbed } from "@/components/home/rock-river-trail-youtube";
+import { trackRrInteraction } from "@/lib/analytics";
 
 type HomeMapOverviewProps = {
   /** When false, map-only layout (trail film on trail page). */
@@ -99,11 +100,15 @@ export function HomeMapOverview({ includeTrailFilm = false }: HomeMapOverviewPro
               geoJsonUrl="/geo/map.geojson"
               tone="light"
               ariaLabel="Rock River area map preview"
+              analyticsSurface="home_preview"
             />
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <button
                 type="button"
-                onClick={() => setMapOpen(true)}
+                onClick={() => {
+                  trackRrInteraction("map", "home_expand_modal");
+                  setMapOpen(true);
+                }}
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-[#E2E0D8] bg-white px-5 py-2.5 text-sm font-semibold text-[#4F6B52] shadow-sm transition hover:border-[#4F6B52]/35 hover:bg-[#F6F4EF]"
               >
                 <Maximize2 className="h-4 w-4 opacity-90" aria-hidden />
@@ -111,6 +116,7 @@ export function HomeMapOverview({ includeTrailFilm = false }: HomeMapOverviewPro
               </button>
               <Link
                 href="/map"
+                onClick={() => trackRrInteraction("map", "home_full_map_link")}
                 className="text-center text-sm font-semibold text-[#4F6B52] underline-offset-2 transition hover:text-[#1F2A24] hover:underline sm:text-left"
               >
                 Full page →
@@ -187,6 +193,7 @@ export function HomeMapOverview({ includeTrailFilm = false }: HomeMapOverviewPro
                   geoJsonUrl="/geo/map.geojson"
                   tone="light"
                   ariaLabel="Rock River area map expanded"
+                  analyticsSurface="home_modal"
                 />
               </div>
             </motion.div>

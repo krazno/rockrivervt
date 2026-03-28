@@ -18,7 +18,7 @@ export function homeSeasonFromMonth(m: number): HomeSeasonKind {
 
 /** Short line for the “today” strip. */
 export const HOME_SEASON_STRIP: Record<HomeSeasonKind, string> = {
-  spring: "Cold, fast water—spring runoff is real.",
+  spring: "Spring flows change quickly—check the river before you wade.",
   summer: "Best swimming window—still read the river first.",
   fall: "Lower water, leaves underfoot—foliage is worth the slower pace.",
   winter: "Limited access—ice, short days, and quiet woods.",
@@ -27,7 +27,7 @@ export const HOME_SEASON_STRIP: Record<HomeSeasonKind, string> = {
 /** Slightly longer note near conditions. */
 export const HOME_SEASON_NOTE: Record<HomeSeasonKind, string> = {
   spring:
-    "Spring means cold, fast water after rain and melt. Most people wade carefully and skip big jumps until flows ease.",
+    "Spring can bring stronger flow after rain and snowmelt. Wading carefully and saving big jumps for calmer days is the usual move here.",
   summer:
     "Summer is when swimming here feels most natural—warm air, cold pockets in the pools. Check flow and clarity like any other river day.",
   fall:

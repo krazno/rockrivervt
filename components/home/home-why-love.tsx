@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Heart } from "lucide-react";
 
 import { SectionEyebrow } from "@/components/shared/section-eyebrow";
@@ -27,6 +28,18 @@ export function HomeWhyLoveRockRiver() {
       >
         Why people love Rock River
       </h2>
+      <p className="mt-4 max-w-3xl text-sm leading-relaxed text-[#5a6258] sm:text-[15px]">
+        The river is a small, working landscape in southern Vermont—not a resort. People return
+        because the swim feels real, the crowd is generally easygoing, and the day still belongs
+        to you. For a slightly longer read on place and stewardship, see{" "}
+        <Link
+          href="/why-rock-river"
+          className="font-semibold text-[#4F6B52] underline-offset-2 hover:underline"
+        >
+          why this place matters
+        </Link>
+        .
+      </p>
       <ul className="mt-6 grid gap-3 sm:grid-cols-2">
         {REASONS.map((line) => (
           <li

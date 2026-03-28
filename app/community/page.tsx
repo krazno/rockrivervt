@@ -9,6 +9,8 @@ import { buildPageMetadata, truncateMetaDescription, META_DESC_MAX } from "@/lib
 import {
   CONTACT_FORM_EMAIL,
   mailtoPhotoSubmission,
+  mailtoSightingNote,
+  mailtoVisitorFieldNote,
   SITE_STUDIO_BRAND,
 } from "@/lib/site";
 
@@ -85,6 +87,42 @@ export default function CommunityPage() {
           </ul>
         </GuideSection>
 
+        <GuideSection eyebrow="Light touch" title="Share with the guide">
+          <p>
+            No accounts, no public wall—just email. We read what comes in; not everything gets
+            published. Useful, specific notes help the next visitor.
+          </p>
+          <ul className="mt-3 list-disc space-y-2 pl-5">
+            <li>
+              <a
+                href={mailtoVisitorFieldNote()}
+                className="font-semibold text-[#4F6B52] underline-offset-2 hover:underline"
+              >
+                Visitor field note
+              </a>{" "}
+              — trail condition, parking reality, calm heads-up after a busy day.
+            </li>
+            <li>
+              <a
+                href={mailtoSightingNote()}
+                className="font-semibold text-[#4F6B52] underline-offset-2 hover:underline"
+              >
+                Sighting or season note
+              </a>{" "}
+              — wildlife, wildflowers, ice edge—roughly where and when.
+            </li>
+            <li>
+              <a
+                href={mailtoPhotoSubmission()}
+                className="font-semibold text-[#4F6B52] underline-offset-2 hover:underline"
+              >
+                Photo for the gallery
+              </a>{" "}
+              — same pipeline as before; attach images, say how to credit you.
+            </li>
+          </ul>
+        </GuideSection>
+
         <GuideSection eyebrow="This website" title="Corrections and contact">
           <p>
             RockRiverVT is a volunteer field guide—not the nonprofit, not a town office. Map tweaks,
@@ -141,6 +179,8 @@ export default function CommunityPage() {
             <Link href="/land-river">Land &amp; river</Link>
             {" · "}
             <Link href="/resources">Resources</Link>
+            {" · "}
+            <Link href="/after-the-river">After the river</Link>
             {" · "}
             <Link href="/discoveries">Discoveries</Link>
           </p>

@@ -6,6 +6,7 @@ import type { LucideIcon } from "lucide-react";
 import { ArrowRight, CloudSun, Droplets, Users } from "lucide-react";
 
 import type { HomeVisitSnapshot } from "@/components/home/use-home-visit-snapshot";
+import { trackRrInteraction } from "@/lib/analytics";
 
 type HomeTodayStripProps = {
   snapshot: HomeVisitSnapshot;
@@ -107,6 +108,14 @@ export function HomeTodayStrip({ snapshot }: HomeTodayStripProps) {
               </Link>
               <Link href="/conditions" className={linkBtnClass}>
                 Conditions page
+                <ArrowRight className="h-3.5 w-3.5 opacity-80" aria-hidden />
+              </Link>
+              <Link
+                href="/plan-your-day"
+                className={linkBtnClass}
+                onClick={() => trackRrInteraction("navigation", "home_plan_your_day")}
+              >
+                Plan your day
                 <ArrowRight className="h-3.5 w-3.5 opacity-80" aria-hidden />
               </Link>
               <Link href="#crowd-check-in" className={linkBtnClass}>

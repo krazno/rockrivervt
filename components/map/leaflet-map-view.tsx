@@ -10,6 +10,7 @@ import {
   getDescription,
   getFeatureTitle,
 } from "@/lib/geojson-labels";
+import { trackRrInteraction } from "@/lib/analytics";
 
 export type MapMode = "preview" | "full";
 
@@ -26,6 +27,8 @@ export type InteractiveMapViewProps = {
   tone?: "light" | "dark";
   /** Accessible name for the map region */
   ariaLabel?: string;
+  /** When set, fires once per map mount after GeoJSON loads — GA4 `rr_interaction`. */
+  analyticsSurface?: string;
 };
 
 const DEFAULT_GEOJSON = "/geo/map.geojson";
@@ -89,10 +92,16 @@ export function LeafletMapView({
   className = "",
   tone = "light",
   ariaLabel = "Interactive map",
+  analyticsSurface,
 }: InteractiveMapViewProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loaded, setLoaded] = useState(false);
+  const analyticsSent = useRef(false);
+
+  useEffect(() => {
+    analyticsSent.current = false;
+  }, [analyticsSurface, mode, geoJsonUrl]);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -174,6 +183,10 @@ export function LeafletMapView({
 
         setLoaded(true);
         setError(null);
+        if (analyticsSurface && !analyticsSent.current) {
+          analyticsSent.current = true;
+          trackRrInteraction("map", "layers_ready", { map_context: analyticsSurface });
+        }
         requestAnimationFrame(() => map.invalidateSize());
       })
       .catch(() => {
@@ -193,7 +206,7 @@ export function LeafletMapView({
       ro.disconnect();
       map.remove();
     };
-  }, [geoJsonUrl, mode, showControls, tone]);
+  }, [analyticsSurface, geoJsonUrl, mode, showControls, tone]);
 
   const frame =
     tone === "dark"

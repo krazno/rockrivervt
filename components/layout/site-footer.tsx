@@ -131,6 +131,13 @@ export function SiteFooter() {
           </p>
           <p className="mt-4 text-[11px] text-[var(--rr-text-muted)]/80">
             © {new Date().getFullYear()} Rock River VT · Community guide ·{" "}
+            <Link
+              href="/legal"
+              className="text-[var(--rr-text-muted)] underline-offset-2 hover:text-[var(--rr-link)] hover:underline"
+            >
+              Legal &amp; disclaimers
+            </Link>
+            {" · "}
             <span className="text-[var(--rr-text-muted)]">Not official or legal advice</span>
             {" · "}
             <a

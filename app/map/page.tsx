@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 
+import { PageEngagementBeacon } from "@/components/analytics/page-engagement-beacon";
 import { GuideSection } from "@/components/guide/guide-section";
 import { InteractiveMap } from "@/components/map/interactive-map";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
@@ -35,6 +36,7 @@ export const metadata: Metadata = buildPageMetadata({
 export default function MapPage() {
   return (
     <>
+      <PageEngagementBeacon category="map" label="map_page" />
       <WebPageJsonLd
         name="Rock River map & directions — Newfane, Vermont"
         description={pageDesc}
@@ -86,6 +88,7 @@ export default function MapPage() {
                   geoJsonUrl="/geo/map.geojson"
                   tone="light"
                   ariaLabel="Rock River full map — Newfane and Windham County Vermont"
+                  analyticsSurface="map_page_full"
                 />
               </div>
             </section>
@@ -133,11 +136,15 @@ export default function MapPage() {
 
               <GuideSection eyebrow="Related" title="Plan the rest of the day">
                 <p>
+                  <Link href="/plan-your-day">Plan your day</Link>
+                  {" · "}
                   <Link href="/visit">Visit</Link>
                   {" · "}
                   <Link href="/visit#visit-faq">Visit Q&amp;A</Link>
                   {" · "}
                   <Link href="/conditions">Conditions</Link>
+                  {" · "}
+                  <Link href="/after-the-river">After the river</Link>
                   {" · "}
                   <Link href="/guidelines">Guidelines</Link>
                   {" · "}

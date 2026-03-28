@@ -5,6 +5,8 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { Heart, MapPinned, Sparkles, SunMedium, Waves, X } from "lucide-react";
 
+import { YoutubeShortEmbedCover } from "@/components/media/youtube-short-clip";
+import { getRiverCharacterShort } from "@/data/media";
 import { SITE_STUDIO_BRAND } from "@/lib/site";
 import { vermontYearMonthKey } from "@/lib/vermont-time";
 
@@ -17,6 +19,7 @@ const STORAGE_KEY = "rr_monthly_welcome_modal_month";
 export function HomeMonthlyWelcomeModal() {
   const labelId = useId();
   const [open, setOpen] = useState(false);
+  const riverShort = getRiverCharacterShort();
 
   const dismiss = useCallback(() => {
     try {
@@ -122,6 +125,23 @@ export function HomeMonthlyWelcomeModal() {
                 </button>
               </div>
             </div>
+
+            {riverShort ? (
+              <div
+                className="pointer-events-none border-b border-[#E2E0D8]/70 bg-gradient-to-b from-[#e3ebe4]/50 to-transparent px-5 py-4 sm:px-6"
+                aria-hidden
+              >
+                <YoutubeShortEmbedCover
+                  videoId={riverShort.youtubeId}
+                  title={riverShort.title}
+                  className="mx-auto max-w-[200px] shadow-none sm:max-w-[220px]"
+                  controls={false}
+                />
+                <p className="mt-2 text-center text-[10px] font-medium tracking-wide text-[#6B6F68]">
+                  Muted river moment · loops
+                </p>
+              </div>
+            ) : null}
 
             <div className="relative space-y-4 px-5 py-5 sm:px-6 sm:py-6">
               <p className="text-sm leading-relaxed text-[#3a423c] sm:text-[15px]">

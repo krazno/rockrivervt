@@ -2,8 +2,10 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 import { ArticleShell } from "@/components/marketing/article-shell";
+import { LocalPickCard } from "@/components/local/local-pick-card";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { WebPageJsonLd } from "@/components/seo/web-page-json-ld";
+import { getHomeFeaturedPicks } from "@/lib/local-ecosystem";
 import { buildPageMetadata } from "@/lib/seo";
 
 const pageDesc =
@@ -22,6 +24,8 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function LocalPage() {
+  const teaserPicks = getHomeFeaturedPicks(2);
+
   return (
     <>
       <WebPageJsonLd
@@ -61,7 +65,34 @@ export default function LocalPage() {
             Brattleboro’s downtown has groceries, cafés, and lodging within a short drive of Rock
             River; Newfane village is smaller but has essentials nearby. This page stays general; if you
             are looking for spots that want to welcome river visitors, see{" "}
-            <Link href="/local-business">Area partners</Link>.
+            <Link href="/local-business">Area partners</Link>. For a fuller “what next after the
+            river?” list, open{" "}
+            <Link href="/after-the-river" className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline">
+              After the river
+            </Link>
+            .
+          </p>
+        </section>
+
+        <section>
+          <h2>Featured nearby</h2>
+          <p className="rr-prose-muted mb-4 text-base leading-relaxed sm:text-lg">
+            Two starting points—same picks rotate on the home page. Editorial, not sponsored.
+          </p>
+          <ul className="grid gap-4 sm:grid-cols-2">
+            {teaserPicks.map((pick) => (
+              <li key={pick.id}>
+                <LocalPickCard pick={pick} />
+              </li>
+            ))}
+          </ul>
+          <p className="mt-5">
+            <Link
+              href="/after-the-river"
+              className="font-medium text-[var(--rr-link)] underline-offset-2 hover:underline"
+            >
+              Full after-river guide →
+            </Link>
           </p>
         </section>
         <section>

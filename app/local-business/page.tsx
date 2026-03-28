@@ -47,6 +47,16 @@ export default function LocalBusinessPage() {
         lead="The river pulls a friendly, mixed crowd—families, hikers, swimmers, and plenty of LGBTQ+ folks who already treat southern Vermont as home for the weekend. This page is where local spots can show up next to the map and conditions: helpful, clearly labeled, never a junky coupon wall."
         photoAccentSeed="area-partners"
       >
+        <GuideSection eyebrow="Featured pathway" title="Want a clearer on-ramp?">
+          <p className="text-sm leading-relaxed text-[#3f4840]">
+            Criteria, tone, and a short form live on{" "}
+            <Link href="/get-featured" className="font-semibold text-[#4F6B52] underline-offset-2 hover:underline">
+              Get featured
+            </Link>
+            —same inbox and standards as this page, just easier to scan before you write.
+          </p>
+        </GuideSection>
+
         <GuideSection eyebrow="Why list here" title="Meet people at the right moment">
           <p>
             Visitors aren’t flipping a phone book—they’re checking{" "}

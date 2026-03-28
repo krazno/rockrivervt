@@ -119,7 +119,11 @@ export default function VisitPage() {
         <GuideSection id="what-to-bring" eyebrow="Gear & town" title="What to bring">
           {whatToBringBody ? <KnowledgeSectionProse content={whatToBringBody} /> : null}
           <p className="mt-4 text-sm text-[#6B6F68]">
-            Errands or dinner after swimming:{" "}
+            Errands, coffee, or dinner after the river:{" "}
+            <Link href="/after-the-river" className="font-semibold text-[#4F6B52] underline-offset-2 hover:underline">
+              After the river
+            </Link>
+            {" · "}
             <Link href="/local" className="font-semibold text-[#4F6B52] underline-offset-2 hover:underline">
               Local guide
             </Link>

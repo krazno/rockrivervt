@@ -12,6 +12,10 @@ export const primaryNav = [
 
 /** Secondary links — footer, mobile “also,” internal discovery. */
 export const secondaryNav = [
+  { href: "/daily-updates", label: "Daily updates" },
+  { href: "/plan-your-day", label: "Plan your day" },
+  { href: "/after-the-river", label: "After the river" },
+  { href: "/get-featured", label: "Get featured" },
   { href: "/local-business", label: "Area partners" },
   { href: "/local", label: "Local · LGBTQ-friendly" },
   { href: "/land-river", label: "Land & River" },
@@ -43,6 +47,24 @@ export const HEADER_PRIMARY_NAV: HeaderNavLink[] = [
     label: "Conditions",
     group: "explore",
     match: (p) => p === "/conditions" || p.startsWith("/rock-river-conditions"),
+  },
+  {
+    href: "/daily-updates",
+    label: "Updates",
+    group: "explore",
+    match: (p) => p === "/daily-updates",
+  },
+  {
+    href: "/after-the-river",
+    label: "After river",
+    group: "visit",
+    match: (p) => p === "/after-the-river",
+  },
+  {
+    href: "/plan-your-day",
+    label: "Plan day",
+    group: "visit",
+    match: (p) => p === "/plan-your-day",
   },
   {
     href: "/visit",

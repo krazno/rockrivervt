@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { ExternalLink, Instagram, X } from "lucide-react";
+import { ExternalLink, Instagram, Play, X } from "lucide-react";
 
 import { MediaImage } from "@/components/MediaImage";
+import { YoutubeShortEmbedCover } from "@/components/media/youtube-short-clip";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { Container } from "@/components/shared/container";
@@ -230,14 +231,15 @@ export function GalleryPageContent() {
                 id="gallery-video-heading"
                 className="font-heading text-xl font-semibold text-[var(--rr-ink)] sm:text-2xl"
               >
-                Trail tour &amp; video
+                Trail tour &amp; clips
               </h2>
               <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--rr-text-muted)]">
                 Video gives length and elevation change that stills cannot—use it beside the{" "}
                 <Link href="/map" className="font-semibold text-[var(--rr-link)] underline-offset-2 hover:underline">
                   map
                 </Link>{" "}
-                when you are planning footwear and time on the trail.
+                when you are planning footwear and time on the trail. Short clips may live on YouTube;
+                they open in an embedded player here (no account required).
               </p>
               <ul className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-1" role="list">
                 {videoItems.map((item) => (
@@ -248,20 +250,59 @@ export function GalleryPageContent() {
                         <p className="mt-1 text-[11px] leading-relaxed text-[var(--rr-text-muted)]">
                           {item.alt}
                         </p>
+                        {item.youtubeId ? (
+                          <a
+                            href={item.src}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold text-[var(--rr-link)] underline-offset-2 hover:underline"
+                          >
+                            Open on YouTube
+                            <ExternalLink className="h-3 w-3 opacity-80" aria-hidden />
+                          </a>
+                        ) : null}
                       </div>
-                      <div className="relative aspect-video w-full overflow-hidden bg-[#2a2824]">
-                        <video
-                          controls
-                          preload="metadata"
-                          playsInline
-                          poster={item.poster}
-                          className="absolute inset-0 h-full w-full object-cover"
-                          title={item.title}
+                      {item.youtubeId && item.thumbnailSrc ? (
+                        <button
+                          type="button"
+                          onClick={() => setActive(item)}
+                          className="group relative mx-auto flex w-full max-w-xs justify-center bg-[#5a7d72]/25 px-4 py-6 sm:max-w-sm"
                         >
-                          <source src={item.src} type="video/mp4" />
-                          Your browser does not support the video tag.
-                        </video>
-                      </div>
+                          <span className="relative aspect-[9/16] w-[min(100%,220px)] overflow-hidden rounded-2xl border border-[var(--rr-widget-border)] shadow-md ring-2 ring-white/30">
+                            <MediaImage
+                              src={item.thumbnailSrc}
+                              alt={item.alt}
+                              title={item.title}
+                              fill
+                              sizes="220px"
+                              className="object-cover transition duration-300 group-hover:scale-[1.03]"
+                            />
+                            <span
+                              className="absolute inset-0 flex items-center justify-center bg-[#1F2A24]/25 transition group-hover:bg-[#1F2A24]/35"
+                              aria-hidden
+                            >
+                              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/95 text-[#1F2A24] shadow-lg ring-2 ring-white/50">
+                                <Play className="ml-0.5 h-7 w-7" fill="currentColor" aria-hidden />
+                              </span>
+                            </span>
+                          </span>
+                          <span className="sr-only">Play {item.title}</span>
+                        </button>
+                      ) : (
+                        <div className="relative aspect-video w-full overflow-hidden bg-[#5a7d72]">
+                          <video
+                            controls
+                            preload="metadata"
+                            playsInline
+                            poster={item.poster}
+                            className="absolute inset-0 h-full w-full object-cover"
+                            title={item.title}
+                          >
+                            <source src={item.src} type="video/mp4" />
+                            Your browser does not support the video tag.
+                          </video>
+                        </div>
+                      )}
                       <button
                         type="button"
                         onClick={() => setActive(item)}
@@ -371,8 +412,28 @@ export function GalleryPageContent() {
                     {active.alt}
                   </p>
                 </div>
+              ) : active.type === "video" && active.youtubeId ? (
+                <div className="flex flex-col items-center gap-4">
+                  <YoutubeShortEmbedCover
+                    videoId={active.youtubeId}
+                    title={active.title}
+                    controls
+                    autoplay
+                    muted
+                    loop
+                  />
+                  <a
+                    href={active.src}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--rr-link)] underline-offset-2 hover:underline"
+                  >
+                    Watch on YouTube
+                    <ExternalLink className="h-3.5 w-3.5" aria-hidden />
+                  </a>
+                </div>
               ) : active.type === "video" ? (
-                <div className="relative aspect-video w-full max-w-full overflow-hidden rounded-lg bg-[#050807]">
+                <div className="relative aspect-video w-full max-w-full overflow-hidden rounded-lg bg-[#5a7d72]">
                   <video
                     controls
                     autoPlay
