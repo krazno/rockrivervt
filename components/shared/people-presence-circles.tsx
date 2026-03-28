@@ -36,7 +36,7 @@ export function PeoplePresenceCircles({
             href={galleryHref}
             role="listitem"
             className={cn(
-              "relative overflow-hidden rounded-full border-2 border-[#faf8f4] bg-[#eef0ec] shadow-sm ring-2 ring-[#E2E0D8]/80 transition duration-300 hover:z-[2] hover:-translate-y-0.5 hover:ring-[#4F6B52]/30",
+              "rr-interactive-lift relative overflow-hidden rounded-full border-2 border-[#faf8f4] bg-[#eef0ec] shadow-[var(--rr-shadow-card-soft)] ring-2 ring-[#E2E0D8]/80 hover:z-[2] hover:ring-[#4F6B52]/30",
               sizeClassName,
               overlapClassName,
               i === 0 && "z-[1]",
@@ -66,7 +66,7 @@ type PeoplePresenceSplitProps = {
 /** Two stacked circles — calm editorial column for sidebars. */
 export function PeoplePresenceStackedPair({ primary, secondary, className }: PeoplePresenceSplitProps) {
   const ring =
-    "relative block overflow-hidden rounded-full border-2 border-[#faf8f4] shadow-md ring-2 ring-[#E2E0D8]/85 transition duration-300 hover:ring-[#4F6B52]/25";
+    "rr-interactive-lift relative block overflow-hidden rounded-full border-2 border-[#faf8f4] shadow-[var(--rr-shadow-card-soft)] ring-2 ring-[#E2E0D8]/85 hover:ring-[#4F6B52]/25";
 
   return (
     <div className={cn("flex flex-col items-center", className)}>

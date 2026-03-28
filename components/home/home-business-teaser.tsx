@@ -5,16 +5,19 @@ import { Building2, Mail, Sparkles } from "lucide-react";
 
 import { PhotoAccentRow } from "@/components/shared/photo-accent-row";
 import { trackRrInteraction } from "@/lib/analytics";
+import { getHomePartnersAccentImages } from "@/lib/page-photo-accents";
 import { SITE_STUDIO_BRAND, mailtoBusinessPartners } from "@/lib/site";
 
-/** On-ramp for the area partners program—clear CTA to Krasno Design. */
+/** On-ramp for the area partners program—clear CTA to Krazno Design. */
 export function HomeBusinessTeaser() {
+  const partnersAccentImages = getHomePartnersAccentImages(3);
+
   return (
     <section
       className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8"
       aria-labelledby="area-partners-teaser-heading"
     >
-      <div className="rr-photo-surface rr-photo-surface--shore overflow-hidden rounded-2xl border border-[#E2E0D8]/85 p-6 shadow-sm sm:p-8">
+      <div className="rr-photo-surface rr-photo-surface--shore overflow-hidden rounded-2xl border border-[#E2E0D8]/85 p-6 shadow-[var(--rr-shadow-card-soft)] sm:p-8">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
           <div className="min-w-0">
             <p className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-[#6B6F68]">
@@ -64,7 +67,7 @@ export function HomeBusinessTeaser() {
             </Link>
           </div>
         </div>
-        <PhotoAccentRow seed="home-windham-partners" className="mt-8 opacity-95" />
+        <PhotoAccentRow images={partnersAccentImages} className="mt-8 opacity-95" />
       </div>
     </section>
   );

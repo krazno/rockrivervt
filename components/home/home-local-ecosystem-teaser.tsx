@@ -20,6 +20,7 @@ export function HomeLocalEcosystemTeaser() {
       className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8"
       aria-labelledby="local-ecosystem-teaser-heading"
     >
+      <div className="rr-home-band rr-home-band--shore border border-[#E2E0D8]/75 p-4 sm:p-5 lg:p-6">
       <div className="mb-5 flex flex-col items-center gap-4 sm:mb-6 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
         <HomeSectionHeader
           eyebrow="Local ecosystem"
@@ -58,6 +59,7 @@ export function HomeLocalEcosystemTeaser() {
           Full after-river guide
           <ArrowRight className="h-4 w-4 opacity-90" aria-hidden />
         </Link>
+      </div>
       </div>
     </section>
   );

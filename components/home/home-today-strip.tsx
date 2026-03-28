@@ -23,8 +23,8 @@ function StripStat({
 }) {
   return (
     <div className="min-w-[min(100%,260px)] shrink-0 snap-start sm:min-w-0">
-      <div className="flex min-w-0 gap-3 rounded-2xl border border-white/60 bg-white/75 px-4 py-3 shadow-sm backdrop-blur-sm sm:rounded-xl sm:py-3.5">
-        <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#E2E0D8]/80 bg-white text-[#4F6B52] shadow-sm">
+      <div className="rr-interactive-lift flex min-w-0 gap-3 rounded-2xl border border-white/55 bg-white/72 px-4 py-3 shadow-[var(--rr-shadow-card-soft)] backdrop-blur-sm sm:rounded-xl sm:py-3.5">
+        <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#E2E0D8]/75 bg-white/95 text-[#4F6B52] shadow-[0_2px_8px_-4px_rgba(31,42,36,0.06)]">
           <Icon className="h-4 w-4" aria-hidden />
         </span>
         <div className="min-w-0 flex-1">
@@ -41,7 +41,7 @@ function StripStat({
 }
 
 const linkBtnClass =
-  "inline-flex items-center gap-1.5 rounded-full border border-[#4F6B52]/25 bg-white/90 px-3.5 py-1.5 text-[12px] font-semibold text-[#2d4a38] shadow-sm transition hover:border-[#4F6B52]/45 hover:bg-white";
+  "inline-flex items-center gap-1.5 rounded-full border border-[#4F6B52]/25 bg-white/88 px-3.5 py-1.5 text-[12px] font-semibold text-[#2d4a38] shadow-[var(--rr-shadow-card-soft)] transition-[border-color,background-color,box-shadow] duration-[var(--rr-motion-duration-hover)] ease-[var(--rr-motion-ease-hover)] hover:border-[#4F6B52]/45 hover:bg-white";
 
 /**
  * Three stats + quick links; background uses a slow drift (see globals `.rr-now-backdrop`).
@@ -73,7 +73,8 @@ export function HomeTodayStrip({ snapshot }: HomeTodayStripProps) {
       className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8"
       aria-labelledby="right-now-preview-heading"
     >
-      <div className="relative overflow-hidden rounded-[1.35rem] border border-[#E2E0D8]/90 shadow-[0_12px_40px_-24px_rgba(31,42,36,0.35)]">
+      <div className="rr-home-band rr-home-band--river border border-[#E2E0D8]/70 p-1 sm:p-1.5">
+      <div className="relative overflow-hidden rounded-[1.25rem] border border-[#E2E0D8]/85 bg-white/25 shadow-[0_8px_32px_-22px_rgba(31,42,36,0.11)]">
         <div
           className="rr-now-backdrop pointer-events-none absolute inset-0 opacity-90"
           aria-hidden
@@ -137,6 +138,7 @@ export function HomeTodayStrip({ snapshot }: HomeTodayStripProps) {
             </StripStat>
           </div>
         </div>
+      </div>
       </div>
     </section>
   );

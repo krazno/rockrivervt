@@ -85,7 +85,8 @@ export function HomeDailyPulse({ pulse }: HomeDailyPulseProps) {
       className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8"
       aria-labelledby="home-daily-pulse-heading"
     >
-      <div className="overflow-hidden rounded-2xl border border-[#E2E0D8] bg-white/95 shadow-sm">
+      <div className="rr-home-band rr-home-band--wide border border-[#E2E0D8]/75 p-1 sm:p-1.5">
+      <div className="overflow-hidden rounded-2xl border border-[#E2E0D8]/70 bg-white/92 shadow-[var(--rr-shadow-card-soft)]">
         <div className="grid gap-0 lg:grid-cols-[minmax(0,1fr)_minmax(220px,38%)]">
           <div className="flex flex-col justify-center p-5 sm:p-6 lg:p-7">
             <HomeSectionHeader
@@ -158,6 +159,7 @@ export function HomeDailyPulse({ pulse }: HomeDailyPulseProps) {
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#1a2822]/25 via-transparent to-transparent lg:bg-gradient-to-l" />
           </div>
         </div>
+      </div>
       </div>
     </section>
   );

@@ -48,13 +48,14 @@ export function HomePhotoCarousel() {
         </div>
       </div>
 
-      <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 pt-1 [scrollbar-width:thin] sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+      <div className="rr-home-band rr-home-band--wide -mx-4 border border-[#E2E0D8]/70 px-4 pb-3 pt-3 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 lg:pb-4 lg:pt-4">
+      <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-1 pt-0.5 [scrollbar-width:thin]">
         {photos.map((photo) => (
           <figure
             key={photo.src}
             className="w-[min(78vw,280px)] shrink-0 snap-start sm:w-[260px]"
           >
-            <div className="relative h-48 overflow-hidden rounded-[1rem] bg-[#e8e4db] shadow-[0_8px_24px_rgba(31,42,36,0.12)] sm:h-56">
+            <div className="rr-interactive-lift relative h-48 overflow-hidden rounded-[1rem] bg-[#e8e4db] shadow-[var(--rr-shadow-card-soft)] sm:h-56">
               <MediaImage
                 src={photo.src}
                 alt={photo.alt}
@@ -68,6 +69,7 @@ export function HomePhotoCarousel() {
             <figcaption className="sr-only">{photo.alt}</figcaption>
           </figure>
         ))}
+      </div>
       </div>
     </section>
   );

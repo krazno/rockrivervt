@@ -133,6 +133,17 @@
     0 1px 0 rgb(255 253 249 / 0.65) inset,
     0 2px 16px -2px rgb(42 38 32 / 0.05),
     0 16px 48px -28px rgb(42 38 32 / 0.12);
+  /* Softer lift — homepage & editorial stacks */
+  --rr-shadow-card-soft:
+    0 1px 0 rgb(255 253 249 / 0.55) inset,
+    0 2px 12px -4px rgb(42 38 32 / 0.04),
+    0 10px 36px -26px rgb(42 38 32 / 0.08);
+  /* Unified homepage / editorial hover — one timing curve, one lift shadow */
+  --rr-motion-duration-hover: 280ms;
+  --rr-motion-ease-hover: cubic-bezier(0.22, 1, 0.36, 1);
+  --rr-shadow-lift-hover:
+    0 1px 0 rgb(255 253 249 / 0.48) inset,
+    0 12px 36px -26px rgb(42 38 32 / 0.1);
   --rr-shadow-card-hover:
     0 1px 0 rgb(255 253 249 / 0.7) inset,
     0 4px 24px -4px rgb(42 38 32 / 0.07),
@@ -501,4 +512,183 @@ main.home-page-main .rr-section {
 .rr-season-photo-band > * {
   position: relative;
   z-index: 1;
+}
+
+/* Homepage: soft photo wash behind section stacks (same JPG tokens as rr-photo-surface) */
+.rr-home-band {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 1.35rem;
+}
+
+.rr-home-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(1px);
+  opacity: 0.1;
+  transform: scale(1.03);
+}
+
+.rr-home-band::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    168deg,
+    rgba(252, 251, 248, 0.91) 0%,
+    rgba(248, 245, 239, 0.86) 45%,
+    rgba(241, 237, 229, 0.84) 100%
+  );
+  box-shadow:
+    inset 0 1px 0 rgb(255 253 249 / 0.5),
+    0 6px 28px -20px rgb(42 38 32 / 0.06);
+}
+
+.rr-home-band > * {
+  position: relative;
+  z-index: 1;
+}
+
+.rr-home-band--river::before {
+  background-image: var(--rr-gallery-photo-river);
+  background-position: 48% 42%;
+  opacity: 0.095;
+}
+
+.rr-home-band--trail::before {
+  background-image: var(--rr-gallery-photo-trail);
+  background-position: 54% 48%;
+  opacity: 0.092;
+}
+
+.rr-home-band--mist::before {
+  background-image: var(--rr-gallery-photo-mist);
+  background-position: 44% 56%;
+  opacity: 0.088;
+}
+
+.rr-home-band--shore::before {
+  background-image: var(--rr-gallery-photo-shore);
+  background-position: 50% 38%;
+  opacity: 0.09;
+}
+
+.rr-home-band--wide::before {
+  background-image: var(--rr-gallery-photo-wide);
+  background-position: 52% 45%;
+  opacity: 0.078;
+}
+
+/**
+ * Shared interactive lift for homepage cards / panels.
+ * Prefer this over ad-hoc duration-300 + arbitrary hover shadows.
+ */
+.rr-interactive-lift {
+  transition:
+    transform var(--rr-motion-duration-hover) var(--rr-motion-ease-hover),
+    box-shadow var(--rr-motion-duration-hover) var(--rr-motion-ease-hover),
+    border-color var(--rr-motion-duration-hover) var(--rr-motion-ease-hover),
+    background-color var(--rr-motion-duration-hover) var(--rr-motion-ease-hover);
+}
+
+.rr-interactive-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--rr-shadow-lift-hover);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rr-interactive-lift {
+    transition-duration: 0ms;
+  }
+
+  .rr-interactive-lift:hover {
+    transform: none;
+    box-shadow: var(--rr-shadow-card-soft);
+  }
+}
+
+/* Subtle river-like spine — desktop only; fades into page edges */
+.home-page-flow-spine {
+  pointer-events: none;
+  position: absolute;
+  left: 50%;
+  top: min(22vh, 15rem);
+  bottom: 3.5rem;
+  width: min(86vw, 58rem);
+  transform: translateX(-50%);
+  z-index: 0;
+  opacity: 0.055;
+  filter: blur(1px);
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgb(0 0 0 / 0.45) 14%,
+    rgb(0 0 0 / 1) 28%,
+    rgb(0 0 0 / 1) 72%,
+    rgb(0 0 0 / 0.4) 86%,
+    transparent 100%
+  );
+  mask-size: 100% 100%;
+}
+
+.home-page-flow-spine-path {
+  stroke: #4f6b52;
+  stroke-width: 1.75;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.home-page-flow-spine-halo {
+  stroke: #7a9a8e;
+  stroke-width: 5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.22;
+  filter: url("#rr-flow-spine-blur");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-page-flow-spine {
+    filter: none;
+    opacity: 0.048;
+  }
+}
+
+/* Homepage: leaf-shadow atmosphere (blurred blobs only, behind content) */
+.home-leaf-atmosphere__blob {
+  inset: -38%;
+  will-change: transform;
+}
+
+@keyframes rr-home-leaf-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0.55%, -0.38%, 0);
+  }
+}
+
+.home-leaf-atmosphere-drift {
+  animation-name: rr-home-leaf-drift;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-leaf-atmosphere-drift {
+    animation: none !important;
+  }
 }

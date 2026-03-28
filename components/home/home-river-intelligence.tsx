@@ -42,12 +42,13 @@ export function HomeRiverIntelligence({ weekly, snapshot }: HomeRiverIntelligenc
       className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8"
       aria-label="This week and best visit window"
     >
+      <div className="rr-home-band rr-home-band--trail border border-[#E2E0D8]/75 p-4 sm:p-5 md:p-6">
       <div className="grid gap-4 md:grid-cols-2">
-        <div className="relative overflow-hidden rounded-2xl border border-[#E2E0D8] bg-white/90 p-5 shadow-sm sm:p-6 sm:pr-[7.5rem]">
+        <div className="rr-interactive-lift relative overflow-hidden rounded-2xl border border-[#E2E0D8]/85 bg-white/88 p-5 shadow-[var(--rr-shadow-card-soft)] sm:p-6 sm:pr-[7.5rem]">
           {trailFace ?
             <Link
               href="/gallery"
-              className="absolute right-4 top-4 hidden h-16 w-16 overflow-hidden rounded-full border-2 border-[#faf8f4] shadow-md ring-2 ring-[#E2E0D8]/80 transition duration-300 hover:ring-[#4F6B52]/30 sm:block"
+              className="absolute right-4 top-4 hidden h-16 w-16 overflow-hidden rounded-full border-2 border-[#faf8f4] shadow-[var(--rr-shadow-card-soft)] ring-2 ring-[#E2E0D8]/80 transition-[transform,box-shadow,ring-color] duration-[var(--rr-motion-duration-hover)] ease-[var(--rr-motion-ease-hover)] hover:z-[2] hover:scale-[1.03] hover:shadow-[var(--rr-shadow-lift-hover)] hover:ring-[#4F6B52]/30 motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:hover:shadow-[var(--rr-shadow-card-soft)] sm:block"
               aria-label={`${trailFace.title} — open gallery`}
             >
               <Image
@@ -72,7 +73,7 @@ export function HomeRiverIntelligence({ weekly, snapshot }: HomeRiverIntelligenc
             {weekly.body}
           </p>
         </div>
-        <div className="rounded-2xl border border-[#E2E0D8] bg-[#f8f9f6] p-5 shadow-sm sm:p-6">
+        <div className="rr-interactive-lift rounded-2xl border border-[#E2E0D8]/85 bg-[#f8f9f6]/95 p-5 shadow-[var(--rr-shadow-card-soft)] sm:p-6">
           <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#6B6F68]">
             <Clock className="h-4 w-4 text-[#4F6B52]" aria-hidden />
             Best window from forecast
@@ -84,6 +85,7 @@ export function HomeRiverIntelligence({ weekly, snapshot }: HomeRiverIntelligenc
             Hint uses NOAA hourly data—rough guide only; storms and river conditions still rule the day.
           </p>
         </div>
+      </div>
       </div>
     </section>
   );

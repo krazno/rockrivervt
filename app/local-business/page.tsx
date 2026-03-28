@@ -13,7 +13,7 @@ import {
 import { CONTACT_FORM_EMAIL, SITE_STUDIO_BRAND, mailtoBusinessPartners } from "@/lib/site";
 
 const pageDesc = truncateMetaDescription(
-  "Windham County area partners for Rock River visitors: cafés, shops, lodging near Newfane & Brattleboro. LGBTQ-friendly guide—list your business, optional perks & sponsors. Email Krasno Design.",
+  `Windham County area partners for Rock River visitors: cafés, shops, lodging near Newfane & Brattleboro. LGBTQ-friendly guide—list your business, optional perks & sponsors. Email ${SITE_STUDIO_BRAND}.`,
   META_DESC_MAX,
 );
 

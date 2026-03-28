@@ -15,7 +15,7 @@ export function HomeSeasonalNote() {
   const body = HOME_SEASON_NOTE[season];
 
   return (
-    <div className="mb-6 rounded-2xl border border-[#E2E0D8] bg-[#F6F4EF]/80 px-4 py-4 shadow-sm sm:mb-8 sm:px-5 sm:py-5">
+    <div className="mb-6 rounded-2xl border border-[#dfe8df]/90 bg-white/55 px-4 py-4 shadow-[var(--rr-shadow-card-soft)] sm:mb-8 sm:px-5 sm:py-5">
       <SectionEyebrow
         icon={Leaf}
         className="text-[9px] tracking-[0.22em] text-[#6B6F68]"

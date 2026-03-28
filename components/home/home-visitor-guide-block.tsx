@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 
 const cardShellClass =
-  "flex h-full items-center gap-4 rounded-2xl border border-[#E2E0D8] bg-white p-6 shadow-sm transition duration-300 ease-out hover:-translate-y-0.5 hover:shadow-md";
+  "rr-interactive-lift flex h-full items-center gap-4 rounded-2xl border border-[#E2E0D8] bg-white/95 p-6 shadow-[var(--rr-shadow-card-soft)]";
 
 const bullets: { label: string; icon: typeof MapPinned; href?: string }[] = [
   { label: "Map & trail", icon: MapPinned, href: "/map" },
@@ -33,7 +33,7 @@ export function HomeVisitorGuideBlock() {
       className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8"
       aria-labelledby="visitor-guide-identity-heading"
     >
-      <div className="rr-photo-surface rr-photo-surface--trail rounded-[1.35rem] border border-[#E2E0D8]/85 p-6 shadow-[0_12px_40px_-24px_rgba(31,42,36,0.12)] sm:p-8">
+      <div className="rr-photo-surface rr-photo-surface--trail rounded-[1.35rem] border border-[#E2E0D8]/85 p-6 shadow-[0_8px_32px_-22px_rgba(31,42,36,0.09)] sm:p-8">
       <h2
         id="visitor-guide-identity-heading"
         className="font-heading text-balance text-3xl font-extrabold tracking-tight text-[#1F2A24] sm:text-4xl"

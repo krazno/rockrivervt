@@ -17,8 +17,8 @@ export function PageGalleryBackdrop() {
   if (!img) return null;
 
   const isHome = pathname === "/";
-  const opacity = isHome ? "opacity-[0.09]" : "opacity-[0.11]";
-  const wash = isHome ? "bg-[#faf8f4]/86" : "bg-[#faf8f4]/84";
+  const opacity = isHome ? "opacity-[0.065]" : "opacity-[0.1]";
+  const wash = isHome ? "bg-gradient-to-b from-[#faf8f4]/84 via-[#f8f6f1]/80 to-[#f5f2ec]/83" : "bg-[#faf8f4]/84";
 
   return (
     <div
@@ -30,7 +30,7 @@ export function PageGalleryBackdrop() {
         alt=""
         fill
         sizes="100vw"
-        className={`object-cover ${opacity}`}
+        className={`object-cover ${opacity} ${isHome ? "scale-105 blur-sm" : ""}`}
         priority={false}
       />
       <div className={`absolute inset-0 ${wash}`} />

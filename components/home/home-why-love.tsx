@@ -19,6 +19,7 @@ export function HomeWhyLoveRockRiver() {
       className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8"
       aria-labelledby="why-love-heading"
     >
+      <div className="rr-home-band rr-home-band--mist border border-[#E2E0D8]/70 p-4 sm:p-5 lg:p-6">
       <SectionEyebrow icon={Heart} iconClassName="h-4 w-4 text-[#4F6B52]">
         On the ground
       </SectionEyebrow>
@@ -44,12 +45,13 @@ export function HomeWhyLoveRockRiver() {
         {REASONS.map((line) => (
           <li
             key={line}
-            className="rounded-2xl border border-[#E2E0D8] bg-[#F6F4EF]/60 px-4 py-3 text-sm leading-relaxed text-[#1F2A24] sm:px-5 sm:py-4 sm:text-[15px]"
+            className="rr-interactive-lift rounded-2xl border border-[#E2E0D8]/85 bg-[#F6F4EF]/55 px-4 py-3 text-sm leading-relaxed text-[#1F2A24] shadow-[var(--rr-shadow-card-soft)] hover:bg-[#F6F4EF]/72 sm:px-5 sm:py-4 sm:text-[15px]"
           >
             {line}
           </li>
         ))}
       </ul>
+      </div>
     </section>
   );
 }

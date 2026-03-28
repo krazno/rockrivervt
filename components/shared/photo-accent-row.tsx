@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import type { MediaItem } from "@/data/media";
 import { getAccentImages } from "@/lib/page-photo-accents";
 import {
   getPeopleAccentImagesForPage,
@@ -7,7 +8,11 @@ import {
 } from "@/lib/people-media";
 import { cn } from "@/lib/utils";
 
+type AccentImg = MediaItem & { type: "image"; width: number; height: number };
+
 type PhotoAccentRowProps = {
+  /** When set, uses this list only (e.g. homepage disjoint strips). */
+  images?: AccentImg[];
   /** Stable string so the same page always picks the same photos (SSR/client match). */
   seed?: string;
   /** Curated people-forward trio for key marketing pages (overrides seed when set). */
@@ -18,12 +23,17 @@ type PhotoAccentRowProps = {
 /**
  * Decorative image strip — improves interior pages without duplicating hero photography.
  */
-export function PhotoAccentRow({ seed, peoplePage, className }: PhotoAccentRowProps) {
-  const imgs = peoplePage ?
-    getPeopleAccentImagesForPage(peoplePage)
-  : seed ?
-    getAccentImages(seed, 3)
-  : [];
+export function PhotoAccentRow({
+  images,
+  seed,
+  peoplePage,
+  className,
+}: PhotoAccentRowProps) {
+  const imgs: AccentImg[] =
+    images && images.length > 0 ? images
+    : peoplePage ? getPeopleAccentImagesForPage(peoplePage)
+    : seed ? getAccentImages(seed, 3)
+    : [];
   if (imgs.length === 0) return null;
 
   return (

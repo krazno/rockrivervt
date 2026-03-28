@@ -1,11 +1,11 @@
 /**
  * Site-wide contact & social — set `href` when profiles go live; omitted links are not rendered as anchors.
  */
-/** Primary inbox for mailto links (Krasno Design). */
+/** Primary inbox for mailto links (Krazno Design). */
 export const CONTACT_FORM_EMAIL = "kraznodesign@gmail.com";
 
 /** Public studio name for sign-offs and partner pages. */
-export const SITE_STUDIO_BRAND = "Krasno Design";
+export const SITE_STUDIO_BRAND = "Krazno Design";
 
 function withSignoff(lines: string[]): string {
   return [...lines, "", `— ${SITE_STUDIO_BRAND}`].join("\n");
@@ -104,7 +104,7 @@ export function mailtoBusinessPartners(): string {
   const subject = encodeURIComponent("Rock River VT — area partner listing");
   const body = encodeURIComponent(
     withSignoff([
-      "Hi Krasno Design —",
+      `Hi ${SITE_STUDIO_BRAND} —`,
       "",
       "Business or organization:",
       "Town:",

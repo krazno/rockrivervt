@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { MapPin, Volume2, VolumeX } from "lucide-react";
+import { Volume2, VolumeX } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { getHeroBackdropImage, getHeroCircleGalleryPhotos, type MediaItem } from "@/data/media";
@@ -137,9 +137,9 @@ export function HomeHero() {
   return (
     <section
       ref={sectionRef}
-      className="rr-section relative mx-auto w-full max-w-6xl px-4 pt-6 sm:px-6 sm:pt-10 lg:px-8"
+      className="rr-section relative mx-auto w-full max-w-6xl px-4 pt-4 sm:px-6 sm:pt-8 lg:px-8"
     >
-      <div className="relative min-h-[min(76vh,560px)] overflow-hidden rounded-2xl border border-[#E2E0D8] bg-[#e8e4db] shadow-sm">
+      <div className="relative min-h-[min(76vh,560px)] overflow-hidden rounded-2xl border border-[#E2E0D8] bg-[#e8e4db] shadow-[var(--rr-shadow-card-soft)]">
         {hero ? (
           <motion.div
             style={{ y: imageY }}
@@ -172,22 +172,10 @@ export function HomeHero() {
             className="flex w-full flex-col gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12"
           >
             <div className="min-w-0 flex-1 space-y-5 lg:py-2">
-              <div className="inline-flex max-w-md flex-col gap-1 rounded-2xl border border-white/25 bg-white/15 px-3.5 py-2.5 text-left shadow-sm backdrop-blur-md sm:max-w-none">
-                <span className="inline-flex items-center gap-2 text-[10px] font-semibold tracking-[0.14em] text-white/95">
-                  <MapPin className="h-3.5 w-3.5 shrink-0 text-[#c8e0c8]" aria-hidden />
-                  Newfane · Windham County
-                </span>
-                <span className="text-[9px] font-medium leading-snug tracking-[0.12em] text-white/88 sm:text-[10px]">
-                  River in Newfane · usual parking along Route 30 (Dummerston side)
-                </span>
-              </div>
               <h1 className="font-heading max-w-4xl text-[2.5rem] font-extrabold leading-[1.05] tracking-tight text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.35)] sm:text-[3.1rem] sm:leading-[1.04] lg:text-[3.65rem]">
                 Rock River
                 <span className="mt-2 block text-[1.2rem] font-semibold leading-snug tracking-tight text-white/95 drop-shadow-[0_1px_16px_rgba(0,0,0,0.28)] sm:mt-3 sm:text-[1.45rem] lg:text-[1.65rem]">
                   Unofficial guide for a real river day
-                </span>
-                <span className="mt-3 block text-[1.05rem] font-bold tracking-tight text-white/92 sm:text-xl">
-                  Newfane, Vermont
                 </span>
               </h1>
               <div className="max-w-2xl space-y-4">

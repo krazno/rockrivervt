@@ -13,6 +13,9 @@ import {
 
 import { HomeSectionHeader } from "@/components/home/home-section-header";
 import { PhotoAccentRow } from "@/components/shared/photo-accent-row";
+import { getHomeExploreAccentImages } from "@/lib/page-photo-accents";
+
+const homeExploreAccentImages = getHomeExploreAccentImages(3);
 
 const MORE_LINKS: {
   href: string;
@@ -85,7 +88,8 @@ export function HomeGuideShort() {
       className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8"
       aria-labelledby="home-guide-short-heading"
     >
-      <div className="rounded-2xl border border-[#E2E0D8] bg-white p-6 shadow-sm sm:p-8">
+      <div className="rr-home-band rr-home-band--trail border border-[#E2E0D8]/75 p-1 sm:p-1.5">
+      <div className="rounded-2xl border border-[#E2E0D8]/70 bg-white/85 p-6 shadow-[var(--rr-shadow-card-soft)] sm:p-8">
         <HomeSectionHeader
           eyebrow="Explore"
           icon={BookOpen}
@@ -98,13 +102,13 @@ export function HomeGuideShort() {
           descriptionClassName="text-[#6B6F68]"
           className="mb-5 border-b border-[#E2E0D8]/80 pb-5 text-center sm:mb-6 sm:pb-6 sm:text-left"
         />
-        <PhotoAccentRow seed="home-explore-strip" className="mb-6" />
+        <PhotoAccentRow images={homeExploreAccentImages} className="mb-6" />
         <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {MORE_LINKS.map(({ href, label, sub, icon: Icon, iconBg }) => (
             <li key={href}>
               <Link
                 href={href}
-                className="group flex h-full flex-col rounded-2xl border border-[#E2E0D8] bg-[#fafaf8] px-4 py-4 text-left shadow-sm transition duration-300 ease-out hover:-translate-y-1 hover:border-[#4F6B52]/35 hover:shadow-md sm:px-5 sm:py-4"
+                className="group rr-interactive-lift flex h-full flex-col rounded-2xl border border-[#E2E0D8] bg-[#fafaf8]/95 px-4 py-4 text-left shadow-[var(--rr-shadow-card-soft)] hover:border-[#4F6B52]/32 sm:px-5 sm:py-4"
               >
                 <span className="flex items-start gap-3">
                   <span
@@ -129,6 +133,7 @@ export function HomeGuideShort() {
             </li>
           ))}
         </ul>
+      </div>
       </div>
     </section>
   );

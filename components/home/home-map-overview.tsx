@@ -75,11 +75,11 @@ export function HomeMapOverview({ includeTrailFilm = false }: HomeMapOverviewPro
       <div
         className={
           includeTrailFilm ?
-            "grid grid-cols-1 gap-6 md:grid-cols-2 md:items-stretch md:gap-6"
-          : "grid grid-cols-1 gap-6"
+            "rr-home-band rr-home-band--mist grid grid-cols-1 gap-6 border border-[#E2E0D8]/75 p-3 sm:p-4 md:grid-cols-2 md:items-stretch md:gap-6 md:p-5"
+          : "rr-home-band rr-home-band--mist grid grid-cols-1 gap-6 border border-[#E2E0D8]/75 p-3 sm:p-4 md:p-5"
         }
       >
-        <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-[#E2E0D8] bg-white shadow-sm">
+        <div className="rr-interactive-lift flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-[#E2E0D8]/85 bg-white/95 shadow-[var(--rr-shadow-card-soft)]">
           <div className="flex shrink-0 items-center gap-3 border-b border-[#E2E0D8] px-6 py-5">
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#E2E0D8] bg-[#F6F4EF] text-[#4F6B52]">
               <MapPinned className="h-5 w-5" aria-hidden />
@@ -91,7 +91,7 @@ export function HomeMapOverview({ includeTrailFilm = false }: HomeMapOverviewPro
               </p>
             </div>
           </div>
-          <div className="flex flex-1 flex-col justify-between gap-6 bg-[#F6F4EF]/40 px-6 py-6">
+          <div className="flex flex-1 flex-col justify-between gap-6 bg-[#F6F4EF]/35 px-6 py-6">
             <InteractiveMap
               mode="preview"
               height={340}
@@ -126,7 +126,7 @@ export function HomeMapOverview({ includeTrailFilm = false }: HomeMapOverviewPro
         </div>
 
         {includeTrailFilm ?
-          <div className="flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-[#E2E0D8] bg-white shadow-sm">
+          <div className="rr-interactive-lift flex h-full min-h-0 flex-col overflow-hidden rounded-2xl border border-[#E2E0D8]/85 bg-white/95 shadow-[var(--rr-shadow-card-soft)]">
             <div className="flex shrink-0 items-center gap-3 border-b border-[#E2E0D8] px-6 py-5">
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#E2E0D8] bg-[#F6F4EF] text-[#4F6B52]">
                 <Film className="h-5 w-5" aria-hidden />

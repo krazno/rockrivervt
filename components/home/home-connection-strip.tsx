@@ -18,7 +18,7 @@ export function HomeConnectionStrip() {
       className="rr-section mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8"
       aria-label="Ways to connect with this guide"
     >
-      <div className="rounded-2xl border border-[#E2E0D8]/90 bg-white/80 px-4 py-5 shadow-sm sm:px-6 sm:py-6">
+      <div className="rr-interactive-lift rounded-2xl border border-[#E2E0D8]/90 bg-white/82 px-4 py-5 shadow-[var(--rr-shadow-card-soft)] sm:px-6 sm:py-6">
         <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#6B6F68]">
           Real-world loop
         </p>

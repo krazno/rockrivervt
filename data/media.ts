@@ -581,17 +581,6 @@ function pickSiteImage(preferredIndex: number, ...fallbacks: number[]) {
   return imgs[0];
 }
 
-/** Horizontal carousel on the homepage — varied scenes, stable order. */
-export function getHomePhotoCarouselPhotos(): (MediaItem & {
-  type: "image";
-  width: number;
-  height: number;
-})[] {
-  const imgs = getSiteImages();
-  /** Full catalog — same hi-res files as the gallery (carousel tiles stay modest width for layout). */
-  return [...imgs].sort(sortByOrder);
-}
-
 /** Curated pair — fewer, stronger images on the home stripe. */
 export function getHomeRiverStripePhotos() {
   const imgs = homepageImagesSorted();
@@ -648,6 +637,43 @@ const VISITOR_MOMENT_SRC: readonly string[] = [
   "/media/images/rock-river-vermont-three-friends-river-rocks-summer.png",
   "/media/images/rock-river-vermont-visitors-hiking-mossy-rocks-selfie.png",
 ];
+
+/**
+ * Homepage carousel should not repeat shots already used in the hero circle, visitor row,
+ * people splash, today’s feel primary, river intel, or local teaser — keep in sync with
+ * `lib/people-media.ts` curated picks (`HOME_PEOPLE_SPLASH_*`, accent).
+ */
+const HOME_PHOTO_CAROUSEL_EXCLUDED_SRC = new Set<string>([
+  ...VISITOR_MOMENT_SRC,
+  ...HERO_CIRCLE_PRIORITY_SRC,
+  ...HERO_CIRCLE_COMMUNITY_PRIORITY_SRC,
+  "/media/images/rock-river-vermont-two-visitors-tanktops-forest-selfie.png",
+  "/media/images/rock-river-vermont-visitor-playful-river-stone-pose.png",
+  "/media/images/rock-river-vermont-visitor-picnic-table-arms-wide.png",
+  "/media/images/rock-river-vermont-visitor-polaroid-swimming-hole.png",
+  "/media/images/rock-river-vermont-hiker-smiling-by-forest-stream.png",
+  "/media/images/rock-river-vermont-visitor-in-river-open-shirt-square.png",
+]);
+
+/**
+ * Shots already used in hero circle, people splash, visitor row, accents, etc.
+ * Reuse for homepage `PhotoAccentRow` so decorative strips don’t repeat those faces.
+ */
+export function getHomepageDecorativeExcludeSrcs(): ReadonlySet<string> {
+  return HOME_PHOTO_CAROUSEL_EXCLUDED_SRC;
+}
+
+/** Horizontal carousel on the homepage — varied scenes, stable order; skips home-slot duplicates. */
+export function getHomePhotoCarouselPhotos(): (MediaItem & {
+  type: "image";
+  width: number;
+  height: number;
+})[] {
+  const imgs = getSiteImages();
+  const filtered = imgs.filter((m) => !HOME_PHOTO_CAROUSEL_EXCLUDED_SRC.has(m.src));
+  const list = filtered.length >= 6 ? filtered : imgs;
+  return [...list].sort(sortByOrder);
+}
 
 /** At least 10 images when assets exist; fills from the rest of the catalog if needed. */
 export function getHeroCircleGalleryPhotos(): (MediaItem & {

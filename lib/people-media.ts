@@ -215,16 +215,19 @@ export function mediaHasPeopleTag(m: MediaItem): boolean {
   return m.tags.includes("people");
 }
 
-/** Homepage-only picks — disjoint srcs across sections (~10 faces total). */
-export function getHomeTodaysFeelPeoplePair(): [
-  MediaItem & { type: "image"; width: number; height: number },
-  MediaItem & { type: "image"; width: number; height: number },
-] | null {
-  const [a, b] = resolvePeopleImagesBySrc([
+/**
+ * Single warm accent for “Today’s feel” — keeps the hero + splash cluster from feeling stacked
+ * with a second face column; meditation / other stills stay available elsewhere on the page.
+ */
+export function getHomeTodaysFeelPeoplePrimary(): (MediaItem & {
+  type: "image";
+  width: number;
+  height: number;
+}) | null {
+  const [img] = resolvePeopleImagesBySrc([
     "/media/images/rock-river-vermont-visitor-polaroid-swimming-hole.png",
-    "/media/images/rock-river-vermont-visitor-meditation-river-boulder.png",
   ]);
-  return a && b ? [a, b] : null;
+  return img ?? null;
 }
 
 export function getHomeRiverIntelPeopleAccent(): (MediaItem & {
@@ -238,6 +241,7 @@ export function getHomeRiverIntelPeopleAccent(): (MediaItem & {
   return img ?? null;
 }
 
+/** One face by the local picks header — balances the visitor-moments row without a heavy pair. */
 export function getHomeLocalTeaserPeopleCluster(): (MediaItem & {
   type: "image";
   width: number;
@@ -245,6 +249,23 @@ export function getHomeLocalTeaserPeopleCluster(): (MediaItem & {
 })[] {
   return resolvePeopleImagesBySrc([
     "/media/images/rock-river-vermont-visitor-in-river-open-shirt-square.png",
-    "/media/images/rock-river-vermont-two-visitors-relaxing-riverbank.png",
   ]);
+}
+
+/**
+ * Hero-adjacent splash row only — disjoint from visitor moments, today’s feel accent, local
+ * teaser circle, and river-intel accent (no duplicate faces in those slots).
+ */
+const HOME_PEOPLE_SPLASH_SRC = [
+  "/media/images/rock-river-vermont-two-visitors-tanktops-forest-selfie.png",
+  "/media/images/rock-river-vermont-visitor-playful-river-stone-pose.png",
+  "/media/images/rock-river-vermont-visitor-picnic-table-arms-wide.png",
+] as const;
+
+export function getHomePeopleSplashImages(): (MediaItem & {
+  type: "image";
+  width: number;
+  height: number;
+})[] {
+  return resolvePeopleImagesBySrc([...HOME_PEOPLE_SPLASH_SRC]);
 }

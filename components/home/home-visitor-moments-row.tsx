@@ -61,14 +61,14 @@ export function HomeVisitorMomentsRow() {
         </Link>
       </div>
       <ul
-        className="mt-6 flex flex-wrap items-center justify-center gap-4 sm:justify-start sm:gap-5"
+        className="rr-home-band rr-home-band--mist mt-6 flex flex-wrap items-center justify-center gap-4 rounded-2xl border border-[#E2E0D8]/65 p-5 sm:justify-start sm:gap-5 sm:p-6"
         role="list"
       >
         {photos.map((p) => (
           <li key={p.src}>
             <Link
               href="/gallery"
-              className="group relative block h-[5.25rem] w-[5.25rem] overflow-hidden rounded-full border-2 border-[#faf8f4] shadow-[0_10px_28px_-14px_rgba(22,38,48,0.45)] ring-2 ring-[#E2E0D8]/90 transition duration-300 hover:-translate-y-0.5 hover:ring-[#4F6B52]/25 sm:h-[5.75rem] sm:w-[5.75rem]"
+              className="group rr-interactive-lift relative block h-[5.25rem] w-[5.25rem] overflow-hidden rounded-full border-2 border-[#faf8f4] shadow-[var(--rr-shadow-card-soft)] ring-2 ring-[#E2E0D8]/90 hover:ring-[#4F6B52]/25 sm:h-[5.75rem] sm:w-[5.75rem]"
             >
               <Image
                 src={p.src}
@@ -76,7 +76,7 @@ export function HomeVisitorMomentsRow() {
                 title={p.title}
                 fill
                 sizes="(max-width: 640px) 92px, 100px"
-                className="object-cover object-center transition duration-500 ease-out group-hover:scale-[1.06]"
+                className="object-cover object-center transition-[transform] duration-[var(--rr-motion-duration-hover)] ease-[var(--rr-motion-ease-hover)] motion-reduce:transition-none group-hover:scale-[1.03]"
               />
               <span className="sr-only">{p.title}</span>
             </Link>
